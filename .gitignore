@@ -1,0 +1,21 @@
+# Local data and generated experiment artifacts
+dataset/
+results/
+*.pcap
+*.pcapng
+*.joblib
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local editor and OS noise
+.DS_Store
+Thumbs.db
+

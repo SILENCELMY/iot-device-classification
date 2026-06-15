@@ -1,0 +1,45 @@
+{
+  "labels": ["Camera", "Light_T1", "Light_XM", "Sensor", "Socket"],
+  "device_dirs": {
+    "Camera": "camera",
+    "Light_T1": "light_T1",
+    "Light_XM": "light_xm",
+    "Sensor": "sensor",
+    "Socket": "socket"
+  },
+  "rounds": {
+    "R1": {"dir": "round1_filter", "traffic": "filtered"},
+    "R2": {"dir": "round2_normal", "traffic": "full"},
+    "R3": {"dir": "round3_normal", "traffic": "full"},
+    "R4": {"dir": "round4_normal", "traffic": "full"},
+    "R5": {"dir": "round5_positionB", "traffic": "full"},
+    "R6": {"dir": "round6_jitter", "traffic": "full"},
+    "R7": {"dir": "round7_jitter", "traffic": "full"}
+  },
+  "filter_modes": {
+    "raw_all": "Use all frames available in the pcap.",
+    "data_only": "Keep Data frames only: wlan.fc.type == 2.",
+    "data_non_null": "Keep Data frames and remove Null/QoS Null data frames."
+  },
+  "evaluation_tasks": [
+    {"name": "single_round_R2", "type": "single_round", "rounds": ["R2"]},
+    {"name": "single_round_R3", "type": "single_round", "rounds": ["R3"]},
+    {"name": "single_round_R4", "type": "single_round", "rounds": ["R4"]},
+    {"name": "loro_R2_R3_to_R4", "type": "fixed_split", "train_rounds": ["R2", "R3"], "test_rounds": ["R4"]},
+    {"name": "loro_R2_R4_to_R3", "type": "fixed_split", "train_rounds": ["R2", "R4"], "test_rounds": ["R3"]},
+    {"name": "loro_R3_R4_to_R2", "type": "fixed_split", "train_rounds": ["R3", "R4"], "test_rounds": ["R2"]},
+    {"name": "joint_R2_R3_R4", "type": "joint_validation", "rounds": ["R2", "R3", "R4"]},
+    {"name": "position_R2_R3_R4_to_R5", "type": "fixed_split", "train_rounds": ["R2", "R3", "R4"], "test_rounds": ["R5"]},
+    {"name": "jitter_R2_R3_R4_to_R6", "type": "fixed_split", "train_rounds": ["R2", "R3", "R4"], "test_rounds": ["R6"]},
+    {"name": "jitter_R2_R3_R4_to_R7", "type": "fixed_split", "train_rounds": ["R2", "R3", "R4"], "test_rounds": ["R7"]},
+    {"name": "jitter_R2_R3_R4_to_R6_R7", "type": "fixed_split", "train_rounds": ["R2", "R3", "R4"], "test_rounds": ["R6", "R7"]},
+    {"name": "filtered_R1_single_round", "type": "single_round", "rounds": ["R1"]}
+  ],
+  "models": ["rf", "extra_trees", "hist_gb", "xgboost", "lightgbm", "stacking"],
+  "feature_selection": {
+    "enabled": true,
+    "correlation_threshold": 0.95,
+    "candidate_top_k": [20, 30, 40, 60],
+    "ranking_methods": ["mutual_info", "model_importance", "shap_if_available"]
+  }
+}
