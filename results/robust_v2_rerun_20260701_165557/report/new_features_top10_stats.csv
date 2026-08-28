@@ -1,0 +1,12 @@
+task,new_feature_count,new_features
+single_round_R2,2,"up_len_p50, up_ia_std"
+single_round_R3,3,"up_len_p50, up_ia_std, up_packet_ratio"
+single_round_R4,2,"up_len_p50, up_ia_std"
+loro_R2_R3_to_R4,3,"up_len_p50, up_ia_mean, up_packet_ratio"
+loro_R2_R4_to_R3,2,"up_len_p50, up_packet_ratio"
+loro_R3_R4_to_R2,3,"up_len_p50, up_packet_ratio, up_ia_mean"
+joint_R2_R3_R4,3,"up_len_mean, up_ia_mean, up_packet_ratio"
+position_R2_R3_R4_to_R5,3,"up_len_p50, up_packet_ratio, up_ia_mean"
+jitter_R2_R3_R4_to_R6,3,"up_len_p50, up_packet_ratio, up_ia_mean"
+jitter_R2_R3_R4_to_R7,3,"up_len_p50, up_packet_ratio, up_ia_mean"
+jitter_R2_R3_R4_to_R6_R7,3,"up_len_p50, up_packet_ratio, up_ia_mean"

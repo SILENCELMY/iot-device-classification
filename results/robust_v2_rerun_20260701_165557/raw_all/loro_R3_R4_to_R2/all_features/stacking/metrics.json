@@ -1,0 +1,65 @@
+{
+  "filter_mode": "raw_all",
+  "task": "loro_R3_R4_to_R2",
+  "task_type": "fixed_split",
+  "train_rounds": [
+    "R3",
+    "R4"
+  ],
+  "test_rounds": [
+    "R2"
+  ],
+  "train_samples": 3690,
+  "test_samples": 1816,
+  "feature_set": "all_features",
+  "model": "stacking",
+  "feature_count": 94,
+  "accuracy": 0.7990088105726872,
+  "precision": 0.8004978080955023,
+  "recall": 0.7990925832914784,
+  "macro_f1": 0.7956733166605012,
+  "per_class_f1": {
+    "Camera": 0.9732016925246827,
+    "Light_T1": 0.5483359746434231,
+    "Light_XM": 0.7574578469520103,
+    "Sensor": 0.6993710691823899,
+    "Socket": 1.0
+  },
+  "confusion_matrix": [
+    [
+      345,
+      1,
+      1,
+      15,
+      0
+    ],
+    [
+      1,
+      173,
+      98,
+      91,
+      0
+    ],
+    [
+      1,
+      24,
+      292,
+      48,
+      0
+    ],
+    [
+      0,
+      70,
+      15,
+      278,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      363
+    ]
+  ]
+}

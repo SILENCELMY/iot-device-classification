@@ -1,0 +1,9 @@
+﻿task,task_type,random_state,test_size,validation_policy,train_count,val_count,test_count,train_rounds,test_rounds
+single_round_R2,single_round,42,0.3,empty_val_no_model_selection,1271,0,545,['R2'],['R2']
+single_round_R3,single_round,42,0.3,empty_val_no_model_selection,1285,0,552,['R3'],['R3']
+single_round_R4,single_round,42,0.3,empty_val_no_model_selection,1297,0,556,['R4'],['R4']
+loro_R2_R3_to_R4,fixed_split,42,0.3,empty_val_no_model_selection,3653,0,1853,"['R2', 'R3']",['R4']
+loro_R2_R4_to_R3,fixed_split,42,0.3,empty_val_no_model_selection,3669,0,1837,"['R2', 'R4']",['R3']
+loro_R3_R4_to_R2,fixed_split,42,0.3,empty_val_no_model_selection,3690,0,1816,"['R3', 'R4']",['R2']
+position_R2_R3_R4_to_R5,fixed_split,42,0.3,empty_val_no_model_selection,5506,0,1816,"['R2', 'R3', 'R4']",['R5']
+jitter_R2_R3_R4_to_R6_R7,fixed_split,42,0.3,empty_val_no_model_selection,5506,0,3981,"['R2', 'R3', 'R4']","['R6', 'R7']"

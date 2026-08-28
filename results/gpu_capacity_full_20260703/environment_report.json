@@ -1,0 +1,30 @@
+{
+  "torch_version": "2.5.1+cu121",
+  "device": "cuda",
+  "cuda_available": true,
+  "features": "results/robust_v2/raw_all/features_raw_all_w10.csv",
+  "traditional_source": "results/robust_v2/raw_all",
+  "deep_source": "legacy/results/controlled_capacity_increase_20260703_020000",
+  "tasks": [
+    "single_round_R2",
+    "single_round_R3",
+    "single_round_R4",
+    "loro_R2_R3_to_R4",
+    "loro_R2_R4_to_R3",
+    "loro_R3_R4_to_R2",
+    "position_R2_R3_R4_to_R5",
+    "jitter_R2_R3_R4_to_R6_R7"
+  ],
+  "copy_deep_models": [
+    "cnn1d",
+    "cnn1d_v2",
+    "transformer"
+  ],
+  "train_deep_models": [
+    "cnn1d_v3",
+    "transformer_v2"
+  ],
+  "traditional_models": [
+    "rf"
+  ]
+}

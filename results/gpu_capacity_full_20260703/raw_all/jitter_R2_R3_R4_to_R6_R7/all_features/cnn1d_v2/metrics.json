@@ -1,0 +1,70 @@
+{
+  "filter_mode": "raw_all",
+  "task": "jitter_R2_R3_R4_to_R6_R7",
+  "task_type": "fixed_split",
+  "scenario": "OOD_Jitter",
+  "train_rounds": [
+    "R2",
+    "R3",
+    "R4"
+  ],
+  "test_rounds": [
+    "R6",
+    "R7"
+  ],
+  "train_samples": 5506,
+  "test_samples": 3981,
+  "feature_set": "all_features",
+  "model": "cnn1d_v2",
+  "feature_count": 94,
+  "parameter_count": 260049,
+  "accuracy": 0.650087917608641,
+  "precision": 0.6587457247797242,
+  "recall": 0.6495155331814227,
+  "macro_f1": 0.6383280443234536,
+  "per_class_f1": {
+    "Camera": 0.8512756689483509,
+    "Light_T1": 0.2777777777777778,
+    "Light_XM": 0.5389277389277389,
+    "Sensor": 0.5343173431734317,
+    "Socket": 0.9893416927899686
+  },
+  "confusion_matrix": [
+    [
+      684,
+      31,
+      31,
+      49,
+      2
+    ],
+    [
+      47,
+      175,
+      489,
+      79,
+      0
+    ],
+    [
+      40,
+      110,
+      578,
+      61,
+      0
+    ],
+    [
+      27,
+      154,
+      258,
+      362,
+      3
+    ],
+    [
+      12,
+      0,
+      0,
+      0,
+      789
+    ]
+  ],
+  "source": "trained_deep_validation"
+}

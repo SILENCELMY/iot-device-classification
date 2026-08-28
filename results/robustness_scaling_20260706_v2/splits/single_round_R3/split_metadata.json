@@ -1,0 +1,16 @@
+{
+  "task": "single_round_R3",
+  "task_type": "single_round",
+  "random_state": 42,
+  "test_size": 0.3,
+  "validation_policy": "empty_val_no_model_selection",
+  "train_count": 1285,
+  "val_count": 0,
+  "test_count": 552,
+  "train_rounds": [
+    "R3"
+  ],
+  "test_rounds": [
+    "R3"
+  ]
+}

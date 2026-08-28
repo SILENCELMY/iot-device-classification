@@ -1,0 +1,3258 @@
+[
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R2",
+    "task_type": "single_round",
+    "train_rounds": [
+      "R2"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 1271,
+    "test_samples": 545,
+    "feature_set": "all_features",
+    "model": "rf",
+    "feature_count": 94,
+    "accuracy": 0.9577981651376147,
+    "precision": 0.9574885613400574,
+    "recall": 0.9577981651376147,
+    "macro_f1": 0.9576196593728327,
+    "per_class_f1": {
+      "Camera": 0.9954337899543378,
+      "Light_T1": 0.8981481481481481,
+      "Light_XM": 0.8990825688073395,
+      "Sensor": 0.9954337899543378,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        109,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        97,
+        11,
+        1,
+        0
+      ],
+      [
+        1,
+        10,
+        98,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        109,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        109
+      ]
+    ],
+    "source": "preserved_baseline",
+    "scenario": "IID"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R2",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R2"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 1271,
+    "test_samples": 545,
+    "feature_set": "all_features",
+    "model": "cnn1d_v2",
+    "feature_count": 94,
+    "parameter_count": 260049,
+    "accuracy": 0.7614678899082569,
+    "precision": 0.7537032771106207,
+    "recall": 0.7614678899082569,
+    "macro_f1": 0.7550483172139677,
+    "per_class_f1": {
+      "Camera": 0.9553571428571429,
+      "Light_T1": 0.4083769633507853,
+      "Light_XM": 0.5569620253164557,
+      "Sensor": 0.8545454545454545,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        107,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        39,
+        59,
+        10,
+        0
+      ],
+      [
+        5,
+        32,
+        66,
+        6,
+        0
+      ],
+      [
+        2,
+        10,
+        3,
+        94,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        109
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R2",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R2"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 1271,
+    "test_samples": 545,
+    "feature_set": "all_features",
+    "model": "cnn1d_v3",
+    "feature_count": 94,
+    "parameter_count": 1012154,
+    "accuracy": 0.9211009174311927,
+    "precision": 0.9204056865464633,
+    "recall": 0.9211009174311926,
+    "macro_f1": 0.9205583539656791,
+    "per_class_f1": {
+      "Camera": 1.0,
+      "Light_T1": 0.8018867924528302,
+      "Light_XM": 0.8144796380090498,
+      "Sensor": 0.9864253393665159,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        109,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        85,
+        22,
+        2,
+        0
+      ],
+      [
+        0,
+        18,
+        90,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        109,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        109
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R2",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R2"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 1271,
+    "test_samples": 545,
+    "feature_set": "all_features",
+    "model": "transformer",
+    "feature_count": 94,
+    "parameter_count": 73541,
+    "accuracy": 0.9027522935779817,
+    "precision": 0.9104234715999422,
+    "recall": 0.9027522935779817,
+    "macro_f1": 0.9010442304552525,
+    "per_class_f1": {
+      "Camera": 0.9818181818181818,
+      "Light_T1": 0.7407407407407407,
+      "Light_XM": 0.7918367346938775,
+      "Sensor": 0.9953917050691244,
+      "Socket": 0.9954337899543378
+    },
+    "confusion_matrix": [
+      [
+        108,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        70,
+        38,
+        0,
+        0
+      ],
+      [
+        2,
+        9,
+        97,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        108,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        109
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R2",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R2"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 1271,
+    "test_samples": 545,
+    "feature_set": "all_features",
+    "model": "transformer_v2",
+    "feature_count": 94,
+    "parameter_count": 605634,
+    "accuracy": 0.9137614678899083,
+    "precision": 0.9130755250068108,
+    "recall": 0.9137614678899084,
+    "macro_f1": 0.9131731062952253,
+    "per_class_f1": {
+      "Camera": 0.9954337899543378,
+      "Light_T1": 0.7867298578199052,
+      "Light_XM": 0.7927927927927928,
+      "Sensor": 0.990909090909091,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        109,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        83,
+        25,
+        1,
+        0
+      ],
+      [
+        1,
+        19,
+        88,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        109,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        109
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R2",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R2"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 1271,
+    "test_samples": 545,
+    "feature_set": "all_features",
+    "model": "cnn1d_v4",
+    "feature_count": 94,
+    "parameter_count": 2206080,
+    "accuracy": 0.8990825688073395,
+    "precision": 0.8969597459071144,
+    "recall": 0.8990825688073395,
+    "macro_f1": 0.8978325865472389,
+    "per_class_f1": {
+      "Camera": 0.9954337899543378,
+      "Light_T1": 0.7511737089201878,
+      "Light_XM": 0.7649769585253456,
+      "Sensor": 0.9775784753363229,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        109,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        80,
+        25,
+        4,
+        0
+      ],
+      [
+        1,
+        24,
+        83,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        109,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        109
+      ]
+    ],
+    "source": "strict_split_trained"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R3",
+    "task_type": "single_round",
+    "train_rounds": [
+      "R3"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 1285,
+    "test_samples": 552,
+    "feature_set": "all_features",
+    "model": "rf",
+    "feature_count": 94,
+    "accuracy": 0.9601449275362319,
+    "precision": 0.9604773889745879,
+    "recall": 0.9600300550759266,
+    "macro_f1": 0.9601634996130409,
+    "per_class_f1": {
+      "Camera": 0.9908256880733946,
+      "Light_T1": 1.0,
+      "Light_XM": 0.9090909090909091,
+      "Sensor": 0.9009009009009009,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        108,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        109,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        100,
+        11,
+        0
+      ],
+      [
+        0,
+        0,
+        9,
+        100,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        113
+      ]
+    ],
+    "source": "preserved_baseline",
+    "scenario": "IID"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R3",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R3"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 1285,
+    "test_samples": 552,
+    "feature_set": "all_features",
+    "model": "cnn1d_v2",
+    "feature_count": 94,
+    "parameter_count": 260049,
+    "accuracy": 0.8369565217391305,
+    "precision": 0.8474800118410866,
+    "recall": 0.8359352970069865,
+    "macro_f1": 0.8374912098868904,
+    "per_class_f1": {
+      "Camera": 0.9326923076923077,
+      "Light_T1": 0.9357798165137615,
+      "Light_XM": 0.7137254901960784,
+      "Sensor": 0.6231155778894473,
+      "Socket": 0.9821428571428571
+    },
+    "confusion_matrix": [
+      [
+        97,
+        2,
+        8,
+        2,
+        1
+      ],
+      [
+        0,
+        102,
+        0,
+        7,
+        0
+      ],
+      [
+        0,
+        1,
+        91,
+        19,
+        0
+      ],
+      [
+        1,
+        4,
+        42,
+        62,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        0,
+        110
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R3",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R3"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 1285,
+    "test_samples": 552,
+    "feature_set": "all_features",
+    "model": "cnn1d_v3",
+    "feature_count": 94,
+    "parameter_count": 1012154,
+    "accuracy": 0.9510869565217391,
+    "precision": 0.951026026026026,
+    "recall": 0.950938544883499,
+    "macro_f1": 0.9508830928119899,
+    "per_class_f1": {
+      "Camera": 0.981651376146789,
+      "Light_T1": 0.990909090909091,
+      "Light_XM": 0.8949771689497716,
+      "Sensor": 0.8868778280542986,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        107,
+        0,
+        0,
+        3,
+        0
+      ],
+      [
+        0,
+        109,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        98,
+        11,
+        0
+      ],
+      [
+        0,
+        1,
+        10,
+        98,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        113
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R3",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R3"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 1285,
+    "test_samples": 552,
+    "feature_set": "all_features",
+    "model": "transformer",
+    "feature_count": 94,
+    "parameter_count": 73541,
+    "accuracy": 0.9003623188405797,
+    "precision": 0.9010279644244357,
+    "recall": 0.900239689230515,
+    "macro_f1": 0.8990259149779639,
+    "per_class_f1": {
+      "Camera": 0.990990990990991,
+      "Light_T1": 0.9954337899543378,
+      "Light_XM": 0.7414634146341463,
+      "Sensor": 0.7672413793103449,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        110,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        109,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        76,
+        34,
+        0
+      ],
+      [
+        1,
+        1,
+        18,
+        89,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        113
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R3",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R3"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 1285,
+    "test_samples": 552,
+    "feature_set": "all_features",
+    "model": "transformer_v2",
+    "feature_count": 94,
+    "parameter_count": 605634,
+    "accuracy": 0.947463768115942,
+    "precision": 0.9497321863333873,
+    "recall": 0.9474341230304532,
+    "macro_f1": 0.9475984960464571,
+    "per_class_f1": {
+      "Camera": 0.9861751152073732,
+      "Light_T1": 1.0,
+      "Light_XM": 0.8773584905660378,
+      "Sensor": 0.8744588744588745,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        107,
+        0,
+        0,
+        3,
+        0
+      ],
+      [
+        0,
+        109,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        93,
+        18,
+        0
+      ],
+      [
+        0,
+        0,
+        8,
+        101,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        113
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R3",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R3"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 1285,
+    "test_samples": 552,
+    "feature_set": "all_features",
+    "model": "cnn1d_v4",
+    "feature_count": 94,
+    "parameter_count": 2206080,
+    "accuracy": 0.9402173913043478,
+    "precision": 0.9404806687565308,
+    "recall": 0.9399126900044331,
+    "macro_f1": 0.9400325782190752,
+    "per_class_f1": {
+      "Camera": 0.9908256880733946,
+      "Light_T1": 0.9954337899543378,
+      "Light_XM": 0.8634361233480177,
+      "Sensor": 0.8504672897196262,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        108,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        109,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        98,
+        12,
+        0
+      ],
+      [
+        0,
+        0,
+        18,
+        91,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        113
+      ]
+    ],
+    "source": "strict_split_trained"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R4",
+    "task_type": "single_round",
+    "train_rounds": [
+      "R4"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 1297,
+    "test_samples": 556,
+    "feature_set": "all_features",
+    "model": "rf",
+    "feature_count": 94,
+    "accuracy": 0.9442446043165468,
+    "precision": 0.9437500195031857,
+    "recall": 0.9435116158051937,
+    "macro_f1": 0.9434355165688955,
+    "per_class_f1": {
+      "Camera": 0.9872340425531915,
+      "Light_T1": 0.9147982062780269,
+      "Light_XM": 0.918918918918919,
+      "Sensor": 0.8962264150943396,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        116,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        102,
+        3,
+        4,
+        0
+      ],
+      [
+        1,
+        4,
+        102,
+        3,
+        0
+      ],
+      [
+        0,
+        7,
+        7,
+        95,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        110
+      ]
+    ],
+    "source": "preserved_baseline",
+    "scenario": "IID"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R4",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R4"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 1297,
+    "test_samples": 556,
+    "feature_set": "all_features",
+    "model": "cnn1d_v2",
+    "feature_count": 94,
+    "parameter_count": 260049,
+    "accuracy": 0.75,
+    "precision": 0.7546741119619058,
+    "recall": 0.7475758288602325,
+    "macro_f1": 0.7476487042369395,
+    "per_class_f1": {
+      "Camera": 0.9437229437229437,
+      "Light_T1": 0.57,
+      "Light_XM": 0.638095238095238,
+      "Sensor": 0.6,
+      "Socket": 0.9864253393665159
+    },
+    "confusion_matrix": [
+      [
+        109,
+        1,
+        4,
+        1,
+        2
+      ],
+      [
+        1,
+        57,
+        16,
+        36,
+        0
+      ],
+      [
+        1,
+        14,
+        67,
+        28,
+        0
+      ],
+      [
+        3,
+        18,
+        13,
+        75,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        109
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R4",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R4"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 1297,
+    "test_samples": 556,
+    "feature_set": "all_features",
+    "model": "cnn1d_v3",
+    "feature_count": 94,
+    "parameter_count": 1012154,
+    "accuracy": 0.9226618705035972,
+    "precision": 0.922960007599506,
+    "recall": 0.921584653878232,
+    "macro_f1": 0.9215963952529826,
+    "per_class_f1": {
+      "Camera": 0.9831932773109243,
+      "Light_T1": 0.8672566371681416,
+      "Light_XM": 0.8899521531100478,
+      "Sensor": 0.867579908675799,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        117,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        98,
+        3,
+        8,
+        0
+      ],
+      [
+        1,
+        9,
+        93,
+        7,
+        0
+      ],
+      [
+        2,
+        9,
+        3,
+        95,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        110
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R4",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R4"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 1297,
+    "test_samples": 556,
+    "feature_set": "all_features",
+    "model": "transformer",
+    "feature_count": 94,
+    "parameter_count": 73541,
+    "accuracy": 0.8992805755395683,
+    "precision": 0.9050193373901285,
+    "recall": 0.8980237092163698,
+    "macro_f1": 0.8978296905536336,
+    "per_class_f1": {
+      "Camera": 0.9789029535864979,
+      "Light_T1": 0.8425531914893617,
+      "Light_XM": 0.841025641025641,
+      "Sensor": 0.8266666666666667,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        116,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        99,
+        2,
+        9,
+        0
+      ],
+      [
+        0,
+        14,
+        82,
+        14,
+        0
+      ],
+      [
+        4,
+        11,
+        1,
+        93,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        110
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R4",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R4"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 1297,
+    "test_samples": 556,
+    "feature_set": "all_features",
+    "model": "transformer_v2",
+    "feature_count": 94,
+    "parameter_count": 605634,
+    "accuracy": 0.9280575539568345,
+    "precision": 0.9278887220566769,
+    "recall": 0.9270391993327773,
+    "macro_f1": 0.9267359574206779,
+    "per_class_f1": {
+      "Camera": 0.9915254237288136,
+      "Light_T1": 0.8947368421052632,
+      "Light_XM": 0.8803827751196173,
+      "Sensor": 0.8715596330275229,
+      "Socket": 0.995475113122172
+    },
+    "confusion_matrix": [
+      [
+        117,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        102,
+        3,
+        5,
+        0
+      ],
+      [
+        1,
+        8,
+        92,
+        9,
+        0
+      ],
+      [
+        1,
+        8,
+        4,
+        95,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        110
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "single_round_R4",
+    "task_type": "single_round",
+    "scenario": "IID",
+    "train_rounds": [
+      "R4"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 1297,
+    "test_samples": 556,
+    "feature_set": "all_features",
+    "model": "cnn1d_v4",
+    "feature_count": 94,
+    "parameter_count": 2206080,
+    "accuracy": 0.9172661870503597,
+    "precision": 0.919133328394161,
+    "recall": 0.9159466221851543,
+    "macro_f1": 0.9152684746186821,
+    "per_class_f1": {
+      "Camera": 0.9831932773109243,
+      "Light_T1": 0.8728813559322034,
+      "Light_XM": 0.8847926267281107,
+      "Sensor": 0.84,
+      "Socket": 0.995475113122172
+    },
+    "confusion_matrix": [
+      [
+        117,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        103,
+        3,
+        3,
+        0
+      ],
+      [
+        1,
+        9,
+        96,
+        4,
+        0
+      ],
+      [
+        2,
+        14,
+        8,
+        84,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        110
+      ]
+    ],
+    "source": "strict_split_trained"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R3_to_R4",
+    "task_type": "fixed_split",
+    "train_rounds": [
+      "R2",
+      "R3"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 3653,
+    "test_samples": 1853,
+    "feature_set": "all_features",
+    "model": "rf",
+    "feature_count": 94,
+    "accuracy": 0.7069616837560713,
+    "precision": 0.7276857144134101,
+    "recall": 0.7057514906057267,
+    "macro_f1": 0.6592117370350504,
+    "per_class_f1": {
+      "Camera": 0.9228650137741047,
+      "Light_T1": 0.5403899721448467,
+      "Light_XM": 0.046632124352331605,
+      "Sensor": 0.7861715749039693,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        335,
+        37,
+        0,
+        18,
+        0
+      ],
+      [
+        0,
+        291,
+        9,
+        65,
+        0
+      ],
+      [
+        0,
+        330,
+        9,
+        29,
+        0
+      ],
+      [
+        1,
+        54,
+        0,
+        307,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        368
+      ]
+    ],
+    "source": "preserved_baseline",
+    "scenario": "OOD_LORO"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R3_to_R4",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R3"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 3653,
+    "test_samples": 1853,
+    "feature_set": "all_features",
+    "model": "cnn1d_v2",
+    "feature_count": 94,
+    "parameter_count": 260049,
+    "accuracy": 0.5439827307069617,
+    "precision": 0.5856472997565196,
+    "recall": 0.5462245104459047,
+    "macro_f1": 0.5352399857235242,
+    "per_class_f1": {
+      "Camera": 0.5571428571428572,
+      "Light_T1": 0.41297935103244837,
+      "Light_XM": 0.10671256454388985,
+      "Sensor": 0.6102941176470589,
+      "Socket": 0.9890710382513661
+    },
+    "confusion_matrix": [
+      [
+        156,
+        86,
+        107,
+        39,
+        2
+      ],
+      [
+        5,
+        210,
+        58,
+        92,
+        0
+      ],
+      [
+        1,
+        264,
+        31,
+        72,
+        0
+      ],
+      [
+        4,
+        92,
+        17,
+        249,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        2,
+        362
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R3_to_R4",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R3"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 3653,
+    "test_samples": 1853,
+    "feature_set": "all_features",
+    "model": "cnn1d_v3",
+    "feature_count": 94,
+    "parameter_count": 1012154,
+    "accuracy": 0.7204533189422558,
+    "precision": 0.7327638320357861,
+    "recall": 0.7184863170633361,
+    "macro_f1": 0.6743508688941646,
+    "per_class_f1": {
+      "Camera": 0.9574468085106383,
+      "Light_T1": 0.5610687022900763,
+      "Light_XM": 0.08478802992518704,
+      "Sensor": 0.7738562091503268,
+      "Socket": 0.9945945945945946
+    },
+    "confusion_matrix": [
+      [
+        360,
+        19,
+        0,
+        10,
+        1
+      ],
+      [
+        1,
+        294,
+        15,
+        53,
+        2
+      ],
+      [
+        0,
+        307,
+        17,
+        44,
+        0
+      ],
+      [
+        1,
+        63,
+        1,
+        296,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        368
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R3_to_R4",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R3"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 3653,
+    "test_samples": 1853,
+    "feature_set": "all_features",
+    "model": "transformer",
+    "feature_count": 94,
+    "parameter_count": 73541,
+    "accuracy": 0.638963842417701,
+    "precision": 0.6253593629629873,
+    "recall": 0.6415213240127604,
+    "macro_f1": 0.588817406037988,
+    "per_class_f1": {
+      "Camera": 0.6790540540540541,
+      "Light_T1": 0.5315739868049011,
+      "Light_XM": 0.0343980343980344,
+      "Sensor": 0.7482837528604119,
+      "Socket": 0.9507772020725389
+    },
+    "confusion_matrix": [
+      [
+        201,
+        59,
+        15,
+        78,
+        37
+      ],
+      [
+        0,
+        282,
+        16,
+        67,
+        0
+      ],
+      [
+        0,
+        322,
+        7,
+        39,
+        0
+      ],
+      [
+        1,
+        33,
+        1,
+        327,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        367
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R3_to_R4",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R3"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 3653,
+    "test_samples": 1853,
+    "feature_set": "all_features",
+    "model": "transformer_v2",
+    "feature_count": 94,
+    "parameter_count": 605634,
+    "accuracy": 0.7258499730167296,
+    "precision": 0.6645351885378737,
+    "recall": 0.7237938477535679,
+    "macro_f1": 0.6655077631156436,
+    "per_class_f1": {
+      "Camera": 0.9723320158102767,
+      "Light_T1": 0.5750736015701668,
+      "Light_XM": 0.010554089709762533,
+      "Sensor": 0.770935960591133,
+      "Socket": 0.9986431478968792
+    },
+    "confusion_matrix": [
+      [
+        369,
+        10,
+        0,
+        11,
+        0
+      ],
+      [
+        0,
+        293,
+        9,
+        63,
+        0
+      ],
+      [
+        0,
+        303,
+        2,
+        63,
+        0
+      ],
+      [
+        0,
+        48,
+        0,
+        313,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        368
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R3_to_R4",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R3"
+    ],
+    "test_rounds": [
+      "R4"
+    ],
+    "train_samples": 3653,
+    "test_samples": 1853,
+    "feature_set": "all_features",
+    "model": "cnn1d_v4",
+    "feature_count": 94,
+    "parameter_count": 2206080,
+    "accuracy": 0.7134376686454398,
+    "precision": 0.6368240691017707,
+    "recall": 0.711448123452959,
+    "macro_f1": 0.6569687429858777,
+    "per_class_f1": {
+      "Camera": 0.9549071618037135,
+      "Light_T1": 0.5605338417540515,
+      "Light_XM": 0.0051813471502590676,
+      "Sensor": 0.7696267696267697,
+      "Socket": 0.9945945945945946
+    },
+    "confusion_matrix": [
+      [
+        360,
+        16,
+        0,
+        13,
+        1
+      ],
+      [
+        3,
+        294,
+        17,
+        50,
+        1
+      ],
+      [
+        0,
+        314,
+        1,
+        53,
+        0
+      ],
+      [
+        1,
+        60,
+        0,
+        299,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        368
+      ]
+    ],
+    "source": "strict_split_trained"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R4_to_R3",
+    "task_type": "fixed_split",
+    "train_rounds": [
+      "R2",
+      "R4"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 3669,
+    "test_samples": 1837,
+    "feature_set": "all_features",
+    "model": "rf",
+    "feature_count": 94,
+    "accuracy": 0.6336418072945019,
+    "precision": 0.6225074706021854,
+    "recall": 0.6305451136456817,
+    "macro_f1": 0.6148161314237031,
+    "per_class_f1": {
+      "Camera": 0.9679144385026738,
+      "Light_T1": 0.22564102564102564,
+      "Light_XM": 0.6242774566473989,
+      "Sensor": 0.25757575757575757,
+      "Socket": 0.99867197875166
+    },
+    "confusion_matrix": [
+      [
+        362,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        88,
+        179,
+        95,
+        0
+      ],
+      [
+        3,
+        95,
+        270,
+        1,
+        0
+      ],
+      [
+        17,
+        232,
+        46,
+        68,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        376
+      ]
+    ],
+    "source": "preserved_baseline",
+    "scenario": "OOD_LORO"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R4_to_R3",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R4"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 3669,
+    "test_samples": 1837,
+    "feature_set": "all_features",
+    "model": "cnn1d_v2",
+    "feature_count": 94,
+    "parameter_count": 260049,
+    "accuracy": 0.41045182362547633,
+    "precision": 0.47402079246098444,
+    "recall": 0.41046506432371965,
+    "macro_f1": 0.359472690781759,
+    "per_class_f1": {
+      "Camera": 0.6641883519206939,
+      "Light_T1": 0.21303656597774245,
+      "Light_XM": 0.5738684884713919,
+      "Sensor": 0.07898894154818326,
+      "Socket": 0.2672811059907834
+    },
+    "confusion_matrix": [
+      [
+        268,
+        11,
+        84,
+        2,
+        0
+      ],
+      [
+        0,
+        67,
+        176,
+        120,
+        0
+      ],
+      [
+        3,
+        29,
+        336,
+        1,
+        0
+      ],
+      [
+        10,
+        141,
+        188,
+        25,
+        0
+      ],
+      [
+        161,
+        18,
+        18,
+        121,
+        58
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R4_to_R3",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R4"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 3669,
+    "test_samples": 1837,
+    "feature_set": "all_features",
+    "model": "cnn1d_v3",
+    "feature_count": 94,
+    "parameter_count": 1012154,
+    "accuracy": 0.5677735438214481,
+    "precision": 0.46059924398903684,
+    "recall": 0.5638080375737455,
+    "macro_f1": 0.4948910187629904,
+    "per_class_f1": {
+      "Camera": 0.8676470588235294,
+      "Light_T1": 0.04371584699453552,
+      "Light_XM": 0.5541284403669725,
+      "Sensor": 0.016985138004246284,
+      "Socket": 0.9919786096256684
+    },
+    "confusion_matrix": [
+      [
+        354,
+        1,
+        10,
+        0,
+        0
+      ],
+      [
+        1,
+        12,
+        247,
+        103,
+        0
+      ],
+      [
+        38,
+        29,
+        302,
+        0,
+        0
+      ],
+      [
+        53,
+        144,
+        162,
+        4,
+        1
+      ],
+      [
+        5,
+        0,
+        0,
+        0,
+        371
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R4_to_R3",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R4"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 3669,
+    "test_samples": 1837,
+    "feature_set": "all_features",
+    "model": "transformer",
+    "feature_count": 94,
+    "parameter_count": 73541,
+    "accuracy": 0.5862819814915623,
+    "precision": 0.5142200378013262,
+    "recall": 0.5823597966491991,
+    "macro_f1": 0.5307998041101041,
+    "per_class_f1": {
+      "Camera": 0.9329829172141918,
+      "Light_T1": 0.017825311942959002,
+      "Light_XM": 0.570363466915191,
+      "Sensor": 0.13282732447817835,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        355,
+        4,
+        6,
+        0,
+        0
+      ],
+      [
+        1,
+        5,
+        231,
+        126,
+        0
+      ],
+      [
+        15,
+        46,
+        306,
+        2,
+        0
+      ],
+      [
+        25,
+        143,
+        161,
+        35,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        376
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R4_to_R3",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R4"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 3669,
+    "test_samples": 1837,
+    "feature_set": "all_features",
+    "model": "transformer_v2",
+    "feature_count": 94,
+    "parameter_count": 605634,
+    "accuracy": 0.5661404463799673,
+    "precision": 0.46026051693141135,
+    "recall": 0.5622242570968095,
+    "macro_f1": 0.49589642029311776,
+    "per_class_f1": {
+      "Camera": 0.8725961538461539,
+      "Light_T1": 0.04421768707482993,
+      "Light_XM": 0.5492822966507177,
+      "Sensor": 0.017391304347826087,
+      "Socket": 0.9959946595460614
+    },
+    "confusion_matrix": [
+      [
+        363,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        13,
+        257,
+        92,
+        0
+      ],
+      [
+        24,
+        58,
+        287,
+        0,
+        0
+      ],
+      [
+        77,
+        152,
+        131,
+        4,
+        0
+      ],
+      [
+        2,
+        1,
+        0,
+        0,
+        373
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R2_R4_to_R3",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R2",
+      "R4"
+    ],
+    "test_rounds": [
+      "R3"
+    ],
+    "train_samples": 3669,
+    "test_samples": 1837,
+    "feature_set": "all_features",
+    "model": "cnn1d_v4",
+    "feature_count": 94,
+    "parameter_count": 2206080,
+    "accuracy": 0.542732716385411,
+    "precision": 0.42835748207621316,
+    "recall": 0.5388041944522216,
+    "macro_f1": 0.46651680067000195,
+    "per_class_f1": {
+      "Camera": 0.7938257993384785,
+      "Light_T1": 0.014598540145985401,
+      "Light_XM": 0.498015873015873,
+      "Sensor": 0.026143790849673203,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        360,
+        2,
+        3,
+        0,
+        0
+      ],
+      [
+        1,
+        4,
+        269,
+        89,
+        0
+      ],
+      [
+        93,
+        25,
+        251,
+        0,
+        0
+      ],
+      [
+        88,
+        154,
+        116,
+        6,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        376
+      ]
+    ],
+    "source": "strict_split_trained"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R3_R4_to_R2",
+    "task_type": "fixed_split",
+    "train_rounds": [
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 3690,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "rf",
+    "feature_count": 94,
+    "accuracy": 0.8083700440528634,
+    "precision": 0.814255723120555,
+    "recall": 0.8084345974485851,
+    "macro_f1": 0.8097991283932819,
+    "per_class_f1": {
+      "Camera": 0.9464544138929089,
+      "Light_T1": 0.6501457725947521,
+      "Light_XM": 0.7657894736842106,
+      "Sensor": 0.6866059817945384,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        327,
+        0,
+        10,
+        25,
+        0
+      ],
+      [
+        1,
+        223,
+        79,
+        60,
+        0
+      ],
+      [
+        1,
+        16,
+        291,
+        57,
+        0
+      ],
+      [
+        0,
+        84,
+        15,
+        264,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline",
+    "scenario": "OOD_LORO"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R3_R4_to_R2",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 3690,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "cnn1d_v2",
+    "feature_count": 94,
+    "parameter_count": 260049,
+    "accuracy": 0.5842511013215859,
+    "precision": 0.6165357883409137,
+    "recall": 0.5839605038780782,
+    "macro_f1": 0.5699561970103112,
+    "per_class_f1": {
+      "Camera": 0.5697896749521989,
+      "Light_T1": 0.2337228714524207,
+      "Light_XM": 0.5731958762886598,
+      "Sensor": 0.5127551020408163,
+      "Socket": 0.9603174603174603
+    },
+    "confusion_matrix": [
+      [
+        149,
+        43,
+        84,
+        56,
+        30
+      ],
+      [
+        4,
+        70,
+        179,
+        110,
+        0
+      ],
+      [
+        4,
+        29,
+        278,
+        54,
+        0
+      ],
+      [
+        4,
+        94,
+        64,
+        201,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R3_R4_to_R2",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 3690,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "cnn1d_v3",
+    "feature_count": 94,
+    "parameter_count": 1012154,
+    "accuracy": 0.6745594713656388,
+    "precision": 0.7163493304905196,
+    "recall": 0.6745593527036046,
+    "macro_f1": 0.6773361107428025,
+    "per_class_f1": {
+      "Camera": 0.7202797202797203,
+      "Light_T1": 0.48297213622291024,
+      "Light_XM": 0.5880829015544041,
+      "Sensor": 0.5967213114754099,
+      "Socket": 0.9986244841815681
+    },
+    "confusion_matrix": [
+      [
+        206,
+        0,
+        75,
+        80,
+        1
+      ],
+      [
+        2,
+        156,
+        79,
+        126,
+        0
+      ],
+      [
+        2,
+        63,
+        227,
+        73,
+        0
+      ],
+      [
+        0,
+        64,
+        26,
+        273,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R3_R4_to_R2",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 3690,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "transformer",
+    "feature_count": 94,
+    "parameter_count": 73541,
+    "accuracy": 0.7296255506607929,
+    "precision": 0.7535507937161467,
+    "recall": 0.7298456462132732,
+    "macro_f1": 0.7347986583280701,
+    "per_class_f1": {
+      "Camera": 0.9039039039039038,
+      "Light_T1": 0.5310245310245311,
+      "Light_XM": 0.6395173453996983,
+      "Sensor": 0.5995475113122172,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        301,
+        0,
+        16,
+        45,
+        0
+      ],
+      [
+        2,
+        184,
+        57,
+        120,
+        0
+      ],
+      [
+        1,
+        61,
+        212,
+        91,
+        0
+      ],
+      [
+        0,
+        85,
+        13,
+        265,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R3_R4_to_R2",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 3690,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "transformer_v2",
+    "feature_count": 94,
+    "parameter_count": 605634,
+    "accuracy": 0.7053964757709251,
+    "precision": 0.7260582621264228,
+    "recall": 0.7054638984604652,
+    "macro_f1": 0.7076757821265568,
+    "per_class_f1": {
+      "Camera": 0.8412698412698413,
+      "Light_T1": 0.4714946070878274,
+      "Light_XM": 0.6169665809768637,
+      "Sensor": 0.6168446026097272,
+      "Socket": 0.9918032786885246
+    },
+    "confusion_matrix": [
+      [
+        265,
+        0,
+        41,
+        50,
+        6
+      ],
+      [
+        1,
+        153,
+        108,
+        101,
+        0
+      ],
+      [
+        1,
+        55,
+        240,
+        69,
+        0
+      ],
+      [
+        1,
+        78,
+        24,
+        260,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "loro_R3_R4_to_R2",
+    "task_type": "fixed_split",
+    "scenario": "OOD_LORO",
+    "train_rounds": [
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R2"
+    ],
+    "train_samples": 3690,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "cnn1d_v4",
+    "feature_count": 94,
+    "parameter_count": 2206080,
+    "accuracy": 0.7009911894273128,
+    "precision": 0.7371450671198486,
+    "recall": 0.7008791617071342,
+    "macro_f1": 0.6979657590507445,
+    "per_class_f1": {
+      "Camera": 0.7759197324414716,
+      "Light_T1": 0.418848167539267,
+      "Light_XM": 0.5980911983032874,
+      "Sensor": 0.696969696969697,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        232,
+        0,
+        90,
+        40,
+        0
+      ],
+      [
+        1,
+        120,
+        174,
+        68,
+        0
+      ],
+      [
+        3,
+        35,
+        282,
+        45,
+        0
+      ],
+      [
+        0,
+        55,
+        32,
+        276,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "strict_split_trained"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "position_R2_R3_R4_to_R5",
+    "task_type": "fixed_split",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R5"
+    ],
+    "train_samples": 5506,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "rf",
+    "feature_count": 94,
+    "accuracy": 0.711453744493392,
+    "precision": 0.7064556600220291,
+    "recall": 0.7119468617496043,
+    "macro_f1": 0.7012224296594887,
+    "per_class_f1": {
+      "Camera": 0.8849557522123894,
+      "Light_T1": 0.2913907284768212,
+      "Light_XM": 0.681044267877412,
+      "Sensor": 0.648721399730821,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        300,
+        9,
+        32,
+        22,
+        0
+      ],
+      [
+        4,
+        88,
+        159,
+        114,
+        0
+      ],
+      [
+        4,
+        55,
+        300,
+        4,
+        0
+      ],
+      [
+        7,
+        87,
+        27,
+        241,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline",
+    "scenario": "OOD_Position"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "position_R2_R3_R4_to_R5",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Position",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R5"
+    ],
+    "train_samples": 5506,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "cnn1d_v2",
+    "feature_count": 94,
+    "parameter_count": 260049,
+    "accuracy": 0.5572687224669604,
+    "precision": 0.6027102279946519,
+    "recall": 0.5577768617975576,
+    "macro_f1": 0.5518887934980163,
+    "per_class_f1": {
+      "Camera": 0.7795163584637269,
+      "Light_T1": 0.027164685908319185,
+      "Light_XM": 0.46720575022461813,
+      "Sensor": 0.5481481481481482,
+      "Socket": 0.9374090247452693
+    },
+    "confusion_matrix": [
+      [
+        274,
+        4,
+        73,
+        12,
+        0
+      ],
+      [
+        3,
+        8,
+        353,
+        1,
+        0
+      ],
+      [
+        12,
+        74,
+        260,
+        17,
+        0
+      ],
+      [
+        15,
+        133,
+        64,
+        148,
+        2
+      ],
+      [
+        36,
+        5,
+        0,
+        0,
+        322
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "position_R2_R3_R4_to_R5",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Position",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R5"
+    ],
+    "train_samples": 5506,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "cnn1d_v3",
+    "feature_count": 94,
+    "parameter_count": 1012154,
+    "accuracy": 0.39922907488986786,
+    "precision": 0.4892131480236371,
+    "recall": 0.3995921288805019,
+    "macro_f1": 0.43468232061074097,
+    "per_class_f1": {
+      "Camera": 0.7445742904841403,
+      "Light_T1": 0.0021482277121374865,
+      "Light_XM": 0.10880829015544041,
+      "Sensor": 0.31788079470198677,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        223,
+        0,
+        108,
+        32,
+        0
+      ],
+      [
+        3,
+        1,
+        249,
+        112,
+        0
+      ],
+      [
+        3,
+        316,
+        42,
+        2,
+        0
+      ],
+      [
+        7,
+        249,
+        10,
+        96,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "position_R2_R3_R4_to_R5",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Position",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R5"
+    ],
+    "train_samples": 5506,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "transformer",
+    "feature_count": 94,
+    "parameter_count": 73541,
+    "accuracy": 0.5633259911894273,
+    "precision": 0.5721053448090538,
+    "recall": 0.5639104488254431,
+    "macro_f1": 0.5643137260240312,
+    "per_class_f1": {
+      "Camera": 0.8417910447761194,
+      "Light_T1": 0.014970059880239521,
+      "Light_XM": 0.42117376294591485,
+      "Sensor": 0.5436337625178826,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        282,
+        0,
+        68,
+        13,
+        0
+      ],
+      [
+        13,
+        5,
+        228,
+        119,
+        0
+      ],
+      [
+        2,
+        163,
+        183,
+        15,
+        0
+      ],
+      [
+        10,
+        135,
+        27,
+        190,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "position_R2_R3_R4_to_R5",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Position",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R5"
+    ],
+    "train_samples": 5506,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "transformer_v2",
+    "feature_count": 94,
+    "parameter_count": 605634,
+    "accuracy": 0.3959251101321586,
+    "precision": 0.5067783219948201,
+    "recall": 0.3962908847389008,
+    "macro_f1": 0.4360825506223872,
+    "per_class_f1": {
+      "Camera": 0.718213058419244,
+      "Light_T1": 0.0,
+      "Light_XM": 0.12004801920768307,
+      "Sensor": 0.3421516754850088,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        209,
+        0,
+        126,
+        28,
+        0
+      ],
+      [
+        3,
+        0,
+        285,
+        77,
+        0
+      ],
+      [
+        2,
+        308,
+        50,
+        3,
+        0
+      ],
+      [
+        5,
+        251,
+        9,
+        97,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        363
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "position_R2_R3_R4_to_R5",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Position",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R5"
+    ],
+    "train_samples": 5506,
+    "test_samples": 1816,
+    "feature_set": "all_features",
+    "model": "cnn1d_v4",
+    "feature_count": 94,
+    "parameter_count": 2206080,
+    "accuracy": 0.34251101321585903,
+    "precision": 0.49562368520710526,
+    "recall": 0.34278647854740274,
+    "macro_f1": 0.38248105377892977,
+    "per_class_f1": {
+      "Camera": 0.5568627450980392,
+      "Light_T1": 0.0,
+      "Light_XM": 0.133051742344245,
+      "Sensor": 0.22664015904572565,
+      "Socket": 0.995850622406639
+    },
+    "confusion_matrix": [
+      [
+        142,
+        0,
+        194,
+        27,
+        0
+      ],
+      [
+        0,
+        0,
+        310,
+        55,
+        0
+      ],
+      [
+        0,
+        298,
+        63,
+        2,
+        0
+      ],
+      [
+        5,
+        286,
+        14,
+        57,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        0,
+        360
+      ]
+    ],
+    "source": "strict_split_trained"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "jitter_R2_R3_R4_to_R6_R7",
+    "task_type": "fixed_split",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R6",
+      "R7"
+    ],
+    "train_samples": 5506,
+    "test_samples": 3981,
+    "feature_set": "all_features",
+    "model": "rf",
+    "feature_count": 94,
+    "accuracy": 0.7832202964079377,
+    "precision": 0.7950123514088613,
+    "recall": 0.7825790949566782,
+    "macro_f1": 0.7857564694967087,
+    "per_class_f1": {
+      "Camera": 0.8844839371155161,
+      "Light_T1": 0.6517647058823529,
+      "Light_XM": 0.6684563758389261,
+      "Sensor": 0.7240773286467487,
+      "Socket": 1.0
+    },
+    "confusion_matrix": [
+      [
+        647,
+        26,
+        33,
+        91,
+        0
+      ],
+      [
+        13,
+        554,
+        111,
+        112,
+        0
+      ],
+      [
+        4,
+        205,
+        498,
+        82,
+        0
+      ],
+      [
+        2,
+        125,
+        59,
+        618,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        801
+      ]
+    ],
+    "source": "preserved_baseline",
+    "scenario": "OOD_Jitter"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "jitter_R2_R3_R4_to_R6_R7",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Jitter",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R6",
+      "R7"
+    ],
+    "train_samples": 5506,
+    "test_samples": 3981,
+    "feature_set": "all_features",
+    "model": "cnn1d_v2",
+    "feature_count": 94,
+    "parameter_count": 260049,
+    "accuracy": 0.650087917608641,
+    "precision": 0.6587457247797242,
+    "recall": 0.6495155331814227,
+    "macro_f1": 0.6383280443234536,
+    "per_class_f1": {
+      "Camera": 0.8512756689483509,
+      "Light_T1": 0.2777777777777778,
+      "Light_XM": 0.5389277389277389,
+      "Sensor": 0.5343173431734317,
+      "Socket": 0.9893416927899686
+    },
+    "confusion_matrix": [
+      [
+        684,
+        31,
+        31,
+        49,
+        2
+      ],
+      [
+        47,
+        175,
+        489,
+        79,
+        0
+      ],
+      [
+        40,
+        110,
+        578,
+        61,
+        0
+      ],
+      [
+        27,
+        154,
+        258,
+        362,
+        3
+      ],
+      [
+        12,
+        0,
+        0,
+        0,
+        789
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "jitter_R2_R3_R4_to_R6_R7",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Jitter",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R6",
+      "R7"
+    ],
+    "train_samples": 5506,
+    "test_samples": 3981,
+    "feature_set": "all_features",
+    "model": "cnn1d_v3",
+    "feature_count": 94,
+    "parameter_count": 1012154,
+    "accuracy": 0.6498367244410952,
+    "precision": 0.7149605561409207,
+    "recall": 0.6496925766487549,
+    "macro_f1": 0.6480796704039956,
+    "per_class_f1": {
+      "Camera": 0.8784258608573436,
+      "Light_T1": 0.3836734693877551,
+      "Light_XM": 0.5166261151662611,
+      "Sensor": 0.46725949878738887,
+      "Socket": 0.994413407821229
+    },
+    "confusion_matrix": [
+      [
+        625,
+        5,
+        89,
+        69,
+        9
+      ],
+      [
+        1,
+        235,
+        509,
+        45,
+        0
+      ],
+      [
+        0,
+        122,
+        637,
+        30,
+        0
+      ],
+      [
+        0,
+        73,
+        442,
+        289,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        801
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "jitter_R2_R3_R4_to_R6_R7",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Jitter",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R6",
+      "R7"
+    ],
+    "train_samples": 5506,
+    "test_samples": 3981,
+    "feature_set": "all_features",
+    "model": "transformer",
+    "feature_count": 94,
+    "parameter_count": 73541,
+    "accuracy": 0.6985681989449887,
+    "precision": 0.740688172597378,
+    "recall": 0.6967804700143988,
+    "macro_f1": 0.6929923834243642,
+    "per_class_f1": {
+      "Camera": 0.8372759856630825,
+      "Light_T1": 0.48575712143928035,
+      "Light_XM": 0.5030864197530864,
+      "Sensor": 0.6407185628742516,
+      "Socket": 0.99812382739212
+    },
+    "confusion_matrix": [
+      [
+        584,
+        24,
+        31,
+        158,
+        0
+      ],
+      [
+        9,
+        324,
+        133,
+        324,
+        0
+      ],
+      [
+        4,
+        157,
+        326,
+        302,
+        0
+      ],
+      [
+        1,
+        39,
+        15,
+        749,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        1,
+        798
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "jitter_R2_R3_R4_to_R6_R7",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Jitter",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R6",
+      "R7"
+    ],
+    "train_samples": 5506,
+    "test_samples": 3981,
+    "feature_set": "all_features",
+    "model": "transformer_v2",
+    "feature_count": 94,
+    "parameter_count": 605634,
+    "accuracy": 0.6669178598342125,
+    "precision": 0.7057607326481228,
+    "recall": 0.6668906184101995,
+    "macro_f1": 0.6658815591515054,
+    "per_class_f1": {
+      "Camera": 0.8853591160220995,
+      "Light_T1": 0.4520255863539446,
+      "Light_XM": 0.5481415136587551,
+      "Sensor": 0.44637223974763407,
+      "Socket": 0.9975093399750934
+    },
+    "confusion_matrix": [
+      [
+        641,
+        15,
+        31,
+        108,
+        2
+      ],
+      [
+        4,
+        318,
+        421,
+        46,
+        1
+      ],
+      [
+        1,
+        149,
+        612,
+        27,
+        0
+      ],
+      [
+        5,
+        135,
+        380,
+        283,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        801
+      ]
+    ],
+    "source": "preserved_baseline"
+  },
+  {
+    "filter_mode": "raw_all",
+    "task": "jitter_R2_R3_R4_to_R6_R7",
+    "task_type": "fixed_split",
+    "scenario": "OOD_Jitter",
+    "train_rounds": [
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "test_rounds": [
+      "R6",
+      "R7"
+    ],
+    "train_samples": 5506,
+    "test_samples": 3981,
+    "feature_set": "all_features",
+    "model": "cnn1d_v4",
+    "feature_count": 94,
+    "parameter_count": 2206080,
+    "accuracy": 0.6463200200954534,
+    "precision": 0.6961189987511055,
+    "recall": 0.6463767859367218,
+    "macro_f1": 0.646085902184137,
+    "per_class_f1": {
+      "Camera": 0.8632478632478633,
+      "Light_T1": 0.4556213017751479,
+      "Light_XM": 0.5223689816787388,
+      "Sensor": 0.3904382470119522,
+      "Socket": 0.9987531172069826
+    },
+    "confusion_matrix": [
+      [
+        606,
+        7,
+        59,
+        123,
+        2
+      ],
+      [
+        1,
+        308,
+        426,
+        55,
+        0
+      ],
+      [
+        0,
+        148,
+        613,
+        28,
+        0
+      ],
+      [
+        0,
+        99,
+        460,
+        245,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        801
+      ]
+    ],
+    "source": "strict_split_trained"
+  }
+]

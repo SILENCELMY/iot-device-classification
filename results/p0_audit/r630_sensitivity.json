@@ -1,0 +1,78 @@
+{
+  "source_claim": "Pearson r = -0.630 (p = 0.0379)，见 CONTROLLED_CPD_MECHANISM_VALIDATION_FINAL.md",
+  "data": "results/robust_v2/report/controlled_cpd_data.csv",
+  "cpd_kou_jing": "0.801 口径（基准 = 单个 joint_R2_R3_R4 CM）",
+  "n_tasks": 11,
+  "seed": 42,
+  "n_bootstrap": 10000,
+  "full_sample": {
+    "pearson_r": -0.6295456431044301,
+    "pearson_p": 0.037933226721577465,
+    "spearman_r": -0.5,
+    "spearman_p": 0.11730680301423817,
+    "permutation_p": 0.0285
+  },
+  "leave_one_task_out": {
+    "r_min": -0.9040209542500444,
+    "r_max": -0.36664154288361506,
+    "n_still_significant": 3,
+    "n_total": 11,
+    "most_influential_task": "loro_R2_R4_to_R3",
+    "r_without_most_influential": -0.36664154288361506,
+    "p_without_most_influential": 0.2973676638509214
+  },
+  "leave_one_env_out": {
+    "r_min": -0.9433134797736015,
+    "r_max": -0.30847818162766527,
+    "n_sign_flips": 0,
+    "sign_flip_envs": []
+  },
+  "cluster_bootstrap": {
+    "cluster_unit": "test environment",
+    "n_clusters": 8,
+    "clusters": {
+      "R2": [
+        "single_round_R2",
+        "loro_R3_R4_to_R2"
+      ],
+      "R2+R3+R4": [
+        "joint_R2_R3_R4"
+      ],
+      "R3": [
+        "single_round_R3",
+        "loro_R2_R4_to_R3"
+      ],
+      "R4": [
+        "single_round_R4",
+        "loro_R2_R3_to_R4"
+      ],
+      "R5": [
+        "position_R2_R3_R4_to_R5"
+      ],
+      "R6": [
+        "jitter_R2_R3_R4_to_R6"
+      ],
+      "R6+R7": [
+        "jitter_R2_R3_R4_to_R6_R7"
+      ],
+      "R7": [
+        "jitter_R2_R3_R4_to_R7"
+      ]
+    },
+    "ci95": [
+      -0.9695829643733147,
+      -0.08389421030948942
+    ],
+    "median_r": -0.6341391456731127,
+    "frac_negative": 0.9971,
+    "covers_zero": false,
+    "n_valid": 10000,
+    "n_degenerate": 0
+  },
+  "kou_jing_sensitivity": {
+    "r_0801_baseline": -0.6295456431044301,
+    "p_0801_baseline": 0.037933226721577465,
+    "r_deprecated_six_env": -0.20649287271637437,
+    "p_deprecated_six_env": 0.5424038785260221
+  }
+}

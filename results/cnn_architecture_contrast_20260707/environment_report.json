@@ -1,0 +1,28 @@
+{
+  "torch_version": "2.5.1+cu121",
+  "device": "cuda",
+  "cuda_available": true,
+  "features": "results/robust_v2/raw_all/features_raw_all_w10.csv",
+  "baseline_source": "results/gpu_capacity_full_20260703/raw_all",
+  "cnn_v5_source": "legacy/results/extreme_capacity_1p2m_20260706/raw_all",
+  "split_source": "results/robustness_scaling_20260706_v2/splits",
+  "tasks": [
+    "single_round_R2",
+    "single_round_R3",
+    "single_round_R4",
+    "loro_R2_R3_to_R4",
+    "loro_R2_R4_to_R3",
+    "loro_R3_R4_to_R2",
+    "position_R2_R3_R4_to_R5",
+    "jitter_R2_R3_R4_to_R6_R7"
+  ],
+  "copy_models": [
+    "cnn1d_v3",
+    "cnn1d_v5"
+  ],
+  "candidate_models": [
+    "cnn1d_inception",
+    "cnn1d_tcn",
+    "cnn1d_convnext"
+  ]
+}

@@ -1,0 +1,6 @@
+﻿,Camera,Light_T1,Light_XM,Sensor,Socket
+Camera,109,0,0,1,0
+Light_T1,0,109,0,0,0
+Light_XM,0,0,103,8,0
+Sensor,0,0,10,99,0
+Socket,0,0,0,1,112

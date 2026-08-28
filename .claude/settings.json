@@ -1,0 +1,15 @@
+{
+  "env": {
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "deepseek-v4-flash",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL_NAME": "deepseek-v4-flash"
+  },
+  "permissions": {
+    "deny": [
+      "Read(./dataset/**)",
+      "Read(/home/lmy/iot-device-classification/dataset/**)",
+      "Read(**/*.pcapng)",
+      "Read(**/*.pcap)",
+      "Bash(tcpdump:*)"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "available_optional_modules": {
+    "xgboost": true,
+    "lightgbm": true,
+    "shap": true
+  },
+  "requested_models": [
+    "rf",
+    "extra_trees",
+    "xgboost",
+    "lightgbm",
+    "stacking"
+  ]
+}

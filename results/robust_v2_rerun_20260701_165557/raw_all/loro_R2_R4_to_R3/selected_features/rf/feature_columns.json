@@ -1,0 +1,22 @@
+[
+  "up_len_p50",
+  "rssi_min",
+  "rssi_std",
+  "rssi_p10",
+  "rssi_max",
+  "len_range",
+  "rssi_p90",
+  "up_packet_ratio",
+  "len_p95",
+  "len_p10",
+  "up_ia_mean",
+  "len_min",
+  "rssi_p50",
+  "burst_count",
+  "qos_data_ratio",
+  "len_p25",
+  "down_packet_ratio",
+  "down_ia_std",
+  "len_p75",
+  "len_up_down_diff"
+]

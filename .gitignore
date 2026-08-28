@@ -1,0 +1,42 @@
+# 协议 §19.7：根仓库只跟踪 docs/ 与 results/**/*.{csv,json,md}
+# 排除 pcapng / joblib / npy 等大文件与不可分发数据。
+
+# ---- 数据集（权限锁定，不可分发） ----
+dataset/
+
+# ---- code/ 有自己的 git 仓库，排除以避免产生无 URL 的 gitlink ----
+/code/
+
+# ---- 被取代的历史结果（4.7 GB，仍留在磁盘，只是不入库） ----
+legacy/
+
+# ---- 大文件类型 ----
+*.joblib
+*.npy
+*.npz
+*.pt
+*.pth
+*.pcap
+*.pcapng
+*.h5
+*.keras
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# ---- 编辑器 / 系统 ----
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# ---- results/：白名单，只入 csv / json / md ----
+results/**
+!results/**/
+!results/**/*.csv
+!results/**/*.json
+!results/**/*.md

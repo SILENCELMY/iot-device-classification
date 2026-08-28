@@ -1,0 +1,68 @@
+{
+  "filter_mode": "raw_all",
+  "task": "loro_R2_R3_to_R4",
+  "task_type": "fixed_split",
+  "scenario": "OOD_LORO",
+  "train_rounds": [
+    "R2",
+    "R3"
+  ],
+  "test_rounds": [
+    "R4"
+  ],
+  "train_samples": 3653,
+  "test_samples": 1853,
+  "feature_set": "all_features",
+  "model": "cnn1d_v2",
+  "feature_count": 94,
+  "parameter_count": 260049,
+  "accuracy": 0.5439827307069617,
+  "precision": 0.5856472997565196,
+  "recall": 0.5462245104459047,
+  "macro_f1": 0.5352399857235242,
+  "per_class_f1": {
+    "Camera": 0.5571428571428572,
+    "Light_T1": 0.41297935103244837,
+    "Light_XM": 0.10671256454388985,
+    "Sensor": 0.6102941176470589,
+    "Socket": 0.9890710382513661
+  },
+  "confusion_matrix": [
+    [
+      156,
+      86,
+      107,
+      39,
+      2
+    ],
+    [
+      5,
+      210,
+      58,
+      92,
+      0
+    ],
+    [
+      1,
+      264,
+      31,
+      72,
+      0
+    ],
+    [
+      4,
+      92,
+      17,
+      249,
+      0
+    ],
+    [
+      4,
+      0,
+      0,
+      2,
+      362
+    ]
+  ],
+  "source": "trained_deep_validation"
+}
