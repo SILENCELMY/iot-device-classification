@@ -584,16 +584,22 @@ class SimpleStackingClassifier:
         if train_round is not None and len(np.unique(train_round)) >= 2:
             n_splits = max(2, min(self.cv, int(len(np.unique(train_round)))))
             yield from GroupKFold(n_splits=n_splits).split(x, y, groups=train_round)
+            return
 
-        # 单轮（或未给 round）：按 window_start 的连续时间块
+        # 单轮（或未给 round）：按时间区间分块。注意 window_start 是各采集文件的
+        # 相对时间戳（每个 source_file 从 0 起计、并发采集），因此不能全局排序切片，
+        # 必须按共享时间区间分块：同一文件内相邻窗口同折，跨文件同时段对齐。
         if window_start is None:
             raise ValueError("单轮 grouped 模式必须提供 window_start（协议 §9.1：按时间块划分）")
-        order = np.argsort(np.asarray(window_start), kind="stable")
-        n_blocks = max(2, min(self.cv, n))
-        blocks = np.array_split(order, n_blocks)
+        ws = np.asarray(window_start, dtype=float)
+        n_blocks = max(2, min(self.cv, len(ws)))
+        edges = np.quantile(ws, np.linspace(0, 1, n_blocks + 1)[1:-1])
+        block_id = np.searchsorted(edges, ws, side="right")
         for i in range(n_blocks):
-            val_idx = blocks[i]
-            train_idx = np.concatenate([blocks[j] for j in range(n_blocks) if j != i])
+            val_idx = np.flatnonzero(block_id == i)
+            if len(val_idx) == 0:
+                continue
+            train_idx = np.flatnonzero(block_id != i)
             yield train_idx, val_idx
 
     def fit(
@@ -1027,22 +1033,28 @@ def evaluate_model(
 
     predictions.to_csv(output_dir / "predictions.csv", index=False, encoding="utf-8-sig")
     # 协议 §20.2：落盘 pred_proba.csv（概率行和为 1）与 oof_meta.csv（仅 stacking）
+    # 列顺序以 model.classes_ 为准并回填缺失类为 0.0——G0 的部分环境组合可能缺类，
+    # 直接按 encoder.classes_ 枚举会错位或越界。
     proba = model.predict_proba(x_test[selected_columns])
+    model_classes = np.asarray(getattr(model, "classes_", np.arange(proba.shape[1]))).astype(int)
+    proba_full = np.zeros((len(proba), len(encoder.classes_)), dtype=float)
+    proba_full[:, model_classes] = proba
     proba_df = meta_test[["round", "window_id", "window_start"]].copy()
     if "source_file" in meta_test.columns:
         proba_df.insert(0, "source_file", meta_test["source_file"].to_numpy())
     for i, cls in enumerate(encoder.classes_):
-        proba_df[f"proba_{cls}"] = proba[:, i]
+        proba_df[f"proba_{cls}"] = proba_full[:, i]
     proba_df["true_label"] = y_test_labels.to_numpy()
     proba_df.to_csv(output_dir / "pred_proba.csv", index=False, encoding="utf-8-sig")
     if isinstance(model, SimpleStackingClassifier) and getattr(model, "oof_meta_", None) is not None:
         oof = model.oof_meta_
+        oof_class_names = encoder.inverse_transform(np.asarray(model.classes_).astype(int))
         oof_df = pd.DataFrame(
             oof,
             columns=[
                 f"oof_{name}_{cls}"
                 for name in model.named_estimators_
-                for cls in encoder.classes_
+                for cls in oof_class_names
             ],
         )
         if meta_train is not None:
