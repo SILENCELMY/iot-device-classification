@@ -8,6 +8,7 @@ results/
 # Python caches and virtual environments
 __pycache__/
 *.py[cod]
+*.log
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -18,4 +19,3 @@ env/
 # Local editor and OS noise
 .DS_Store
 Thumbs.db
-
