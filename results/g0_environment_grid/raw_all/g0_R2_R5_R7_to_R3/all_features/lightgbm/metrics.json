@@ -1,0 +1,66 @@
+{
+  "filter_mode": "raw_all",
+  "task": "g0_R2_R5_R7_to_R3",
+  "task_type": "fixed_split",
+  "train_rounds": [
+    "R2",
+    "R5",
+    "R7"
+  ],
+  "test_rounds": [
+    "R3"
+  ],
+  "train_samples": 5625,
+  "test_samples": 1837,
+  "feature_set": "all_features",
+  "model": "lightgbm",
+  "feature_count": 94,
+  "accuracy": 0.7359825802939576,
+  "precision": 0.7362101104553542,
+  "recall": 0.7341656779302195,
+  "macro_f1": 0.7344958030029632,
+  "per_class_f1": {
+    "Camera": 0.9704301075268817,
+    "Light_T1": 0.46596858638743455,
+    "Light_XM": 0.6950354609929078,
+    "Sensor": 0.5423728813559322,
+    "Socket": 0.99867197875166
+  },
+  "confusion_matrix": [
+    [
+      361,
+      1,
+      3,
+      0,
+      0
+    ],
+    [
+      5,
+      178,
+      35,
+      145,
+      0
+    ],
+    [
+      6,
+      111,
+      245,
+      7,
+      0
+    ],
+    [
+      7,
+      111,
+      53,
+      192,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      376
+    ]
+  ]
+}

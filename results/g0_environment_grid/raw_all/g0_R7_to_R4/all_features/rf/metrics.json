@@ -1,0 +1,64 @@
+{
+  "filter_mode": "raw_all",
+  "task": "g0_R7_to_R4",
+  "task_type": "fixed_split",
+  "train_rounds": [
+    "R7"
+  ],
+  "test_rounds": [
+    "R4"
+  ],
+  "train_samples": 1993,
+  "test_samples": 1853,
+  "feature_set": "all_features",
+  "model": "rf",
+  "feature_count": 94,
+  "accuracy": 0.6853750674581759,
+  "precision": 0.8253277045574047,
+  "recall": 0.6803828163304255,
+  "macro_f1": 0.6817802253460143,
+  "per_class_f1": {
+    "Camera": 0.5967865340474369,
+    "Light_T1": 0.4380165289256198,
+    "Light_XM": 0.7228525121555915,
+    "Sensor": 0.6512455516014235,
+    "Socket": 1.0
+  },
+  "confusion_matrix": [
+    [
+      390,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      231,
+      106,
+      19,
+      9,
+      0
+    ],
+    [
+      129,
+      8,
+      223,
+      8,
+      0
+    ],
+    [
+      167,
+      5,
+      7,
+      183,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      368
+    ]
+  ]
+}
