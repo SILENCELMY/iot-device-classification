@@ -40,3 +40,6 @@ results/**
 !results/**/*.csv
 !results/**/*.json
 !results/**/*.md
+
+# 部分运行的临时产物（e1_oof_arms.py 的 --tasks 子集运行），不入库
+results/**/scratch/
