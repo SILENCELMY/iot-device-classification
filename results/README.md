@@ -10,6 +10,8 @@ results/
 ├── robust_v2_rerun_20260701_165557/   # 从 dataset 真实 pcapng 复跑验证
 ├── gpu_capacity_full_20260703/        # 深度模型 RF/CNN/Transformer 基线对比
 ├── cnn_architecture_contrast_20260707/ # 最终 CNN 架构对比，包含 TDR-CNN
+├── p0_audit/                           # P0 指标审计产出：`r=-0.630` 的 leave-one-task-out、leave-one-environment-out 与按测试环境聚类 bootstrap，结论文档 `R630_SENSITIVITY_CONCLUSION.md`
+├── e1_oof_arms/                        # E1 OOF 折叠三臂对比（协议 §12）：`e1_arms_raw.csv`、`e1_decomposition.csv`、`e1_arms.json`
 └── robustness_scaling_20260706_v2/     # 固定 split artifacts 和 scaling 结果
 ```
 

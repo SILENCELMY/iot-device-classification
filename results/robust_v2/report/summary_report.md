@@ -1,5 +1,9 @@
 # 鲁棒性评估 V2：跨场景结果汇总
 
+> [!NOTE] **口径说明（2026-08-29）**
+> 本文件为自动生成的 110 条结果汇总。其中 `stacking` 行的数值为**随机折叠 OOF**（E1 A 臂）
+> 口径，按协议 §9.1 偏乐观。分组 OOF 结果见 `results/e1_oof_arms/`。
+
 ## 1. 各任务下的 Macro-F1
 
 | 评估任务场景 | 特征子集 | extra_trees | lightgbm | rf | stacking | xgboost |
