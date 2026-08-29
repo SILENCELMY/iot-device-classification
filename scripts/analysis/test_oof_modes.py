@@ -62,5 +62,39 @@ except ValueError: check("非法 oof_mode 报错", True)
 try: mk("grouped").fit(x, y); check("缺分组信息报错", False)
 except ValueError: check("缺分组信息报错", True)
 
+print("=== 6. 折内缺类必须回填而非报错/错位 ===")
+# 构造：类别 2 只出现在 round 0。GroupKFold 留出 round 0 那一折，其训练集完全没有类别 2,
+# fold_model.predict_proba 只返回 2 列，必须映射回全局 3 列、缺失列留 0。
+y_mc = y.copy()
+y_mc[rounds != 0] = np.where(y_mc[rounds != 0] == 2, 0, y_mc[rounds != 0])
+present_by_round = {r: sorted(set(y_mc[rounds == r])) for r in sorted(set(rounds))}
+check("构造成立：类别 2 仅存在于部分轮次",
+      sum(2 in v for v in present_by_round.values()) < len(present_by_round))
+m6 = mk("grouped")
+try:
+    m6.fit(x, y_mc, train_round=rounds, window_start=ws)
+    fit_ok = True
+except Exception as e:
+    fit_ok = False
+    print(f"        raised: {type(e).__name__}: {e}")
+check("折内缺类时 fit 不报错", fit_ok)
+if fit_ok:
+    check("oof_meta_ 列数 = 全局类别数", m6.oof_meta_.shape[1] == len(np.unique(y_mc)))
+    check("每行仍恰好一个基模型块、行和 = 1", np.allclose(m6.oof_meta_.sum(axis=1), 1.0))
+    # 缺类折的样本：该类列应为 0 而非把别的类的概率错位填进去
+    check("无全零行", (m6.oof_meta_.sum(axis=1) > 0).all())
+    # 列位正确性：用单折手算对照
+    gk_single = list(GroupKFold(n_splits=len(set(rounds))).split(x, y_mc, groups=rounds))
+    ok_cols = True
+    glob = np.unique(y_mc)
+    ref = np.zeros((n, len(glob)))
+    for tr, va in gk_single:
+        fm = DecisionTreeClassifier(random_state=42).fit(x.iloc[tr], y_mc[tr])
+        ci = np.searchsorted(glob, np.asarray(fm.classes_))
+        ref[np.ix_(va, ci)] = fm.predict_proba(x.iloc[va])
+    m6b = mk("grouped"); m6b.cv = len(set(rounds))
+    m6b.fit(x, y_mc, train_round=rounds, window_start=ws)
+    check("OOF 列位与手算对照一致", np.allclose(m6b.oof_meta_, ref))
+
 print("\n" + ("全部通过" if ok else "存在失败项"))
 sys.exit(0 if ok else 1)

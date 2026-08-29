@@ -618,7 +618,13 @@ class SimpleStackingClassifier:
             for train_idx, val_idx in self._splitter(x, y, train_round, window_start):
                 fold_model = clone(estimator)
                 fold_model.fit(x.iloc[train_idx], y[train_idx])
-                oof[val_idx] = fold_model.predict_proba(x.iloc[val_idx])
+                proba = fold_model.predict_proba(x.iloc[val_idx])
+                # 折内训练集可能缺类（G0 环境组合、UNSW 18 类不均衡）。predict_proba 的列
+                # 对应 fold_model.classes_，必须映射回全局 self.classes_ 的列位，缺失类留 0；
+                # 否则列数不符会 broadcast 报错，或在列序不同时静默错位。
+                fold_classes = np.asarray(fold_model.classes_)
+                col_idx = np.searchsorted(self.classes_, fold_classes)
+                oof[np.ix_(np.asarray(val_idx), col_idx)] = proba
             fitted = clone(estimator)
             fitted.fit(x, y)
             self.named_estimators_[name] = fitted
