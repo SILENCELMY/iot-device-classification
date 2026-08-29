@@ -1,0 +1,8 @@
+{
+  "python.defaultInterpreterPath": "C:\\Users\\SILENCE\\anaconda3\\python.exe",
+  "python.analysis.extraPaths": [
+    "C:\\Users\\SILENCE\\anaconda3\\Lib\\site-packages",
+    "C:\\Users\\SILENCE\\AppData\\Roaming\\Python\\Python313\\site-packages"
+  ],
+  "python.analysis.autoSearchPaths": true
+}
