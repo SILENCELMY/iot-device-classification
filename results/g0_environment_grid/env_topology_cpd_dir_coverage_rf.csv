@@ -20,12 +20,12 @@ R5,R4,g0_iid_R5_time_block,g0_R5_to_R4,20,,False,0,,Camera;Light_T1;Light_XM;Sen
 R5,R6,g0_iid_R5_time_block,g0_R5_to_R6,20,,False,0,,Camera;Light_T1;Light_XM;Sensor;Socket,Camera:ref_below;Light_T1:ref_below;Light_XM:ref_below;Sensor:ref_below;Socket:both_below,1.0,8.0,14.0,4.0,0.0,399.0,394.0,146.0,28.0,0.0
 R5,R7,g0_iid_R5_time_block,g0_R5_to_R7,20,,False,0,,Camera;Light_T1;Light_XM;Sensor;Socket,Camera:ref_below;Light_T1:ref_below;Light_XM:ref_below;Sensor:ref_below;Socket:both_below,1.0,8.0,14.0,4.0,0.0,398.0,396.0,118.0,39.0,0.0
 R6,R2,g0_iid_R6_time_block,g0_R6_to_R2,20,1.4393436294372945,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,3.0,48.0,73.0,66.0,0.0,6.0,256.0,157.0,72.0,0.0
-R6,R3,g0_iid_R6_time_block,g0_R6_to_R3,20,1.6598397478748768,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,3.0,48.0,73.0,66.0,0.0,0.0,211.0,208.0,87.0,0.0
+R6,R3,g0_iid_R6_time_block,g0_R6_to_R3,20,1.659839747874877,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,3.0,48.0,73.0,66.0,0.0,0.0,211.0,208.0,87.0,0.0
 R6,R4,g0_iid_R6_time_block,g0_R6_to_R4,20,1.382841611456686,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,3.0,48.0,73.0,66.0,0.0,8.0,262.0,169.0,68.0,0.0
-R6,R5,g0_iid_R6_time_block,g0_R6_to_R5,20,0.9922478970254962,True,2,Light_T1;Light_XM,Camera;Sensor;Socket,Camera:ref_below;Sensor:tgt_below;Socket:both_below,3.0,48.0,73.0,66.0,0.0,69.0,327.0,158.0,18.0,0.0
+R6,R5,g0_iid_R6_time_block,g0_R6_to_R5,20,0.9922478970254961,True,2,Light_T1;Light_XM,Camera;Sensor;Socket,Camera:ref_below;Sensor:tgt_below;Socket:both_below,3.0,48.0,73.0,66.0,0.0,69.0,327.0,158.0,18.0,0.0
 R6,R7,g0_iid_R6_time_block,g0_R6_to_R7,20,0.32653356871921996,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,3.0,48.0,73.0,66.0,0.0,9.0,111.0,151.0,51.0,0.0
 R7,R2,g0_iid_R7_time_block,g0_R7_to_R2,20,1.8962325243239355,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,0.0,37.0,32.0,23.0,0.0,0.0,220.0,129.0,152.0,0.0
-R7,R3,g0_iid_R7_time_block,g0_R7_to_R3,20,1.9649351035160958,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,0.0,37.0,32.0,23.0,0.0,0.0,197.0,224.0,196.0,0.0
+R7,R3,g0_iid_R7_time_block,g0_R7_to_R3,20,1.964935103516096,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,0.0,37.0,32.0,23.0,0.0,0.0,197.0,224.0,196.0,0.0
 R7,R4,g0_iid_R7_time_block,g0_R7_to_R4,20,1.9437242309233067,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,0.0,37.0,32.0,23.0,0.0,0.0,259.0,145.0,179.0,0.0
 R7,R5,g0_iid_R7_time_block,g0_R7_to_R5,20,1.6351930413576914,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:both_below;Socket:both_below,0.0,37.0,32.0,23.0,0.0,8.0,309.0,113.0,112.0,0.0
 R7,R6,g0_iid_R7_time_block,g0_R7_to_R6,20,0.3868362690088597,True,3,Light_T1;Light_XM;Sensor,Camera;Socket,Camera:ref_below;Socket:both_below,0.0,37.0,32.0,23.0,0.0,156.0,144.0,167.0,81.0,0.0

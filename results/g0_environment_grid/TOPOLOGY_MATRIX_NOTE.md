@@ -211,3 +211,12 @@ scikit-learn 1.2.1。
 （`six_env_confusion_similarity.py` 的本次改造尚未提交）。
 
 本脚本只读混淆矩阵 CSV，不重训模型，因此结果与训练侧库版本无关。
+
+## 环境追记（2026-08-29，审阅方）
+
+本目录 5 个拓扑 CSV 已在 **canonical 分析环境 iotcls**（`code/requirements-lock.txt` 所锁，
+numpy 2.4.6）下重生成。与初版（anaconda base，numpy 1.23.5）相比仅 ULP 级差异
+（CPD_y time_block 变体 9/30 格，max |Δ| = 2.22e-16）；根因是 numpy 1.23→2.4 之间
+`np.linalg.norm(x, "fro")` 内部归约路径变化。宏 F1 核对硬门（1e-6）两版均通过；
+同解释器下逐位可复现。此后凡要求与本目录 CSV **逐位**一致的交叉验证（如 E2 验收门 b），
+须在 iotcls 下执行。
