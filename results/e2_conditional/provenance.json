@@ -1,0 +1,376 @@
+{
+  "experiment": "E2 (CPD conditional explanation, hierarchical regression)",
+  "protocol_sections": [
+    "4.2",
+    "4.3",
+    "7",
+    "11",
+    "13",
+    "15",
+    "19.2"
+  ],
+  "execution_spec": "docs/EXECUTION_PLAN_20260829.md D9 (commit cac9b3f) + v1.3 'D9 追记' rulings A/B/C",
+  "rulings": {
+    "source": "docs/EXECUTION_PLAN_20260829.md v1.3, section 'D9 追记'",
+    "A_canonical_environment": {
+      "ruling": "canonical analysis environment = iotcls (code/requirements-lock.txt); D4 topology CSVs regenerated under it; all 'bitwise identical' gates are executed inside the canonical environment only",
+      "interpreter_used_for_this_run": {
+        "executable": "/home/lmy/anaconda3/envs/iotcls/bin/python",
+        "python": "3.11.15",
+        "numpy": "2.4.6",
+        "pandas": "3.0.3"
+      },
+      "registered_fact": "initial D4 CSVs were produced under anaconda base (numpy 1.23); 9/30 cells differed at max 2.22e-16 (fro-norm reduction path change numpy 1.23→2.4); D4's own 1e-6 gate passed in both"
+    },
+    "B_cpd_dir_nan_propagation": {
+      "primary": "lenient (np.nanmean over defined references)",
+      "parallel_reported": "strict (np.mean; any undefined reference ⇒ task undefined)",
+      "requirement": "both variants reported side by side in every table and in the NOTE; strict must carry rank-deficiency markers",
+      "role_map": {
+        "lenient": "primary",
+        "strict": "parallel_reported"
+      },
+      "rank_deficiency_markers": [
+        "e2_regression_main.csv: design_rank / design_n_params / design_rank_deficient / zero_variance_terms / n_boot_degenerate_replicates_this_model",
+        "e2_coefficients.csv: design_rank_deficient / n_boot_degenerate_replicates_this_model",
+        "e2_bootstrap_summary.csv: n_degenerate_replicates_any_model / n_degenerate_replicates_by_model"
+      ]
+    },
+    "C_d_recall_max_reading": {
+      "adopted": "literal max element of the delta vector (裁定 C)",
+      "alternative_not_adopted": "max absolute value of the delta vector",
+      "n_tasks_where_readings_differ": 16,
+      "n_tasks_total": 150,
+      "tasks_where_readings_differ": [
+        {
+          "task": "g0_R2_R4_R6_to_R7",
+          "literal_max": 0.09440399956649381,
+          "max_abs": 0.13206500987014091
+        },
+        {
+          "task": "g0_R2_R6_R7_to_R4",
+          "literal_max": 0.08603028893653808,
+          "max_abs": 0.2141256904461648
+        },
+        {
+          "task": "g0_R2_R6_to_R4",
+          "literal_max": 0.15437063197738699,
+          "max_abs": 0.252979511728179
+        },
+        {
+          "task": "g0_R2_R6_to_R7",
+          "literal_max": 0.03523869346733677,
+          "max_abs": 0.17733459833973553
+        },
+        {
+          "task": "g0_R3_R4_R6_to_R7",
+          "literal_max": 0.033359956908094235,
+          "max_abs": 0.05598030268934473
+        },
+        {
+          "task": "g0_R3_R6_to_R7",
+          "literal_max": 0.05680043374700516,
+          "max_abs": 0.09704212403470691
+        },
+        {
+          "task": "g0_R4_R6_R7_to_R2",
+          "literal_max": 0.1898987553735637,
+          "max_abs": 0.3075542361502662
+        },
+        {
+          "task": "g0_R4_R6_to_R2",
+          "literal_max": 0.3245509424404247,
+          "max_abs": 0.35407853574263437
+        },
+        {
+          "task": "g0_R4_R6_to_R7",
+          "literal_max": 0.022872795754151687,
+          "max_abs": 0.17596649919278562
+        },
+        {
+          "task": "g0_R5_R6_to_R7",
+          "literal_max": 0.15671117959253555,
+          "max_abs": 0.1710459409163606
+        },
+        {
+          "task": "g0_R6_R7_to_R2",
+          "literal_max": 0.15354467883245188,
+          "max_abs": 0.15998374738797305
+        },
+        {
+          "task": "g0_R6_to_R2",
+          "literal_max": 0.29845449876266517,
+          "max_abs": 0.3426364991193605
+        },
+        {
+          "task": "g0_R6_to_R3",
+          "literal_max": 0.1744875566139048,
+          "max_abs": 0.301972617546388
+        },
+        {
+          "task": "g0_R6_to_R4",
+          "literal_max": 0.311028558161133,
+          "max_abs": 0.35313830268997376
+        },
+        {
+          "task": "g0_R6_to_R5",
+          "literal_max": 0.4891107499419549,
+          "max_abs": 0.4912598496512997
+        },
+        {
+          "task": "g0_R6_to_R7",
+          "literal_max": 0.0,
+          "max_abs": 0.41316405768519654
+        }
+      ]
+    }
+  },
+  "generated_utc": "2026-08-29T06:05:13+00:00",
+  "command_line": {
+    "argv": [
+      "code/scripts/analysis/e2_conditional_explanation.py",
+      "--bootstrap-b",
+      "10000",
+      "--seed",
+      "42"
+    ],
+    "executable": "/home/lmy/anaconda3/envs/iotcls/bin/python",
+    "cwd": "/home/lmy/iot-device-classification"
+  },
+  "git": {
+    "repo_root": {
+      "path": ".",
+      "head": "00f225f6d5298d758bef346a305c1168dc6adc0b",
+      "dirty": true
+    },
+    "code": {
+      "path": "code",
+      "head": "00f225f6d5298d758bef346a305c1168dc6adc0b",
+      "dirty": true
+    }
+  },
+  "versions": {
+    "python": "3.11.15",
+    "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scikit-learn": "1.9.0",
+    "xgboost": "3.2.0",
+    "lightgbm": "4.6.0",
+    "scipy": "1.17.1",
+    "joblib": "1.5.3"
+  },
+  "bootstrap": {
+    "kind": "cluster bootstrap over target environments (§15.1)",
+    "resampled_unit": "target_env",
+    "n_clusters": 6,
+    "B": 10000,
+    "numpy_seed": 42,
+    "rng": "numpy.random.default_rng(seed)",
+    "ci": "percentile 2.5 / 97.5",
+    "stats_md5_primary_variant_by_cpd_dir": {
+      "strict": "8abe42edfa271ed1e37157d1b4586446",
+      "lenient": "f52f40a425bf87fc46f341efd1e49685"
+    }
+  },
+  "inputs": {
+    "dv_csv": {
+      "path": "results/e1_oof_arms_g0/e1_arms_raw_all.csv",
+      "sha256": "79dd7fe63bc000af439d280af54ba296890c2f49aed67dd8fc08bb4b6172c721",
+      "dv_column": "gain_absolute",
+      "arm_primary": "B",
+      "arm_sensitivity": "A",
+      "seed": 42
+    },
+    "topology_crosscheck_csv_sha256": "d96056418fbf7f118a2045323ad936d43b2ff2192671184e2be38da3be748b0b",
+    "cm_csv_sha256": {
+      "n_files_hashed": 486,
+      "n_files_expected": 486,
+      "aggregate_sha256": "128eee9ea98ca99968955520054780abeb70221b0840b086c24a4b5e792d42cb",
+      "rule": "sha256 over concatenated '<repo-relative path>:<file sha256>\\n' lines, paths sorted lexicographically"
+    },
+    "confusion_matrix_root": "results/g0_environment_grid/raw_all",
+    "confusion_matrix_pattern": "<root>/<task>/all_features/<model>/confusion_matrix.csv",
+    "n_task_cms": 150,
+    "n_iid_ref_cms": 12,
+    "iid_ref_tasks": [
+      "g0_iid_R2_time_block",
+      "g0_iid_R3_time_block",
+      "g0_iid_R4_time_block",
+      "g0_iid_R5_time_block",
+      "g0_iid_R6_time_block",
+      "g0_iid_R7_time_block",
+      "g0_iid_R2_random",
+      "g0_iid_R3_random",
+      "g0_iid_R4_random",
+      "g0_iid_R5_random",
+      "g0_iid_R6_random",
+      "g0_iid_R7_random"
+    ],
+    "topology_crosscheck_csv": "results/g0_environment_grid/env_topology_cpd_y_ref_time_block_rf.csv",
+    "task_definition_source": "code/scripts/core/environment_grid_experiment.py::build_task_grid (§11)",
+    "cpd_implementation": "code/scripts/analysis/cpd_core.py (§11 唯一实现)",
+    "multisource_reference_construction": {
+      "rule": "per-reference metric then arithmetic mean (NOT mean of CMs)",
+      "source": "code/scripts/analysis/test_cpd_core.py:100-101 (test_hist_0_8397_vs_iid_mean)",
+      "doc": "docs/CPD_DEFINITIONS.md §4.1（0.8397 = 三个 IID CM 逐个算 CPD_y 后取算术平均）",
+      "cpd_dir_nan_policy": {
+        "strict": "np.mean（任一参照未定义→任务未定义）",
+        "lenient": "np.nanmean（在已定义参照上取均值）"
+      }
+    }
+  },
+  "variants": [
+    {
+      "name": "primary",
+      "dv_arm": "B",
+      "iid_variant": "time_block",
+      "recall_model": "rf",
+      "note": "D9 主口径：B 臂 DV，time_block IID 参照，RF recall"
+    },
+    {
+      "name": "sens_dv_a_arm",
+      "dv_arm": "A",
+      "iid_variant": "time_block",
+      "recall_model": "rf",
+      "note": "敏感性：DV 换 A 臂（历史随机 OOF 口径）"
+    },
+    {
+      "name": "sens_ref_random",
+      "dv_arm": "B",
+      "iid_variant": "random",
+      "recall_model": "rf",
+      "note": "敏感性：IID 参照换 random 划分（recall_src_IID 与 CPD 参照同时切换）"
+    },
+    {
+      "name": "sens_recall_3model",
+      "dv_arm": "B",
+      "iid_variant": "time_block",
+      "recall_model": "base_mean",
+      "note": "敏感性：M0 的 recall 换三基模型均值；CPD 仍为 RF 口径（D9 只对 M0 指定该敏感性）"
+    }
+  ],
+  "m0_terms": [
+    "d_recall_Camera",
+    "d_recall_Light_T1",
+    "d_recall_Light_XM",
+    "d_recall_Sensor",
+    "d_recall_Socket",
+    "d_recall_l2",
+    "d_recall_max"
+  ],
+  "diagnostics": {
+    "d_recall_max_reading": {
+      "adopted": "literal max element of the delta vector (裁定 C)",
+      "alternative_not_adopted": "max absolute value of the delta vector",
+      "n_tasks_where_readings_differ": 16,
+      "n_tasks_total": 150,
+      "tasks_where_readings_differ": [
+        {
+          "task": "g0_R2_R4_R6_to_R7",
+          "literal_max": 0.09440399956649381,
+          "max_abs": 0.13206500987014091
+        },
+        {
+          "task": "g0_R2_R6_R7_to_R4",
+          "literal_max": 0.08603028893653808,
+          "max_abs": 0.2141256904461648
+        },
+        {
+          "task": "g0_R2_R6_to_R4",
+          "literal_max": 0.15437063197738699,
+          "max_abs": 0.252979511728179
+        },
+        {
+          "task": "g0_R2_R6_to_R7",
+          "literal_max": 0.03523869346733677,
+          "max_abs": 0.17733459833973553
+        },
+        {
+          "task": "g0_R3_R4_R6_to_R7",
+          "literal_max": 0.033359956908094235,
+          "max_abs": 0.05598030268934473
+        },
+        {
+          "task": "g0_R3_R6_to_R7",
+          "literal_max": 0.05680043374700516,
+          "max_abs": 0.09704212403470691
+        },
+        {
+          "task": "g0_R4_R6_R7_to_R2",
+          "literal_max": 0.1898987553735637,
+          "max_abs": 0.3075542361502662
+        },
+        {
+          "task": "g0_R4_R6_to_R2",
+          "literal_max": 0.3245509424404247,
+          "max_abs": 0.35407853574263437
+        },
+        {
+          "task": "g0_R4_R6_to_R7",
+          "literal_max": 0.022872795754151687,
+          "max_abs": 0.17596649919278562
+        },
+        {
+          "task": "g0_R5_R6_to_R7",
+          "literal_max": 0.15671117959253555,
+          "max_abs": 0.1710459409163606
+        },
+        {
+          "task": "g0_R6_R7_to_R2",
+          "literal_max": 0.15354467883245188,
+          "max_abs": 0.15998374738797305
+        },
+        {
+          "task": "g0_R6_to_R2",
+          "literal_max": 0.29845449876266517,
+          "max_abs": 0.3426364991193605
+        },
+        {
+          "task": "g0_R6_to_R3",
+          "literal_max": 0.1744875566139048,
+          "max_abs": 0.301972617546388
+        },
+        {
+          "task": "g0_R6_to_R4",
+          "literal_max": 0.311028558161133,
+          "max_abs": 0.35313830268997376
+        },
+        {
+          "task": "g0_R6_to_R5",
+          "literal_max": 0.4891107499419549,
+          "max_abs": 0.4912598496512997
+        },
+        {
+          "task": "g0_R6_to_R7",
+          "literal_max": 0.0,
+          "max_abs": 0.41316405768519654
+        }
+      ]
+    },
+    "n_tasks_where_max_differs_from_max_abs": 16,
+    "cpd_dir_coverage": {
+      "strict": 26,
+      "lenient": 119
+    },
+    "cpd_dir_coverage_by_n_sources": {
+      "strict": {
+        "1": 14,
+        "2": 10,
+        "3": 2
+      },
+      "lenient": {
+        "1": 14,
+        "2": 48,
+        "3": 57
+      }
+    }
+  },
+  "acceptance_gates": {
+    "a_m0_handcheck": true,
+    "b_cpd_y_bitwise_vs_topology": true,
+    "c_bootstrap_md5_reproducible": true,
+    "d_row_counts": true
+  },
+  "output_dir": "results/e2_conditional"
+}

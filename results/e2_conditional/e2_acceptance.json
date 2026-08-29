@@ -1,0 +1,528 @@
+{
+  "gates": [
+    {
+      "name": "a_m0_handcheck",
+      "passed": true,
+      "tasks": [
+        {
+          "task": "g0_R2_to_R3",
+          "n_sources": 1,
+          "source_envs": "R2",
+          "max_abs_dev": 0.0,
+          "tol": 1e-12,
+          "passed": true,
+          "pipeline": {
+            "d_recall_Camera": 0.0273972602739726,
+            "d_recall_Light_T1": 0.8770440013142266,
+            "d_recall_Light_XM": 0.1121704853412171,
+            "d_recall_Sensor": 0.9908256880733946,
+            "d_recall_Socket": 0.0,
+            "d_recall_l2": 1.3282599715566183,
+            "d_recall_max": 0.9908256880733946
+          },
+          "handcomputed": {
+            "d_recall_Camera": 0.0273972602739726,
+            "d_recall_Light_T1": 0.8770440013142266,
+            "d_recall_Light_XM": 0.1121704853412171,
+            "d_recall_Sensor": 0.9908256880733946,
+            "d_recall_Socket": 0.0,
+            "d_recall_l2": 1.3282599715566183,
+            "d_recall_max": 0.9908256880733946
+          },
+          "per_term_abs_dev": {
+            "d_recall_Camera": 0.0,
+            "d_recall_Light_T1": 0.0,
+            "d_recall_Light_XM": 0.0,
+            "d_recall_Sensor": 0.0,
+            "d_recall_Socket": 0.0,
+            "d_recall_l2": 0.0,
+            "d_recall_max": 0.0
+          }
+        },
+        {
+          "task": "g0_R2_R3_R4_to_R5",
+          "n_sources": 3,
+          "source_envs": "R2;R3;R4",
+          "max_abs_dev": 0.0,
+          "tol": 1e-12,
+          "passed": true,
+          "pipeline": {
+            "d_recall_Camera": 0.14203338748793293,
+            "d_recall_Light_T1": 0.6101134507066391,
+            "d_recall_Light_XM": 0.09200853746308302,
+            "d_recall_Sensor": 0.24251102438035388,
+            "d_recall_Socket": -0.002949852507374673,
+            "d_recall_l2": 0.6780101588002788,
+            "d_recall_max": 0.6101134507066391
+          },
+          "handcomputed": {
+            "d_recall_Camera": 0.14203338748793293,
+            "d_recall_Light_T1": 0.6101134507066391,
+            "d_recall_Light_XM": 0.09200853746308302,
+            "d_recall_Sensor": 0.24251102438035388,
+            "d_recall_Socket": -0.002949852507374673,
+            "d_recall_l2": 0.6780101588002788,
+            "d_recall_max": 0.6101134507066391
+          },
+          "per_term_abs_dev": {
+            "d_recall_Camera": 0.0,
+            "d_recall_Light_T1": 0.0,
+            "d_recall_Light_XM": 0.0,
+            "d_recall_Sensor": 0.0,
+            "d_recall_Socket": 0.0,
+            "d_recall_l2": 0.0,
+            "d_recall_max": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "b_cpd_y_bitwise_vs_topology",
+      "passed": true,
+      "b1_vs_stored_csv": {
+        "passed": true,
+        "n_cells": 30,
+        "n_bitwise_equal": 30,
+        "max_abs_dev": 0.0
+      },
+      "b2_vs_d4_generator_recomputed_here": {
+        "passed": true,
+        "n_cells": 30,
+        "n_bitwise_equal": 30,
+        "max_abs_dev": 0.0
+      },
+      "interpreter": {
+        "python": "3.11.15",
+        "numpy": "2.4.6",
+        "pandas": "3.0.3",
+        "executable": "/home/lmy/anaconda3/envs/iotcls/bin/python"
+      },
+      "stored_matrix": "results/g0_environment_grid/env_topology_cpd_y_ref_time_block_rf.csv",
+      "cells": [
+        {
+          "task": "g0_R2_to_R3",
+          "cell": "[R2,R3]",
+          "e2_cpd_y": "1.2544092722335234",
+          "stored_cell": "1.2544092722335234",
+          "d4_recomputed_cell": "1.2544092722335234",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R2_to_R4",
+          "cell": "[R2,R4]",
+          "e2_cpd_y": "1.1282624827649748",
+          "stored_cell": "1.1282624827649748",
+          "d4_recomputed_cell": "1.1282624827649748",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R2_to_R5",
+          "cell": "[R2,R5]",
+          "e2_cpd_y": "0.9982377252213916",
+          "stored_cell": "0.9982377252213916",
+          "d4_recomputed_cell": "0.9982377252213916",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R2_to_R6",
+          "cell": "[R2,R6]",
+          "e2_cpd_y": "1.7241090861351422",
+          "stored_cell": "1.7241090861351422",
+          "d4_recomputed_cell": "1.7241090861351422",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R2_to_R7",
+          "cell": "[R2,R7]",
+          "e2_cpd_y": "1.727006681538922",
+          "stored_cell": "1.727006681538922",
+          "d4_recomputed_cell": "1.727006681538922",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R3_to_R2",
+          "cell": "[R3,R2]",
+          "e2_cpd_y": "1.1592535044752041",
+          "stored_cell": "1.1592535044752041",
+          "d4_recomputed_cell": "1.1592535044752041",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R3_to_R4",
+          "cell": "[R3,R4]",
+          "e2_cpd_y": "1.3744964431297715",
+          "stored_cell": "1.3744964431297715",
+          "d4_recomputed_cell": "1.3744964431297715",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R3_to_R5",
+          "cell": "[R3,R5]",
+          "e2_cpd_y": "0.8509684762401226",
+          "stored_cell": "0.8509684762401226",
+          "d4_recomputed_cell": "0.8509684762401226",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R3_to_R6",
+          "cell": "[R3,R6]",
+          "e2_cpd_y": "1.7326682779697813",
+          "stored_cell": "1.7326682779697813",
+          "d4_recomputed_cell": "1.7326682779697813",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R3_to_R7",
+          "cell": "[R3,R7]",
+          "e2_cpd_y": "1.7312344313359869",
+          "stored_cell": "1.7312344313359869",
+          "d4_recomputed_cell": "1.7312344313359869",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R4_to_R2",
+          "cell": "[R4,R2]",
+          "e2_cpd_y": "0.7329121568763437",
+          "stored_cell": "0.7329121568763437",
+          "d4_recomputed_cell": "0.7329121568763437",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R4_to_R3",
+          "cell": "[R4,R3]",
+          "e2_cpd_y": "1.1719306146552018",
+          "stored_cell": "1.1719306146552018",
+          "d4_recomputed_cell": "1.1719306146552018",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R4_to_R5",
+          "cell": "[R4,R5]",
+          "e2_cpd_y": "0.8980179347012055",
+          "stored_cell": "0.8980179347012055",
+          "d4_recomputed_cell": "0.8980179347012055",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R4_to_R6",
+          "cell": "[R4,R6]",
+          "e2_cpd_y": "0.8838829898354686",
+          "stored_cell": "0.8838829898354686",
+          "d4_recomputed_cell": "0.8838829898354686",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R4_to_R7",
+          "cell": "[R4,R7]",
+          "e2_cpd_y": "0.7408732244886332",
+          "stored_cell": "0.7408732244886332",
+          "d4_recomputed_cell": "0.7408732244886332",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R5_to_R2",
+          "cell": "[R5,R2]",
+          "e2_cpd_y": "0.8337504312826175",
+          "stored_cell": "0.8337504312826175",
+          "d4_recomputed_cell": "0.8337504312826175",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R5_to_R3",
+          "cell": "[R5,R3]",
+          "e2_cpd_y": "1.061252337783798",
+          "stored_cell": "1.061252337783798",
+          "d4_recomputed_cell": "1.061252337783798",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R5_to_R4",
+          "cell": "[R5,R4]",
+          "e2_cpd_y": "0.9943694047624475",
+          "stored_cell": "0.9943694047624475",
+          "d4_recomputed_cell": "0.9943694047624475",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R5_to_R6",
+          "cell": "[R5,R6]",
+          "e2_cpd_y": "1.0588717214745256",
+          "stored_cell": "1.0588717214745256",
+          "d4_recomputed_cell": "1.0588717214745256",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R5_to_R7",
+          "cell": "[R5,R7]",
+          "e2_cpd_y": "1.048298236479875",
+          "stored_cell": "1.048298236479875",
+          "d4_recomputed_cell": "1.048298236479875",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R6_to_R2",
+          "cell": "[R6,R2]",
+          "e2_cpd_y": "0.6792354873479834",
+          "stored_cell": "0.6792354873479834",
+          "d4_recomputed_cell": "0.6792354873479834",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R6_to_R3",
+          "cell": "[R6,R3]",
+          "e2_cpd_y": "0.7986255543430162",
+          "stored_cell": "0.7986255543430162",
+          "d4_recomputed_cell": "0.7986255543430162",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R6_to_R4",
+          "cell": "[R6,R4]",
+          "e2_cpd_y": "0.6572534687868512",
+          "stored_cell": "0.6572534687868512",
+          "d4_recomputed_cell": "0.6572534687868512",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R6_to_R5",
+          "cell": "[R6,R5]",
+          "e2_cpd_y": "0.7584474425167657",
+          "stored_cell": "0.7584474425167657",
+          "d4_recomputed_cell": "0.7584474425167657",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R6_to_R7",
+          "cell": "[R6,R7]",
+          "e2_cpd_y": "0.36927442873278055",
+          "stored_cell": "0.36927442873278055",
+          "d4_recomputed_cell": "0.36927442873278055",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R7_to_R2",
+          "cell": "[R7,R2]",
+          "e2_cpd_y": "0.7466363522933309",
+          "stored_cell": "0.7466363522933309",
+          "d4_recomputed_cell": "0.7466363522933309",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R7_to_R3",
+          "cell": "[R7,R3]",
+          "e2_cpd_y": "0.9386468506840432",
+          "stored_cell": "0.9386468506840432",
+          "d4_recomputed_cell": "0.9386468506840432",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R7_to_R4",
+          "cell": "[R7,R4]",
+          "e2_cpd_y": "0.8994762423687163",
+          "stored_cell": "0.8994762423687163",
+          "d4_recomputed_cell": "0.8994762423687163",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R7_to_R5",
+          "cell": "[R7,R5]",
+          "e2_cpd_y": "0.7528632623885226",
+          "stored_cell": "0.7528632623885226",
+          "d4_recomputed_cell": "0.7528632623885226",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        },
+        {
+          "task": "g0_R7_to_R6",
+          "cell": "[R7,R6]",
+          "e2_cpd_y": "0.38326470243552796",
+          "stored_cell": "0.38326470243552796",
+          "d4_recomputed_cell": "0.38326470243552796",
+          "bitwise_equal_vs_stored": true,
+          "abs_dev_vs_stored": 0.0,
+          "bitwise_equal_vs_d4_recompute": true,
+          "abs_dev_vs_d4_recompute": 0.0
+        }
+      ]
+    },
+    {
+      "name": "c_bootstrap_md5_reproducible",
+      "passed": true,
+      "b": 2000,
+      "seed": 42,
+      "by_cpd_dir_variant": {
+        "strict": {
+          "passed": true,
+          "md5_run1": "8aac437ef18f33576cd3b57773a30424",
+          "md5_run2": "8aac437ef18f33576cd3b57773a30424",
+          "n_degenerate_run1": 2000,
+          "n_degenerate_by_model_run1": {
+            "M0": 0,
+            "M1": 0,
+            "M0_sub": 2000,
+            "M2": 2000
+          }
+        },
+        "lenient": {
+          "passed": true,
+          "md5_run1": "58200076401737522aa579bfe6808878",
+          "md5_run2": "58200076401737522aa579bfe6808878",
+          "n_degenerate_run1": 0,
+          "n_degenerate_by_model_run1": {
+            "M0": 0,
+            "M1": 0,
+            "M0_sub": 0,
+            "M2": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "d_row_counts",
+      "passed": true,
+      "checks": [
+        {
+          "item": "main_table_n",
+          "expected": 150,
+          "got": 150,
+          "passed": true
+        },
+        {
+          "item": "M0_n[strict]",
+          "expected": 150,
+          "got": 150,
+          "passed": true
+        },
+        {
+          "item": "M1_n[strict]",
+          "expected": 150,
+          "got": 150,
+          "passed": true
+        },
+        {
+          "item": "M0_sub_n[strict]",
+          "expected": 26,
+          "got": 26,
+          "passed": true
+        },
+        {
+          "item": "M2_n[strict]",
+          "expected": 26,
+          "got": 26,
+          "passed": true
+        },
+        {
+          "item": "M0_n[lenient]",
+          "expected": 150,
+          "got": 150,
+          "passed": true
+        },
+        {
+          "item": "M1_n[lenient]",
+          "expected": 150,
+          "got": 150,
+          "passed": true
+        },
+        {
+          "item": "M0_sub_n[lenient]",
+          "expected": 119,
+          "got": 119,
+          "passed": true
+        },
+        {
+          "item": "M2_n[lenient]",
+          "expected": 119,
+          "got": 119,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "all_passed": true
+}
