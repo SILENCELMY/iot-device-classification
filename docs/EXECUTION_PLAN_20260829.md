@@ -1,6 +1,6 @@
 # EXECUTION_PLAN_20260829.md
 
-**Status: FROZEN（执行层）v1.0**
+**Status: FROZEN（执行层）v1.1**
 **冻结日期**: 2026-08-29
 **性质**: 执行层文档。本计划**不修改** `experiment_protocol_final.md`（FROZEN 2026-08-25）的任何条款；
 凡涉及协议文本的地方均为"按既有文本执行"的口径澄清，同步登记于 `EXPERIMENT_REGISTRY.md`，不触发冻结例外。
@@ -86,6 +86,24 @@
   确认 splits 为复制而非重建（引用行号留证）。预检不通过 → 停，报告，不得改脚本设计。
 - RTX 4090 当前空闲；5 种子串行后台执行，日志落盘。
 
+### D8 投票基线后处理（v1.1 新增；§7 基线 4–6，X2/X4/G1 的必备对照）
+
+- **缺口**：§7 的 hard voting / 等权 soft voting / 校准 soft voting 是 X2 的必备对照、
+  X4 的比较组、G1 的候选动作之一，但至今未在任何结果目录中计算过。
+- **无需重训**：三者全部可由 G0 已落盘产物后处理得到——hard voting 读各基模型
+  `predictions.csv` 做多数票；等权 soft voting 读各基模型 `pred_proba.csv` 平均后 argmax；
+  校准 soft voting 用 stacking `oof_meta.csv` 中的基模型**源域 OOF 概率**拟合
+  temperature / isotonic（§7：校准只在源域内做，此为无泄漏依据），再施加于测试
+  `pred_proba.csv`。
+- **实现**：`code/scripts/analysis/voting_baselines.py`，输出逐任务投票指标至
+  `results/g0_environment_grid/voting_baselines.csv`（含 5-class / 4-class / 最差类 F1，§10）。
+- **验收**：从 `predictions.csv` 重推各基模型 macro-F1 并与 `metrics.json` 核对（1e-6）作
+  管道自检；票决/平局规则与校准拟合的数据边界写入脚本 docstring 与输出说明；
+  校准仅触碰 OOF 概率的审计说明随产物落盘。
+- **排期**：D2 全量落盘后执行（共用产物），须早于 G1 组装（9/14 前完成，目标 9/5 前）。
+- 历史 110 条主线任务的投票基线依赖 §20.3 重打分补概率（D7 backlog），不阻塞 G1
+  （G1 内层池用 G0 网格任务）。
+
 ### D7 工程收尾
 
 - 随 D5：`pip freeze`（实际运行环境 anaconda3）出 `code/requirements-lock.txt`（§19.5）。
@@ -121,3 +139,4 @@
 | 日期 | 事项 |
 |---|---|
 | 2026-08-29 | v1.0 冻结（Fable 5 审定） |
+| 2026-08-29 | v1.1：新增 D8 投票基线后处理（复审发现 §7 基线 4–6 从未被计算，而 X2/X4/G1 都需要；全部可自 G0 落盘产物无重训推得）。同日协议 §23 增三条澄清/记录行（§14 种子语义边界、§12×§14 网格交集、§19.7 执行完毕），协议正文零改动 |
