@@ -1,0 +1,5408 @@
+{
+  "tolerance": 1e-06,
+  "all_pass": false,
+  "n_items": 600,
+  "g0_metrics_root": "results/g0_environment_grid/raw_all",
+  "items": [
+    {
+      "task": "g0_R2_R3_R4_to_R5",
+      "kind": "base:rf",
+      "e1": 0.7012224296594887,
+      "g0": 0.7012224296594887,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6603072409777727,
+      "g0": 0.6603072409777727,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6583908067353137,
+      "g0": 0.6583908067353137,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.7180085899308039,
+      "g0": 0.7180085899308039,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7488747806643499,
+      "g0": 0.7488747806643499,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.7783647964241942,
+      "g0": 0.7783647964241942,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7640759809256255,
+      "g0": 0.7640759809256255,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.6955971167332627,
+      "g0": 0.6955971167332627,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8219721259799911,
+      "g0": 0.8219721259799911,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8154367714214587,
+      "g0": 0.8154367714214587,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8088477748505276,
+      "g0": 0.8088477748505276,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R4_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.7291714113522227,
+      "g0": 0.7291714113522227,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R4_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R4",
+      "kind": "base:rf",
+      "e1": 0.6972893016537488,
+      "g0": 0.6972893016537488,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.7060909217774151,
+      "g0": 0.7060909217774151,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.7066994993771257,
+      "g0": 0.7066994993771257,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.4746134331704691,
+      "g0": 0.47461343317046917,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R6",
+      "kind": "base:rf",
+      "e1": 0.5750811606983018,
+      "g0": 0.5750811606983018,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.6539842969749964,
+      "g0": 0.6539842969749964,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.6648088984683613,
+      "g0": 0.6648088984683613,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.4647408058827826,
+      "g0": 0.46474080588278266,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R7",
+      "kind": "base:rf",
+      "e1": 0.617621595139765,
+      "g0": 0.617621595139765,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.6720028619758585,
+      "g0": 0.6720028619758585,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.6745160152740837,
+      "g0": 0.6745160152740837,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R5_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.454809752863194,
+      "g0": 0.45480975286319403,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R5_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8161061115207913,
+      "g0": 0.8161061115207913,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.8264156908822422,
+      "g0": 0.8264156908822422,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.8353730232352671,
+      "g0": 0.8353730232352671,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.7740087744464488,
+      "g0": 0.7740087744464488,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6980702348606684,
+      "g0": 0.6980702348606684,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6598048733573105,
+      "g0": 0.6598048733573105,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6530059387942679,
+      "g0": 0.6530059387942679,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.7380145320700703,
+      "g0": 0.7380145320700703,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8331060188718364,
+      "g0": 0.8331060188718364,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8607166921404563,
+      "g0": 0.8607166921404563,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8624908905784953,
+      "g0": 0.8624908905784953,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.7121324921415534,
+      "g0": 0.7121324921415534,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8278215102098271,
+      "g0": 0.8278215102098271,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.8224689560366724,
+      "g0": 0.8224689560366724,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.8278952667838115,
+      "g0": 0.8278952667838115,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.8026243979170447,
+      "g0": 0.8026243979170447,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.7084339581405116,
+      "g0": 0.7084339581405116,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6526908580598761,
+      "g0": 0.6526908580598761,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6555792466724631,
+      "g0": 0.6555792466724631,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.7347540511052275,
+      "g0": 0.7347540511052275,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7699473908448551,
+      "g0": 0.7699473908448551,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.8168713559302491,
+      "g0": 0.8168713559302491,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7937954943624256,
+      "g0": 0.7937954943624256,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.7248664928736577,
+      "g0": 0.7248664928736577,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R4",
+      "kind": "base:rf",
+      "e1": 0.6592117370350504,
+      "g0": 0.6592117370350504,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.6618770405744276,
+      "g0": 0.6618770405744276,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.6661799166983895,
+      "g0": 0.6661799166983895,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.4406293692733776,
+      "g0": 0.4406293692733776,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6649250626239468,
+      "g0": 0.6649250626239468,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.618446263058735,
+      "g0": 0.618446263058735,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6394690098126882,
+      "g0": 0.6394690098126882,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.6636423394173017,
+      "g0": 0.6636423394173017,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R6",
+      "kind": "base:rf",
+      "e1": 0.5375723002637741,
+      "g0": 0.5375723002637741,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.6272268058545978,
+      "g0": 0.6272268058545978,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.6010907078216549,
+      "g0": 0.6010907078216549,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.4103448508826203,
+      "g0": 0.4103448508826203,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R7",
+      "kind": "base:rf",
+      "e1": 0.5440584636629346,
+      "g0": 0.5440584636629346,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.6177502095068267,
+      "g0": 0.6177502095068267,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.6081152850026598,
+      "g0": 0.6081152850026598,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R3_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.4261717261177626,
+      "g0": 0.4261717261177626,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R3_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7043397850824636,
+      "g0": 0.7043397850824636,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.6160610925553478,
+      "g0": 0.6160610925553478,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.6440916665729561,
+      "g0": 0.6440916665729561,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.7404482936535585,
+      "g0": 0.7404482936535585,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R6",
+      "kind": "base:rf",
+      "e1": 0.6167828517260407,
+      "g0": 0.6167828517260407,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.6485739108764257,
+      "g0": 0.6485739108764257,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.6490574585265588,
+      "g0": 0.6490574585265588,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.6380317894565277,
+      "g0": 0.6380317894565277,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R7",
+      "kind": "base:rf",
+      "e1": 0.670764367595287,
+      "g0": 0.670764367595287,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.6711579401445669,
+      "g0": 0.6711579401445669,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.6718183121776737,
+      "g0": 0.6718183121776737,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R5_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.7177476211373202,
+      "g0": 0.7177476211373202,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R5_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6840850926983947,
+      "g0": 0.6840850926983947,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5978465318097632,
+      "g0": 0.5978465318097632,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.6094208535572125,
+      "g0": 0.6094208535572125,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6270308701366376,
+      "g0": 0.6270308701366376,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6723637119227293,
+      "g0": 0.6723637119227293,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.5577066245376836,
+      "g0": 0.5577066245376836,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.5543476806960413,
+      "g0": 0.5543476806960413,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.583971274645686,
+      "g0": 0.583971274645686,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8534222782940016,
+      "g0": 0.8534222782940016,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8767660031836009,
+      "g0": 0.8767660031836009,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8687845022127683,
+      "g0": 0.8687845022127683,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.829884566836349,
+      "g0": 0.829884566836349,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6864867025883405,
+      "g0": 0.6864867025883405,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.617585348824503,
+      "g0": 0.617585348824503,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.6272094154060975,
+      "g0": 0.6272094154060975,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6354659752626322,
+      "g0": 0.6354659752626322,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6715114346503079,
+      "g0": 0.6715114346503079,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.5604874682201617,
+      "g0": 0.5604874682201617,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.5446528871299513,
+      "g0": 0.5446528871299513,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5739070982807319,
+      "g0": 0.5739070982807319,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7774372232012368,
+      "g0": 0.7774372232012368,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.8012599313351434,
+      "g0": 0.8012599313351434,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7791451615532654,
+      "g0": 0.7791451615532654,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.7552765655579357,
+      "g0": 0.7552765655579357,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6148161314237031,
+      "g0": 0.6148161314237031,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5331577734068969,
+      "g0": 0.5331577734068969,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.552736123006713,
+      "g0": 0.552736123006713,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.4907165901894059,
+      "g0": 0.4907165901894059,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6343932044908975,
+      "g0": 0.6343932044908975,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.5389083043313059,
+      "g0": 0.5389083043313059,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.5411524536163957,
+      "g0": 0.5411524536163957,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5170337681281547,
+      "g0": 0.5170337681281547,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R6",
+      "kind": "base:rf",
+      "e1": 0.547415483717195,
+      "g0": 0.547415483717195,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.6263188197915127,
+      "g0": 0.6263188197915127,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.62422762355223,
+      "g0": 0.62422762355223,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.4616723301508074,
+      "g0": 0.4616723301508074,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R7",
+      "kind": "base:rf",
+      "e1": 0.6311282716635265,
+      "g0": 0.6311282716635265,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.662176082048135,
+      "g0": 0.662176082048135,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.6623218601444343,
+      "g0": 0.6623218601444343,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R4_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.5003340804398875,
+      "g0": 0.5003340804398875,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R4_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7872241775787381,
+      "g0": 0.7872241775787381,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.7309364965175494,
+      "g0": 0.7309364965175494,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.73181376492139,
+      "g0": 0.73181376492139,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.7305607481176638,
+      "g0": 0.7305607481176638,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8352313653335163,
+      "g0": 0.8352313653335163,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.8363410772554793,
+      "g0": 0.8363410772554793,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.8243324087577889,
+      "g0": 0.8243324087577889,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.731916961427629,
+      "g0": 0.731916961427629,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8492038703077757,
+      "g0": 0.8492038703077757,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8724053334989836,
+      "g0": 0.8724053334989836,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8641590807240555,
+      "g0": 0.8641590807240555,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.6926024784367819,
+      "g0": 0.6926024784367819,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7725428960282625,
+      "g0": 0.7725428960282625,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.7294041542833163,
+      "g0": 0.7294041542833163,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.7344958030029632,
+      "g0": 0.7344958030029632,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.784126881776457,
+      "g0": 0.784126881776457,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8485413852962342,
+      "g0": 0.8485413852962342,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.8455871341871297,
+      "g0": 0.8455871341871297,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.8371618023253248,
+      "g0": 0.8371618023253248,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.7868131366390806,
+      "g0": 0.7868131366390806,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7765352528265127,
+      "g0": 0.7765352528265127,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.8020364916181799,
+      "g0": 0.8020364916181799,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.805285484479386,
+      "g0": 0.805285484479386,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.6762644030601748,
+      "g0": 0.6762644030601748,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R3",
+      "kind": "base:rf",
+      "e1": 0.621243250606439,
+      "g0": 0.621243250606439,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5748322179300513,
+      "g0": 0.5748322179300513,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.570735228208917,
+      "g0": 0.570735228208917,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6397553448015298,
+      "g0": 0.6397553448015298,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R4",
+      "kind": "base:rf",
+      "e1": 0.6158027595420854,
+      "g0": 0.6158027595420854,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.5954392466551461,
+      "g0": 0.5954392466551461,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.5492440549444909,
+      "g0": 0.5492440549444909,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.507621802453401,
+      "g0": 0.507621802453401,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R6",
+      "kind": "base:rf",
+      "e1": 0.2871727836433718,
+      "g0": 0.28717278364337184,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.2852946215540266,
+      "g0": 0.28529462155402663,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.2842288058204464,
+      "g0": 0.2842288058204464,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.2884029463413435,
+      "g0": 0.28840294634134356,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R7",
+      "kind": "base:rf",
+      "e1": 0.2802824004034291,
+      "g0": 0.2802824004034291,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.2855880410499239,
+      "g0": 0.2855880410499239,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.2834967732051552,
+      "g0": 0.2834967732051552,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R5_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.2849083825663674,
+      "g0": 0.2849083825663674,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R5_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7030938870945135,
+      "g0": 0.7030938870945135,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.6147452023455396,
+      "g0": 0.6147452023455396,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.621565478288347,
+      "g0": 0.621565478288347,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6494086420412424,
+      "g0": 0.6494086420412424,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8522351872435838,
+      "g0": 0.8522351872435838,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.800046833719593,
+      "g0": 0.800046833719593,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.8064412566944104,
+      "g0": 0.8064412566944104,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.8463309891542444,
+      "g0": 0.8463309891542444,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6902865774067293,
+      "g0": 0.6902865774067293,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.5646735242196537,
+      "g0": 0.5646735242196537,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.5619377089191915,
+      "g0": 0.5619377089191915,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.6001791744620821,
+      "g0": 0.6001791744620821,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6453461755964374,
+      "g0": 0.6453461755964374,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5740933477218507,
+      "g0": 0.5740933477218507,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.5811342427150084,
+      "g0": 0.5811342427150084,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6532202993714883,
+      "g0": 0.6532202993714883,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8101310379020692,
+      "g0": 0.8101310379020692,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.7490981788622557,
+      "g0": 0.7490981788622557,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.7523397671121433,
+      "g0": 0.7523397671121433,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.7673095162085705,
+      "g0": 0.7673095162085705,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6266165540784692,
+      "g0": 0.6266165540784692,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.5573122271337709,
+      "g0": 0.5573122271337709,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.564777993431318,
+      "g0": 0.564777993431318,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5391382986628861,
+      "g0": 0.5391382986628861,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8365780285011718,
+      "g0": 0.8365780285011718,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8638574561276725,
+      "g0": 0.8638574561276725,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8633932848383881,
+      "g0": 0.8633932848383881,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.7372920854705429,
+      "g0": 0.7372920854705429,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6447758029004468,
+      "g0": 0.6447758029004468,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.630138495938448,
+      "g0": 0.630138495938448,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.6326642017736612,
+      "g0": 0.6326642017736612,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6543226368260688,
+      "g0": 0.6543226368260688,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8331048567628148,
+      "g0": 0.8331048567628148,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.7737204399468967,
+      "g0": 0.7737204399468967,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.8031945444886862,
+      "g0": 0.8031945444886862,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.7634332779548262,
+      "g0": 0.7634332779548262,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6193006721153218,
+      "g0": 0.6193006721153218,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.548190003656795,
+      "g0": 0.548190003656795,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.540539147739165,
+      "g0": 0.540539147739165,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.6008946897827764,
+      "g0": 0.6008946897827764,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7518566016731629,
+      "g0": 0.7518566016731629,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.7910159580247659,
+      "g0": 0.7910159580247659,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7656843830375586,
+      "g0": 0.7656843830375586,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.6155174995011239,
+      "g0": 0.6155174995011239,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R3",
+      "kind": "base:rf",
+      "e1": 0.5525575101442647,
+      "g0": 0.5525575101442647,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5099109073505381,
+      "g0": 0.5099109073505381,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.5140156135541126,
+      "g0": 0.5140156135541126,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.5293501963392562,
+      "g0": 0.5293501963392562,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R4",
+      "kind": "base:rf",
+      "e1": 0.5879190029361334,
+      "g0": 0.5879190029361334,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.4460439512776442,
+      "g0": 0.4460439512776442,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.402877952456142,
+      "g0": 0.402877952456142,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.4556030512949477,
+      "g0": 0.4556030512949477,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R5",
+      "kind": "base:rf",
+      "e1": 0.5684245705839173,
+      "g0": 0.5684245705839173,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.5338080577012716,
+      "g0": 0.5338080577012716,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.5304088190730883,
+      "g0": 0.5304088190730883,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5449837581753731,
+      "g0": 0.5449837581753731,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R6",
+      "kind": "base:rf",
+      "e1": 0.2831573371181265,
+      "g0": 0.2831573371181265,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.2802376111817026,
+      "g0": 0.28023761118170265,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.2810810810810811,
+      "g0": 0.2810810810810811,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.2810810810810811,
+      "g0": 0.2810810810810811,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R7",
+      "kind": "base:rf",
+      "e1": 0.2803625377643504,
+      "g0": 0.28036253776435044,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.279499670934267,
+      "g0": 0.27949967093426703,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.2803625377643504,
+      "g0": 0.28036253776435044,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R2_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.2803625377643504,
+      "g0": 0.28036253776435044,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R2_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8262527671183302,
+      "g0": 0.8262527671183302,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.8245244631673693,
+      "g0": 0.8245244631673693,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.8270327193708216,
+      "g0": 0.8270327193708216,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.7321605397577721,
+      "g0": 0.7321605397577721,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7556775592504165,
+      "g0": 0.7556775592504165,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.7198586641852783,
+      "g0": 0.7198586641852783,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.6907061142976824,
+      "g0": 0.6907061142976824,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.6261093329773271,
+      "g0": 0.6261093329773271,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8048099592689717,
+      "g0": 0.8048099592689717,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.7487015519774133,
+      "g0": 0.7487015519774133,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.7333535270732643,
+      "g0": 0.7333535270732643,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R5_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.6689966327340112,
+      "g0": 0.6689966327340112,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R5_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8501474198023358,
+      "g0": 0.8501474198023358,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.8109949308158892,
+      "g0": 0.8109949308158892,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.7968963195435247,
+      "g0": 0.7968963195435247,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.8309346252097537,
+      "g0": 0.8309346252097537,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6402894352401071,
+      "g0": 0.6402894352401071,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6532443637838062,
+      "g0": 0.6532443637838062,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6181060942642007,
+      "g0": 0.6181060942642007,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.7101675125497902,
+      "g0": 0.7101675125497902,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8388432623012895,
+      "g0": 0.8388432623012895,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8727889083466168,
+      "g0": 0.8727889083466168,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8724210399856002,
+      "g0": 0.8724210399856002,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.7540634331462673,
+      "g0": 0.7545024798067955,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0004390466605281862,
+      "pass": false
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8502409166824106,
+      "g0": 0.8502409166824106,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.8070653617597978,
+      "g0": 0.8070653617597978,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.791795173233063,
+      "g0": 0.791795173233063,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.8323739147396736,
+      "g0": 0.8323739147396736,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6368564312541782,
+      "g0": 0.6368564312541782,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6345172827327364,
+      "g0": 0.6345172827327364,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6300641308007571,
+      "g0": 0.6300641308007571,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.6934253072711705,
+      "g0": 0.6953910163329167,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0019657090617462014,
+      "pass": false
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7758726574941364,
+      "g0": 0.7758726574941364,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.8066907298544296,
+      "g0": 0.8066907298544296,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7838318616159883,
+      "g0": 0.7838318616159883,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.7187958090461277,
+      "g0": 0.7184704610156529,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.00032534803047479244,
+      "pass": false
+    },
+    {
+      "task": "g0_R3_R4_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8097991283932819,
+      "g0": 0.8097991283932819,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.7752091537055984,
+      "g0": 0.7752091537055984,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.7934265218076193,
+      "g0": 0.7934265218076193,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6370202122940894,
+      "g0": 0.6370202122940894,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R5",
+      "kind": "base:rf",
+      "e1": 0.625551852021447,
+      "g0": 0.625551852021447,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6367195452631728,
+      "g0": 0.6367195452631728,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6276042184546899,
+      "g0": 0.6276042184546899,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5930813605651208,
+      "g0": 0.5930813605651208,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7022496232552669,
+      "g0": 0.7022496232552669,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.6563098687452696,
+      "g0": 0.6563098687452696,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.6643271335136081,
+      "g0": 0.6643271335136081,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.5280377016717832,
+      "g0": 0.5280377016717832,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R7",
+      "kind": "base:rf",
+      "e1": 0.7800326479531493,
+      "g0": 0.7800326479531493,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.6833938052761592,
+      "g0": 0.6833938052761592,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.705227819650415,
+      "g0": 0.705227819650415,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R4_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.5621753693540898,
+      "g0": 0.5621753693540898,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R4_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R2",
+      "kind": "base:rf",
+      "e1": 0.7681483686449703,
+      "g0": 0.7681483686449703,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.6554114153830194,
+      "g0": 0.6554114153830194,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.6515735845164528,
+      "g0": 0.6515735845164528,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.8102087815139065,
+      "g0": 0.8102087815139065,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R4",
+      "kind": "base:rf",
+      "e1": 0.7776659133154694,
+      "g0": 0.7776659133154694,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.6156653873805294,
+      "g0": 0.6156653873805294,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.6477230614741002,
+      "g0": 0.6477230614741002,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.7867886438481175,
+      "g0": 0.7867886438481175,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8283200736309656,
+      "g0": 0.8283200736309656,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8549110447910667,
+      "g0": 0.8549110447910667,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8589816251121405,
+      "g0": 0.8589816251121405,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.7295419350342145,
+      "g0": 0.7295419350342145,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.7818510620403802,
+      "g0": 0.7818510620403802,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.6859159944555163,
+      "g0": 0.6859159944555163,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.6662143696351732,
+      "g0": 0.6662143696351732,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.8099300118052731,
+      "g0": 0.8099300118052731,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.7992514455177929,
+      "g0": 0.7992514455177929,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.6872484709775737,
+      "g0": 0.6872484709775737,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.6640041902849108,
+      "g0": 0.6640041902849108,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.8144597146400079,
+      "g0": 0.8144597146400079,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7733532505292734,
+      "g0": 0.7733532505292734,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.8113743205831284,
+      "g0": 0.8113743205831284,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.8011545633397639,
+      "g0": 0.8011545633397639,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.7002516145861424,
+      "g0": 0.7002516145861424,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R2",
+      "kind": "base:rf",
+      "e1": 0.6207367074722319,
+      "g0": 0.6207367074722319,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.5653073353653785,
+      "g0": 0.5653073353653785,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.5588174216107366,
+      "g0": 0.5588174216107366,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.7080770325881451,
+      "g0": 0.7080770325881451,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R4",
+      "kind": "base:rf",
+      "e1": 0.5201454527612681,
+      "g0": 0.5201454527612681,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.4967529085933052,
+      "g0": 0.49675290859330523,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.504637068815153,
+      "g0": 0.504637068815153,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.667164734194938,
+      "g0": 0.667164734194938,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R6",
+      "kind": "base:rf",
+      "e1": 0.3176151298928863,
+      "g0": 0.31761512989288637,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.3305930269444515,
+      "g0": 0.3305930269444515,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.312146480899557,
+      "g0": 0.31214648089955704,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.4143483907396951,
+      "g0": 0.4143483907396951,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R7",
+      "kind": "base:rf",
+      "e1": 0.3062182529834999,
+      "g0": 0.3062182529834999,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.3644423685181512,
+      "g0": 0.3644423685181512,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.3339696201840622,
+      "g0": 0.3339696201840622,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R5_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.4132263968739925,
+      "g0": 0.41322639687399254,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R5_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.762434674985844,
+      "g0": 0.762434674985844,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.6643532847960683,
+      "g0": 0.6643532847960683,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.5865751462739761,
+      "g0": 0.5865751462739761,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6436768197326087,
+      "g0": 0.6436768197326087,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.7975914148308562,
+      "g0": 0.7975914148308562,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.659215319913785,
+      "g0": 0.659215319913785,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.5561992475307691,
+      "g0": 0.5561992475307691,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.7167312322539521,
+      "g0": 0.7167312322539521,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.5887185593812042,
+      "g0": 0.5887185593812042,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6539269818539765,
+      "g0": 0.6539269818539765,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.622790683500906,
+      "g0": 0.622790683500906,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5125387678572796,
+      "g0": 0.5125387678572796,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R2",
+      "kind": "base:rf",
+      "e1": 0.7073225692084958,
+      "g0": 0.7073225692084958,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.613949241424362,
+      "g0": 0.613949241424362,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.5921099635811062,
+      "g0": 0.5921099635811062,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.7547231674087641,
+      "g0": 0.7547231674087641,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R4",
+      "kind": "base:rf",
+      "e1": 0.647365955580911,
+      "g0": 0.647365955580911,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.577072346292322,
+      "g0": 0.577072346292322,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.554887579368074,
+      "g0": 0.554887579368074,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.7881162196996321,
+      "g0": 0.7881162196996321,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R5",
+      "kind": "base:rf",
+      "e1": 0.5538274170227856,
+      "g0": 0.5538274170227856,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6486966409175954,
+      "g0": 0.6486966409175954,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6154346997659099,
+      "g0": 0.6154346997659099,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.541196605547914,
+      "g0": 0.541196605547914,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.829844878776893,
+      "g0": 0.829844878776893,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.841591989444165,
+      "g0": 0.841591989444165,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8511800660948132,
+      "g0": 0.8511800660948132,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.6967682100007302,
+      "g0": 0.6967682100007302,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.7148402909259551,
+      "g0": 0.7148402909259551,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.6275911824003098,
+      "g0": 0.6275911824003098,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.6049142912555372,
+      "g0": 0.6049142912555372,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6804114235741042,
+      "g0": 0.6804114235741042,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.734811998483444,
+      "g0": 0.734811998483444,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.616499485540748,
+      "g0": 0.616499485540748,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.564272399635009,
+      "g0": 0.564272399635009,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.818957798439832,
+      "g0": 0.818957798439832,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.5643343559563307,
+      "g0": 0.5643343559563307,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6530281715919057,
+      "g0": 0.6530281715919057,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6133138272969779,
+      "g0": 0.6133138272969779,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5079158590287319,
+      "g0": 0.5079158590287319,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.756694654892287,
+      "g0": 0.756694654892287,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.8015639994686916,
+      "g0": 0.8015639994686916,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7687633974429688,
+      "g0": 0.7687633974429688,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.56565857098419,
+      "g0": 0.56565857098419,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R2",
+      "kind": "base:rf",
+      "e1": 0.5613424171653618,
+      "g0": 0.5613424171653618,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.5417058467165916,
+      "g0": 0.5417058467165916,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.5500412176962011,
+      "g0": 0.5500412176962011,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.5477103148198859,
+      "g0": 0.5477103148198859,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R4",
+      "kind": "base:rf",
+      "e1": 0.4894340537802898,
+      "g0": 0.4894340537802898,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.4844710947695089,
+      "g0": 0.48447109476950895,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.4925867577024737,
+      "g0": 0.49258675770247373,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.494366281165821,
+      "g0": 0.494366281165821,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R5",
+      "kind": "base:rf",
+      "e1": 0.5550758079556757,
+      "g0": 0.5550758079556757,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.5996844323185033,
+      "g0": 0.5996844323185033,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.5963932715979774,
+      "g0": 0.5963932715979774,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.6001989662916698,
+      "g0": 0.6001989662916698,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R6",
+      "kind": "base:rf",
+      "e1": 0.2791540785498489,
+      "g0": 0.2791540785498489,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.4128811295204366,
+      "g0": 0.41288112952043665,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.3317003628823224,
+      "g0": 0.3317003628823224,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.3524253646047638,
+      "g0": 0.3524253646047638,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R7",
+      "kind": "base:rf",
+      "e1": 0.2809192734611503,
+      "g0": 0.28091927346115037,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.4250755968936719,
+      "g0": 0.4250755968936719,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.3486958247866075,
+      "g0": 0.34869582478660754,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R3_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.3691874432645823,
+      "g0": 0.3691874432645823,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R3_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8603399859788056,
+      "g0": 0.8603399859788056,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.8354592471141995,
+      "g0": 0.8354592471141995,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.8419306325972858,
+      "g0": 0.8419306325972858,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.8313822420712684,
+      "g0": 0.8313822420712684,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7746503650692794,
+      "g0": 0.7746503650692794,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.7051631267775205,
+      "g0": 0.7051631267775205,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.7092513970983666,
+      "g0": 0.7092513970983666,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.7994644370470442,
+      "g0": 0.7994644370470442,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8377881359399296,
+      "g0": 0.8377881359399296,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8699865955969482,
+      "g0": 0.8699865955969482,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.864750899945836,
+      "g0": 0.864750899945836,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.7978301171132285,
+      "g0": 0.7978301171132285,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8716141241872084,
+      "g0": 0.8716141241872084,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.8612215525171434,
+      "g0": 0.8612215525171434,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.8451054113171071,
+      "g0": 0.8451054113171071,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.8202647840630182,
+      "g0": 0.8202647840630182,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7679633528496199,
+      "g0": 0.7679633528496199,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.6791223725261921,
+      "g0": 0.6791223725261921,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.6961081555183232,
+      "g0": 0.6961081555183232,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.8087310950565403,
+      "g0": 0.8087310950565403,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7720617405753061,
+      "g0": 0.7720617405753061,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.8032567609317237,
+      "g0": 0.8032567609317237,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7943906306521751,
+      "g0": 0.7943906306521751,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.7566366860044049,
+      "g0": 0.7566366860044049,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8283084671178376,
+      "g0": 0.8283084671178376,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.7993515108113058,
+      "g0": 0.7993515108113058,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.7927690072706021,
+      "g0": 0.7927690072706021,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.7178728583474508,
+      "g0": 0.7178728583474508,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6875333976830007,
+      "g0": 0.6875333976830007,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5622282380784087,
+      "g0": 0.5622282380784087,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.578239660077562,
+      "g0": 0.578239660077562,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6813894473362456,
+      "g0": 0.6813894473362456,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R6",
+      "kind": "base:rf",
+      "e1": 0.6142398189971147,
+      "g0": 0.6142398189971147,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.6066380240988287,
+      "g0": 0.6066380240988287,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.5738495363079263,
+      "g0": 0.5738495363079263,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.6038206053801385,
+      "g0": 0.6038206053801385,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R7",
+      "kind": "base:rf",
+      "e1": 0.663964425555622,
+      "g0": 0.663964425555622,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.6387408526395332,
+      "g0": 0.6387408526395332,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.6090865756114259,
+      "g0": 0.6090865756114259,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R5_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.658690623003126,
+      "g0": 0.658690623003126,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R5_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8501706506152835,
+      "g0": 0.8501706506152835,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.838377283424595,
+      "g0": 0.838377283424595,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.8350877134952089,
+      "g0": 0.8350877134952089,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.8321915608072926,
+      "g0": 0.8321915608072926,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6841252568489893,
+      "g0": 0.6841252568489893,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5899149898299434,
+      "g0": 0.5899149898299434,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.5892898761933264,
+      "g0": 0.5892898761933264,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6079350558915669,
+      "g0": 0.6079350558915669,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.7066831304480179,
+      "g0": 0.7066831304480179,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.7026013786124234,
+      "g0": 0.7026013786124234,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.7119424640094287,
+      "g0": 0.7119424640094287,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.7044773887143039,
+      "g0": 0.7044773887143039,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8166687709491626,
+      "g0": 0.8166687709491626,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.8102594274305346,
+      "g0": 0.8102594274305346,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.8281204267988839,
+      "g0": 0.8281204267988839,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6137536651655436,
+      "g0": 0.6137536651655436,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6285415878179144,
+      "g0": 0.6285415878179144,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5612324838366451,
+      "g0": 0.5612324838366451,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.5772932432430451,
+      "g0": 0.5772932432430451,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.5712619529166204,
+      "g0": 0.5712619529166204,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6617904309225111,
+      "g0": 0.6617904309225111,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6734293227416281,
+      "g0": 0.6734293227416281,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.7018698218147936,
+      "g0": 0.7018698218147936,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.51426334682722,
+      "g0": 0.51426334682722,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8414375924608383,
+      "g0": 0.8414375924608383,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.858674549620876,
+      "g0": 0.858674549620876,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8586139188796598,
+      "g0": 0.8586139188796598,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.809301025128903,
+      "g0": 0.809301025128903,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8086728434678887,
+      "g0": 0.8086728434678887,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.7320151787313458,
+      "g0": 0.7320151787313458,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.7506933029829205,
+      "g0": 0.7506933029829205,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.5853692484933364,
+      "g0": 0.5853692484933364,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.652246042240362,
+      "g0": 0.652246042240362,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5660780049230001,
+      "g0": 0.5660780049230001,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.5775545232118435,
+      "g0": 0.5775545232118435,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.7667112077831433,
+      "g0": 0.7667112077831433,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6689790347913865,
+      "g0": 0.6689790347913865,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6355209204722064,
+      "g0": 0.6355209204722064,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6341804270508117,
+      "g0": 0.6341804270508117,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.420743644718151,
+      "g0": 0.42074364471815107,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.761757222669349,
+      "g0": 0.761757222669349,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.7919417269183906,
+      "g0": 0.7919417269183906,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7734738502373423,
+      "g0": 0.7734738502373423,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.6001097258813392,
+      "g0": 0.6001097258813392,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R2",
+      "kind": "base:rf",
+      "e1": 0.7592176932864217,
+      "g0": 0.7592176932864217,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.5605944421727288,
+      "g0": 0.5605944421727288,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.5780171683154764,
+      "g0": 0.5780171683154764,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6439354869532243,
+      "g0": 0.6439354869532243,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R3",
+      "kind": "base:rf",
+      "e1": 0.5446164842506234,
+      "g0": 0.5446164842506234,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.4356311810932153,
+      "g0": 0.4356311810932153,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.4422526059827773,
+      "g0": 0.4422526059827773,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.4844014353587942,
+      "g0": 0.48440143535879426,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6118622565305192,
+      "g0": 0.6118622565305192,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.5374861638421328,
+      "g0": 0.5374861638421328,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.5705608881469147,
+      "g0": 0.5705608881469147,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5973682374027858,
+      "g0": 0.5973682374027858,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R6",
+      "kind": "base:rf",
+      "e1": 0.5280493069549366,
+      "g0": 0.5280493069549366,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.5064719377361822,
+      "g0": 0.5064719377361822,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.459791389839377,
+      "g0": 0.459791389839377,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.4923762476899602,
+      "g0": 0.49237624768996024,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R7",
+      "kind": "base:rf",
+      "e1": 0.6328293068857445,
+      "g0": 0.6328293068857445,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.5348595679624941,
+      "g0": 0.5348595679624941,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.5066007753171002,
+      "g0": 0.5066007753171002,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R4_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.5367497649439235,
+      "g0": 0.5367497649439235,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R4_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.8302798794299662,
+      "g0": 0.8302798794299662,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.8175338812561146,
+      "g0": 0.8175338812561146,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.8055202392268266,
+      "g0": 0.8055202392268266,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.8390146308033983,
+      "g0": 0.8390146308033983,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7725444489646748,
+      "g0": 0.7725444489646748,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.7807526144993144,
+      "g0": 0.7807526144993144,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.7762897959387185,
+      "g0": 0.7762897959387185,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.7817915518172163,
+      "g0": 0.7817915518172163,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8227862698552626,
+      "g0": 0.8227862698552626,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.8143889351021623,
+      "g0": 0.8143889351021623,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.815541588013709,
+      "g0": 0.815541588013709,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.8380097788607959,
+      "g0": 0.8380097788607959,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R2",
+      "kind": "base:rf",
+      "e1": 0.75981701305356,
+      "g0": 0.75981701305356,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.7632947238179586,
+      "g0": 0.7632947238179586,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.7936362431220825,
+      "g0": 0.7936362431220825,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6776059878991811,
+      "g0": 0.6776059878991811,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7433204756937558,
+      "g0": 0.7433204756937558,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.7302062279690171,
+      "g0": 0.7302062279690171,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.7509376862628045,
+      "g0": 0.7509376862628045,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6424746109934769,
+      "g0": 0.6424746109934769,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R4",
+      "kind": "base:rf",
+      "e1": 0.7790002562519555,
+      "g0": 0.7790002562519555,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.786887742449454,
+      "g0": 0.786887742449454,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.8085813525203891,
+      "g0": 0.8085813525203891,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.6670418323515405,
+      "g0": 0.6670418323515405,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.835640258588737,
+      "g0": 0.835640258588737,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8587809115216256,
+      "g0": 0.8587809115216256,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8664754365432039,
+      "g0": 0.8664754365432039,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.6748998238982298,
+      "g0": 0.6748998238982298,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.822070771102662,
+      "g0": 0.822070771102662,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.8105112473922343,
+      "g0": 0.8105112473922343,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.7825029642996664,
+      "g0": 0.7825029642996664,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6552697820614231,
+      "g0": 0.6552697820614231,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7773063715367468,
+      "g0": 0.7773063715367468,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.7539659856323687,
+      "g0": 0.7539659856323687,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.7550938650522091,
+      "g0": 0.7550938650522091,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.6079473348509291,
+      "g0": 0.6079473348509291,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.8184944607024193,
+      "g0": 0.8184944607024193,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.8095984754166489,
+      "g0": 0.8095984754166489,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.8075994653833349,
+      "g0": 0.8075994653833349,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.6066005284225311,
+      "g0": 0.6066005284225311,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7524349210387481,
+      "g0": 0.7524349210387481,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.7974974009582707,
+      "g0": 0.7974974009582707,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7825792142658796,
+      "g0": 0.7825792142658796,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.6082286309072115,
+      "g0": 0.6082286309072115,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R2",
+      "kind": "base:rf",
+      "e1": 0.5728903086491407,
+      "g0": 0.5728903086491407,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.5919777816463475,
+      "g0": 0.5919777816463475,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.6400569402874108,
+      "g0": 0.6400569402874108,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6116641602645003,
+      "g0": 0.6116641602645003,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R3",
+      "kind": "base:rf",
+      "e1": 0.4208508781389978,
+      "g0": 0.42085087813899785,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.4150001609842645,
+      "g0": 0.4150001609842645,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.4189909127094086,
+      "g0": 0.41899091270940864,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.4155173663407531,
+      "g0": 0.4155173663407531,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R4",
+      "kind": "base:rf",
+      "e1": 0.4412457277079783,
+      "g0": 0.4412457277079783,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.4420857023245247,
+      "g0": 0.4420857023245247,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.464104435287992,
+      "g0": 0.464104435287992,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.4526694130471963,
+      "g0": 0.4526694130471963,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R6",
+      "kind": "base:rf",
+      "e1": 0.4083559368545719,
+      "g0": 0.40835593685457194,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.4160545582582189,
+      "g0": 0.41605455825821896,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.4167767703674063,
+      "g0": 0.41677677036740635,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.4184153191149133,
+      "g0": 0.4184153191149133,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R7",
+      "kind": "base:rf",
+      "e1": 0.4143850804048093,
+      "g0": 0.41438508040480937,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.4158299014811832,
+      "g0": 0.4158299014811832,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.4199970012174483,
+      "g0": 0.4199970012174483,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R5_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.4206662814328102,
+      "g0": 0.42066628143281026,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R5_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.7820875826325645,
+      "g0": 0.7820875826325645,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.6190752769431634,
+      "g0": 0.6190752769431634,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.6153869685376326,
+      "g0": 0.6153869685376326,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6062043498294558,
+      "g0": 0.6062043498294558,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7419949386364052,
+      "g0": 0.7419949386364052,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5597205384234974,
+      "g0": 0.5597205384234974,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.6204807939784249,
+      "g0": 0.6204807939784249,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.5129223440880152,
+      "g0": 0.5129223440880152,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.7636689552979733,
+      "g0": 0.7636689552979733,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.654203252659246,
+      "g0": 0.654203252659246,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.6303183285792556,
+      "g0": 0.6303183285792556,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.620652465693712,
+      "g0": 0.620652465693712,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.7076008932441107,
+      "g0": 0.7076008932441107,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6165110723806535,
+      "g0": 0.6165110723806535,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.628053081654179,
+      "g0": 0.628053081654179,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.5942019934598642,
+      "g0": 0.5942019934598642,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R2",
+      "kind": "base:rf",
+      "e1": 0.714596553965434,
+      "g0": 0.714596553965434,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.5648223412087962,
+      "g0": 0.5648223412087962,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.6328523751429024,
+      "g0": 0.6328523751429024,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.6398995084605067,
+      "g0": 0.6398995084605067,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R3",
+      "kind": "base:rf",
+      "e1": 0.7111009983885002,
+      "g0": 0.7111009983885002,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.5120169031130251,
+      "g0": 0.5120169031130251,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.5761986739072285,
+      "g0": 0.5761986739072285,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.5854843198041717,
+      "g0": 0.5854843198041717,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R4",
+      "kind": "base:rf",
+      "e1": 0.7047265706649399,
+      "g0": 0.7047265706649399,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.5909315116092595,
+      "g0": 0.5909315116092595,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.6458066002604217,
+      "g0": 0.6458066002604217,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.636685310001421,
+      "g0": 0.636685310001421,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6481077483187285,
+      "g0": 0.6481077483187285,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.6145943318340348,
+      "g0": 0.6145943318340348,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.6371043081512324,
+      "g0": 0.6371043081512324,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.6335048666578336,
+      "g0": 0.6335048666578336,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R7",
+      "kind": "base:rf",
+      "e1": 0.8352353485635643,
+      "g0": 0.8352353485635643,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R7/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R7",
+      "kind": "base:xgboost",
+      "e1": 0.8491328746171419,
+      "g0": 0.8491328746171419,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R7/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R7",
+      "kind": "base:lightgbm",
+      "e1": 0.8498392480683699,
+      "g0": 0.8498392480683699,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R7/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R6_to_R7",
+      "kind": "arm_B:stacking",
+      "e1": 0.852144006509489,
+      "g0": 0.852144006509489,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R6_to_R7/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R2",
+      "kind": "base:rf",
+      "e1": 0.7257204170122593,
+      "g0": 0.7257204170122593,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R2/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R2",
+      "kind": "base:xgboost",
+      "e1": 0.3730324402864672,
+      "g0": 0.37303244028646726,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R2/all_features/xgboost/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R2",
+      "kind": "base:lightgbm",
+      "e1": 0.3088497549999999,
+      "g0": 0.3088497549999999,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R2/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R2",
+      "kind": "arm_B:stacking",
+      "e1": 0.37258669269168,
+      "g0": 0.37258669269168,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R2/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R3",
+      "kind": "base:rf",
+      "e1": 0.6655966061537787,
+      "g0": 0.6655966061537787,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R3/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R3",
+      "kind": "base:xgboost",
+      "e1": 0.3356449806544883,
+      "g0": 0.3356449806544883,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R3/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R3",
+      "kind": "base:lightgbm",
+      "e1": 0.3432539455547571,
+      "g0": 0.34325394555475713,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R3/all_features/lightgbm/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R3",
+      "kind": "arm_B:stacking",
+      "e1": 0.3998156734181974,
+      "g0": 0.39981567341819746,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R3/all_features/stacking/metrics.json",
+      "abs_diff": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R4",
+      "kind": "base:rf",
+      "e1": 0.6817802253460143,
+      "g0": 0.6817802253460143,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R4/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R4",
+      "kind": "base:xgboost",
+      "e1": 0.4052339105209498,
+      "g0": 0.4052339105209498,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R4/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R4",
+      "kind": "base:lightgbm",
+      "e1": 0.3668045736727962,
+      "g0": 0.3668045736727962,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R4/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R4",
+      "kind": "arm_B:stacking",
+      "e1": 0.4179676837626138,
+      "g0": 0.4179676837626138,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R4/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R5",
+      "kind": "base:rf",
+      "e1": 0.6762013268516971,
+      "g0": 0.6762013268516971,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R5/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R5",
+      "kind": "base:xgboost",
+      "e1": 0.4910201945917354,
+      "g0": 0.4910201945917354,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R5/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R5",
+      "kind": "base:lightgbm",
+      "e1": 0.3639232517513439,
+      "g0": 0.3639232517513439,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R5/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R5",
+      "kind": "arm_B:stacking",
+      "e1": 0.419445974009656,
+      "g0": 0.419445974009656,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R5/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R6",
+      "kind": "base:rf",
+      "e1": 0.7283019210840016,
+      "g0": 0.7283019210840016,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R6/all_features/rf/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R6",
+      "kind": "base:xgboost",
+      "e1": 0.7321181158506991,
+      "g0": 0.7321181158506991,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R6/all_features/xgboost/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R6",
+      "kind": "base:lightgbm",
+      "e1": 0.7282664824557845,
+      "g0": 0.7282664824557845,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R6/all_features/lightgbm/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "task": "g0_R7_to_R6",
+      "kind": "arm_B:stacking",
+      "e1": 0.7261528446566609,
+      "g0": 0.7261528446566609,
+      "g0_path": "/home/lmy/iot-device-classification/results/g0_environment_grid/raw_all/g0_R7_to_R6/all_features/stacking/metrics.json",
+      "abs_diff": 0.0,
+      "pass": true
+    }
+  ]
+}

@@ -11,8 +11,9 @@ results/
 ├── gpu_capacity_full_20260703/        # 深度模型 RF/CNN/Transformer 基线对比
 ├── cnn_architecture_contrast_20260707/ # 最终 CNN 架构对比，包含 TDR-CNN
 ├── p0_audit/                           # P0 指标审计产出：`r=-0.630` 的 leave-one-task-out、leave-one-environment-out 与按测试环境聚类 bootstrap，结论文档 `R630_SENSITIVITY_CONCLUSION.md`
-├── e1_oof_arms/                        # E1 OOF 折叠三臂对比（协议 §12）：`e1_arms_raw.csv`、`e1_decomposition.csv`、`e1_arms.json`
-├── g0_environment_grid/                # G0 环境网格全量（协议 §8.5 / §8.4，seed 42 单种子）：162 任务 / 648 行 `summary_metrics.csv`、RF macro-F1 6×6 `env_topology_matrix_rf.csv`、逐任务 CM 与 stacking 的 pred_proba / oof_meta
+├── e1_oof_arms/                        # E1 OOF 折叠三臂对比（协议 §12）：`e1_arms_raw.csv`、`e1_decomposition.csv`、`e1_arms.json`、结论 `E1_CONCLUSION.md`
+├── e1_oof_arms_g0/                     # E1 网格扩展（§12 范围 × §8.6 覆盖用途，150 任务 × 三臂 × seed 42）：`e1_arms_raw_all.csv`、`e1_decomposition_all.csv`、`g0_consistency_all.json`（vs G0 的 600 项一致性）、`provenance_all.json`
+├── g0_environment_grid/                # G0 环境网格全量（协议 §8.5 / §8.4，seed 42 单种子）：162 任务 / 648 行 `summary_metrics.csv`、RF macro-F1 6×6 `env_topology_matrix_rf.csv`、CPD 拓扑矩阵 `env_topology_cpd_*.csv`、投票基线 `voting_baselines.csv`、逐任务 CM 与 stacking 的 pred_proba / oof_meta
 └── robustness_scaling_20260706_v2/     # 固定 split artifacts 和 scaling 结果
 ```
 
