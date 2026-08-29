@@ -1,0 +1,26 @@
+{
+  "protocol": "§14 多种子规则；§22.1 S1",
+  "entry_point": "cnn_contrast_search_experiment.py --split-source results/robustness_scaling_20260706_v2/splits --random-state {42..46}",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "true_multiseed_models": [
+    "cnn1d_convnext",
+    "cnn1d_inception",
+    "cnn1d_tcn"
+  ],
+  "copied_single_seed_reference_models": [
+    "cnn1d_v3",
+    "cnn1d_v5"
+  ],
+  "copied_row_rule": "逐任务跨种子 std 恒为 0（脚本 copy_existing_result 路径）；不得报 mean±std",
+  "n_tasks": 8,
+  "rows_per_seed": 40,
+  "git_head": "1db263c7b21f71934d9aa5cb87aad03f266c1ce5",
+  "python": "3.11.15",
+  "pandas": "3.0.3"
+}

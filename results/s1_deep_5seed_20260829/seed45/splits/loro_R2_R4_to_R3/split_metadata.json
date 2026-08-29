@@ -1,0 +1,17 @@
+{
+  "task": "loro_R2_R4_to_R3",
+  "task_type": "fixed_split",
+  "random_state": 42,
+  "test_size": 0.3,
+  "validation_policy": "empty_val_no_model_selection",
+  "train_count": 3669,
+  "val_count": 0,
+  "test_count": 1837,
+  "train_rounds": [
+    "R2",
+    "R4"
+  ],
+  "test_rounds": [
+    "R3"
+  ]
+}

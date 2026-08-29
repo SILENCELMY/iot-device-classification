@@ -1,0 +1,18 @@
+{
+  "task": "position_R2_R3_R4_to_R5",
+  "task_type": "fixed_split",
+  "random_state": 42,
+  "test_size": 0.3,
+  "validation_policy": "empty_val_no_model_selection",
+  "train_count": 5506,
+  "val_count": 0,
+  "test_count": 1816,
+  "train_rounds": [
+    "R2",
+    "R3",
+    "R4"
+  ],
+  "test_rounds": [
+    "R5"
+  ]
+}

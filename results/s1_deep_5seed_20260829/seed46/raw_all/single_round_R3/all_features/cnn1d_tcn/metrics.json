@@ -1,0 +1,67 @@
+{
+  "filter_mode": "raw_all",
+  "task": "single_round_R3",
+  "task_type": "single_round",
+  "scenario": "IID",
+  "train_rounds": [
+    "R3"
+  ],
+  "test_rounds": [
+    "R3"
+  ],
+  "train_samples": 1285,
+  "test_samples": 552,
+  "feature_set": "all_features",
+  "model": "cnn1d_tcn",
+  "feature_count": 94,
+  "parameter_count": 814854,
+  "accuracy": 0.947463768115942,
+  "precision": 0.9468742906089049,
+  "recall": 0.9472357595293375,
+  "macro_f1": 0.9469527507756241,
+  "per_class_f1": {
+    "Camera": 0.9771689497716894,
+    "Light_T1": 0.9819819819819819,
+    "Light_XM": 0.8918918918918919,
+    "Sensor": 0.8837209302325582,
+    "Socket": 1.0
+  },
+  "confusion_matrix": [
+    [
+      107,
+      1,
+      0,
+      2,
+      0
+    ],
+    [
+      0,
+      109,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      2,
+      99,
+      9,
+      0
+    ],
+    [
+      1,
+      1,
+      12,
+      95,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      113
+    ]
+  ],
+  "source": "strict_split_trained"
+}

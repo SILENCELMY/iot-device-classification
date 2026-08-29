@@ -1,0 +1,16 @@
+{
+  "task": "single_round_R4",
+  "task_type": "single_round",
+  "random_state": 42,
+  "test_size": 0.3,
+  "validation_policy": "empty_val_no_model_selection",
+  "train_count": 1297,
+  "val_count": 0,
+  "test_count": 556,
+  "train_rounds": [
+    "R4"
+  ],
+  "test_rounds": [
+    "R4"
+  ]
+}
