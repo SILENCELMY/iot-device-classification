@@ -229,7 +229,7 @@ res.notes          # 人读的剔除说明
 
 ### 5.2 ~~`six_env_off_diag_frobenius_rf.csv` 六环境矩阵~~ — 明确废弃
 
-**废弃原因**：其 `env_mapping`（`six_env_confusion_similarity.py` 第 33-39 行）把
+**废弃原因**：其 `env_mapping`（原 `six_env_confusion_similarity.py` 所载，2026-08-29 重写后已移除，见下）把
 R2/R3/R4 指向 `single_round_*`（**IID 模型**）、R5/R6/R7 指向 `position_*`/`jitter_*`（**OOD 模型**），
 **矩阵不同质**——同一个矩阵里混了两类根本不同的模型状态。
 
@@ -247,9 +247,15 @@ env_mapping = {
 
 **替代方案**：协议 §8.5 的 G0 网格中 `|S|=1` 的 30 个有序对构成**同质**的环境×环境拓扑矩阵。
 `six_env_confusion_similarity.py` 的 `env_mapping` 应改读 G0 的 `|S|=1` 结果（协议 §20.2）。
+**已实施（2026-08-29）**：脚本按 §20.2 整体重写（口径见 `EXECUTION_PLAN_20260829.md` D4：
+单元格 = `cpd_y(ref=CM_iid(i), tgt=CM_{i→j})`，time_block / random 双参照；计算只经 `cpd_core`）；
+废弃 `env_mapping` 连同 cosine 相似度与旧解读报告生成路径一并移除，旧实现在 git 历史可溯。
+产物：`results/g0_environment_grid/env_topology_*.csv` + `TOPOLOGY_MATRIX_NOTE.md`。
 
-**旧文件处置**：移入 `legacy/`。在此之前，`test_hist_0_1521_six_env_pairwise` 会重建该矩阵
-并与落盘 CSV 逐格核对——**该测试只为复现历史数字，不构成对该口径的认可**。
+**旧文件处置**：~~移入 `legacy/`~~（**2026-08-29 废止**：`legacy/` 不入库，移动会使
+`test_hist_0_1521_six_env_pairwise` 失去可版本化的逐格核对对象。`six_env_off_diag_frobenius_rf.csv`
+**原地保留**于 `results/robust_v2/report/`，作为回归门的锁定历史源）。
+该测试只为复现历史数字，**不构成对该口径的认可**（原说明不变）。
 
 ### 5.3 ~~"无标签 CPD"这一叫法~~ — 统一改称 `UDS`
 

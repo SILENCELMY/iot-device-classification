@@ -1,499 +1,470 @@
 #!/usr/bin/env python3
-"""
-Six-Environment Confusion Similarity Matrix Analysis
-目标: 为 R2-R7 六个物理环境生成 6×6 混淆模式相似度矩阵
-重点: Off-diagonal Frobenius Distance + Cosine Similarity
-"""
+"""同质环境×环境拓扑矩阵 —— 由 G0 网格 `|S|=1` 的 30 个有序对构成。
 
-import pandas as pd
-import numpy as np
-import os
-os.environ.setdefault('MPLCONFIGDIR', '/tmp/matplotlib')
-import matplotlib.pyplot as plt
-import seaborn as sns
+协议依据
+--------
+* §8.5 第 5 条：`|S|=1` 的 30 个有序对构成**同质**的环境×环境拓扑矩阵，
+  替代已废弃的六环境 pairwise 矩阵；
+* §20.2：本文件的 `env_mapping`（旧第 33-39 行）改读 G0 的 `|S|=1` 结果；
+* §11：`CPD_y` / `CPD_dir` 的唯一实现是 `cpd_core`，本文件不得保留私有副本；
+* §4.2 / §4.3：`CPD_y`、`CPD_dir` 的定义与逐行 `n_err ≥ 20` 门槛；
+* §8.4：`single_round` 的随机分层划分只能称「session 内上界」，必须并列报告
+  按 `window_start` 分块的时间划分数值 —— 故 IID 参照出 `time_block` / `random` 两个变体。
+
+执行口径：`docs/EXECUTION_PLAN_20260829.md` 决策 D4。
+
+废弃说明（§4.4 / `docs/CPD_DEFINITIONS.md` §5.2）
+------------------------------------------------
+旧实现的 `env_mapping` 把 R2/R3/R4 指向 `single_round_*`（IID 模型）、
+R5/R6/R7 指向 `position_*` / `jitter_*`（OOD 模型），**矩阵不同质**，已明确废弃。
+旧产物 `results/robust_v2/report/six_env_off_diag_frobenius_rf.csv` 保持原样不动
+（`test_cpd_core.py::test_hist_0_1521_six_env_pairwise` 仍以它复现历史值 0.1521）。
+本文件不再读写该路径。
+
+矩阵语义（D4 已定，不得更改）
+----------------------------
+6×6；行 = 源环境 i，列 = 目标环境 j（i ≠ j，共 30 个有序对）::
+
+    cell[i, j] = cpd_core.cpd_y(ref=CM(g0_iid_R{i}_{variant}),
+                                tgt=CM(g0_R{i}_to_R{j}))
+
+对角线 `i == j` 在 G0 中无对应的 `|S|=1` 任务 → 置 NaN。
+参照系两个变体（均为支撑材料，§8.6）：
+`time_block` 为 primary（诚实域内参照），`random` 为 secondary（与历史 IID 参照口径可比）。
+
+输入（一律读 G0 落盘 CSV，不重训、不重算预测）
+--------------------------------------------
+    results/g0_environment_grid/raw_all/g0_R{i}_to_R{j}/{feature_set}/{model}/confusion_matrix.csv
+    results/g0_environment_grid/raw_all/g0_iid_R{i}_{variant}/{feature_set}/{model}/confusion_matrix.csv
+
+输出（写入 `--output-dir`，默认 `results/g0_environment_grid/`）
+-------------------------------------------------------------
+    env_topology_cpd_y_ref_time_block_{model}.csv   6×6 CPD_y（primary 参照）
+    env_topology_cpd_y_ref_random_{model}.csv       6×6 CPD_y（secondary 参照）
+    env_topology_macro_f1_from_cm_{model}.csv       由 30 个 CM 重算的 macro-F1 核对表
+    env_topology_cpd_dir_ref_time_block_{model}.csv 6×6 CPD_dir（仅覆盖率评估，未达准入置 NaN）
+    env_topology_cpd_dir_coverage_{model}.csv       CPD_dir 逐对逐行准入明细
+
+核对（硬门）
+-----------
+重算的 macro-F1 矩阵必须与 G0 落盘的 `env_topology_matrix_{model}.csv` 逐格一致
+（容差 1e-6，协议 §22.1 P1 回归容差）。超差即退出码 2，不写任何输出。
+
+用法::
+
+    python3 code/scripts/analysis/six_env_confusion_similarity.py
+    python3 code/scripts/analysis/six_env_confusion_similarity.py --model rf --dry-run
+"""
+from __future__ import annotations
+
+import argparse
+import sys
 from pathlib import Path
-from scipy.spatial.distance import cosine
-from sklearn.metrics import confusion_matrix
-import json
-
-# 配置中文字体
-plt.rcParams['font.sans-serif'] = ['Noto Sans CJK SC', 'AR PL UMing CN', 'SimHei', 'DejaVu Sans']
-plt.rcParams['axes.unicode_minus'] = False
-
-
-class SixEnvConfusionAnalyzer:
-    """分析 R2-R7 六个环境的混淆模式相似度"""
-
-    def __init__(self, results_root: str):
-        self.results_root = Path(results_root)
-        self.class_names = ['Camera', 'Light_T1', 'Light_XM', 'Sensor', 'Socket']
-        self.n_classes = len(self.class_names)
-
-        # 环境映射 (key -> task_dir)
-        self.env_mapping = {
-            'R2': 'single_round_R2',
-            'R3': 'single_round_R3',
-            'R4': 'single_round_R4',
-            'R5': 'position_R2_R3_R4_to_R5',
-            'R6': 'jitter_R2_R3_R4_to_R6',
-            'R7': 'jitter_R2_R3_R4_to_R7',
-        }
-
-    def load_predictions(self, env_key: str, model: str = 'rf',
-                        feature_set: str = 'all_features') -> pd.DataFrame:
-        """加载指定环境的预测结果"""
-        task_dir = self.env_mapping[env_key]
-        pred_path = self.results_root / task_dir / feature_set / model / 'predictions.csv'
-
-        if not pred_path.exists():
-            raise FileNotFoundError(f"Predictions not found: {pred_path}")
-
-        return pd.read_csv(pred_path)
-
-    def compute_normalized_cm(self, pred_df: pd.DataFrame,
-                             normalize: str = 'row') -> np.ndarray:
-        """
-        从预测结果计算归一化混淆矩阵
-        normalize: 'row' (按真实类别归一化), 'all' (全局归一化), None (不归一化)
-        """
-        y_true = pred_df['true_label'].values
-        y_pred = pred_df['predicted_label'].values
-
-        cm = confusion_matrix(y_true, y_pred, labels=self.class_names)
-
-        if normalize == 'row':
-            # 按行归一化 (每个真实类别的预测分布)
-            row_sums = cm.sum(axis=1, keepdims=True)
-            row_sums[row_sums == 0] = 1  # 避免除零
-            cm_norm = cm / row_sums
-        elif normalize == 'all':
-            total = cm.sum()
-            cm_norm = cm / total if total > 0 else cm
-        else:
-            cm_norm = cm.astype(float)
-
-        return cm_norm
-
-    def off_diagonal_frobenius(self, cm1: np.ndarray, cm2: np.ndarray) -> float:
-        """
-        计算两个混淆矩阵的 Off-diagonal Frobenius Distance
-        去掉对角线后只关注错误分布的差异
-        """
-        cm1_off = cm1.copy()
-        cm2_off = cm2.copy()
-
-        # 将对角线置零
-        np.fill_diagonal(cm1_off, 0)
-        np.fill_diagonal(cm2_off, 0)
-
-        return np.linalg.norm(cm1_off - cm2_off, ord='fro')
-
-    def cosine_similarity_flatten(self, cm1: np.ndarray, cm2: np.ndarray) -> float:
-        """计算两个混淆矩阵 flatten 后的余弦相似度"""
-        v1 = cm1.flatten()
-        v2 = cm2.flatten()
-        return 1 - cosine(v1, v2)
-
-    def compute_similarity_matrices(self, env_keys: list, model: str = 'rf',
-                                   feature_set: str = 'all_features') -> tuple:
-        """
-        计算环境间的相似度矩阵
-        返回: (off_diag_fro_matrix, cosine_sim_matrix, cms_dict)
-        """
-        n = len(env_keys)
-        off_diag_fro = np.zeros((n, n))
-        cosine_sim = np.zeros((n, n))
-        cms_dict = {}
-
-        print(f"\n加载 {n} 个环境的混淆矩阵...")
-        for env_key in env_keys:
-            pred_df = self.load_predictions(env_key, model, feature_set)
-            cm_norm = self.compute_normalized_cm(pred_df, normalize='row')
-            cms_dict[env_key] = cm_norm
-            print(f"  {env_key}: {len(pred_df)} 样本")
-
-        print("\n计算成对相似度...")
-        for i, env1 in enumerate(env_keys):
-            for j, env2 in enumerate(env_keys):
-                cm1 = cms_dict[env1]
-                cm2 = cms_dict[env2]
-
-                if i == j:
-                    # 对角线
-                    off_diag_fro[i, j] = 0.0
-                    cosine_sim[i, j] = 1.0
-                else:
-                    off_diag_fro[i, j] = self.off_diagonal_frobenius(cm1, cm2)
-                    cosine_sim[i, j] = self.cosine_similarity_flatten(cm1, cm2)
-
-        return off_diag_fro, cosine_sim, cms_dict
-
-    def visualize_similarity_matrices(self, env_keys: list,
-                                     off_diag_fro: np.ndarray,
-                                     cosine_sim: np.ndarray,
-                                     output_dir: Path):
-        """可视化 6×6 相似度矩阵"""
-        fig, axes = plt.subplots(1, 2, figsize=(18, 7))
-
-        # 1. Off-diagonal Frobenius Distance (越小越相似)
-        ax1 = axes[0]
-        sns.heatmap(off_diag_fro, annot=True, fmt='.3f', cmap='YlOrRd',
-                   xticklabels=env_keys, yticklabels=env_keys, ax=ax1,
-                   cbar_kws={'label': 'Off-diagonal Frobenius Distance'},
-                   square=True, linewidths=0.5, linecolor='gray')
-        ax1.set_title('环境间混淆模式差异 (Off-diagonal Frobenius Distance)',
-                     fontsize=14, fontweight='bold', pad=15)
-        ax1.set_xlabel('环境 (Environment)', fontsize=12)
-        ax1.set_ylabel('环境 (Environment)', fontsize=12)
-
-        # 2. Cosine Similarity (越大越相似)
-        ax2 = axes[1]
-        sns.heatmap(cosine_sim, annot=True, fmt='.3f', cmap='RdYlGn',
-                   xticklabels=env_keys, yticklabels=env_keys, ax=ax2,
-                   vmin=0, vmax=1,
-                   cbar_kws={'label': 'Cosine Similarity'},
-                   square=True, linewidths=0.5, linecolor='gray')
-        ax2.set_title('环境间混淆模式相似度 (Cosine Similarity)',
-                     fontsize=14, fontweight='bold', pad=15)
-        ax2.set_xlabel('环境 (Environment)', fontsize=12)
-        ax2.set_ylabel('环境 (Environment)', fontsize=12)
-
-        plt.tight_layout()
-        output_path = output_dir / 'six_env_similarity_matrices_rf.png'
-        plt.savefig(output_path, dpi=300, bbox_inches='tight')
-        print(f"✅ 相似度矩阵可视化已保存: {output_path.name}")
-        plt.close()
-
-    def visualize_individual_cms(self, env_keys: list, cms_dict: dict,
-                                output_dir: Path):
-        """可视化 6 个环境各自的归一化混淆矩阵"""
-        fig, axes = plt.subplots(2, 3, figsize=(18, 12))
-        axes = axes.flatten()
-
-        for idx, env_key in enumerate(env_keys):
-            ax = axes[idx]
-            cm = cms_dict[env_key]
-
-            sns.heatmap(cm, annot=True, fmt='.2f', cmap='Blues',
-                       xticklabels=self.class_names,
-                       yticklabels=self.class_names,
-                       ax=ax, vmin=0, vmax=1, cbar=True,
-                       linewidths=0.5, linecolor='gray')
-
-            # 计算关键指标
-            diag_mean = np.diag(cm).mean()  # 平均正确率
-            macro_recall = np.diag(cm).mean()
-
-            ax.set_title(f'{env_key} 归一化混淆矩阵\n平均召回率: {macro_recall:.3f}',
-                        fontsize=12, fontweight='bold')
-            ax.set_xlabel('预测类别 (Predicted)', fontsize=10)
-            ax.set_ylabel('真实类别 (True)', fontsize=10)
-
-        plt.tight_layout()
-        output_path = output_dir / 'six_env_normalized_cms_rf.png'
-        plt.savefig(output_path, dpi=300, bbox_inches='tight')
-        print(f"✅ 独立混淆矩阵可视化已保存: {output_path.name}")
-        plt.close()
-
-    def compute_per_class_recall(self, env_keys: list, cms_dict: dict) -> pd.DataFrame:
-        """计算每个环境每个类别的召回率"""
-        data = []
-        for env_key in env_keys:
-            cm = cms_dict[env_key]
-            for i, class_name in enumerate(self.class_names):
-                recall = cm[i, i]  # 归一化后对角线即为召回率
-                data.append({
-                    'environment': env_key,
-                    'class': class_name,
-                    'recall': recall
-                })
-        return pd.DataFrame(data)
-
-    def generate_report(self, env_keys: list, off_diag_fro: np.ndarray,
-                       cosine_sim: np.ndarray, cms_dict: dict,
-                       output_dir: Path, model: str = 'rf'):
-        """生成中文分析报告"""
-        report_lines = []
-
-        # 标题
-        report_lines.append("# R2-R7 六环境混淆模式相似度矩阵分析\n")
-        report_lines.append(f"**评估模型**: 随机森林 (RF)  \n")
-        report_lines.append(f"**特征集**: 全量特征 (all_features)  \n")
-        report_lines.append(f"**分析日期**: 2026-06-23  \n\n")
-
-        report_lines.append("---\n\n")
-
-        # 执行摘要
-        report_lines.append("## 执行摘要\n\n")
-
-        # 找到相似度最高和最低的环境对
-        n = len(env_keys)
-        max_cos_sim = -1
-        min_cos_sim = 2
-        max_pair = None
-        min_pair = None
-
-        for i in range(n):
-            for j in range(i+1, n):
-                sim = cosine_sim[i, j]
-                if sim > max_cos_sim:
-                    max_cos_sim = sim
-                    max_pair = (env_keys[i], env_keys[j])
-                if sim < min_cos_sim:
-                    min_cos_sim = sim
-                    min_pair = (env_keys[i], env_keys[j])
-
-        report_lines.append(f"通过对 R2-R7 六个物理环境的混淆矩阵进行系统性对比分析，揭示了以下关键模式：\n\n")
-        report_lines.append(f"1. **IID 环境内部高度一致**：R2、R3、R4 三个独立同分布训练环境之间的混淆模式高度相似")
-        report_lines.append(f"（最高余弦相似度 {max_cos_sim:.3f}，对应 {max_pair[0]}↔{max_pair[1]}）。\n")
-        report_lines.append(f"2. **OOD 环境显著漂移**：位置漂移（R5）和抖动漂移（R6/R7）环境与 IID 基准存在结构性差异")
-        report_lines.append(f"（最低余弦相似度 {min_cos_sim:.3f}，对应 {min_pair[0]}↔{min_pair[1]}）。\n")
-        report_lines.append(f"3. **类别异构性明显**：Socket 类别在所有环境保持近乎完美分类（召回率 ~1.0），而 Sensor/Light_T1 ")
-        report_lines.append(f"在跨环境场景下表现出极高的混淆模式不稳定性。\n\n")
-
-        report_lines.append("---\n\n")
-
-        # 1. Off-diagonal Frobenius Distance 矩阵
-        report_lines.append("## 1. Off-diagonal Frobenius Distance 矩阵\n\n")
-        report_lines.append("**说明**：去除对角线元素后计算的 Frobenius 距离，专注于错误分布模式的差异。数值越小表示混淆模式越相似。\n\n")
-        report_lines.append("![Off-diagonal Frobenius Distance](six_env_similarity_matrices_rf.png)\n\n")
-
-        # 生成 markdown 表格
-        report_lines.append("| 环境 |")
-        for env in env_keys:
-            report_lines.append(f" {env} |")
-        report_lines.append("\n|---|")
-        for _ in env_keys:
-            report_lines.append("---|")
-        report_lines.append("\n")
-
-        for i, env1 in enumerate(env_keys):
-            report_lines.append(f"| **{env1}** |")
-            for j in range(len(env_keys)):
-                report_lines.append(f" {off_diag_fro[i, j]:.4f} |")
-            report_lines.append("\n")
-
-        report_lines.append("\n")
-
-        # 2. Cosine Similarity 矩阵
-        report_lines.append("## 2. Cosine Similarity 矩阵\n\n")
-        report_lines.append("**说明**：将混淆矩阵展平为向量后计算余弦相似度。数值越大（接近 1）表示混淆模式越相似。\n\n")
-
-        report_lines.append("| 环境 |")
-        for env in env_keys:
-            report_lines.append(f" {env} |")
-        report_lines.append("\n|---|")
-        for _ in env_keys:
-            report_lines.append("---|")
-        report_lines.append("\n")
-
-        for i, env1 in enumerate(env_keys):
-            report_lines.append(f"| **{env1}** |")
-            for j in range(len(env_keys)):
-                report_lines.append(f" {cosine_sim[i, j]:.4f} |")
-            report_lines.append("\n")
-
-        report_lines.append("\n")
-
-        # 3. 独立混淆矩阵可视化
-        report_lines.append("## 3. 各环境归一化混淆矩阵\n\n")
-        report_lines.append("![六环境归一化混淆矩阵](six_env_normalized_cms_rf.png)\n\n")
-
-        # 4. 逐类别召回率分析
-        report_lines.append("## 4. 逐类别召回率对比\n\n")
-        per_class_recall_df = self.compute_per_class_recall(env_keys, cms_dict)
-
-        report_lines.append("| 类别 |")
-        for env in env_keys:
-            report_lines.append(f" {env} |")
-        report_lines.append("\n|---|")
-        for _ in env_keys:
-            report_lines.append("---|")
-        report_lines.append("\n")
-
-        for class_name in self.class_names:
-            report_lines.append(f"| **{class_name}** |")
-            for env in env_keys:
-                recall = per_class_recall_df[
-                    (per_class_recall_df['environment'] == env) &
-                    (per_class_recall_df['class'] == class_name)
-                ]['recall'].values[0]
-                report_lines.append(f" {recall:.3f} |")
-            report_lines.append("\n")
-
-        report_lines.append("\n")
-
-        # 5. 关键发现
-        report_lines.append("## 5. 核心发现与机制分析\n\n")
-
-        report_lines.append("### 5.1 IID 环境的混淆一致性\n\n")
-        # 计算 R2-R3-R4 内部的平均相似度
-        iid_pairs = [('R2', 'R3'), ('R2', 'R4'), ('R3', 'R4')]
-        iid_cos_sims = []
-        for env1, env2 in iid_pairs:
-            i = env_keys.index(env1)
-            j = env_keys.index(env2)
-            iid_cos_sims.append(cosine_sim[i, j])
-        avg_iid_sim = np.mean(iid_cos_sims)
-
-        report_lines.append(f"R2、R3、R4 三个独立同分布环境之间的平均余弦相似度为 **{avg_iid_sim:.4f}**，")
-        report_lines.append(f"表明在相同的训练与测试环境下，随机森林模型产生的混淆模式具有极高的可复现性。\n\n")
-
-        report_lines.append("**机制解释**：\n")
-        report_lines.append("- IID 场景下，模型在训练集与测试集上面对的是**相同的特征分布和相同的类条件概率** `P(X|Y)`。\n")
-        report_lines.append("- 决策边界在不同轮次之间保持稳定，因此混淆模式（即错误分类的方向和强度）高度一致。\n")
-        report_lines.append("- 这种一致性为评估跨环境漂移提供了**稳定的 IID 基准**。\n\n")
-
-        report_lines.append("### 5.2 OOD 环境的混淆漂移\n\n")
-
-        # 计算 IID→OOD 的平均相似度
-        ood_envs = ['R5', 'R6', 'R7']
-        iid_envs = ['R2', 'R3', 'R4']
-        iid_ood_cos_sims = []
-        for iid_env in iid_envs:
-            for ood_env in ood_envs:
-                i = env_keys.index(iid_env)
-                j = env_keys.index(ood_env)
-                iid_ood_cos_sims.append(cosine_sim[i, j])
-        avg_iid_ood_sim = np.mean(iid_ood_cos_sims)
-
-        report_lines.append(f"IID 环境（R2/R3/R4）与 OOD 环境（R5/R6/R7）之间的平均余弦相似度为 **{avg_iid_ood_sim:.4f}**，")
-        report_lines.append(f"显著低于 IID 内部相似度（{avg_iid_sim:.4f}），")
-        report_lines.append(f"下降幅度达 **{(avg_iid_sim - avg_iid_ood_sim)/avg_iid_sim*100:.1f}%**。\n\n")
-
-        report_lines.append("**机制解释**：\n")
-        report_lines.append("- R5（位置漂移）、R6/R7（抖动漂移）的测试样本虽然仍是五种设备，但由于**物理环境变化**")
-        report_lines.append("（位置变化导致信道特征偏移，抖动导致时序统计特征波动），提取到的流量统计特征发生了偏移。\n")
-        report_lines.append("- 模型是在 R2+R3+R4 联合训练集上学习的决策边界，当应用于 R5/R6/R7 测试集时，")
-        report_lines.append("**类条件分布 `P(X|Y)` 发生了漂移**，导致混淆模式结构性改变。\n")
-        report_lines.append("- 例如：Sensor 类别在 R2 的召回率为 1.000，但在 R5 下降至")
-
-        # 计算 Sensor 在各环境的召回率
-        sensor_recalls = {}
-        for env in env_keys:
-            cm = cms_dict[env]
-            sensor_idx = self.class_names.index('Sensor')
-            sensor_recalls[env] = cm[sensor_idx, sensor_idx]
-
-        report_lines.append(f" {sensor_recalls['R5']:.3f}，在 R6 下降至 {sensor_recalls['R6']:.3f}，")
-        report_lines.append(f"在 R7 为 {sensor_recalls['R7']:.3f}。\n\n")
-
-        report_lines.append("### 5.3 Socket 作为\"锚定类别\"的对比作用\n\n")
-
-        # Socket 召回率
-        socket_recalls = {}
-        for env in env_keys:
-            cm = cms_dict[env]
-            socket_idx = self.class_names.index('Socket')
-            socket_recalls[env] = cm[socket_idx, socket_idx]
-
-        socket_min = min(socket_recalls.values())
-        socket_max = max(socket_recalls.values())
-
-        report_lines.append(f"Socket 类别在所有 6 个环境中的召回率保持在 [{socket_min:.3f}, {socket_max:.3f}] 范围内，")
-        report_lines.append(f"接近完美分类。这表明 **Socket 的流量特征具有极高的环境不变性**。\n\n")
-
-        report_lines.append("**对比启示**：\n")
-        report_lines.append("- Socket 与 Sensor/Light_T1 的对比揭示了**特征鲁棒性的异构性**：\n")
-        report_lines.append("  - Socket：流量模式稳定（大包、持续连接）→ 跨环境鲁棒。\n")
-        report_lines.append("  - Sensor：流量模式脆弱（小包、周期性）→ 易受信道噪声和抖动干扰。\n")
-        report_lines.append("- 这种异构性导致**混淆模式的类条件漂移**，即不同类别在跨环境时的混淆方向和强度发生不对称变化。\n\n")
-
-        report_lines.append("### 5.4 与 LORO 崩溃场景的关联\n\n")
-
-        report_lines.append("在 `COMPREHENSIVE_OOD_ANALYSIS.md` 报告中，LORO R2+R4→R3 场景下 Stacking 集成方法发生了灾难性崩溃")
-        report_lines.append("（Macro-F1 从最佳基模型的 0.615 下降至 0.546）。本分析揭示的混淆模式漂移提供了直接证据：\n\n")
-
-        report_lines.append("- **训练集混淆模式**：Stacking 元学习器在 R2+R4 的 OOF 预测上训练，学习到的是 R2 与 R4 的混淆规律。\n")
-        report_lines.append("- **测试集混淆模式**：在 R3 上测试时，基模型的预测概率分布已经发生了偏移")
-        report_lines.append(f"（如本分析所示，R2↔R3 的余弦相似度为 {cosine_sim[0, 1]:.4f}，")
-        report_lines.append(f"但 R2+R4 联合训练模型在 R3 上的混淆模式与 R3 IID 场景存在更大偏差）。\n")
-        report_lines.append("- **元学习器失配**：元学习器基于 R2+R4 的混淆规律做出的纠错策略，")
-        report_lines.append("在 R3 的不同混淆模式下不仅无法改善反而强化了错误。\n\n")
-
-        report_lines.append("**结论**：混淆模式漂移是跨环境泛化失效的核心机制之一，单纯的特征分布对齐（如 CORAL）")
-        report_lines.append("无法解决这一问题，需要针对**类条件混淆模式**设计自适应算法。\n\n")
-
-        report_lines.append("---\n\n")
-
-        # 保存报告
-        report_path = output_dir / f'six_env_confusion_similarity_{model}.md'
-        with open(report_path, 'w', encoding='utf-8') as f:
-            f.writelines(report_lines)
-        print(f"✅ 中文分析报告已保存: {report_path.name}")
-
-        return report_path
-
-
-def main():
-    """主函数"""
-    import argparse
-
-    parser = argparse.ArgumentParser(
-        description='Six-Environment Confusion Similarity Matrix Analysis'
+
+import numpy as np
+import pandas as pd
+from sklearn.metrics import precision_recall_fscore_support
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import cpd_core  # noqa: E402
+from cpd_core import cpd_dir, cpd_y, off  # noqa: E402
+
+#: 六个物理环境（§3.1）。行 = 源，列 = 目标。
+ENVIRONMENTS = ["R2", "R3", "R4", "R5", "R6", "R7"]
+
+#: 类别轴顺序（`CPD_DEFINITIONS.md` §1.2，历史脚本一致约定）。
+CLASS_ORDER = ["Camera", "Light_T1", "Light_XM", "Sensor", "Socket"]
+
+#: IID 参照的两个划分变体（§8.4）。primary 在前。
+IID_VARIANTS = ("time_block", "random")
+PRIMARY_VARIANT = "time_block"
+
+#: 与落盘 macro-F1 拓扑矩阵比对的容差（§22.1 P1）。
+CHECK_TOL = 1e-6
+
+DEFAULT_RESULTS_ROOT = REPO_ROOT / "results" / "g0_environment_grid" / "raw_all"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "results" / "g0_environment_grid"
+
+
+# --------------------------------------------------------------------------
+# G0 任务名与混淆矩阵读取
+# --------------------------------------------------------------------------
+
+def pair_task_name(src: str, tgt: str) -> str:
+    """`|S|=1` 有序对任务名（`environment_grid_experiment.build_task_grid` 的命名）。"""
+    return f"g0_{src}_to_{tgt}"
+
+
+def iid_task_name(env: str, variant: str) -> str:
+    """同环境 IID 任务名。variant ∈ {`time_block`, `random`}（§8.4 两种划分）。"""
+    if variant not in IID_VARIANTS:
+        raise ValueError(f"未知 IID 划分变体 {variant!r}，只允许 {IID_VARIANTS}")
+    return f"g0_iid_{env}_{variant}"
+
+
+def load_cm(results_root: Path, task: str, model: str, feature_set: str) -> np.ndarray:
+    """读取**原始计数**混淆矩阵。CSV 带 UTF-8 BOM，用 utf-8-sig 读。
+
+    同时校验类别轴顺序与 `CLASS_ORDER` 完全一致——`CPD_y` / `CPD_dir` 逐元素比较，
+    轴序不一致会静默给出错误结果。
+    """
+    path = results_root / task / feature_set / model / "confusion_matrix.csv"
+    if not path.exists():
+        raise FileNotFoundError(f"混淆矩阵缺失：{path}")
+    df = pd.read_csv(path, index_col=0, encoding="utf-8-sig")
+    idx = [str(i) for i in df.index]
+    cols = [str(c) for c in df.columns]
+    if idx != CLASS_ORDER or cols != CLASS_ORDER:
+        raise ValueError(
+            f"{path} 的类别轴与约定不符：index={idx} columns={cols} "
+            f"期望 {CLASS_ORDER}"
+        )
+    return df.values.astype(float)
+
+
+def load_pair_cms(results_root: Path, model: str, feature_set: str) -> dict[tuple[str, str], np.ndarray]:
+    """加载 30 个 `|S|=1` 有序对的混淆矩阵，键为 `(源, 目标)`。"""
+    cms: dict[tuple[str, str], np.ndarray] = {}
+    for src in ENVIRONMENTS:
+        for tgt in ENVIRONMENTS:
+            if src == tgt:
+                continue
+            cms[(src, tgt)] = load_cm(results_root, pair_task_name(src, tgt), model, feature_set)
+    return cms
+
+
+def load_iid_cms(results_root: Path, variant: str, model: str,
+                 feature_set: str) -> dict[str, np.ndarray]:
+    """加载 6 个同环境 IID 参照的混淆矩阵（指定划分变体）。"""
+    return {
+        env: load_cm(results_root, iid_task_name(env, variant), model, feature_set)
+        for env in ENVIRONMENTS
+    }
+
+
+def empty_matrix() -> pd.DataFrame:
+    """6×6 空矩阵；行 = 源环境，列 = 目标环境，对角线保持 NaN。"""
+    mat = pd.DataFrame(np.nan, index=list(ENVIRONMENTS), columns=list(ENVIRONMENTS), dtype=float)
+    mat.index.name = "source_env"
+    return mat
+
+
+# --------------------------------------------------------------------------
+# CPD_y 拓扑矩阵（§4.2，计算只经 cpd_core）
+# --------------------------------------------------------------------------
+
+def build_cpd_y_matrix(pair_cms: dict[tuple[str, str], np.ndarray],
+                       iid_cms: dict[str, np.ndarray]) -> pd.DataFrame:
+    """`cell[i, j] = cpd_y(ref=CM_iid(i), tgt=CM_{i→j})`（D4 语义）。"""
+    mat = empty_matrix()
+    for (src, tgt), cm in pair_cms.items():
+        mat.loc[src, tgt] = cpd_y(iid_cms[src], cm)
+    return mat
+
+
+# --------------------------------------------------------------------------
+# CPD_dir 覆盖率评估（§4.3：n_err ≥ 20 行准入，不达标置 NaN，不强算）
+# --------------------------------------------------------------------------
+
+def build_cpd_dir_matrix(pair_cms: dict[tuple[str, str], np.ndarray],
+                         iid_cms: dict[str, np.ndarray],
+                         ref_variant: str,
+                         ) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """`CPD_dir` 拓扑矩阵 + 逐对逐行准入明细。
+
+    门槛固定为 `cpd_core.DEFAULT_MIN_ERR`（协议 §4.3 的 20），**不提供放宽入口**。
+    ref 或 tgt 任一侧 `n_err < min_err` 的行整行剔除；无任何行达标 → 该格 NaN。
+
+    Returns:
+        `(matrix, coverage)`；`coverage` 每行对应一个有序对。
+    """
+    min_err = cpd_core.DEFAULT_MIN_ERR
+    mat = empty_matrix()
+    records: list[dict] = []
+
+    for src in ENVIRONMENTS:
+        for tgt in ENVIRONMENTS:
+            if src == tgt:
+                continue
+            ref_cm = iid_cms[src]
+            tgt_cm = pair_cms[(src, tgt)]
+            res = cpd_dir(ref_cm, tgt_cm, min_err=min_err)
+            mat.loc[src, tgt] = res.value  # 未定义时 cpd_core 已返回 NaN
+
+            reasons = []
+            for i in res.excluded_rows:
+                ref_low = res.n_err_ref[i] < min_err
+                tgt_low = res.n_err_tgt[i] < min_err
+                reason = "both_below" if (ref_low and tgt_low) else ("ref_below" if ref_low else "tgt_below")
+                reasons.append(f"{CLASS_ORDER[i]}:{reason}")
+
+            rec = {
+                "source_env": src,
+                "target_env": tgt,
+                "ref_task": iid_task_name(src, ref_variant),
+                "tgt_task": pair_task_name(src, tgt),
+                "min_err": min_err,
+                "cpd_dir": res.value,
+                "is_defined": bool(res.is_defined),
+                "n_included_rows": len(res.included_rows),
+                "included_classes": ";".join(CLASS_ORDER[i] for i in res.included_rows),
+                "excluded_classes": ";".join(CLASS_ORDER[i] for i in res.excluded_rows),
+                "exclusion_reasons": ";".join(reasons),
+            }
+            for i, cls in enumerate(CLASS_ORDER):
+                rec[f"n_err_ref_{cls}"] = res.n_err_ref[i]
+            for i, cls in enumerate(CLASS_ORDER):
+                rec[f"n_err_tgt_{cls}"] = res.n_err_tgt[i]
+            records.append(rec)
+
+    return mat, pd.DataFrame(records)
+
+
+def summarize_dir_coverage(coverage: pd.DataFrame) -> dict:
+    """覆盖率统计：多少对可算、纳入行数分布、缺失原因分布（协议 §4.3 要求标注缺失）。"""
+    n_pairs = len(coverage)
+    n_defined = int(coverage["is_defined"].sum())
+    rows_hist = coverage["n_included_rows"].value_counts().sort_index().to_dict()
+
+    reason_counts = {"included": 0, "both_below": 0, "ref_below": 0, "tgt_below": 0}
+    per_class_excluded: dict[str, dict[str, int]] = {
+        c: {"both_below": 0, "ref_below": 0, "tgt_below": 0} for c in CLASS_ORDER
+    }
+    for _, row in coverage.iterrows():
+        reason_counts["included"] += int(row["n_included_rows"])
+        if row["exclusion_reasons"]:
+            for item in str(row["exclusion_reasons"]).split(";"):
+                cls, reason = item.split(":")
+                reason_counts[reason] += 1
+                per_class_excluded[cls][reason] += 1
+
+    return {
+        "n_pairs": n_pairs,
+        "n_defined": n_defined,
+        "n_undefined": n_pairs - n_defined,
+        "n_full_rows": int((coverage["n_included_rows"] == len(CLASS_ORDER)).sum()),
+        "included_rows_hist": {int(k): int(v) for k, v in rows_hist.items()},
+        "row_slots_total": n_pairs * len(CLASS_ORDER),
+        "row_slot_reasons": reason_counts,
+        "per_class_excluded": per_class_excluded,
+    }
+
+
+# --------------------------------------------------------------------------
+# macro-F1 核对表（由同一批 CM 重算，与 G0 落盘矩阵逐格比对）
+# --------------------------------------------------------------------------
+
+def macro_f1_from_cm(cm: np.ndarray) -> float:
+    """由混淆矩阵重算 5-class macro-F1（§10 主指标 1）。
+
+    口径与 `robust_iot_research.metric_summary`（第 914-920 行）严格一致：
+    `precision_recall_fscore_support(labels=CLASS_ORDER, average='macro', zero_division=0)`。
+    这里把计数矩阵展开回 `(y_true, y_pred)` 后调用同一个 sklearn 函数，
+    而不是另写一份 F1 公式——避免出现第二份口径。
+    """
+    counts = np.asarray(cm, dtype=int)
+    y_true: list[str] = []
+    y_pred: list[str] = []
+    for i, true_cls in enumerate(CLASS_ORDER):
+        for j, pred_cls in enumerate(CLASS_ORDER):
+            n = int(counts[i, j])
+            if n:
+                y_true.extend([true_cls] * n)
+                y_pred.extend([pred_cls] * n)
+    _, _, macro_f1, _ = precision_recall_fscore_support(
+        y_true, y_pred, labels=CLASS_ORDER, average="macro", zero_division=0,
     )
-    parser.add_argument('--results-root', type=str, required=True,
-                       help='Root directory of results (e.g., results/robust_v2/raw_all)')
-    parser.add_argument('--model', type=str, default='rf',
-                       help='Model name (rf, lightgbm, xgboost, stacking)')
-    parser.add_argument('--feature-set', type=str, default='all_features',
-                       help='Feature set (all_features, selected_features)')
-    parser.add_argument('--output-dir', type=str, default=None,
-                       help='Output directory for reports')
+    return float(macro_f1)
 
+
+def build_macro_f1_matrix(pair_cms: dict[tuple[str, str], np.ndarray]) -> pd.DataFrame:
+    """由 30 个 `|S|=1` 混淆矩阵重算的 6×6 macro-F1 核对表。"""
+    mat = empty_matrix()
+    for (src, tgt), cm in pair_cms.items():
+        mat.loc[src, tgt] = macro_f1_from_cm(cm)
+    return mat
+
+
+def crosscheck_macro_f1(recomputed: pd.DataFrame, stored_path: Path,
+                        tol: float = CHECK_TOL) -> tuple[float, list[str]]:
+    """与 G0 落盘的 `env_topology_matrix_{model}.csv` 逐格比对。
+
+    Returns:
+        `(最大绝对偏差, 超差单元格说明列表)`。
+    """
+    if not stored_path.exists():
+        raise FileNotFoundError(f"落盘拓扑矩阵缺失，无法核对：{stored_path}")
+    # float_precision="round_trip"：pandas 默认的快速浮点解析会引入约 1 ULP（~2e-16）
+    # 的读回误差，会污染 1e-6 容差核对的偏差读数。此处要求逐位还原写入值。
+    stored = pd.read_csv(stored_path, index_col=0, encoding="utf-8-sig",
+                         float_precision="round_trip")
+    stored.index = [str(i) for i in stored.index]
+    stored.columns = [str(c) for c in stored.columns]
+
+    if list(stored.index) != ENVIRONMENTS or list(stored.columns) != ENVIRONMENTS:
+        raise ValueError(
+            f"{stored_path} 的环境轴与约定不符："
+            f"index={list(stored.index)} columns={list(stored.columns)}"
+        )
+
+    failures: list[str] = []
+    max_dev = 0.0
+    for src in ENVIRONMENTS:
+        for tgt in ENVIRONMENTS:
+            got = recomputed.loc[src, tgt]
+            want = float(stored.loc[src, tgt])
+            if src == tgt:
+                # 对角线两侧都必须是缺失：G0 无 g0_R{i}_to_R{i} 任务。
+                if not (np.isnan(got) and np.isnan(want)):
+                    failures.append(f"[{src},{tgt}] 对角线应为空：stored={want!r} recomputed={got!r}")
+                continue
+            if np.isnan(want):
+                failures.append(f"[{src},{tgt}] 落盘矩阵缺格，无法核对")
+                continue
+            dev = abs(float(got) - want)
+            max_dev = max(max_dev, dev)
+            if dev > tol:
+                failures.append(
+                    f"[{src},{tgt}] |recomputed − stored| = {dev:.3e} > {tol:.0e}"
+                    f"（recomputed={got!r} stored={want!r}）"
+                )
+    return max_dev, failures
+
+
+# --------------------------------------------------------------------------
+# 入口
+# --------------------------------------------------------------------------
+
+def _print_matrix(title: str, mat: pd.DataFrame) -> None:
+    print(f"\n{title}")
+    print(mat.round(6).to_string(na_rep="-"))
+    row_mean = mat.mean(axis=1, skipna=True)
+    col_mean = mat.mean(axis=0, skipna=True)
+    print("  行均值（源环境）：" + "  ".join(
+        f"{e}={row_mean[e]:.4f}" if np.isfinite(row_mean[e]) else f"{e}=—" for e in ENVIRONMENTS))
+    print("  列均值（目标环境）：" + "  ".join(
+        f"{e}={col_mean[e]:.4f}" if np.isfinite(col_mean[e]) else f"{e}=—" for e in ENVIRONMENTS))
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="同质环境×环境拓扑矩阵（G0 |S|=1，协议 §8.5.5 / §20.2 / D4）",
+    )
+    parser.add_argument("--results-root", type=Path, default=DEFAULT_RESULTS_ROOT,
+                        help="G0 结果根（含 g0_R*_to_R* 与 g0_iid_*），默认 results/g0_environment_grid/raw_all")
+    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR,
+                        help="输出目录，默认 results/g0_environment_grid")
+    parser.add_argument("--model", type=str, default="rf",
+                        help="模型（rf / xgboost / lightgbm / stacking），D4 用 rf")
+    parser.add_argument("--feature-set", type=str, default="all_features",
+                        help="特征集，D4 用 all_features")
+    parser.add_argument("--stored-matrix", type=Path, default=None,
+                        help="用于核对的落盘 macro-F1 拓扑矩阵，默认 <output-dir>/env_topology_matrix_<model>.csv")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="只计算并核对，不写任何文件")
     args = parser.parse_args()
 
-    if args.output_dir is None:
-        args.output_dir = Path(args.results_root).parent / 'report'
+    results_root: Path = args.results_root
+    output_dir: Path = args.output_dir
+    model: str = args.model
+    feature_set: str = args.feature_set
+    stored_matrix: Path = args.stored_matrix or (output_dir / f"env_topology_matrix_{model}.csv")
 
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(exist_ok=True, parents=True)
+    print("=" * 78)
+    print("同质环境×环境拓扑矩阵（G0 |S|=1，30 个有序对）")
+    print("=" * 78)
+    print(f"  结果根   : {results_root}")
+    print(f"  模型/特征: {model} / {feature_set}")
+    print(f"  行 = 源环境 i，列 = 目标环境 j；cell = cpd_y(ref=CM_iid(i), tgt=CM_(i→j))")
+    print(f"  IID 参照 : primary={PRIMARY_VARIANT}，secondary="
+          f"{[v for v in IID_VARIANTS if v != PRIMARY_VARIANT][0]}")
+    print(f"  CPD 实现 : cpd_core（协议 §11 唯一实现），min_err={cpd_core.DEFAULT_MIN_ERR}")
 
-    # 六个环境
-    env_keys = ['R2', 'R3', 'R4', 'R5', 'R6', 'R7']
+    pair_cms = load_pair_cms(results_root, model, feature_set)
+    print(f"\n已加载 {len(pair_cms)} 个 |S|=1 混淆矩阵")
 
-    analyzer = SixEnvConfusionAnalyzer(args.results_root)
+    iid_cms = {v: load_iid_cms(results_root, v, model, feature_set) for v in IID_VARIANTS}
+    for variant in IID_VARIANTS:
+        n_err = {e: off(iid_cms[variant][e]).sum(axis=1).astype(int).tolist() for e in ENVIRONMENTS}
+        print(f"已加载 6 个 IID 参照（{variant}）；逐行误分类计数：")
+        for e in ENVIRONMENTS:
+            print(f"    g0_iid_{e}_{variant:10s} n_err={n_err[e]}")
 
-    print("=" * 80)
-    print("六环境混淆相似度矩阵分析")
-    print("=" * 80)
+    # ---- 硬门：macro-F1 核对（超差即停，不写任何输出）--------------------
+    f1_mat = build_macro_f1_matrix(pair_cms)
+    max_dev, failures = crosscheck_macro_f1(f1_mat, stored_matrix, CHECK_TOL)
+    print(f"\nmacro-F1 核对（30 格 vs {stored_matrix.name}，容差 {CHECK_TOL:.0e}）：")
+    print(f"  最大绝对偏差 = {max_dev:.3e}")
+    if failures:
+        print("  核对未通过：")
+        for f in failures:
+            print(f"    {f}")
+        print("\n按 D4 验收标准，核对不通过 → 停，不写任何输出。")
+        return 2
+    print("  30/30 格一致 ✓")
 
-    # 1. 计算相似度矩阵
-    off_diag_fro, cosine_sim, cms_dict = analyzer.compute_similarity_matrices(
-        env_keys, args.model, args.feature_set
-    )
+    # ---- CPD_y 两个变体 -------------------------------------------------
+    cpd_y_mats = {v: build_cpd_y_matrix(pair_cms, iid_cms[v]) for v in IID_VARIANTS}
+    for variant in IID_VARIANTS:
+        tag = "primary" if variant == PRIMARY_VARIANT else "secondary"
+        _print_matrix(f"CPD_y（ref = g0_iid_R{{i}}_{variant}，{tag}）", cpd_y_mats[variant])
 
-    # 2. 可视化相似度矩阵
-    analyzer.visualize_similarity_matrices(
-        env_keys, off_diag_fro, cosine_sim, output_dir
-    )
+    # ---- CPD_dir 覆盖率评估（只用 primary 参照，§4.3）--------------------
+    dir_mat, coverage = build_cpd_dir_matrix(pair_cms, iid_cms[PRIMARY_VARIANT], PRIMARY_VARIANT)
+    cov = summarize_dir_coverage(coverage)
+    _print_matrix(f"CPD_dir（ref = g0_iid_R{{i}}_{PRIMARY_VARIANT}，min_err="
+                  f"{cpd_core.DEFAULT_MIN_ERR}）", dir_mat)
+    print(f"\nCPD_dir 覆盖率（协议 §4.3，不放宽门槛、不强算）：")
+    print(f"  可算的有序对：{cov['n_defined']}/{cov['n_pairs']}"
+          f"（未定义 {cov['n_undefined']}）")
+    print(f"  5 行全部纳入的对：{cov['n_full_rows']}/{cov['n_pairs']}")
+    print(f"  纳入行数分布：{cov['included_rows_hist']}")
+    print(f"  行槽位（{cov['row_slots_total']} = {cov['n_pairs']}对 × {len(CLASS_ORDER)}类）"
+          f"原因分布：{cov['row_slot_reasons']}")
+    print("  逐类别剔除原因：")
+    for cls in CLASS_ORDER:
+        print(f"    {cls:9s} {cov['per_class_excluded'][cls]}")
 
-    # 3. 可视化独立混淆矩阵
-    analyzer.visualize_individual_cms(env_keys, cms_dict, output_dir)
+    if args.dry_run:
+        print("\n--dry-run：不写文件。")
+        return 0
 
-    # 4. 保存数值结果
-    off_diag_df = pd.DataFrame(off_diag_fro, index=env_keys, columns=env_keys)
-    off_diag_df.to_csv(output_dir / f'six_env_off_diag_frobenius_{args.model}.csv')
-    print(f"✅ Off-diagonal Frobenius 矩阵已保存")
+    # ---- 落盘 ------------------------------------------------------------
+    output_dir.mkdir(parents=True, exist_ok=True)
+    written: list[Path] = []
+    for variant in IID_VARIANTS:
+        p = output_dir / f"env_topology_cpd_y_ref_{variant}_{model}.csv"
+        cpd_y_mats[variant].to_csv(p, encoding="utf-8-sig")
+        written.append(p)
 
-    cosine_df = pd.DataFrame(cosine_sim, index=env_keys, columns=env_keys)
-    cosine_df.to_csv(output_dir / f'six_env_cosine_similarity_{args.model}.csv')
-    print(f"✅ Cosine Similarity 矩阵已保存")
+    p = output_dir / f"env_topology_macro_f1_from_cm_{model}.csv"
+    f1_mat.to_csv(p, encoding="utf-8-sig")
+    written.append(p)
 
-    per_class_recall = analyzer.compute_per_class_recall(env_keys, cms_dict)
-    per_class_recall.to_csv(output_dir / f'six_env_per_class_recall_{args.model}.csv', index=False)
-    print(f"✅ 逐类别召回率已保存")
+    p = output_dir / f"env_topology_cpd_dir_ref_{PRIMARY_VARIANT}_{model}.csv"
+    dir_mat.to_csv(p, encoding="utf-8-sig")
+    written.append(p)
 
-    # 5. 生成报告
-    report_path = analyzer.generate_report(
-        env_keys, off_diag_fro, cosine_sim, cms_dict, output_dir, args.model
-    )
+    p = output_dir / f"env_topology_cpd_dir_coverage_{model}.csv"
+    coverage_cols = [
+        "source_env", "target_env", "ref_task", "tgt_task", "min_err", "cpd_dir",
+        "is_defined", "n_included_rows", "included_classes", "excluded_classes",
+        "exclusion_reasons",
+    ] + [f"n_err_ref_{c}" for c in CLASS_ORDER] + [f"n_err_tgt_{c}" for c in CLASS_ORDER]
+    coverage[coverage_cols].to_csv(p, index=False, encoding="utf-8-sig")
+    written.append(p)
 
-    print("\n" + "=" * 80)
-    print("分析完成！")
-    print(f"报告路径: {report_path}")
-    print("=" * 80)
+    print("\n已写入：")
+    for p in written:
+        try:
+            shown = p.relative_to(REPO_ROOT)
+        except ValueError:
+            shown = p
+        print(f"  {shown}")
+    return 0
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    raise SystemExit(main())

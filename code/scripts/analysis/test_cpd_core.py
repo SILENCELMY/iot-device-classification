@@ -52,7 +52,9 @@ SIX_ENV_CSV = REPO_ROOT / "results" / "robust_v2" / "report" / "six_env_off_diag
 FLAGSHIP_TASK = "loro_R2_R4_to_R3"
 IID_TASKS = ("single_round_R2", "single_round_R3", "single_round_R4")
 
-# 已废弃的六环境 env_mapping（six_env_confusion_similarity.py 第 33-39 行）。
+# 已废弃的六环境 env_mapping（原载于 six_env_confusion_similarity.py；该脚本已于
+# 2026-08-29 按协议 §20.2 重写为读 G0 |S|=1 结果，废弃映射自脚本中移除，
+# 旧实现见 git 历史）。
 # 协议 §4.4 明确废弃：R2/R3/R4 指向 single_round_*（IID 模型），
 # R5/R6/R7 指向 position_*/jitter_*（OOD 模型），矩阵不同质。
 # 此处**故意**保留原映射，仅为复现 0.1521 这一历史值。
