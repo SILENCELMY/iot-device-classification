@@ -1,0 +1,39 @@
+{
+  "days": [
+    "16-09-23",
+    "16-09-30",
+    "16-10-11",
+    "16-10-12"
+  ],
+  "total_packets_per_day": {
+    "16-09-23": 947072,
+    "16-09-30": 802226,
+    "16-10-11": 2073339,
+    "16-10-12": 4948806
+  },
+  "n_known_macs": 31,
+  "n_known_iot_macs": 23,
+  "iot_macs_present_all_days": 11,
+  "iot_macs_present_never": 2,
+  "n_unlisted_unicast_macs": 1,
+  "unlisted_unicast_packets_total": 12938,
+  "top_unlisted": [
+    {
+      "mac": "14:cc:20:51:33:e9",
+      "16-09-23_src": 0,
+      "16-09-23_dst": 3404,
+      "16-09-23_total": 3404,
+      "16-09-30_src": 0,
+      "16-09-30_dst": 3838,
+      "16-09-30_total": 3838,
+      "16-10-11_src": 0,
+      "16-10-11_dst": 3548,
+      "16-10-11_total": 3548,
+      "16-10-12_src": 0,
+      "16-10-12_dst": 2148,
+      "16-10-12_total": 2148,
+      "grand_total": 12938,
+      "days_present": 4
+    }
+  ]
+}

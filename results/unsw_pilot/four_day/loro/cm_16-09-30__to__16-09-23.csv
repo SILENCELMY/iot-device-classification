@@ -1,0 +1,15 @@
+﻿,AmazonEcho,BelkinWemoMotion,BelkinWemoSwitch,Dropcam,HPPrinter,NetatmoWeather,NetatmoWelcome,PIX-STAR,SamsungSmartCam,SmartThings,TPLinkCam,TPLinkPlug,TribySpeaker,WithingsBabyMonitor
+AmazonEcho,1341,0,4,0,4,7,18,3,7,0,30,11,3,0
+BelkinWemoMotion,2,851,437,0,54,1,30,0,19,1,33,0,0,0
+BelkinWemoSwitch,2,800,485,0,62,1,37,2,13,0,23,3,0,0
+Dropcam,0,0,0,1428,0,0,0,0,0,0,0,0,0,0
+HPPrinter,12,41,52,0,1248,1,28,2,20,19,0,0,5,0
+NetatmoWeather,0,0,0,0,0,1427,0,1,0,0,0,0,0,0
+NetatmoWelcome,13,24,25,0,10,5,1267,10,21,2,16,30,5,0
+PIX-STAR,24,3,3,0,0,3,158,348,9,0,9,19,80,1
+SamsungSmartCam,4,11,19,0,34,0,27,3,1296,0,21,7,4,2
+SmartThings,0,0,0,0,0,0,0,0,0,1427,0,0,1,0
+TPLinkCam,19,26,18,0,2,1,28,1,22,0,1279,28,4,0
+TPLinkPlug,6,7,6,0,0,1,24,2,10,1,15,565,0,0
+TribySpeaker,26,1,9,0,2,1,21,17,8,0,16,6,1321,0
+WithingsBabyMonitor,2,0,0,0,0,1,0,0,0,0,0,0,19,1406

@@ -1,0 +1,14 @@
+﻿,AmazonEcho,BelkinWemoMotion,BelkinWemoSwitch,Dropcam,HPPrinter,InsteonCam_wired,LiFXBulb,NetatmoWeather,NetatmoWelcome,SamsungSmartCam,SmartThings,TribySpeaker,WithingsAura
+AmazonEcho,1389,3,3,0,2,3,47,2,34,13,0,6,36
+BelkinWemoMotion,3,829,569,0,68,0,8,1,36,11,0,0,13
+BelkinWemoSwitch,4,470,926,0,57,0,13,3,39,17,1,0,8
+Dropcam,0,0,0,1538,0,0,0,0,0,0,0,0,0
+HPPrinter,0,46,75,0,1374,5,0,2,18,16,0,0,2
+InsteonCam_wired,0,0,0,0,8,1523,0,0,0,4,0,2,1
+LiFXBulb,1,0,0,0,1,0,1130,0,1,0,0,1,1
+NetatmoWeather,0,0,0,0,0,0,0,1215,17,0,0,0,0
+NetatmoWelcome,18,28,35,0,12,1,14,7,1382,14,0,14,13
+SamsungSmartCam,4,19,22,0,41,0,23,2,24,1392,0,4,7
+SmartThings,0,0,0,0,0,1,0,0,0,0,1537,0,0
+TribySpeaker,0,0,0,0,0,1,1,1,1,1,0,1262,2
+WithingsAura,17,10,13,0,0,1,98,1,17,12,0,0,1369

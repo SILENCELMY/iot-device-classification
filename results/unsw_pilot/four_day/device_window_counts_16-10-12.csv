@@ -1,0 +1,24 @@
+﻿day,device,n_windows,n_packets,n_bytes,first_window,last_window,device_name,mac,category,connection
+16-10-12,Dropcam,5213,117656,14652966.0,0.0,5212.0,Dropcam,30:8c:fb:2f:e4:b2,camera,Wireless
+16-10-12,SmartThings,5093,17836,1260094.0,0.0,5212.0,Smart Things,d0:52:a8:00:67:5e,hub,Wired
+16-10-12,WithingsAura,3798,12287,1767653.0,1.0,5211.0,Withings Aura smart sleep sensor,00:24:e4:20:28:c6,sensor,Wireless
+16-10-12,NetatmoWelcome,3797,13831,1056813.0,0.0,5210.0,Netatmo Welcome,70:ee:50:18:34:43,camera,Wireless
+16-10-12,SamsungSmartCam,3764,31712,9340717.0,0.0,5211.0,Samsung SmartCam,00:16:6c:ab:6b:88,camera,Wireless
+16-10-12,AmazonEcho,3758,32817,3568421.0,1.0,5212.0,Amazon Echo,44:65:0d:56:cc:d3,speaker,Wireless
+16-10-12,InsteonCam_wired,2538,27685,3322565.0,0.0,5212.0,Insteon Camera,00:62:6e:51:27:2e,camera,Wired
+16-10-12,BelkinWemoSwitch,1981,36400,8660389.0,4.0,5210.0,Belkin Wemo switch,ec:1a:59:79:f4:89,switch,Wireless
+16-10-12,BelkinWemoMotion,1957,53086,13704314.0,4.0,5210.0,Belkin wemo motion sensor,ec:1a:59:83:28:11,sensor,Wireless
+16-10-12,HPPrinter,1616,6791,881373.0,0.0,5211.0,HP Printer,70:5a:0f:e4:9b:c0,appliance,Wireless
+16-10-12,TribySpeaker,1269,6067,614749.0,0.0,5209.0,Triby Speaker,18:b7:9e:02:20:44,speaker,Wireless
+16-10-12,NetatmoWeather,1232,9701,1473198.0,26.0,5185.0,Netatmo weather station,70:ee:50:03:b8:ac,sensor,Wireless
+16-10-12,LiFXBulb,1135,7230,683094.0,3.0,5208.0,Light Bulbs LiFX Smart Bulb,d0:73:d5:01:83:08,light,Wireless
+16-10-12,WithingsScale,4,159,34016.0,2517.0,2520.0,Withings Smart scale,00:24:e4:1b:6f:96,health,Wireless
+16-10-12,Blipcare,0,0,0.0,,,Blipcare Blood Pressure meter,74:6a:89:00:2e:25,health,Wireless
+16-10-12,InsteonCam_wifi,0,0,0.0,,,Insteon Camera,e8:ab:fa:19:de:4f,camera,Wireless
+16-10-12,NestDropcam,0,0,0.0,,,Nest Dropcam,30:8c:fb:b6:ea:45,camera,Wireless
+16-10-12,NestProtect,0,0,0.0,,,NEST Protect smoke alarm,18:b4:30:25:be:e4,sensor,Wireless
+16-10-12,PIX-STAR,0,0,0.0,,,PIX-STAR Photo-frame,e0:76:d0:33:bb:85,appliance,Wireless
+16-10-12,TPLinkCam,0,0,0.0,,,TP-Link Day Night Cloud camera,f4:f2:6d:93:51:f1,camera,Wireless
+16-10-12,TPLinkPlug,0,0,0.0,,,TP-Link Smart plug,50:c7:bf:00:56:39,switch,Wireless
+16-10-12,WithingsBabyMonitor,0,0,0.0,,,Withings Smart Baby Monitor,00:24:e4:11:18:a8,camera,Wired
+16-10-12,iHome,0,0,0.0,,,iHome,74:c6:3b:29:d7:1d,switch,Wireless

@@ -1,0 +1,376 @@
+{
+  "command_line": [
+    "results/unsw_pilot/pilot_rf_loro.py",
+    "--features",
+    "results/unsw_pilot/features_unsw_w10.csv",
+    "--out-dir",
+    "results/unsw_pilot/loro",
+    "--min-windows",
+    "100",
+    "--max-rows",
+    "20000",
+    "--random-state",
+    "42",
+    "--n-jobs",
+    "12"
+  ],
+  "run_at": "2026-08-29T12:31:25",
+  "features_file": "results/unsw_pilot/features_unsw_w10.csv",
+  "n_feature_columns": 61,
+  "feature_columns": [
+    "packet_count",
+    "byte_count",
+    "len_mean",
+    "len_std",
+    "len_min",
+    "len_max",
+    "len_range",
+    "len_cv",
+    "len_p10",
+    "len_p25",
+    "len_p50",
+    "len_p75",
+    "len_p90",
+    "len_p95",
+    "len_iqr",
+    "interarrival_mean",
+    "interarrival_std",
+    "interarrival_min",
+    "interarrival_max",
+    "interarrival_cv",
+    "interarrival_p10",
+    "interarrival_p25",
+    "interarrival_p50",
+    "interarrival_p75",
+    "interarrival_p90",
+    "interarrival_p95",
+    "interarrival_iqr",
+    "burst_packet_ratio",
+    "long_gap_ratio",
+    "burst_count",
+    "burst_size_mean",
+    "burst_size_std",
+    "burst_size_max",
+    "burst_size_min",
+    "burst_packet_fraction",
+    "up_packet_ratio",
+    "down_packet_ratio",
+    "side_packet_ratio",
+    "other_packet_ratio",
+    "up_down_ratio",
+    "up_len_mean",
+    "up_len_std",
+    "up_len_p50",
+    "down_len_mean",
+    "down_len_std",
+    "down_len_p50",
+    "up_ia_mean",
+    "up_ia_std",
+    "down_ia_mean",
+    "down_ia_std",
+    "len_up_down_diff",
+    "subwin_packet_mean",
+    "subwin_packet_std",
+    "subwin_packet_min",
+    "subwin_packet_max",
+    "subwin_packet_cv",
+    "subwin_byte_mean",
+    "subwin_byte_std",
+    "subwin_byte_min",
+    "subwin_byte_max",
+    "active_subwin_count"
+  ],
+  "rf_spec": "robust_iot_research.build_model('rf', ...) -> n_estimators=500, class_weight='balanced' (协议 §7)",
+  "balance": "robust_iot_research.sample_balanced (协议 §16.4)",
+  "min_windows": 100,
+  "max_rows": 20000,
+  "random_state": 42,
+  "results": [
+    {
+      "train_day": "16-09-23",
+      "test_day": "16-09-30",
+      "n_classes": 14,
+      "classes": [
+        "AmazonEcho",
+        "BelkinWemoMotion",
+        "BelkinWemoSwitch",
+        "Dropcam",
+        "HPPrinter",
+        "NetatmoWeather",
+        "NetatmoWelcome",
+        "PIX-STAR",
+        "SamsungSmartCam",
+        "SmartThings",
+        "TPLinkCam",
+        "TPLinkPlug",
+        "TribySpeaker",
+        "WithingsBabyMonitor"
+      ],
+      "min_windows_threshold": 100,
+      "n_train_rows_before_balance": 60468,
+      "n_test_rows_before_balance": 59457,
+      "n_train_rows": 18430,
+      "n_test_rows": 18260,
+      "macro_f1": 0.816442,
+      "weighted_f1": 0.82286,
+      "accuracy": 0.826561,
+      "fit_predict_seconds": 2.6,
+      "label_sanity": {
+        "A_dominant_offdiag": [
+          {
+            "true": "BelkinWemoSwitch",
+            "mostly_predicted_as": "BelkinWemoMotion",
+            "share": 0.5679,
+            "own_recall": 0.3333,
+            "support": 1428
+          }
+        ],
+        "B_mutual_swap": [
+          {
+            "pair": [
+              "BelkinWemoMotion",
+              "BelkinWemoSwitch"
+            ],
+            "i_to_j": 0.3466,
+            "j_to_i": 0.5679
+          }
+        ],
+        "C_zero_recall": [],
+        "any_flag": true
+      },
+      "confusion_matrix_csv": "cm_16-09-23__to__16-09-30.csv",
+      "per_class_csv": "per_class_16-09-23__to__16-09-30.csv"
+    },
+    {
+      "train_day": "16-09-23",
+      "test_day": "16-10-12",
+      "n_classes": 10,
+      "classes": [
+        "AmazonEcho",
+        "BelkinWemoMotion",
+        "BelkinWemoSwitch",
+        "Dropcam",
+        "HPPrinter",
+        "NetatmoWeather",
+        "NetatmoWelcome",
+        "SamsungSmartCam",
+        "SmartThings",
+        "TribySpeaker"
+      ],
+      "min_windows_threshold": 100,
+      "n_train_rows_before_balance": 48282,
+      "n_test_rows_before_balance": 29680,
+      "n_train_rows": 19728,
+      "n_test_rows": 18055,
+      "macro_f1": 0.845506,
+      "weighted_f1": 0.841205,
+      "accuracy": 0.846081,
+      "fit_predict_seconds": 1.9,
+      "label_sanity": {
+        "A_dominant_offdiag": [
+          {
+            "true": "BelkinWemoSwitch",
+            "mostly_predicted_as": "BelkinWemoMotion",
+            "share": 0.527,
+            "own_recall": 0.3614,
+            "support": 1981
+          }
+        ],
+        "B_mutual_swap": [],
+        "C_zero_recall": [],
+        "any_flag": true
+      },
+      "confusion_matrix_csv": "cm_16-09-23__to__16-10-12.csv",
+      "per_class_csv": "per_class_16-09-23__to__16-10-12.csv"
+    },
+    {
+      "train_day": "16-09-30",
+      "test_day": "16-09-23",
+      "n_classes": 14,
+      "classes": [
+        "AmazonEcho",
+        "BelkinWemoMotion",
+        "BelkinWemoSwitch",
+        "Dropcam",
+        "HPPrinter",
+        "NetatmoWeather",
+        "NetatmoWelcome",
+        "PIX-STAR",
+        "SamsungSmartCam",
+        "SmartThings",
+        "TPLinkCam",
+        "TPLinkPlug",
+        "TribySpeaker",
+        "WithingsBabyMonitor"
+      ],
+      "min_windows_threshold": 100,
+      "n_train_rows_before_balance": 59457,
+      "n_test_rows_before_balance": 60468,
+      "n_train_rows": 18260,
+      "n_test_rows": 18430,
+      "macro_f1": 0.841781,
+      "weighted_f1": 0.848153,
+      "accuracy": 0.851275,
+      "fit_predict_seconds": 3.5,
+      "label_sanity": {
+        "A_dominant_offdiag": [
+          {
+            "true": "BelkinWemoSwitch",
+            "mostly_predicted_as": "BelkinWemoMotion",
+            "share": 0.5602,
+            "own_recall": 0.3396,
+            "support": 1428
+          }
+        ],
+        "B_mutual_swap": [
+          {
+            "pair": [
+              "BelkinWemoMotion",
+              "BelkinWemoSwitch"
+            ],
+            "i_to_j": 0.306,
+            "j_to_i": 0.5602
+          }
+        ],
+        "C_zero_recall": [],
+        "any_flag": true
+      },
+      "confusion_matrix_csv": "cm_16-09-30__to__16-09-23.csv",
+      "per_class_csv": "per_class_16-09-30__to__16-09-23.csv"
+    },
+    {
+      "train_day": "16-09-30",
+      "test_day": "16-10-12",
+      "n_classes": 13,
+      "classes": [
+        "AmazonEcho",
+        "BelkinWemoMotion",
+        "BelkinWemoSwitch",
+        "Dropcam",
+        "HPPrinter",
+        "InsteonCam_wired",
+        "LiFXBulb",
+        "NetatmoWeather",
+        "NetatmoWelcome",
+        "SamsungSmartCam",
+        "SmartThings",
+        "TribySpeaker",
+        "WithingsAura"
+      ],
+      "min_windows_threshold": 100,
+      "n_train_rows_before_balance": 63129,
+      "n_test_rows_before_balance": 37151,
+      "n_train_rows": 19994,
+      "n_test_rows": 19016,
+      "macro_f1": 0.867383,
+      "weighted_f1": 0.863608,
+      "accuracy": 0.865639,
+      "fit_predict_seconds": 2.5,
+      "label_sanity": {
+        "A_dominant_offdiag": [],
+        "B_mutual_swap": [],
+        "C_zero_recall": [],
+        "any_flag": false
+      },
+      "confusion_matrix_csv": "cm_16-09-30__to__16-10-12.csv",
+      "per_class_csv": "per_class_16-09-30__to__16-10-12.csv"
+    },
+    {
+      "train_day": "16-10-12",
+      "test_day": "16-09-23",
+      "n_classes": 10,
+      "classes": [
+        "AmazonEcho",
+        "BelkinWemoMotion",
+        "BelkinWemoSwitch",
+        "Dropcam",
+        "HPPrinter",
+        "NetatmoWeather",
+        "NetatmoWelcome",
+        "SamsungSmartCam",
+        "SmartThings",
+        "TribySpeaker"
+      ],
+      "min_windows_threshold": 100,
+      "n_train_rows_before_balance": 29680,
+      "n_test_rows_before_balance": 48282,
+      "n_train_rows": 18055,
+      "n_test_rows": 19728,
+      "macro_f1": 0.86207,
+      "weighted_f1": 0.860287,
+      "accuracy": 0.85954,
+      "fit_predict_seconds": 1.9,
+      "label_sanity": {
+        "A_dominant_offdiag": [],
+        "B_mutual_swap": [
+          {
+            "pair": [
+              "BelkinWemoMotion",
+              "BelkinWemoSwitch"
+            ],
+            "i_to_j": 0.394,
+            "j_to_i": 0.3095
+          }
+        ],
+        "C_zero_recall": [],
+        "any_flag": true
+      },
+      "confusion_matrix_csv": "cm_16-10-12__to__16-09-23.csv",
+      "per_class_csv": "per_class_16-10-12__to__16-09-23.csv"
+    },
+    {
+      "train_day": "16-10-12",
+      "test_day": "16-09-30",
+      "n_classes": 13,
+      "classes": [
+        "AmazonEcho",
+        "BelkinWemoMotion",
+        "BelkinWemoSwitch",
+        "Dropcam",
+        "HPPrinter",
+        "InsteonCam_wired",
+        "LiFXBulb",
+        "NetatmoWeather",
+        "NetatmoWelcome",
+        "SamsungSmartCam",
+        "SmartThings",
+        "TribySpeaker",
+        "WithingsAura"
+      ],
+      "min_windows_threshold": 100,
+      "n_train_rows_before_balance": 37151,
+      "n_test_rows_before_balance": 63129,
+      "n_train_rows": 19016,
+      "n_test_rows": 19994,
+      "macro_f1": 0.846181,
+      "weighted_f1": 0.846181,
+      "accuracy": 0.847754,
+      "fit_predict_seconds": 2.2,
+      "label_sanity": {
+        "A_dominant_offdiag": [],
+        "B_mutual_swap": [
+          {
+            "pair": [
+              "BelkinWemoMotion",
+              "BelkinWemoSwitch"
+            ],
+            "i_to_j": 0.4044,
+            "j_to_i": 0.3745
+          }
+        ],
+        "C_zero_recall": [],
+        "any_flag": true
+      },
+      "confusion_matrix_csv": "cm_16-10-12__to__16-09-30.csv",
+      "per_class_csv": "per_class_16-10-12__to__16-09-30.csv"
+    }
+  ],
+  "macro_f1_mean": 0.84656,
+  "macro_f1_min": 0.816442,
+  "macro_f1_max": 0.867383,
+  "any_label_flag": true,
+  "python": "3.10.9",
+  "numpy": "1.23.5",
+  "pandas": "1.5.3",
+  "git_hash": "0e5e79136606228d12f4147f46779c5f3f1a3ed0"
+}

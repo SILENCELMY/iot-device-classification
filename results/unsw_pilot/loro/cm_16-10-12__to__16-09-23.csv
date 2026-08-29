@@ -1,0 +1,11 @@
+﻿,AmazonEcho,BelkinWemoMotion,BelkinWemoSwitch,Dropcam,HPPrinter,NetatmoWeather,NetatmoWelcome,SamsungSmartCam,SmartThings,TribySpeaker
+AmazonEcho,1935,5,7,0,8,9,17,18,0,1
+BelkinWemoMotion,7,1088,788,0,50,1,31,35,0,0
+BelkinWemoSwitch,7,619,1235,0,59,2,55,23,0,0
+Dropcam,0,0,0,2000,0,0,0,0,0,0
+HPPrinter,15,117,85,0,1690,3,13,43,33,1
+NetatmoWeather,0,0,0,0,1,1727,0,0,0,0
+NetatmoWelcome,37,44,62,0,7,13,1803,29,2,3
+SamsungSmartCam,19,27,42,0,50,0,23,1835,0,4
+SmartThings,0,0,0,0,2,0,0,0,1998,0
+TribySpeaker,280,7,3,0,12,1,8,42,1,1646

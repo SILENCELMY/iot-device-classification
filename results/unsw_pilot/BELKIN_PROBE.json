@@ -1,0 +1,113 @@
+{
+  "pair": [
+    "BelkinWemoMotion",
+    "BelkinWemoSwitch"
+  ],
+  "n_features": 61,
+  "within_day_iid": [
+    {
+      "day": "16-09-23",
+      "macro_f1": 0.753706,
+      "recall_motion": 0.7492,
+      "recall_switch": 0.7583,
+      "cm": [
+        [
+          714,
+          239
+        ],
+        [
+          226,
+          709
+        ]
+      ],
+      "n": {
+        "BelkinWemoMotion": 3178,
+        "BelkinWemoSwitch": 3115
+      }
+    },
+    {
+      "day": "16-09-30",
+      "macro_f1": 0.683582,
+      "recall_motion": 0.6412,
+      "recall_switch": 0.7282,
+      "cm": [
+        [
+          620,
+          347
+        ],
+        [
+          253,
+          678
+        ]
+      ],
+      "n": {
+        "BelkinWemoMotion": 3224,
+        "BelkinWemoSwitch": 3101
+      }
+    },
+    {
+      "day": "16-10-12",
+      "macro_f1": 0.616487,
+      "recall_motion": 0.5945,
+      "recall_switch": 0.6387,
+      "cm": [
+        [
+          349,
+          238
+        ],
+        [
+          215,
+          380
+        ]
+      ],
+      "n": {
+        "BelkinWemoSwitch": 1981,
+        "BelkinWemoMotion": 1957
+      }
+    }
+  ],
+  "note": "",
+  "identical_median_dims": 35,
+  "n_dims": 56,
+  "top_diff_dims": {
+    "up_ia_std": 0.6118,
+    "interarrival_iqr": 0.5787,
+    "interarrival_p75": 0.1704,
+    "up_len_p50": 0.1569,
+    "down_len_p50": 0.1132,
+    "up_ia_mean": 0.1024,
+    "interarrival_max": 0.0691,
+    "burst_size_std": 0.0424
+  },
+  "within_day_full_iid": {
+    "day": "16-09-30",
+    "n_classes": 18,
+    "macro_f1": 0.909645,
+    "per_class_f1": {
+      "AmazonEcho": 0.9365,
+      "BelkinWemoMotion": 0.6477,
+      "BelkinWemoSwitch": 0.6628,
+      "Dropcam": 1.0,
+      "HPPrinter": 0.8996,
+      "InsteonCam_wired": 0.9955,
+      "LiFXBulb": 0.8666,
+      "NetatmoWeather": 0.9866,
+      "NetatmoWelcome": 0.8475,
+      "PIX-STAR": 0.9547,
+      "SamsungSmartCam": 0.9006,
+      "SmartThings": 0.994,
+      "TPLinkCam": 0.8842,
+      "TPLinkPlug": 0.8198,
+      "TribySpeaker": 0.9851,
+      "WithingsAura": 0.9955,
+      "WithingsBabyMonitor": 0.997,
+      "iHome": 1.0
+    },
+    "belkin_ranks": [
+      1,
+      2
+    ]
+  },
+  "within_day_iid_mean_macro_f1": 0.684592,
+  "verdict": "device_similarity"
+}

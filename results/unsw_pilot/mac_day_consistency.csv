@@ -1,0 +1,24 @@
+﻿device,16-09-23,16-09-30,16-10-12,mac,device_name,category,days_present,days_ge100,present_all_days,ge100_all_days
+AmazonEcho,6120,5303,3758,44:65:0d:56:cc:d3,Amazon Echo,speaker,3,3,True,True
+BelkinWemoMotion,3178,3224,1957,ec:1a:59:83:28:11,Belkin wemo motion sensor,sensor,3,3,True,True
+BelkinWemoSwitch,3115,3101,1981,ec:1a:59:79:f4:89,Belkin Wemo switch,switch,3,3,True,True
+Dropcam,8640,8640,5213,30:8c:fb:2f:e4:b2,Dropcam,camera,3,3,True,True
+HPPrinter,2383,2360,1616,70:5a:0f:e4:9b:c0,HP Printer,appliance,3,3,True,True
+NetatmoWeather,1728,1666,1232,70:ee:50:03:b8:ac,Netatmo weather station,sensor,3,3,True,True
+NetatmoWelcome,6275,6281,3797,70:ee:50:18:34:43,Netatmo Welcome,camera,3,3,True,True
+SamsungSmartCam,6146,6031,3764,00:16:6c:ab:6b:88,Samsung SmartCam,camera,3,3,True,True
+SmartThings,8458,8461,5093,d0:52:a8:00:67:5e,Smart Things,hub,3,3,True,True
+TribySpeaker,2239,2288,1269,18:b7:9e:02:20:44,Triby Speaker,speaker,3,3,True,True
+InsteonCam_wired,0,4378,2538,00:62:6e:51:27:2e,Insteon Camera,camera,2,2,False,False
+LiFXBulb,0,3262,1135,d0:73:d5:01:83:08,Light Bulbs LiFX Smart Bulb,light,2,2,False,False
+PIX-STAR,657,482,0,e0:76:d0:33:bb:85,PIX-STAR Photo-frame,appliance,2,2,False,False
+TPLinkCam,2256,2347,0,f4:f2:6d:93:51:f1,TP-Link Day Night Cloud camera,camera,2,2,False,False
+TPLinkPlug,637,642,0,50:c7:bf:00:56:39,TP-Link Smart plug,switch,2,2,False,False
+WithingsAura,0,8134,3798,00:24:e4:20:28:c6,Withings Aura smart sleep sensor,sensor,2,2,False,False
+WithingsBabyMonitor,8636,8631,0,00:24:e4:11:18:a8,Withings Smart Baby Monitor,camera,2,2,False,False
+iHome,0,2881,0,74:c6:3b:29:d7:1d,iHome,switch,1,1,False,False
+WithingsScale,9,4,4,00:24:e4:1b:6f:96,Withings Smart scale,health,3,0,True,False
+NestProtect,4,6,0,18:b4:30:25:be:e4,NEST Protect smoke alarm,sensor,2,0,False,False
+Blipcare,1,0,0,74:6a:89:00:2e:25,Blipcare Blood Pressure meter,health,1,0,False,False
+InsteonCam_wifi,0,0,0,e8:ab:fa:19:de:4f,Insteon Camera,camera,0,0,False,False
+NestDropcam,0,0,0,30:8c:fb:b6:ea:45,Nest Dropcam,camera,0,0,False,False

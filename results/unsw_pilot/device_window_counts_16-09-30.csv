@@ -1,0 +1,24 @@
+﻿day,device,n_windows,n_packets,n_bytes,first_window,last_window,device_name,mac,category,connection
+16-09-30,Dropcam,8640,222575,27386290.0,0.0,8639.0,Dropcam,30:8c:fb:2f:e4:b2,camera,Wireless
+16-09-30,WithingsBabyMonitor,8631,47184,3544925.0,0.0,8639.0,Withings Smart Baby Monitor,00:24:e4:11:18:a8,camera,Wired
+16-09-30,SmartThings,8461,29184,2058380.0,0.0,8639.0,Smart Things,d0:52:a8:00:67:5e,hub,Wired
+16-09-30,WithingsAura,8134,33557,4986379.0,0.0,8638.0,Withings Aura smart sleep sensor,00:24:e4:20:28:c6,sensor,Wireless
+16-09-30,NetatmoWelcome,6281,33702,10447551.0,0.0,8639.0,Netatmo Welcome,70:ee:50:18:34:43,camera,Wireless
+16-09-30,SamsungSmartCam,6031,56570,15357305.0,0.0,8638.0,Samsung SmartCam,00:16:6c:ab:6b:88,camera,Wireless
+16-09-30,AmazonEcho,5303,53996,6322836.0,0.0,8638.0,Amazon Echo,44:65:0d:56:cc:d3,speaker,Wireless
+16-09-30,InsteonCam_wired,4378,48386,5804275.0,2.0,8639.0,Insteon Camera,00:62:6e:51:27:2e,camera,Wired
+16-09-30,LiFXBulb,3262,12352,1173273.0,0.0,8637.0,Light Bulbs LiFX Smart Bulb,d0:73:d5:01:83:08,light,Wireless
+16-09-30,BelkinWemoMotion,3224,83374,21020524.0,1.0,8638.0,Belkin wemo motion sensor,ec:1a:59:83:28:11,sensor,Wireless
+16-09-30,BelkinWemoSwitch,3101,62940,15530534.0,1.0,8636.0,Belkin Wemo switch,ec:1a:59:79:f4:89,switch,Wireless
+16-09-30,iHome,2881,8262,727481.0,4.0,8639.0,iHome,74:c6:3b:29:d7:1d,switch,Wireless
+16-09-30,HPPrinter,2360,8448,703671.0,1.0,8636.0,HP Printer,70:5a:0f:e4:9b:c0,appliance,Wireless
+16-09-30,TPLinkCam,2347,117633,63434638.0,1.0,8639.0,TP-Link Day Night Cloud camera,f4:f2:6d:93:51:f1,camera,Wireless
+16-09-30,TribySpeaker,2288,10585,1334182.0,0.0,8635.0,Triby Speaker,18:b7:9e:02:20:44,speaker,Wireless
+16-09-30,NetatmoWeather,1666,13998,2093826.0,0.0,8595.0,Netatmo weather station,70:ee:50:03:b8:ac,sensor,Wireless
+16-09-30,TPLinkPlug,642,2605,325535.0,17.0,8616.0,TP-Link Smart plug,50:c7:bf:00:56:39,switch,Wireless
+16-09-30,PIX-STAR,482,2988,521939.0,9.0,8627.0,PIX-STAR Photo-frame,e0:76:d0:33:bb:85,appliance,Wireless
+16-09-30,NestProtect,6,274,57845.0,1517.0,6265.0,NEST Protect smoke alarm,18:b4:30:25:be:e4,sensor,Wireless
+16-09-30,WithingsScale,4,161,34627.0,3826.0,3829.0,Withings Smart scale,00:24:e4:1b:6f:96,health,Wireless
+16-09-30,Blipcare,0,0,0.0,,,Blipcare Blood Pressure meter,74:6a:89:00:2e:25,health,Wireless
+16-09-30,InsteonCam_wifi,0,0,0.0,,,Insteon Camera,e8:ab:fa:19:de:4f,camera,Wireless
+16-09-30,NestDropcam,0,0,0.0,,,Nest Dropcam,30:8c:fb:b6:ea:45,camera,Wireless

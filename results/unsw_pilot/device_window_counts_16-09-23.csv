@@ -1,0 +1,24 @@
+﻿day,device,n_windows,n_packets,n_bytes,first_window,last_window,device_name,mac,category,connection
+16-09-23,Dropcam,8640,242703,30140626.0,0.0,8639.0,Dropcam,30:8c:fb:2f:e4:b2,camera,Wireless
+16-09-23,WithingsBabyMonitor,8636,46901,3505736.0,0.0,8639.0,Withings Smart Baby Monitor,00:24:e4:11:18:a8,camera,Wired
+16-09-23,SmartThings,8458,29442,2090654.0,0.0,8638.0,Smart Things,d0:52:a8:00:67:5e,hub,Wired
+16-09-23,NetatmoWelcome,6275,38397,13511430.0,0.0,8638.0,Netatmo Welcome,70:ee:50:18:34:43,camera,Wireless
+16-09-23,SamsungSmartCam,6146,84991,28289507.0,0.0,8639.0,Samsung SmartCam,00:16:6c:ab:6b:88,camera,Wireless
+16-09-23,AmazonEcho,6120,52014,5626927.0,0.0,8639.0,Amazon Echo,44:65:0d:56:cc:d3,speaker,Wireless
+16-09-23,BelkinWemoMotion,3178,89491,22430374.0,0.0,8637.0,Belkin wemo motion sensor,ec:1a:59:83:28:11,sensor,Wireless
+16-09-23,BelkinWemoSwitch,3115,68299,17040463.0,0.0,8639.0,Belkin Wemo switch,ec:1a:59:79:f4:89,switch,Wireless
+16-09-23,HPPrinter,2383,13662,3886928.0,3.0,8634.0,HP Printer,70:5a:0f:e4:9b:c0,appliance,Wireless
+16-09-23,TPLinkCam,2256,10328,907410.0,0.0,8638.0,TP-Link Day Night Cloud camera,f4:f2:6d:93:51:f1,camera,Wireless
+16-09-23,TribySpeaker,2239,8817,981499.0,0.0,8639.0,Triby Speaker,18:b7:9e:02:20:44,speaker,Wireless
+16-09-23,NetatmoWeather,1728,13466,2211408.0,52.0,8585.0,Netatmo weather station,70:ee:50:03:b8:ac,sensor,Wireless
+16-09-23,PIX-STAR,657,6823,1336855.0,13.0,8630.0,PIX-STAR Photo-frame,e0:76:d0:33:bb:85,appliance,Wireless
+16-09-23,TPLinkPlug,637,2596,321760.0,20.0,8624.0,TP-Link Smart plug,50:c7:bf:00:56:39,switch,Wireless
+16-09-23,WithingsScale,9,376,80403.0,2497.0,7544.0,Withings Smart scale,00:24:e4:1b:6f:96,health,Wireless
+16-09-23,NestProtect,4,204,46994.0,4037.0,4040.0,NEST Protect smoke alarm,18:b4:30:25:be:e4,sensor,Wireless
+16-09-23,Blipcare,1,59,7237.0,6180.0,6180.0,Blipcare Blood Pressure meter,74:6a:89:00:2e:25,health,Wireless
+16-09-23,InsteonCam_wifi,0,0,0.0,,,Insteon Camera,e8:ab:fa:19:de:4f,camera,Wireless
+16-09-23,InsteonCam_wired,0,0,0.0,,,Insteon Camera,00:62:6e:51:27:2e,camera,Wired
+16-09-23,LiFXBulb,0,0,0.0,,,Light Bulbs LiFX Smart Bulb,d0:73:d5:01:83:08,light,Wireless
+16-09-23,NestDropcam,0,0,0.0,,,Nest Dropcam,30:8c:fb:b6:ea:45,camera,Wireless
+16-09-23,WithingsAura,0,0,0.0,,,Withings Aura smart sleep sensor,00:24:e4:20:28:c6,sensor,Wireless
+16-09-23,iHome,0,0,0.0,,,iHome,74:c6:3b:29:d7:1d,switch,Wireless

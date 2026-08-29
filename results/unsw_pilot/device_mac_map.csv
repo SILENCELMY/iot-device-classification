@@ -1,0 +1,32 @@
+device_id,device_name,mac,connection,category,is_iot
+SmartThings,Smart Things,d0:52:a8:00:67:5e,Wired,hub,1
+AmazonEcho,Amazon Echo,44:65:0d:56:cc:d3,Wireless,speaker,1
+NetatmoWelcome,Netatmo Welcome,70:ee:50:18:34:43,Wireless,camera,1
+TPLinkCam,TP-Link Day Night Cloud camera,f4:f2:6d:93:51:f1,Wireless,camera,1
+SamsungSmartCam,Samsung SmartCam,00:16:6c:ab:6b:88,Wireless,camera,1
+Dropcam,Dropcam,30:8c:fb:2f:e4:b2,Wireless,camera,1
+InsteonCam_wired,Insteon Camera,00:62:6e:51:27:2e,Wired,camera,1
+InsteonCam_wifi,Insteon Camera,e8:ab:fa:19:de:4f,Wireless,camera,1
+WithingsBabyMonitor,Withings Smart Baby Monitor,00:24:e4:11:18:a8,Wired,camera,1
+BelkinWemoSwitch,Belkin Wemo switch,ec:1a:59:79:f4:89,Wireless,switch,1
+TPLinkPlug,TP-Link Smart plug,50:c7:bf:00:56:39,Wireless,switch,1
+iHome,iHome,74:c6:3b:29:d7:1d,Wireless,switch,1
+BelkinWemoMotion,Belkin wemo motion sensor,ec:1a:59:83:28:11,Wireless,sensor,1
+NestProtect,NEST Protect smoke alarm,18:b4:30:25:be:e4,Wireless,sensor,1
+NetatmoWeather,Netatmo weather station,70:ee:50:03:b8:ac,Wireless,sensor,1
+WithingsScale,Withings Smart scale,00:24:e4:1b:6f:96,Wireless,health,1
+Blipcare,Blipcare Blood Pressure meter,74:6a:89:00:2e:25,Wireless,health,1
+WithingsAura,Withings Aura smart sleep sensor,00:24:e4:20:28:c6,Wireless,sensor,1
+LiFXBulb,Light Bulbs LiFX Smart Bulb,d0:73:d5:01:83:08,Wireless,light,1
+TribySpeaker,Triby Speaker,18:b7:9e:02:20:44,Wireless,speaker,1
+PIX-STAR,PIX-STAR Photo-frame,e0:76:d0:33:bb:85,Wireless,appliance,1
+HPPrinter,HP Printer,70:5a:0f:e4:9b:c0,Wireless,appliance,1
+NestDropcam,Nest Dropcam,30:8c:fb:b6:ea:45,Wireless,camera,1
+SamsungGalaxyTab,Samsung Galaxy Tab,08:21:ef:3b:fc:e3,Wireless,non_iot_tablet,0
+AndroidPhone_1,Android Phone,40:f3:08:ff:1e:da,Wireless,non_iot_phone,0
+Laptop,Laptop,74:2f:68:81:69:42,Wireless,non_iot_computer,0
+MacBook,MacBook,ac:bc:32:d4:6f:2f,Wireless,non_iot_computer,0
+AndroidPhone_2,Android Phone,b4:ce:f6:a7:a3:c2,Wireless,non_iot_phone,0
+iPhone,IPhone,d0:a6:37:df:a1:e1,Wireless,non_iot_phone,0
+MacBook_iPhone,MacBook/Iphone,f4:5c:89:93:cc:85,Wireless,non_iot_computer,0
+Gateway,TPLink Router Bridge LAN (Gateway),14:cc:20:51:33:ea,,infrastructure,0
