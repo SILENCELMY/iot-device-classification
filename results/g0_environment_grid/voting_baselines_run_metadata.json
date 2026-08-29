@@ -1,0 +1,81 @@
+{
+  "script": "code/scripts/analysis/voting_baselines.py",
+  "protocol_refs": [
+    "§7.4",
+    "§7.5",
+    "§7.6",
+    "§10",
+    "§19.2"
+  ],
+  "execution_plan": "docs/EXECUTION_PLAN_20260829.md D8",
+  "generated_utc": "2026-08-29T04:47:09.130070+00:00",
+  "git": {
+    "commit": "b9a4ddb17cfc70148a03c1fa1b79e90084bd5792",
+    "dirty": true
+  },
+  "command_line": "/home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/voting_baselines.py",
+  "cwd": "/home/lmy/iot-device-classification",
+  "random_seed": null,
+  "determinism": "no RNG anywhere; all ties broken deterministically",
+  "inputs": {
+    "grid_root": "/home/lmy/iot-device-classification/results/g0_environment_grid",
+    "summary_metrics": "/home/lmy/iot-device-classification/results/g0_environment_grid/summary_metrics.csv",
+    "n_tasks": 162,
+    "models_read": [
+      "rf",
+      "xgboost",
+      "lightgbm",
+      "stacking"
+    ]
+  },
+  "outputs": {
+    "voting_baselines_csv": "/home/lmy/iot-device-classification/results/g0_environment_grid/voting_baselines.csv",
+    "calibration_csv": "/home/lmy/iot-device-classification/results/g0_environment_grid/voting_calibration_temperatures.csv",
+    "rows": 1296
+  },
+  "labels": [
+    "Camera",
+    "Light_T1",
+    "Light_XM",
+    "Sensor",
+    "Socket"
+  ],
+  "calibration": {
+    "family": "temperature scaling (power scaling on pseudo-logits)",
+    "pseudo_logit": "z = log(p + 1e-12)",
+    "parametrization": "softmax(w*z) = p^w / sum(p^w), w = 1/T; w=1 == uncalibrated",
+    "objective": "multiclass NLL on source-domain OOF probs + training labels",
+    "optimizer": "scipy minimize_scalar(bounded Brent) over u = log(w)",
+    "temperature_bounds": [
+      0.01,
+      100.0
+    ],
+    "xatol": 1e-10,
+    "data_boundary": "fit sees ONLY stacking/oof_meta.csv (source-domain OOF probabilities + training labels); test labels enter only at final scoring"
+  },
+  "selfcheck": {
+    "tolerance": 1e-06,
+    "n_checks": 648,
+    "n_failed": 0,
+    "max_abs_diff_macro_f1": 0.0,
+    "max_abs_diff_accuracy": 0.0,
+    "max_abs_diff_per_class_f1": 0.0
+  },
+  "environment": {
+    "python": "3.11.15",
+    "executable": "/home/lmy/anaconda3/envs/iotcls/bin/python",
+    "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "scikit_learn": "1.9.0",
+    "thread_env": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "elapsed_seconds": 15.36
+}
