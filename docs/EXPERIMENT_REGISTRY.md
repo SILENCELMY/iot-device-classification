@@ -36,6 +36,8 @@
 > 崩溃加深全部来自分组效应；③ 轮内时间块凑折数的替代方案混合两种分组语义，偏离 §9.1 文本。
 > E1-FULL 结果按此口径有效。
 
+| E2-CONDITIONAL | 2026-08-29（**运行前登记**） | 规格 = EXECUTION_PLAN v1.2 D9（先写后看：本行与 D9 的 commit 先于任何 E2 数值产生） | §13 分层回归 M0/M1/M2。DV = E1-G0-GRID 的 B 臂 gain（150 任务，seed 42；3 个 ~1e-3 差异任务用 E1 值）；M0 = RF 逐类 recall 变化（参照 = 源集 G0 time_block IID 均值）+ L2 + max；M1/M2 加 CPD_y / CPD_dir（ref 同参照，多源构造沿用 0.8397 历史口径，只经 cpd_core；CPD_dir 按 §4.3 n_err≥20，M2 与其 M0 对照同子集拟合）；双通道 = 标准化 OLS 增量 R²（环境聚类 bootstrap B=10000）+ 留一目标环境 CV 的 MSE 改善；敏感性 = A 臂 DV / random IID 参照 / 三基模型均值 recall | 42（bootstrap） | `e1_arms_raw_all.csv` + G0 各任务与 IID 的 rf confusion_matrix.csv + `cpd_core` | `results/e2_conditional/`（回归表、逐环境结果、M2 覆盖率、bootstrap 明细、provenance、E2_RESULTS_NOTE.md） | 待跑。判定严格按 §13 预注册分支、由审阅方作出；实现只出数表。验收含"E2 CPD_y 在 \|S\|=1 上与 D4 拓扑矩阵逐位一致"交叉验证 | 待定（§13 分支决定贡献 2 层级） |
+
 ## 待登记（已排期，执行口径见 `docs/EXECUTION_PLAN_20260829.md`）
 
 （当前无待登记项。）

@@ -1,6 +1,6 @@
 # EXECUTION_PLAN_20260829.md
 
-**Status: FROZEN（执行层）v1.1**
+**Status: FROZEN（执行层）v1.2**
 **冻结日期**: 2026-08-29
 **性质**: 执行层文档。本计划**不修改** `experiment_protocol_final.md`（FROZEN 2026-08-25）的任何条款；
 凡涉及协议文本的地方均为"按既有文本执行"的口径澄清，同步登记于 `EXPERIMENT_REGISTRY.md`，不触发冻结例外。
@@ -104,6 +104,38 @@
 - 历史 110 条主线任务的投票基线依赖 §20.3 重打分补概率（D7 backlog），不阻塞 G1
   （G1 内层池用 G0 网格任务）。
 
+### D9 E2 实现规格（§13 分层回归的执行口径；v1.2 新增，**先写后看**——本节提交先于任何 E2 数值产生）
+
+- **因变量（DV）**：Stacking gain，**B 口径**（§9.1 分组 OOF；引用口径已由 E1_CONCLUSION 定）。
+  主样本 = E1-G0-GRID 的 150 个网格任务（`results/e1_oof_arms_g0/e1_arms_raw_all.csv`
+  B 臂 `gain_absolute`，seed 42；与 G0 有 ~1e-3 差异的 3 个任务用 E1 值——三臂同环境内部自洽）。
+  敏感性：A 臂 DV 重跑同一回归（历史口径对照）。11 个主线任务只作描述性对照——
+  n=11 支撑不了 7 维预测变量的回归（§13 统计纪律：不凑显著）。
+- **统计单位与依赖（§15）**：任务为行，按**目标环境**（6 个）聚类；CI 用聚类 bootstrap
+  （重抽环境，B=10000，seed 42）；另做 leave-one-target-env-out 敏感性（§15.5）。
+  禁止点级 bootstrap，禁止把 n=150 当独立样本。
+- **M0（逐字按 §13）**：对每类 c：`recall_src_IID(c) − recall_tgt(c)`（5 维）+ L2 范数 + 最大值 = 7 维。
+  - 模型口径 = **RF**（§7 基线 1；用 stacking 自身 recall 会与 DV 机械纠缠）；敏感性 = 三基模型均值。
+  - `recall_src_IID(c)` = 源集合 S 中各环境 G0 IID（**time_block**，与 D4 同一诚实参照）RF
+    混淆矩阵逐类 recall 的均值；敏感性用 random IID。
+  - `recall_tgt(c)` = 该任务 RF 测试混淆矩阵逐类 recall（G0 落盘 CM）。
+- **M1 = M0 + `CPD_y`；M2 = M0 + `CPD_dir`**：ref = 源 S 的 IID CM（time_block），tgt = 任务 RF
+  测试 CM；多源参照构造**沿用 0.8397 历史口径的同一构造**（CPD_DEFINITIONS §3，读该文档与
+  test_cpd_core 的复现实现后复用，不新造）；计算只经 `cpd_core`。`CPD_dir` 按 §4.3
+  n_err≥20：未定义任务从 M2 剔除并报告覆盖率；**M2 的 M0 对照在同一子集重新拟合**（否则增量不可比）。
+- **估计与观测量（§13 双通道都做）**：① 标准化 OLS：M1/M2 相对 M0 的增量 R²、系数、
+  效应量、环境聚类 bootstrap 95% CI；② 留一目标环境 CV：M0 vs M1/M2 的样本外 MSE 改善。
+  另报每 |S| 分层的描述性均值（**不加回归项**）。预注册通道之外不加任何协变量；
+  任何额外模型须标注 exploratory 且仅在审阅方要求时做。
+- **解读纪律**：严格走 §13 预注册分支，判定由审阅方作出；实现只出数表不下结论。
+  E1_CONCLUSION §5.2 的构造性代价口径警告约束全部解释文字。
+- **产物**：`code/scripts/analysis/e2_conditional_explanation.py`（import cpd_core）；
+  `results/e2_conditional/`：回归表、逐环境结果（§15.4）、M2 覆盖率、bootstrap 明细、
+  §19.2 provenance、`E2_RESULTS_NOTE.md`（只记口径与数表）。
+- **验收**：① M0 特征抽查 2 任务手算一致（1e-12）；② E2 的 `CPD_y` 在 |S|=1 的 30 任务上
+  与 D4 拓扑矩阵（time_block 变体）**逐位一致**（同口径交叉验证）；③ bootstrap 固定种子可复现；
+  ④ 本节与登记表行的 commit 先于任何 E2 数值。
+
 ### D7 工程收尾
 
 - 随 D5：`pip freeze`（实际运行环境 anaconda3）出 `code/requirements-lock.txt`（§19.5）。
@@ -140,3 +172,4 @@
 |---|---|
 | 2026-08-29 | v1.0 冻结（Fable 5 审定） |
 | 2026-08-29 | v1.1：新增 D8 投票基线后处理（复审发现 §7 基线 4–6 从未被计算，而 X2/X4/G1 都需要；全部可自 G0 落盘产物无重训推得）。同日协议 §23 增三条澄清/记录行（§14 种子语义边界、§12×§14 网格交集、§19.7 执行完毕），协议正文零改动 |
+| 2026-08-29 | v1.2：新增 D9（E2 §13 分层回归执行口径，先写后看——D9 与登记行提交先于任何 E2 数值）；D8 排期修正（与 D2 无依赖） |
