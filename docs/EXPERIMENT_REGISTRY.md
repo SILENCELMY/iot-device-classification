@@ -15,6 +15,9 @@
 | E1-ARMS-VERIFY | 2026-08-28 | `code/` @ `6a3f678` | `max_rows=∞`, rf+stacking, all_features | 42 | `features_raw_all_w10.csv`，任务 `loro_R2_R4_to_R3` | `/tmp/regression_out`, `/tmp/arm_a_out`（临时，结论已录此处） | RF 与 A 臂（random OOF）逐位复现历史（Δ=0）；B 臂（grouped OOF）macro_f1 0.5455→**0.4907**，gain −0.0693→**−0.1241**，崩溃**加深约 1.8 倍** | 是（E1 预验证） |
 | E1-FULL | 2026-08-29 | `code/` @ `1fa5bcc`（结果入库 `3952388`） | `e1_oof_arms.py --tasks all --seeds 42,43,44,45,46`，三臂 A/A′/B，A′ 折数动态对齐 B，all_features | 42–46 | `features_raw_all_w10.csv`，11 个主线任务 | `results/e1_oof_arms/`（e1_arms_raw.csv / e1_decomposition.csv / e1_arms.json） | B 臂崩溃在全部 OOD 任务持续并**加深**（gain 5 种子均值，A→B）：旗舰 `loro_R2_R4_to_R3` −0.066→−0.106；`loro_R2_R3_to_R4` −0.004→−0.223；`loro_R3_R4_to_R2` −0.024→−0.181；`joint` −0.001→−0.104；jitter 三任务 ≈−0.005→≈−0.08；IID 三任务两臂无差（≈−0.002）；唯一例外 `position→R5` 反转为 +0.024。折数效应（A→A′）小而偏正 → 加深源于分组效应。**按 §12 预注册规则走第一分支：现象基础成立，按 X2 继续机制检验**。结论文档：`results/e1_oof_arms/E1_CONCLUSION.md`（含论文引用规则改为 B 口径、R5 反转与 joint 构造性代价两条专门记录） | 是 |
 | G0-GRID | 2026-08-29 | `f740362` | `environment_grid_experiment.py` 全量：150 OOD（\|S\|=1/2/3 → 30/60/60 任务）+ 12 IID（6 环境 × random/time_block，§8.4 时间块对照）；模型 rf/xgboost/lightgbm/stacking；stacking 按 §9.1 grouped | 42（脚本常量 SEED，§14 单种子） | `features_raw_all_w10.csv`（缓存复用，无 tshark 重抽） | `results/g0_environment_grid/`：summary_metrics.csv（648 行 / 162 任务）、env_topology_matrix_rf.csv（RF macro-F1 6×6）、逐任务 CM / pred_proba / oof_meta（stacking） | 网格与时间块 IID 对照完成；CPD 口径同质拓扑矩阵待 §20.2 改造后生成（EXECUTION_PLAN D4）。§8.6：网格不用于显著性结论 | 支撑（§8.6） |
+| D4-TOPOLOGY | 2026-08-29 | `1038f3b` | `six_env_confusion_similarity.py`（§20.2 重写）读 G0 \|S\|=1 + 双 IID 参照；口径 = `cpd_y(ref=CM_iid(i), tgt=CM_{i→j})`，见 EXECUTION_PLAN D4 | —（确定性分析） | `results/g0_environment_grid/raw_all/` 下 30 个有序对 + `g0_iid_R*_{time_block,random}` 的 rf/all_features 混淆矩阵 | `env_topology_cpd_y_ref_{time_block,random}_rf.csv`、`env_topology_macro_f1_from_cm_rf.csv`、`env_topology_cpd_dir_*`、`TOPOLOGY_MATRIX_NOTE.md` | 同质 6×6 替代废弃六环境矩阵。macro-F1 核对 30/30（最大偏差 1.1e-16）；审阅方独立重算抽查逐位一致；CPD_dir 在 n_err≥20 下仅 14/30 有定义（缺失主要来自 IID 参照侧误差过少，与 P0 §6 同向）；test_cpd_core 15/15、test_oof_modes 17/17 全绿。旧 `six_env_off_diag_frobenius_rf.csv` 原地保留作 0.1521 回归锁定源（legacy 迁移废止，见 CPD_DEFINITIONS §5.2） | 支撑（§8.6） |
+| S1-DEEP-5SEED | 2026-08-29（进行中） | 起跑于工作区 @ `042fa03`（实验脚本零改动，仅 CLI 参数） | §14 入口 + 三项必要 CLI 偏离：`--output-root results/s1_deep_5seed_20260829/seed{N}`（默认路径会因 metrics.json 已存在而静默短路复用 seed 42 → std=0）、`--cnn-v5-source legacy/results/extreme_capacity_1p2m_20260706/raw_all`（默认源已迁 legacy）、解释器 `~/anaconda3/envs/iotcls/bin/python`（torch 2.5.1+cu121；base 无 CUDA 会静默跑 CPU）；`PYTHONPATH=code/scripts/analysis` | 42–46。预检通过：splits 逐字节复制（diff 无差异）、`--random-state` 经 set_seed 影响初始化 + DataLoader 批次顺序，**不影响划分**——语义记为"划分固定、训练随机性（初始化+批序）变"，符合 §14 意图（其补救条款仅针对影响划分的情形） | `results/robustness_scaling_20260706_v2/splits`（固定划分） | `results/s1_deep_5seed_20260829/seed{42..46}/`；日志 `results/s1_deep_5seed_logs/`；驱动命令全文见日志目录 `run_5seed.sh`（不入库，命令已录于此行） | 运行中（单种子约 85–90 分钟，ETA 8/29 晚）。锚点：seed 42 的 single_round_R2 三候选复现 7 月历史值至 4 位小数（0.8989/0.9092/0.9129）。**聚合警告：cnn_v5 行是复制的单种子参照，出表不得标 ±std** | 待跑完 |
+| E1-G0-GRID | 2026-08-29（进行中） | 工作区（`e1_oof_arms.py` 网格扩展，代码入库待 D2 审阅） | `e1_oof_arms.py --grid all`：150 个 G0 OOD 任务 × 三臂 × all_features；\|S\|=1 的 B 臂 = `window_start` 时间块（判定按训练轮次数，非任务名单）；§19.2 provenance 落盘 | 42（§8.6 覆盖用途；43–46 视实测耗时由审阅方另定） | `features_raw_all_w10.csv` + G0 任务生成器（import，无重复实现） | `results/e1_oof_arms_g0/` | 运行中（并行会话观测到进程已启动）；启动前置条件为 smoke 双一致性（基模型 F1、B 臂 ≡ G0 stacking，容差 1e-6）通过，具体数字待 D2 报告归档后补录 | 支撑（§8.6） |
 
 > **修订记录（2026-08-28）**：本行首次登记时误记 B 臂 macro_f1 为 0.5498（"崩溃略软"）。
 > 该数字来自 `_splitter` 的一个缺陷：多轮分组分支缺 `return`，执行掉进单轮时间块分支并覆盖
@@ -33,11 +36,10 @@
 
 ## 待登记（已排期，执行口径见 `docs/EXECUTION_PLAN_20260829.md`）
 
-- E1-G0 网格扩展（D2：`|S|≥2` 必做 + `|S|=1` 时间块 B 臂单独标注；seed 42 先行；
-  输出 `results/e1_oof_arms_g0/`；全量前须过 1e-6 双一致性 smoke）
-- UNSW pilot（D3，9/10 截止；含 `extract_features_generic.py` 新建，§16.2 pcap-only 约束）
-- 同质环境拓扑矩阵（D4，§20.2 改造 `six_env_confusion_similarity.py`，读 G0 `|S|=1`）
-- 深度模型 5 种子（D6，§14 正确入口，启动前过"种子只影响初始化"预检）
+- UNSW pilot（D3，9/10 截止；含 `extract_features_generic.py` 新建，§16.2 pcap-only 约束；
+  进行中，回报后登记）
+
+2026-08-29 转入正式登记：D4-TOPOLOGY（已完成）、S1-DEEP-5SEED（运行中）、E1-G0-GRID（运行中）。
 
 已完成并转入正式登记：G0 网格全量、时间块 IID 对照（并入 G0-GRID 行）、E1 全部 11 任务（E1-FULL 行，
 含原"剩余 4 个任务"——其 B 臂为时间块口径，`b_split_basis` 字段已单独标注）。
