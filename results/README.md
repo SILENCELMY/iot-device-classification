@@ -12,8 +12,13 @@ results/
 ├── cnn_architecture_contrast_20260707/ # 最终 CNN 架构对比，包含 TDR-CNN
 ├── p0_audit/                           # P0 指标审计产出：`r=-0.630` 的 leave-one-task-out、leave-one-environment-out 与按测试环境聚类 bootstrap，结论文档 `R630_SENSITIVITY_CONCLUSION.md`
 ├── e1_oof_arms/                        # E1 OOF 折叠三臂对比（协议 §12）：`e1_arms_raw.csv`、`e1_decomposition.csv`、`e1_arms.json`
+├── g0_environment_grid/                # G0 环境网格全量（协议 §8.5 / §8.4，seed 42 单种子）：162 任务 / 648 行 `summary_metrics.csv`、RF macro-F1 6×6 `env_topology_matrix_rf.csv`、逐任务 CM 与 stacking 的 pred_proba / oof_meta
 └── robustness_scaling_20260706_v2/     # 固定 split artifacts 和 scaling 结果
 ```
+
+口径提示：`p0_audit/`、`e1_oof_arms/`、`g0_environment_grid/` 三个目录是 2026-08 之后的**当前口径**产出；
+`robust_v2/` 及其 `report/` 下的分析报告为 2026-06/07 历史口径，文件头已加降格或口径标注，引用前先看标注。
+按协议 §8.6，`g0_environment_grid/` 的网格结果**不用于显著性结论**（约 150 个任务由 6 次采集重组而来，不是独立样本）。
 
 ## 当前主线
 

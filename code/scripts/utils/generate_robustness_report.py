@@ -36,6 +36,15 @@ SCENARIO_MAP = {
     "filtered_R1_single_round": "filtered",
 }
 
+# 口径说明块（协议 §9.1 / §12）。summary_report.md 的 stacking 列是随机折叠 OOF
+# （E1 A 臂）口径，按 §9.1 偏乐观；分组 OOF（B 臂）结果在 results/e1_oof_arms/。
+# 由生成器统一输出，保证重新生成时标注不丢失（EXECUTION_PLAN_20260829.md D5）。
+CALIBRATION_NOTE_LINES = [
+    "> [!NOTE] **口径说明（2026-08-29）**",
+    "> 本文件为自动生成的 110 条结果汇总。其中 `stacking` 行的数值为**随机折叠 OOF**（E1 A 臂）",
+    "> 口径，按协议 §9.1 偏乐观。分组 OOF 结果见 `results/e1_oof_arms/`。",
+]
+
 # New feature family names added in robust_v2 (burst structure + direction)
 NEW_FEATURE_PREFIXES = (
     "burst_count", "burst_size_", "burst_packet_fraction",
@@ -115,6 +124,11 @@ def write_markdown_summary(
 ) -> None:
     lines: list[str] = []
     lines.append("# Robustness V2 — Cross-Scenario Summary")
+    lines.append("")
+    # 口径说明（协议 §9.1）：本报告的 stacking 列来自 robust_iot_research.py 的历史
+    # 随机折叠 OOF 口径（= E1 A 臂），偏乐观。这一行必须随报告一起生成，否则重新生成
+    # summary_report.md 时手工加的标注会被覆盖丢失。参见 docs/EXECUTION_PLAN_20260829.md D5。
+    lines.extend(CALIBRATION_NOTE_LINES)
     lines.append("")
     lines.append("## 1. Per-task macro-F1")
     lines.append("")

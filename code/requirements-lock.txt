@@ -1,0 +1,107 @@
+# =============================================================================
+# code/requirements-lock.txt
+# =============================================================================
+# 用途：协议 §19.5「在干净环境运行最小复现实验并生成一张主表」的环境锁定。
+#       本文件锁定的是**实际产出 results/ 下全部传统 ML 结果的那个运行环境**
+#       （robust_v2 / robust_v2_rerun / p0_audit / g0_environment_grid / e1_oof_arms）。
+#
+# 生成日期：2026-08-29
+# 生成主机：服务器 galaxy，仓库 ~/iot-device-classification
+# conda 环境：iotcls
+# 解释器  ：/home/lmy/anaconda3/envs/iotcls/bin/python3
+# Python  ：3.11.15
+# pip     ：26.1.2
+# 平台    ：Linux-5.4.0-189-generic-x86_64-with-glibc2.31
+#
+# 生成命令（下面正文即其原样输出，未做任何编辑）：
+#   /home/lmy/anaconda3/envs/iotcls/bin/python3 -m pip freeze
+#
+# -----------------------------------------------------------------------------
+# 为什么锁 `iotcls` 而不是 anaconda base（`~/anaconda3/bin/python3`）
+# -----------------------------------------------------------------------------
+# anaconda base 是 Python 3.10.9，**没有安装 xgboost / lightgbm**
+# （`import xgboost` 直接 ModuleNotFoundError），跑不了主线实验——
+# `robust_iot_research.py` 的 models 含 xgboost / lightgbm / stacking。
+# 用 base 做锁定会得到一个装不出主线依赖的环境，达不到 §19.5 的目的。
+# 另外 base 的 `pip freeze` 有 271/316 个包输出成 `name @ file:///croot/...`
+# 形式的 conda 本地构建路径、**不含版本号**，在别的机器上根本无法安装；
+# 而 `iotcls` 的 `pip freeze` 输出 52 个包、全部是 `name==version`，零个本地路径。
+#
+# 判定 `iotcls` 为真实运行环境的证据（协议 §19.2 落盘记录，不是推测）：
+#   results/e1_oof_arms_g0/scratch/provenance_all_partial_2task_1seed.json
+#     command_line.executable = /home/lmy/anaconda3/envs/iotcls/bin/python3
+#     versions = python 3.11.15 / numpy 2.4.6 / pandas 3.0.3 /
+#                scikit-learn 1.9.0 / xgboost 3.2.0 / lightgbm 4.6.0 /
+#                scipy 1.17.1 / joblib 1.5.3
+#   上述版本与本文件正文逐项一致。
+#
+# -----------------------------------------------------------------------------
+# 服务器上另外两个 conda 环境（本文件**不**覆盖，需要时另行锁定）
+# -----------------------------------------------------------------------------
+#   base     Python 3.10.9    通用环境，无 xgboost / lightgbm，不用于主线实验
+#   torch24  Python 3.10.20   torch 2.5.1，深度模型用（§14 CNN 架构对比、S1 五种子）；
+#                             对应 results/s1_deep_5seed_20260829/seed*/environment_report.json
+#                             记录 torch_version = 2.5.1+cu121
+#
+# -----------------------------------------------------------------------------
+# 用法
+# -----------------------------------------------------------------------------
+#   conda create -n iot-repro python=3.11.15
+#   conda activate iot-repro
+#   pip install -r code/requirements-lock.txt
+#
+# 本文件是该环境的**全量快照**，不是最小依赖集；最小依赖清单见
+# code/requirements-core.txt 与 code/requirements-cloud.txt。
+# =============================================================================
+cloudpickle==3.1.2
+contourpy==1.3.3
+cycler==0.12.1
+filelock==3.29.0
+fonttools==4.63.0
+fsspec==2026.4.0
+imbalanced-learn==0.14.2
+Jinja2==3.1.6
+joblib==1.5.3
+kiwisolver==1.5.0
+lightgbm==4.6.0
+llvmlite==0.47.0
+MarkupSafe==3.0.3
+matplotlib==3.11.0
+mpmath==1.3.0
+narwhals==2.22.1
+networkx==3.6.1
+numba==0.65.1
+numpy==2.4.6
+nvidia-cublas-cu12==12.1.3.1
+nvidia-cuda-cupti-cu12==12.1.105
+nvidia-cuda-nvrtc-cu12==12.1.105
+nvidia-cuda-runtime-cu12==12.1.105
+nvidia-cudnn-cu12==9.1.0.70
+nvidia-cufft-cu12==11.0.2.54
+nvidia-curand-cu12==10.3.2.106
+nvidia-cusolver-cu12==11.4.5.107
+nvidia-cusparse-cu12==12.1.0.106
+nvidia-nccl-cu12==2.21.5
+nvidia-nvjitlink-cu12==12.9.86
+nvidia-nvtx-cu12==12.1.105
+packaging==26.0
+pandas==3.0.3
+pillow==12.2.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+scikit-learn==1.9.0
+scipy==1.17.1
+seaborn==0.13.2
+shap==0.51.0
+six==1.17.0
+sklearn-compat==0.1.6
+slicer==0.0.8
+sympy==1.13.1
+threadpoolctl==3.6.0
+torch==2.5.1+cu121
+torchaudio==2.5.1+cu121
+torchvision==0.20.1+cu121
+tqdm==4.68.2
+triton==3.1.0
+typing_extensions==4.15.0
+xgboost==3.2.0
