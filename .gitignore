@@ -2,10 +2,12 @@
 # 排除 pcapng / joblib / npy 等大文件与不可分发数据。
 
 # ---- 数据集（权限锁定，不可分发） ----
-dataset/
+# 前导斜杠：只匹配仓库根目录下的 dataset/，不误伤任何嵌套同名目录
+/dataset/
 
 # ---- 被取代的历史结果（4.7 GB，仍留在磁盘，只是不入库） ----
-legacy/
+# 前导斜杠必需：不加会连 code/scripts/legacy/ 一起忽略
+/legacy/
 
 # ---- 大文件类型 ----
 *.joblib
@@ -40,3 +42,6 @@ results/**
 
 # 部分运行的临时产物（e1_oof_arms.py 的 --tasks 子集运行），不入库
 results/**/scratch/
+
+# ---- 运行日志（原 code/ 仓库中即为未跟踪） ----
+*.log
