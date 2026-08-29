@@ -959,6 +959,30 @@ def sample_balanced(data: pd.DataFrame, max_rows: int, random_state: int) -> pd.
     return pd.concat(samples, ignore_index=True)
 
 
+def time_block_split(data: pd.DataFrame, test_size: float) -> tuple[pd.Index, pd.Index]:
+    """按 `window_start` 的时间块划分（协议 §8.5.4）。
+
+    协议 §8.5.4：`single_round` 的随机分层划分会把相邻 10 秒窗口同时放进训练与测试，
+    该数值只能称为「session 内上界」，必须并列报告本函数给出的时间划分数值。
+
+    `window_start` 是**每个 source_file 内部的相对时间戳**（各文件从 0 起计、并发采集），
+    因此不能全局排序切片——那会把不同设备的时间轴混在一起。做法是**在每个 source_file
+    内部**按 window_start 排序，取尾部 `test_size` 比例作测试集。这样：
+      · 同一文件内相邻窗口不会被拆到两侧（只有切点处 1 个边界）；
+      · 每个设备/文件都按同一比例贡献训练与测试，类别分布近似保持。
+    """
+    train_parts, test_parts = [], []
+    for _, group in data.groupby("source_file", sort=True):
+        ordered = group.sort_values("window_start", kind="stable").index
+        n_test = int(round(len(ordered) * test_size))
+        # 每侧至少留 1 个样本，避免极小文件产生空集
+        n_test = max(1, min(len(ordered) - 1, n_test)) if len(ordered) > 1 else 0
+        test_parts.append(ordered[len(ordered) - n_test:] if n_test else ordered[:0])
+        train_parts.append(ordered[: len(ordered) - n_test])
+    return (data.index[data.index.isin(np.concatenate([np.asarray(p) for p in train_parts]))],
+            data.index[data.index.isin(np.concatenate([np.asarray(p) for p in test_parts]))])
+
+
 def task_data(
     features: pd.DataFrame,
     task: dict[str, Any],
@@ -969,12 +993,16 @@ def task_data(
         data = features[features["round"].isin(rounds)].copy()
         data = sample_balanced(data, args.max_rows, args.random_state)
         meta = data[["round", "traffic", "filter_mode", "source_file", "window_id", "window_start", "window_end"]]
-        train_idx, test_idx = train_test_split(
-            data.index,
-            test_size=args.test_size,
-            random_state=args.random_state,
-            stratify=data["label"],
-        )
+        # split_mode 缺省为 "random"，与历史实现逐位一致；"time_block" 为协议 §8.5.4 的对照
+        if task.get("split_mode", "random") == "time_block":
+            train_idx, test_idx = time_block_split(data, args.test_size)
+        else:
+            train_idx, test_idx = train_test_split(
+                data.index,
+                test_size=args.test_size,
+                random_state=args.random_state,
+                stratify=data["label"],
+            )
         return (
             data.loc[train_idx],
             data.loc[test_idx],
