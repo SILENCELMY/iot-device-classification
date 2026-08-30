@@ -1,0 +1,23 @@
+{
+  "gate": "c_determinism_double_run",
+  "run_a": "/tmp/route_b_a",
+  "run_b": "/tmp/route_b_b",
+  "n_files": 5,
+  "key_sets_identical": true,
+  "n_md5_mismatch": 0,
+  "passed": true,
+  "md5_run_a": {
+    "route_b_env_summary.csv": "e320b12164a886bc56bed30f99479908",
+    "route_b_fold_params.csv": "95426bd7df0d82cd810871b22eb3d573",
+    "route_b_passline.csv": "37c125624559bc2c283e689285d1a20e",
+    "route_b_task_detail.csv": "33d1f9bef32331b44f3b55cb4a38f087",
+    "route_b_weights.csv": "f45f544be1e54f1c68976814cc21d475"
+  },
+  "md5_run_b": {
+    "route_b_env_summary.csv": "e320b12164a886bc56bed30f99479908",
+    "route_b_fold_params.csv": "95426bd7df0d82cd810871b22eb3d573",
+    "route_b_passline.csv": "37c125624559bc2c283e689285d1a20e",
+    "route_b_task_detail.csv": "33d1f9bef32331b44f3b55cb4a38f087",
+    "route_b_weights.csv": "f45f544be1e54f1c68976814cc21d475"
+  }
+}

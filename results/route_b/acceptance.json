@@ -1,0 +1,42 @@
+{
+  "gates": [
+    {
+      "gate": "a_lambda1_reproduces_d8_soft_equal",
+      "n_compared": 162,
+      "n_mismatch": 0,
+      "max_abs_dev": 0.0,
+      "examples": [],
+      "passed": true,
+      "note_4class_max_abs_dev": 0.0
+    },
+    {
+      "gate": "b_candidate_f1_bitwise",
+      "n_compared": 300,
+      "n_mismatch": 0,
+      "examples": [],
+      "passed": true
+    },
+    {
+      "gate": "d_fold_structure",
+      "n_outer_folds": 6,
+      "outer_per_fold": 25,
+      "inner_per_fold": 70,
+      "outer_cover_150_exactly": true,
+      "e_out_absent_from_inner": true,
+      "passed": true
+    },
+    {
+      "gate": "e_source_only_audit",
+      "weight_estimator_signature": "source_stats(task: str) -> dict",
+      "reads": [
+        "results/g0_environment_grid/raw_all/<task>/all_features/stacking/oof_meta.csv"
+      ],
+      "target_side_objects_in_signature": 0,
+      "target_true_label_use": "仅在 score() 最终打分处；不进入 lb/rho/权重计算",
+      "randomness": "none (deterministic; no seed used)",
+      "passed": true
+    }
+  ],
+  "spec": "EXECUTION_PLAN_20260829.md D11 @0f33137 + v1.7 addendum",
+  "verdict": "由审阅方按协议 §17.3 三条通过线作出；本文件不含判定"
+}

@@ -1,0 +1,20 @@
+﻿criterion,quantity,value_numeric,note
+cond1,mean_f1_route_b_env_equal,0.6613786759078487,
+cond1,mean_f1_rf_env_equal,0.6870245565952059,
+cond1,threshold_rf_minus_0.005,0.6820245565952059,
+cond1,margin_route_b_minus_threshold,-0.020645880687357177,
+cond1,mean_f1_route_b_task_level,0.6613786759078488,
+cond2,worst_env_name,,R5
+cond2,worst_env_mean_f1_route_b,0.6170068161440985,
+cond2,same_env_mean_f1_stacking,0.5943609245849732,
+cond2,margin_worst_env_minus_stacking,0.02264589155912522,
+cond3,n_envs_positive_gain_vs_stacking,5.0,阈值 >=4
+cond3,n_envs_total,6.0,
+aux,mean_f1_stacking_env_equal,0.6280238013032022,非门禁
+aux,mean_regret_route_b_env_equal,0.045921320289054414,非门禁
+aux,mean_regret_always_rf_env_equal,0.02027543960169744,非门禁；G1 实测 0.02025
+aux,mean_f1_soft_equal_env_equal,0.6559309296677759,非门禁
+aux,mean_f1_soft_calibrated_env_equal,0.6669998830146092,非门禁
+aux,mean_f1_hard_voting_env_equal,0.6595464765553073,非门禁
+aux,n_tasks_win_vs_stacking,86.0,非门禁
+aux,n_tasks_win_vs_rf,64.0,非门禁
