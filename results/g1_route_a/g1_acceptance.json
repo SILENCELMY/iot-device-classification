@@ -1,0 +1,86 @@
+{
+  "gates": [
+    {
+      "gate": "1a_candidate_f1_bitwise_vs_disk",
+      "detail": "rf / stacking 的 metrics.json::macro_f1 与 voting_baselines.csv::macro_f1_5class 逐位比对",
+      "n_compared": 300,
+      "n_mismatch": 0,
+      "examples": [],
+      "passed": true
+    },
+    {
+      "gate": "1b_grid_metadata_three_way",
+      "detail": "任务名 / target_env / n_sources / train_rounds / test_rounds 在生成器、metrics.json、voting_baselines.csv 三源一致",
+      "n_compared": 450,
+      "n_mismatch": 0,
+      "examples": [],
+      "passed": true
+    },
+    {
+      "gate": "1c_soft_voting_macro_internal_consistency",
+      "detail": "两个 soft 变体的 macro_f1_5class 与其 5 个逐类 F1 的算术平均之差",
+      "n_compared": 300,
+      "max_abs_dev": 0.0,
+      "tol": 1e-12,
+      "passed": true
+    },
+    {
+      "gate": "1d_f1_table_complete",
+      "detail": "150 任务 × 4 个落盘 F1 全部存在且非缺失",
+      "n_compared": 600,
+      "n_rows": 150,
+      "detail_value": "150 行 × 4 列 = 600 个 F1，缺失 0",
+      "passed": true
+    },
+    {
+      "gate": "3_fold_structure_assertions",
+      "detail": "§9.2 fold 自检：外层 6×25 覆盖 150 不重不漏；内层 6×70；逐 fold 断言 e_out 不出现在任何内层任务的 train_rounds / test_rounds",
+      "n_checks": 903,
+      "detail_value": "全部 assert 通过",
+      "passed": true
+    },
+    {
+      "gate": "4_leakage_static_audit",
+      "detail": "选择路径 12 个函数的签名无标签参数、函数体无标签词元命中",
+      "n_checks": 12,
+      "detail_value": "n_label_tokens = 0",
+      "passed": true
+    },
+    {
+      "gate": "5_tiebreak_reading_ambiguity",
+      "detail": "D10 并列打破 ② '更保守（阈值更靠 RF 侧）' 的两种读法（(t1,t2) 更大 / 更小）必须给出逐位一致的外层**结果**（OUTCOME_COLS：选择、F1、oracle、regret 及其派生）；阈值参数本身的差异并列记录、不构成失败",
+      "n_checks": 20,
+      "detail_value": "外层结果列一致 = True；选择改变的外层任务 = 0/150；参数不同的 fold = ['R3', 'R5']",
+      "param_differences": [
+        {
+          "fold_e_out": "R3",
+          "primary": [
+            "soft_voting_calibrated",
+            0.09803656851781944,
+            0.2421418733518932
+          ],
+          "alternative": [
+            "soft_voting_calibrated",
+            0.054224067425112266,
+            0.2421418733518932
+          ]
+        },
+        {
+          "fold_e_out": "R5",
+          "primary": [
+            "soft_voting_equal",
+            0.1041932018935652,
+            0.20166548896426872
+          ],
+          "alternative": [
+            "soft_voting_equal",
+            0.054224067425112266,
+            0.20166548896426872
+          ]
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

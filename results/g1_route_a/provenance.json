@@ -1,0 +1,230 @@
+{
+  "experiment": "G1 route A (UDS-driven risk selector, nested LOEO)",
+  "protocol_sections": [
+    "4.2",
+    "9.2",
+    "10",
+    "11",
+    "15.1",
+    "15.4",
+    "17.1",
+    "19.2"
+  ],
+  "execution_spec": "docs/EXECUTION_PLAN_20260829.md D10 (v1.4, commit 4861704) + D10 追记 v1.5 (commit d447323, 条件 4 口径运行前修订)",
+  "registry_row": "docs/EXPERIMENT_REGISTRY.md :: G1-ROUTE-A",
+  "git": {
+    "head": "d4473238aa5a0bc1cf29552c50a09c0f8d90b0e5",
+    "branch": "main",
+    "status_porcelain": "M code/scripts/analysis/test_oof_modes.py\n M code/scripts/core/robust_iot_research.py\n?? code/scripts/analysis/g1_route_a.py\n?? code/scripts/utils/rescore_historical.py\n?? results/g1_route_a/",
+    "describe_dirty": true
+  },
+  "command": {
+    "argv": [
+      "code/scripts/analysis/g1_route_a.py"
+    ],
+    "cwd": "/home/lmy/iot-device-classification",
+    "interpreter": "/home/lmy/anaconda3/envs/iotcls/bin/python"
+  },
+  "seed": null,
+  "determinism": "no RNG anywhere; no retraining; all candidate F1 read from disk",
+  "environment": {
+    "python": "3.11.15",
+    "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "task_definition": "code/scripts/core/environment_grid_experiment.py::build_task_grid (§11)",
+    "candidate_f1_rf_stacking": "results/g0_environment_grid/raw_all/<task>/all_features/{rf,stacking}/metrics.json::macro_f1",
+    "candidate_f1_soft_voting": "results/g0_environment_grid/voting_baselines.csv::macro_f1_5class (method ∈ {soft_voting_equal, soft_voting_calibrated})",
+    "uds_source_side": "results/g0_environment_grid/raw_all/<task>/all_features/stacking/oof_meta.csv::oof_<model>_<class> (argmax)",
+    "uds_target_side": "results/g0_environment_grid/raw_all/<task>/all_features/{lightgbm,rf,xgboost}/predictions.csv::predicted_label",
+    "uds_implementation": "code/scripts/analysis/cpd_core.py::uds (§11 唯一实现)",
+    "n_input_files": 1203,
+    "manifest_md5": "97cb7763693f75950b99f727822aca71"
+  },
+  "config": {
+    "class_order": [
+      "Camera",
+      "Light_T1",
+      "Light_XM",
+      "Sensor",
+      "Socket"
+    ],
+    "base_models": [
+      "lightgbm",
+      "rf",
+      "xgboost"
+    ],
+    "risk_order": [
+      "stacking",
+      "soft_voting",
+      "rf"
+    ],
+    "soft_variants": [
+      "soft_voting_equal",
+      "soft_voting_calibrated"
+    ],
+    "f1_metric": "5-class macro-F1 (§10 主指标 1)",
+    "aggregation_primary": "environment-equal (§15.1)",
+    "threshold_candidates": "midpoints of adjacent sorted inner-pool UDS values",
+    "selector_family": "UDS monotone double threshold, [stacking, soft_voting, rf]"
+  },
+  "rulings": {
+    "tiebreak_reading": {
+      "spec_text": "D10 并列打破 ②：'更保守（阈值更靠 RF 侧）'",
+      "ambiguity": "'更保守'（阈值更小 → 更多任务落入 RF）与 '阈值更靠 RF 侧'（阈值数值更大）在本规则下指向相反方向",
+      "primary_adopted": "(t1, t2) 字典序更大",
+      "alternative_checked": "(t1, t2) 字典序更小",
+      "outer_outcome_columns_identical_under_both_readings": true,
+      "n_outer_tasks_with_changed_selection": 0,
+      "folds_with_different_params": [
+        {
+          "fold_e_out": "R3",
+          "primary": [
+            "soft_voting_calibrated",
+            0.09803656851781944,
+            0.2421418733518932
+          ],
+          "alternative": [
+            "soft_voting_calibrated",
+            0.054224067425112266,
+            0.2421418733518932
+          ]
+        },
+        {
+          "fold_e_out": "R5",
+          "primary": [
+            "soft_voting_equal",
+            0.1041932018935652,
+            0.20166548896426872
+          ],
+          "alternative": [
+            "soft_voting_equal",
+            0.054224067425112266,
+            0.20166548896426872
+          ]
+        }
+      ],
+      "note": "两读法下 150 个外层任务的选择、F1、oracle、regret 及全部派生量逐位一致；差异仅出现在 R3 / R5 两个 fold 被记录的 t1 数值上（并列记入 g1_fold_params.csv 的 t1_alt_reading / t2_alt_reading 列）。→ 该规格歧义对本次全部结果无影响。"
+    },
+    "cond4_tau_repro_amendment": {
+      "source": "docs/EXECUTION_PLAN_20260829.md v1.5 'D10 追记'（commit d447323）",
+      "primary": "条件 4 = 存在 ≥1 个外层任务，选择 ≠ RF 且 regret ≤ τ_repro = 0.002",
+      "parallel_reported": "τ = 0 的原严值计数（quantity 后缀 _tau0_parallel）",
+      "tau_source": "登记表 E1-G0-GRID 行实测的跨线程拓扑 stacking 复现界 ≈ 2e-3",
+      "premise_reproduced_from_this_run_f1_table": {
+        "n_tasks_top2_gap_lt_tau_calibrated": "12/150（追记记载 12/150 = 8.0%）",
+        "n_tasks_top2_gap_lt_tau_equal": "8/150（追记记载 8/150 = 5.3%）",
+        "median_gap_calibrated_equal": "0.027 / 0.029（追记记载同值）",
+        "min_gap": "0（存在精确并列，追记记载同）"
+      },
+      "note": "两种 τ 口径的计数与逐任务明细同时落盘，审阅方可直接复算"
+    },
+    "threshold_candidate_duplicates": {
+      "check": "每个 fold 内层 70 个 UDS 值互不相同（assert）",
+      "consequence": "'排序后相邻值中点' 的含重复 / 去重两种读法等价"
+    }
+  },
+  "diagnostics": {
+    "csv_float_parsing": {
+      "fact": "pandas 3.0.3 默认解析器（float_precision=None/'high'）在 voting_baselines.csv 的 300 组 rf/stacking macro-F1 中有 18 组产生 1 ULP（5.55e-17）偏差；落盘十进制文本本身是全精度（17 位有效数字）",
+      "resolution": "本脚本所有数值 CSV 读取均用 float_precision='round_trip'，落盘文本 → float64 逐位还原；验收门 ①a 在此设置下 300/300 逐位一致",
+      "affects": "读取端，不涉及任何重算；D8 自检的 648/648 逐位结论未受影响"
+    }
+  },
+  "gates": [
+    {
+      "gate": "1a_candidate_f1_bitwise_vs_disk",
+      "detail": "rf / stacking 的 metrics.json::macro_f1 与 voting_baselines.csv::macro_f1_5class 逐位比对",
+      "n_compared": 300,
+      "n_mismatch": 0,
+      "examples": [],
+      "passed": true
+    },
+    {
+      "gate": "1b_grid_metadata_three_way",
+      "detail": "任务名 / target_env / n_sources / train_rounds / test_rounds 在生成器、metrics.json、voting_baselines.csv 三源一致",
+      "n_compared": 450,
+      "n_mismatch": 0,
+      "examples": [],
+      "passed": true
+    },
+    {
+      "gate": "1c_soft_voting_macro_internal_consistency",
+      "detail": "两个 soft 变体的 macro_f1_5class 与其 5 个逐类 F1 的算术平均之差",
+      "n_compared": 300,
+      "max_abs_dev": 0.0,
+      "tol": 1e-12,
+      "passed": true
+    },
+    {
+      "gate": "1d_f1_table_complete",
+      "detail": "150 任务 × 4 个落盘 F1 全部存在且非缺失",
+      "n_compared": 600,
+      "n_rows": 150,
+      "detail_value": "150 行 × 4 列 = 600 个 F1，缺失 0",
+      "passed": true
+    },
+    {
+      "gate": "3_fold_structure_assertions",
+      "detail": "§9.2 fold 自检：外层 6×25 覆盖 150 不重不漏；内层 6×70；逐 fold 断言 e_out 不出现在任何内层任务的 train_rounds / test_rounds",
+      "n_checks": 903,
+      "detail_value": "全部 assert 通过",
+      "passed": true
+    },
+    {
+      "gate": "4_leakage_static_audit",
+      "detail": "选择路径 12 个函数的签名无标签参数、函数体无标签词元命中",
+      "n_checks": 12,
+      "detail_value": "n_label_tokens = 0",
+      "passed": true
+    },
+    {
+      "gate": "5_tiebreak_reading_ambiguity",
+      "detail": "D10 并列打破 ② '更保守（阈值更靠 RF 侧）' 的两种读法（(t1,t2) 更大 / 更小）必须给出逐位一致的外层**结果**（OUTCOME_COLS：选择、F1、oracle、regret 及其派生）；阈值参数本身的差异并列记录、不构成失败",
+      "n_checks": 20,
+      "detail_value": "外层结果列一致 = True；选择改变的外层任务 = 0/150；参数不同的 fold = ['R3', 'R5']",
+      "param_differences": [
+        {
+          "fold_e_out": "R3",
+          "primary": [
+            "soft_voting_calibrated",
+            0.09803656851781944,
+            0.2421418733518932
+          ],
+          "alternative": [
+            "soft_voting_calibrated",
+            0.054224067425112266,
+            0.2421418733518932
+          ]
+        },
+        {
+          "fold_e_out": "R5",
+          "primary": [
+            "soft_voting_equal",
+            0.1041932018935652,
+            0.20166548896426872
+          ],
+          "alternative": [
+            "soft_voting_equal",
+            0.054224067425112266,
+            0.20166548896426872
+          ]
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "outputs": {
+    "G1_RESULTS_NOTE.md": "a2d20aac1ff85075b03b6f8bb8d719da",
+    "g1_acceptance.json": "753afdab76fa77546fe12d1f0449d43c",
+    "g1_env_summary.csv": "c9f37a4e982ae44e5241e088da1c2664",
+    "g1_fold_params.csv": "dda1d03341eac69d3c3b826ffa50fa10",
+    "g1_leakage_audit.md": "6a957a699fb21d0596b15cc08fd3450a",
+    "g1_overall.csv": "ae5ae7cdedf163d3e09eab902586063c",
+    "g1_task_detail.csv": "65ac50eae9c40fbffcd1c8f411c0778d",
+    "g1_uds.csv": "8c7e41d9e84a9f3e898e756e3c2da285"
+  },
+  "runtime_seconds": 5.459
+}
