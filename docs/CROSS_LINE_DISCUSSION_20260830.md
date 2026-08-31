@@ -1008,3 +1008,84 @@ UNSW dataset/unsw/pcap/16-09-25.pcap
 2. **设计与判定仍归主线侧**：规格（先写后看）、§17.5 四条冻结声明、以及结果的科学解读与
    登记表落行由 Fable 5 / 主线负责；执行方只实现与运行，不作裁定。这与独立线自身
    "Luna 只实现与运行"的纪律一致。
+
+---
+
+## 18. 20260831 执行交接：D12 / P2-UNSW-TEST1 计划与前置门（主线 → Luna）
+
+**当前状态：`IMPLEMENTATION_ONLY / FORMAL_RUN_NOT_AUTHORIZED`。**
+
+**性质**：用户决定由 Luna 承担机械实现与计算，主线负责设计、冻结、代码审阅和最终判定。
+正式规格为 `docs/EXECUTION_PLAN_20260829.md` **v1.9 D12 + D13**；D13 是在任何 D12 模型结果
+不可见时形成的前置更正。Luna 不得只读旧 D12 后自行补空白。
+
+### 18.1 已完成的前置核验
+
+- 20/20 个逐日特征 CSV 与 20/20 个 run_meta 齐全；汇总规模 1,317,887 窗、61 数值特征；
+- `results/unsw_test1/` 当前不存在，没有可供调参或选择口径的科学结果；
+- canonical 环境为 `/home/lmy/anaconda3/envs/iotcls/bin/python`：Python 3.11.15、numpy 2.4.6、
+  pandas 3.0.3、scikit-learn 1.9.0、xgboost 3.2.0、lightgbm 4.6.0；
+- `test_cpd_core.py` 15/15 PASS，`test_oof_modes.py` 全部 PASS；
+- 32 CPU、125 GiB RAM、约 1.6 TiB 工作盘可用；不需要网络、代理或安装依赖；
+- 工作区原有未跟踪 `independent/` 与 `results/meta_mismatch_exploratory/`，本任务不得读取、清理或修改。
+
+盲态清点还发现两个原 D12 实现阻塞：动态面板在 6 个 OOD–IID 配对上类别支持不同；20 个 IID
+`CPD_y` 缺少第二张 CM 的定义。D13 已一次性固定：公共六类支持；训练侧无泄漏 RF OOF CM →
+测试侧 RF CM 的同构 CPD。旧的"测试日 IID CM 作参照"不得进入实现。
+
+### 18.2 Luna 第一阶段：只实现与合成测试
+
+允许新增且仅允许新增：
+
+```text
+code/scripts/analysis/unsw_test1.py
+code/scripts/analysis/test_unsw_test1.py
+```
+
+不得修改任何既有 `code/` 文件、冻结文档、registry 或结果。第一阶段只可运行纯合成测试、
+`test_cpd_core.py` 和 `test_oof_modes.py`；**禁止 smoke 任一真实 UNSW 任务**，因为 smoke 同样会揭示
+科学量。实现必须直接 import 主线 `build_model` / `sample_balanced` / `cpd_core.cpd_y`，不得复制
+RF、平衡采样或 CPD 实现。
+
+实现完成后，在本文件末尾只追加一节 `D12_IMPLEMENTATION_READY`，提供：
+
+1. 两个候选文件的 sha256 与完整 diff；
+2. 合成测试及两组既有回归测试的退出码和摘要；
+3. 函数级标签边界说明：测试标签出现在哪些函数参数、为何不能流入 fit/阈值/模型选择；
+4. 74 任务定义 × 2 面板臂的静态计数，以及 54 OOD / 20 IID / 19 paired-day IID 的断言；
+5. 六类顺序、10 台 stable 设备、`max_rows=20000`、设备内 70/30 时间块、OOF 折叠语义的断言；
+6. 预期 CLI、分片方式、输出清单及 md5 规范化规则。
+
+完成以上材料后**立即停下**。Luna 不执行 git add/commit，不创建 `results/unsw_test1/`。
+
+### 18.3 主线复核门
+
+主线逐项审查：D13 口径、无目标标签泄漏、任务/面板计数、OOF 折叠、确定性序列化、输出不覆盖、
+七道硬门。审查通过后由主线提交代码与文档，并在本文件追加唯一形式的授权：
+
+```text
+RUN_AUTHORIZED
+commit: <40-char hash>
+canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
+```
+
+没有这三行，任何真实 UNSW 任务都不得启动。实现审查失败则退回修正，不能以“先跑一个看看”绕过。
+
+### 18.4 Luna 第二阶段：正式双跑
+
+授权后按 D13 执行：两个 `/tmp` staging 根独立完整运行；总 CPU 线程不超过 24，建议 6 分片 ×
+每模型 `n_jobs=4`；`MPLCONFIGDIR` 指向 `/tmp` 可写目录；控制台和进度日志只打印任务 ID、门状态与耗时，
+不得打印 F1、CPD、gain 或中间判据，避免结果驱动干预。
+
+两次运行的规范文件清单和 md5 必须逐位相同。D12 七道硬门、D13 支持集/任务数门、双跑门全部通过，
+才可一次性生成 `results/unsw_test1/`；任一门失败，canonical 目录必须保持不存在，并停止，不改参数、
+不删任务、不换支持集。完成后只在本文件追加 `D12_EXECUTION_COMPLETE`，记录 commit、命令、退出码、
+墙钟、manifest/md5 和硬门状态；**不作科学解释或 PASS/FAIL 裁定**，判定归主线。
+
+### 18.5 本交接明确不包含
+
+- 不运行 §17 的 NO_RSSI、跨窗口列或 10s/30s 消融；它们等待独立 P4 冻结规格；
+- 不启动七日无标签方法族，不把 D12 当作其开发数据；
+- 不启动 commissioning；
+- 不修改 M2/M3、Route A/B、M4–M6、M6 stop 或任何既有冻结结果；
+- 即使 D12 两条判据都过，也不恢复 CPD 的机制、预测或部署身份。

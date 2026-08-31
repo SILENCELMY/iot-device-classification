@@ -1,6 +1,6 @@
 # EXECUTION_PLAN_20260829.md
 
-**Status: FROZEN（执行层）v1.7**
+**Status: FROZEN（执行层）v1.9**
 **冻结日期**: 2026-08-29
 **性质**: 执行层文档。本计划**不修改** `experiment_protocol_final.md`（FROZEN 2026-08-25）的任何条款；
 凡涉及协议文本的地方均为"按既有文本执行"的口径澄清，同步登记于 `EXPERIMENT_REGISTRY.md`，不触发冻结例外。
@@ -386,6 +386,109 @@ E2_CONCLUSION §6）；**全部原样适用，一字不调**。明示：主线�
 进附录，正文方法适用范围限定为"**同部署内标定**"。若讨论文档 §13 的七日无标签冲刺产出一个
 通过冻结门的方法，则重启检验 2 并另立规格；在此之前不得以任何未通过的方法充当其输入。
 
+### D13 D12 运行前更正与 Luna 执行交接（v1.9，**先写后看**）
+
+**性质与优先级**：本节形成于 `results/unsw_test1/` 尚不存在、任何 D12 模型均未运行时；依据仅为
+`device_window_counts_by_day.csv`、MAC 映射和代码静态审计，不含任何科学结果。D12 原文保留审计轨迹；
+本节对 D12 中尚未闭合或相互冲突的实现口径作运行前更正，冲突处以 D13 为准。D12 的两条判据、
+三分支裁定、seed=42、B=10000 和明文不做清单不变。
+
+#### 13.1 盲态前置审计发现的两个阻塞项
+
+1. **类别支持集不闭合**。按 P2 gate 的设备级门槛（每台物理设备在任务涉及的每一天均
+   `n_windows >= 100`）机械清点 54 个 OOD 任务：39 个任务有 7 个类型，15 个有 6 个类型；
+   共同的 6 类为 `appliance / camera / hub / sensor / speaker / switch`。若每日 IID 参照使用该日
+   全部达标设备，6 个 OOD–IID 对会在 `light` 上支持集不一致，`CPD_y` 将比较不同类别轴。
+2. **IID 侧 CPD 未定义**。D12 同时写了“54 个 OOD 与 20 个 IID 的 `CPD_y` 均值差”和
+   “OOD 的参照 CM = 对应测试日 IID CM”，却没有定义 20 个 IID 任务各自的第二张 CM；若把 IID CM
+   与自身比较，IID `CPD_y` 恒为 0，判据 1 退化为近乎同一性检验。该读法禁止进入实现。
+
+两项都在结果不可见时发现，因此必须现在一次性修正；不得由实现方在代码中静默选择。
+
+#### 13.2 固定标签空间与两种设备面板
+
+**固定类别轴及顺序**：
+
+```text
+CATEGORY_ORDER = [appliance, camera, hub, sensor, speaker, switch]
+```
+
+它恰为全 20 天稳定设备面板覆盖的 6 类。`light`、`health` 及其它类别在两臂均不进入本检验；
+这是为保证 IID/OOD 混淆矩阵同形同义而作的盲态公共支持集限制，不得在结果后恢复或替换。
+
+- **primary / dynamic-device**：对每个 OOD 任务，物理设备须在训练的 k 天及测试次日**每一天**均
+  `>=100` 窗，再限制到上述 6 类；设备数可随任务变化。每日 IID 任务使用该日 `>=100` 窗、且属于
+  上述 6 类的设备。
+- **parallel / stable-device**：固定为 10 台全 20 天均 `>=100` 窗的设备：
+  `AmazonEcho / BelkinWemoMotion / BelkinWemoSwitch / Dropcam / HPPrinter / NetatmoWeather /
+  NetatmoWelcome / SamsungSmartCam / SmartThings / TribySpeaker`。
+
+两臂都运行同一套 74 个任务定义（54 OOD + 20 IID），故执行量记为 **74 个任务定义 × 2 个面板臂**；
+正式通过线只读 primary，stable-device 只作并列敏感性，不得在 primary 失败后替换主口径。
+每任务仍须落盘实际类别数（应为 6）、设备数、设备清单及逐设备逐日窗口数。
+
+#### 13.3 划分、采样与同构 CPD 定义
+
+1. **采样上限冻结**：每个任务的训练集与测试集在面板过滤/时间划分后，分别调用主线
+   `sample_balanced(..., max_rows=20000, random_state=42)`；不得重写平衡逻辑。逐任务同时保存采样前后
+   行数与样本键。该值沿用 P2 pilot 的正式入口默认值，且与 D12 的 1.5–3 h 成本估计相容。
+2. **OOD 划分**：连续 k 个完整日训练、次日测试。**IID 划分**：在每台设备内部按
+   `(window_start_epoch, window_id)` 稳定排序，前 70% 为训练、后 30% 为测试；先切分、后分别平衡。
+   不得把 UNSW 的单个日 pcap `source_file` 当成一台设备的分组键。
+3. **训练侧参照 CM**：每个任务 T 的 RF 在其训练集上生成无泄漏 OOF 预测并形成
+   `CM_ref(T)`。OOD 的 `k>=2` 按训练日 `GroupKFold`；OOD 的 `k=1` 及 IID 的单日训练集按 5 个连续
+   时间块。折内模型、完整训练模型均只能调用主线 `build_model("rf", ...)`。
+4. **测试侧 CM**：同一任务用完整训练集拟合 RF，在该任务测试集预测，形成 `CM_tgt(T)`。
+5. **唯一 CPD**：`cpd_y(T) = cpd_core.cpd_y(CM_ref(T), CM_tgt(T))`。类别轴恒为
+   `CATEGORY_ORDER`。这一定义同时给出 54 个 OOD 和 20 个 IID 的非平凡、同构 `CPD_y`，并取代
+   D12 §4 中“对应测试日 IID CM 作参照”的未闭合写法；禁止实现第二份 CPD。
+6. Stacking 使用与 RF 参照相同的分组语义；其每折索引、训练/验证日或时间边界全部落盘。
+
+#### 13.4 两条判据的完全机械化细则
+
+- **判据 1**：运行 20 个 IID 任务，但首日没有任何 OOD 任务以其为测试日，故首日 IID 只作描述。
+  正式对比使用 54 个 OOD 与其 19 个可配对测试日的 IID `CPD_y`。点估计保持 D12 的任务等权均值差
+  `mean(OOD) - mean(IID)`；按这 19 个测试日整簇有放回抽样，得到 10000 个有限复制。
+- **判据 2**：仅在 primary 的 54 个 OOD 任务上计算一次观测中位数；固定分组为
+  `high: cpd_y > median`、`low: cpd_y <= median`，不得在 bootstrap 内重算阈值。
+- 聚类 bootstrap 均使用 `numpy.random.default_rng(42)`；百分位区间为
+  `np.quantile(x, [0.025, 0.975], method="linear")`。若某次复制因只抽到单侧簇而统计量未定义，继续
+  消耗同一 RNG 流直至取得 10000 个有限复制，并记录尝试总数。
+- 判据 2 的低组均值与 `high_minus_low` 差值及其区间无论方向均报。中位数、两组任务 ID、逐复制
+  统计量均落盘。stable-device 臂重复同样汇总，但不产生 PASS/FAIL。
+
+#### 13.5 实现、运行与权限边界（Luna 只执行）
+
+执行分两段，禁止合并：
+
+1. **实现段**：Luna 只可新增候选实现 `code/scripts/analysis/unsw_test1.py` 与
+   `code/scripts/analysis/test_unsw_test1.py`；不得修改 `robust_iot_research.py`、`cpd_core.py`、任何冻结
+   文档或既有结果。测试仅可用纯合成数据和既有回归测试，不得运行任一正式 UNSW 任务。完成后提交
+   diff、静态泄漏审计、测试输出和候选文件 sha256，随即停止。
+2. **正式运行段**：必须等主线审阅实现、把代码与本规格一起提交，并在本讨论通道追加
+   `RUN_AUTHORIZED` 与唯一 commit 后才可启动。Luna 不做 git 操作、不改判据、不解读结果。
+
+正式运行先写两个不同的 `/tmp` staging 根，科学产物与确定性 provenance 禁止含当前时间、墙钟耗时、
+绝对 staging 路径或分片完成顺序；两个根的规范文件清单与 md5 必须逐位一致。运行日志可含时间，但不
+进入确定性 md5 集。七道 D12 硬门及本节支持集/任务数门全部通过后，才允许一次性生成
+`results/unsw_test1/`；任一门失败则 canonical 目录保持不存在，Luna 只在讨论通道报告门名和证据路径。
+
+并行上限为总 24 CPU 线程，禁止嵌套超卖；建议 6 个任务分片 × 每模型 `n_jobs=4`。解释器固定为
+`/home/lmy/anaconda3/envs/iotcls/bin/python`，`MPLCONFIGDIR` 指向 `/tmp` 可写目录；禁止网络、代理和安装依赖。
+
+#### 13.6 已完成的非科学前置核验（2026-08-31）
+
+- 输入：20 个 `features_day_*.csv` + 20 个 `run_meta.json`；提取汇总为 1,317,887 窗 / 61 数值特征；
+- canonical 输出：`results/unsw_test1/` 不存在；
+- 回归门：`test_cpd_core.py` **15/15 PASS**；`test_oof_modes.py` 全部 PASS；
+- 环境：Python 3.11.15，numpy 2.4.6，pandas 3.0.3，scikit-learn 1.9.0，
+  xgboost 3.2.0，lightgbm 4.6.0；32 CPU、125 GiB RAM、工作盘约 1.6 TiB 可用；
+- 工作区仅有既存未跟踪的 `independent/` 与 `results/meta_mismatch_exploratory/`，D12 不得读取或修改。
+
+最后重申解释边界：即使两条判据都通过，也只能支持“标签可见时的失配结构及其与 Stacking 负增益
+在另一数据集再次出现”。E2 已把 CPD 降为描述性量；D12/D13 **不得恢复 CPD 的机制、预测或无标签
+部署地位**，更不得改写 `oracle recoverability != observable estimability != deployability`。
+
 ### D7 工程收尾
 
 - 随 D5：`pip freeze`（实际运行环境 anaconda3）出 `code/requirements-lock.txt`（§19.5）。
@@ -429,3 +532,4 @@ E2_CONCLUSION §6）；**全部原样适用，一字不调**。明示：主线�
 | 2026-08-30 | v1.6：新增 D11（路线 B §17.3 执行规格，先写后看）。含纯洁性条款：禁止用 M2 事实卡改造路线 B 设计（类别条件版本归路线 C 自己的冻结协议），以保住路线 B 的未污染预注册锚点身份；§17.3 三条通过线的自洽读法与 always-RF 非门禁标尺一并先行记录 |
 | 2026-08-30 | v1.7：D11 追记两条（`|S|=1` 的 `lb_m` 读法裁定；实现方由子代理改为审阅方本人，附独立性保障与透明度声明）。均先于任何路线 B 数值 |
 | 2026-08-31 | v1.8：新增 D12（§16.4 检验 1 执行规格，先写后看——本节与登记行提交先于任何检验 1 数值）。含三项先决裁定（标签层级取设备类型 / 设备面板取逐任务 k+1 天交集 + 固定稳定面板作并列敏感性 / leave-device-out 不在范围内）、两条判据的运行前冻结（聚类 bootstrap CI 方向门、CPD 中位数二分预声明）、七道机器可复算硬门，以及检验 2 当前无输入的同步处置 |
+| 2026-08-31 | v1.9：新增 D13（D12 运行前盲态更正与 Luna 交接）。设备清点发现动态面板与每日 IID 在 6 个任务上类别支持不一致，故固定 6 类公共支持；同时修复“20 个 IID CPD 无第二张 CM”的未闭合定义，统一为训练侧无泄漏 RF OOF CM → 测试侧 RF CM。冻结 max_rows=20000、设备内 70/30 IID 时间块、bootstrap/tie 细则、primary/stable 两臂身份及两阶段 Luna 权限。更正发生在 `results/unsw_test1/` 不存在、任何模型结果不可见时；D12 原文保留审计轨迹，冲突处以 D13 为准；CPD 的描述性/不可部署边界不变 |

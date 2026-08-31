@@ -60,4 +60,13 @@ E2-CONDITIONAL（判定见其行与 `results/e2_conditional/E2_CONCLUSION.md`）
 2. commit 列填 `code/` 仓库的 `git rev-parse HEAD`；纯分析脚本改动也要先提交再跑。
 3. 「进正文」= 该实验的数字可能出现在论文正文；改为「否」需注明理由。
 4. 临时验证（如 `/tmp` 里的 smoke）若结论有价值，登记时在输出列注明"临时，结论已转录"。
+
+**P2-UNSW-TEST1 运行前补充（2026-08-31，结果不可见）**：下方登记行保留 v1.8 D12 的原始
+预注册文字作审计轨迹；正式执行规格已由 EXECUTION_PLAN **v1.9 D13** 闭合，冲突处以 D13 为准。
+关键更正为：固定 `appliance/camera/hub/sensor/speaker/switch` 六类公共支持；74 个任务定义分别运行
+dynamic-device primary 与 stable-device parallel 两臂；训练/测试各以主线 `sample_balanced` 固定
+`max_rows=20000`；`CPD_y(T)` 统一为训练侧无泄漏 RF OOF CM 到测试侧 RF CM 的漂移。判据 1 运行
+20 个 IID，但首日因无可配对 OOD 只作描述，正式聚类对比为 54 OOD vs 19 paired-day IID；判据 2
+仍为 54 OOD 的预声明中位数二分。任何正式运行须等候主线审阅实现并追加 `RUN_AUTHORIZED`。
+
 | P2-UNSW-TEST1 | 2026-08-31（**运行前登记**） | 规格 = EXECUTION_PLAN v1.8 D12（先写后看：本行与 D12 的 commit 先于任何检验 1 数值） | §16.4 检验 1 机制存在性。输入特征 = `results/unsw_features_full/`（20 天 / 1,317,887 窗 / 61 维；与 pilot 重叠 4 天 md5 逐位相同）。任务 = 连续 k 天训练 + 次日测试，k∈{1,2,3} → 54 OOD + 20 个日内时间块 IID 参照 = 74；标签层级 = **设备类型**（`category`，非设备身份）；设备面板 = **逐任务按 k+1 天取交集**（主口径）+ 全 20 天稳定面板（10 设备 / 6 类型）作并列敏感性；入选门槛沿用 P2 gate 每 (类型, 日) ≥100 窗；逐任务报实际类别数。模型 = rf/xgboost/lightgbm/stacking（`gain_vs_best_base` 的最小必要集，超参同 G0、不调参）；Stacking OOF 按 §9.1 分组：k≥2 按训练日分组、k=1 退化为日内时间块（与 G0 单源处置一致）。`CPD_y` 只经 `cpd_core`，参照 = 同测试日 IID time_block RF 混淆矩阵（口径同 D4/E2）。判据运行前冻结：①OOD−IID `CPD_y` 均值差 >0 且按测试日聚类 bootstrap（B=10000）95% CI 下界 >0；②按 `CPD_y` **中位数**二分后高 CPD 组平均 gain <0 且 95% CI 上界 <0（低组与差值无论正负并报）。三分支裁定：两条过=通过（进正文一图一表）／仅一条过=默认按不通过处置、禁止挑有利条／两条不过=降格为边界条件。§15：不报未校正 p 值 | 42（含 bootstrap） | `results/unsw_features_full/features_day_*.csv` + `dataset/unsw/device_mac_map.csv` + `cpd_core` + 主线 `build_model` / `sample_balanced` | `results/unsw_test1/`（task_detail / cpd_table / gain_table / passline / acceptance / provenance / NOTE） | **待运行**。七道硬门须全过方可判定：双跑 md5、`test_cpd_core` 15/15、概率行和 1（1e-9）与 61 特征 0 NaN/inf、逐任务类别数与设备清单落盘、逐任务 OOF 折叠记录与声明一致、`side_/other_packet_ratio` 恒 0 审计且不进特征重要性比较、测试日标签无泄漏（函数级）。明文不做：跨数据集完整基线对比、深度模型、特征工程调优、CORAL、投票基线、leave-device-out、协议/载荷特征（自采侧 WPA2 加密物理不可得，见讨论文档 §17.4）、任何窗口长度变更。**检验 2 当前无输入**（路线 A/B 未通过、路线 C 未实现）→ 按 §16.4 脚本进附录、正文方法适用范围限定为同部署内标定 | 待定（按三分支裁定） |
