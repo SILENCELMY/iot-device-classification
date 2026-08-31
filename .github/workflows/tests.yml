@@ -1,0 +1,64 @@
+# 最小 CI：每次 push / PR 跑两个回归测试文件。
+#
+# 由来：`docs/REVIEW_CODE_OPTIMIZATION_20260828.md` 第 6 条（有测试、没 CI）+
+#       `docs/EXECUTION_PLAN_20260829.md` D7 工程收尾。
+# 覆盖：`test_cpd_core.py`（协议 §11 三个历史值回归 + UDS 无泄漏签名断言，P0 门）
+#       `test_oof_modes.py`（§9.1 分组 OOF、折内缺类回填、§19.2 划分索引持久化）
+# 两个脚本都以退出码表达结果（失败 → 非 0），无需 pytest。
+#
+# 依赖只装测试必需的最小集，版本逐个取自 `code/requirements-lock.txt`
+# （即产出 results/ 全部传统 ML 结果的那个环境）。**故意不装整个 lock**：
+# 那里面有 torch 2.5.1+cu121 与 12 个 nvidia-*-cu12 包，CI 上没有 GPU、
+# 光下载就会把 job 拖垮，且两个测试文件一行都用不到。
+#
+# 两个测试都假定工作目录 = 仓库根（`test_oof_modes.py` 用相对路径
+# `sys.path.insert(0, 'code/scripts/core')`；`test_cpd_core.py` 用
+# `Path(__file__).parents[3]` 定位 `results/`），GitHub Actions 默认工作目录
+# 正是仓库根，故不设 working-directory。测试读的 `results/**/*.csv` 全部已入库，
+# checkout 后即可用（不依赖 dataset/ 与任何未跟踪产物）。
+
+name: tests
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install minimal test dependencies (pinned to code/requirements-lock.txt)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            numpy==2.4.6 \
+            pandas==3.0.3 \
+            scikit-learn==1.9.0 \
+            scipy==1.17.1 \
+            joblib==1.5.3 \
+            threadpoolctl==3.6.0 \
+            python-dateutil==2.9.0.post0 \
+            six==1.17.0 \
+            xgboost==3.2.0 \
+            lightgbm==4.6.0
+          python -m pip freeze
+
+      - name: cpd_core regression (protocol 11 / P0 gate)
+        run: python code/scripts/analysis/test_cpd_core.py
+
+      - name: OOF modes + split-index persistence (protocol 9.1 / 19.2)
+        run: python code/scripts/analysis/test_oof_modes.py

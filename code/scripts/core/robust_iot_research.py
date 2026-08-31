@@ -1,8 +1,11 @@
 import argparse
 import json
 import math
+import platform
 import subprocess
+import sys
 from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -1121,6 +1124,99 @@ def evaluate_model(
     return summary
 
 
+def save_split_indices(
+    task_dir: Path,
+    task: dict[str, Any],
+    args: argparse.Namespace,
+    features: pd.DataFrame,
+    train_data: pd.DataFrame,
+    test_data: pd.DataFrame,
+    filter_mode: str,
+) -> None:
+    """协议 §19.2：落盘划分索引 `train_idx.npy` / `test_idx.npy` / `split_metadata.json`。
+
+    **纯新增产物**：本函数不参与任何计算路径，只把 `task_data` 已经算出的划分写到盘上；
+    任何异常都只告警、不中断实验（可复现性记录不该拖垮实验本身）。
+
+    索引语义：`task_data` 返回的 train/test 在**特征表 `features` 上的行索引**
+    （`build_feature_table` 返回的 `RangeIndex`）。因此
+
+        features.loc[np.load(task_dir / "train_idx.npy")]
+
+    可精确还原训练集。**例外**：`--max-rows > 0`（debug 用，默认 0 即关闭）时
+    `sample_balanced` 走 `pd.concat(..., ignore_index=True)` 会重置索引，此时索引
+    不再指向特征表——`split_metadata.json` 的 `index_space` 段会如实标注。
+    """
+    try:
+        train_idx = np.asarray(train_data.index)
+        test_idx = np.asarray(test_data.index)
+        task_dir.mkdir(parents=True, exist_ok=True)
+        np.save(task_dir / "train_idx.npy", train_idx)
+        np.save(task_dir / "test_idx.npy", test_idx)
+
+        # 划分方式：与 `task_data` 的分支一一对应（此处只做只读镜像，不复制任何计算）
+        if task["type"] in {"single_round", "joint_validation"}:
+            split_mode = str(task.get("split_mode", "random"))
+            if split_mode == "time_block":
+                method = "time_block_split(group=source_file, order=window_start)"
+                stratify = None
+            else:
+                method = "sklearn.model_selection.train_test_split(stratify=label)"
+                stratify = "label"
+            test_size = float(args.test_size)
+        else:
+            split_mode = "fixed_rounds"
+            method = "round membership: train_rounds / test_rounds"
+            stratify = None
+            test_size = None
+
+        overlap = np.intersect1d(train_idx, test_idx)
+        metadata = {
+            "protocol_section": "19.2",
+            "generated_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "filter_mode": filter_mode,
+            "task": task,
+            "split": {
+                "mode": split_mode,
+                "method": method,
+                "random_state": int(args.random_state),
+                "test_size": test_size,
+                "stratify": stratify,
+                "max_rows": int(getattr(args, "max_rows", 0) or 0),
+            },
+            "index_space": {
+                "reference": "row index of the feature table returned by build_feature_table",
+                "dtype": str(train_idx.dtype),
+                "n_feature_rows": int(len(features)),
+                "disjoint": bool(len(overlap) == 0),
+                "within_feature_index": bool(
+                    pd.Index(train_idx).isin(features.index).all()
+                    and pd.Index(test_idx).isin(features.index).all()
+                ),
+                "reindexed_by_sample_balanced": bool(getattr(args, "max_rows", 0)),
+            },
+            "counts": {
+                "train": int(len(train_idx)),
+                "test": int(len(test_idx)),
+                "union": int(len(np.union1d(train_idx, test_idx))),
+                "overlap": int(len(overlap)),
+            },
+            "label_counts": {
+                "train": {str(k): int(v) for k, v in train_data["label"].value_counts().items()},
+                "test": {str(k): int(v) for k, v in test_data["label"].value_counts().items()},
+            },
+            "round_counts": {
+                "train": {str(k): int(v) for k, v in train_data["round"].value_counts().items()},
+                "test": {str(k): int(v) for k, v in test_data["round"].value_counts().items()},
+            },
+            "files": {"train_idx": "train_idx.npy", "test_idx": "test_idx.npy"},
+        }
+        with (task_dir / "split_metadata.json").open("w", encoding="utf-8") as f:
+            json.dump(metadata, f, indent=2, ensure_ascii=False)
+    except Exception as exc:                      # noqa: BLE001 —— 记录失败不应中断实验
+        print(f"Warning: failed to persist split indices for {task.get('name')}: {exc}", flush=True)
+
+
 def evaluate_task(
     features: pd.DataFrame,
     task: dict[str, Any],
@@ -1146,6 +1242,8 @@ def evaluate_task(
     y_test_encoded = encoder.transform(y_test)
 
     task_dir = output_root / filter_mode / task["name"]
+    # 协议 §19.2：划分索引持久化（纯新增产物，不改任何计算路径）
+    save_split_indices(task_dir, task, args, features, train_data, test_data, filter_mode)
     feature_sets = {"all_features": columns}
     if not args.disable_feature_selection and args.feature_mode in {"selected", "both"}:
         fs_dir = task_dir / "feature_selection"
@@ -1289,7 +1387,49 @@ def save_summary(summaries: list[dict[str, Any]], output_root: Path) -> None:
     pd.DataFrame(flat_rows).to_csv(output_root / "summary_metrics.csv", index=False, encoding="utf-8-sig")
 
 
-def save_environment_report(output_root: Path, model_names: list[str]) -> None:
+def git_head(path: Path) -> dict[str, Any]:
+    """`git rev-parse HEAD` + 工作区是否 dirty（协议 §19.2）。缺 git 不中断实验。"""
+    info: dict[str, Any] = {"path": str(path), "head": None, "dirty": None}
+    try:
+        info["head"] = subprocess.run(
+            ["git", "-C", str(path), "rev-parse", "HEAD"],
+            capture_output=True, text=True, check=True,
+        ).stdout.strip()
+        status = subprocess.run(
+            ["git", "-C", str(path), "status", "--porcelain"],
+            capture_output=True, text=True, check=True,
+        ).stdout
+        info["dirty"] = bool(status.strip())
+    except Exception as exc:                      # noqa: BLE001 —— 缺 git 不应中断实验
+        info["error"] = str(exc)
+    return info
+
+
+def package_versions() -> dict[str, Any]:
+    """关键包版本（协议 §19.2）。可选包缺失记 None，不触发安装或导入失败。"""
+    import sklearn
+
+    versions: dict[str, Any] = {
+        "python": sys.version.split()[0],
+        "platform": platform.platform(),
+        "numpy": np.__version__,
+        "pandas": pd.__version__,
+        "scikit-learn": sklearn.__version__,
+        "joblib": joblib.__version__,
+    }
+    for name in ("scipy", "xgboost", "lightgbm", "shap"):
+        try:
+            versions[name] = __import__(name).__version__
+        except Exception:                         # noqa: BLE001
+            versions[name] = None
+    return versions
+
+
+def save_environment_report(
+    output_root: Path,
+    model_names: list[str],
+    args: argparse.Namespace | None = None,
+) -> None:
     report = {
         "available_optional_modules": {
             "xgboost": optional_module("xgboost"),
@@ -1297,6 +1437,25 @@ def save_environment_report(output_root: Path, model_names: list[str]) -> None:
             "shap": optional_module("shap"),
         },
         "requested_models": model_names,
+        # ---- 协议 §19.2：commit / 完整命令行 / 关键包版本（纯新增字段）----
+        "protocol_section": "19.2",
+        "generated_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "git": {
+            "repo_root": git_head(Path(__file__).resolve().parents[3]),
+            "code": git_head(Path(__file__).resolve().parents[2]),
+        },
+        "command_line": {
+            "argv": list(sys.argv),
+            "executable": sys.executable,
+            "cwd": str(Path.cwd()),
+        },
+        "versions": package_versions(),
+        # 解析后的全部参数（含 §19.2 要求的种子 random_state）；未传 args 时记 None
+        "resolved_args": (
+            {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}
+            if args is not None else None
+        ),
+        "random_state": int(args.random_state) if args is not None else None,
     }
     with (output_root / "environment_report.json").open("w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
@@ -1311,7 +1470,7 @@ def main() -> None:
     filter_modes = comma_list(args.filter_modes)
     output_root = Path(args.output_root)
     output_root.mkdir(parents=True, exist_ok=True)
-    save_environment_report(output_root, model_names)
+    save_environment_report(output_root, model_names, args)
 
     all_summaries: list[dict[str, Any]] = []
     ranking_collector: list[pd.DataFrame] = []

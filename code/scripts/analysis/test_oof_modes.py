@@ -96,5 +96,81 @@ if fit_ok:
     m6b.fit(x, y_mc, train_round=rounds, window_start=ws)
     check("OOF 列位与手算对照一致", np.allclose(m6b.oof_meta_, ref))
 
+print("=== 7. 协议 §19.2：划分索引持久化 ===")
+# `evaluate_task` 必须在任务输出目录写 train_idx.npy / test_idx.npy / split_metadata.json。
+# 两个分支都要覆盖：single_round（分层随机划分）与 fixed_split（按轮次划分）。
+import argparse, json, tempfile
+from pathlib import Path
+import robust_iot_research as R
+
+_rng = np.random.default_rng(7)
+_labels = ["Camera", "Light_T1", "Light_XM", "Sensor", "Socket"]
+_rows = []
+for _r in ("R2", "R3"):
+    for _lab in _labels:
+        for _w in range(24):
+            _rows.append({
+                "label": _lab, "round": _r, "traffic": "full", "filter_mode": "raw_all",
+                "source_file": f"/tmp/{_lab}_{_r}.pcapng", "window_id": _w,
+                "window_start": float(_w * 10), "window_end": float(_w * 10 + 10),
+                "packet_count": float(_rng.integers(10, 200)),
+                "byte_count": float(_rng.integers(1000, 9000)),
+                "len_mean": float(_rng.normal(_labels.index(_lab) * 3, 1.0)),
+                "len_std": float(abs(_rng.normal(5, 1.0))),
+            })
+_feat = pd.DataFrame(_rows)
+
+_ns = argparse.Namespace(
+    test_size=0.3, random_state=42, n_jobs=1, max_rows=0,
+    feature_mode="all", disable_feature_selection=True,
+)
+_cases = [
+    ("single_round_R2", {"name": "single_round_R2", "type": "single_round", "rounds": ["R2"]}, 120),
+    ("loro_R2_to_R3", {"name": "loro_R2_to_R3", "type": "fixed_split",
+                       "train_rounds": ["R2"], "test_rounds": ["R3"]}, 240),
+]
+with tempfile.TemporaryDirectory() as _tmp:
+    _root = Path(_tmp)
+    for _tname, _task, _expected_union in _cases:
+        R.evaluate_task(_feat, _task, "raw_all", ["rf"], _ns, {}, _root,
+                        _labels, [], [])
+        _tdir = _root / "raw_all" / _task["name"]
+        _tri, _tei, _meta = _tdir / "train_idx.npy", _tdir / "test_idx.npy", _tdir / "split_metadata.json"
+        check(f"[{_tname}] 三个划分文件全部存在",
+              _tri.exists() and _tei.exists() and _meta.exists())
+        check(f"[{_tname}] 无 error.json（任务正常跑完）",
+              not list(_tdir.rglob("error.json")))
+        _a, _b = np.load(_tri), np.load(_tei)
+        check(f"[{_tname}] 索引可加载且非空", _a.size > 0 and _b.size > 0)
+        check(f"[{_tname}] train/test 无交集", len(np.intersect1d(_a, _b)) == 0)
+        check(f"[{_tname}] 并集大小 = {_expected_union}",
+              len(np.union1d(_a, _b)) == _expected_union)
+        # 索引必须真的指向特征表：用它还原的行数与标签分布要对得上
+        check(f"[{_tname}] 索引落在特征表行索引内",
+              bool(pd.Index(np.concatenate([_a, _b])).isin(_feat.index).all()))
+        _md = json.loads(_meta.read_text(encoding="utf-8"))
+        check(f"[{_tname}] metadata 记录任务定义", _md["task"] == _task)
+        check(f"[{_tname}] metadata 记录种子 = 42", _md["split"]["random_state"] == 42)
+        check(f"[{_tname}] metadata 记录划分方式", bool(_md["split"]["method"]))
+        check(f"[{_tname}] metadata 计数与索引一致",
+              _md["counts"]["train"] == len(_a) and _md["counts"]["test"] == len(_b)
+              and _md["counts"]["overlap"] == 0)
+        _restored = _feat.loc[_a]
+        check(f"[{_tname}] features.loc[train_idx] 可精确还原训练集",
+              len(_restored) == len(_a)
+              and _restored["label"].value_counts().to_dict() == _md["label_counts"]["train"])
+
+    # environment report 的 §19.2 字段
+    R.save_environment_report(_root, ["rf"], _ns)
+    _env = json.loads((_root / "environment_report.json").read_text(encoding="utf-8"))
+    check("environment_report 含 git 段", "git" in _env and "head" in _env["git"]["repo_root"])
+    check("environment_report 含完整命令行 argv",
+          _env["command_line"]["argv"] == list(sys.argv))
+    check("environment_report 含关键包版本",
+          all(_env["versions"].get(k) for k in ("python", "numpy", "pandas", "scikit-learn")))
+    check("environment_report 含种子", _env["random_state"] == 42)
+    check("environment_report 保留原有字段（默认行为不变）",
+          _env["requested_models"] == ["rf"] and "available_optional_modules" in _env)
+
 print("\n" + ("全部通过" if ok else "存在失败项"))
 sys.exit(0 if ok else 1)

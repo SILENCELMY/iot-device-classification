@@ -1,0 +1,56 @@
+{
+  "script": "code/scripts/utils/rescore_historical.py",
+  "protocol_sections": [
+    "19.2",
+    "20.3"
+  ],
+  "generated_utc": "2026-08-29T12:52:37+00:00",
+  "command_line": {
+    "argv": [
+      "code/scripts/utils/rescore_historical.py"
+    ],
+    "executable": "/home/lmy/anaconda3/envs/iotcls/bin/python",
+    "cwd": "/home/lmy/iot-device-classification"
+  },
+  "git": {
+    "head": "d4473238aa5a0bc1cf29552c50a09c0f8d90b0e5",
+    "dirty": true
+  },
+  "versions": {
+    "python": "3.11.15",
+    "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.5.3",
+    "scipy": "1.17.1",
+    "xgboost": "3.2.0",
+    "lightgbm": "4.6.0"
+  },
+  "inputs": {
+    "features_csv": "results/robust_v2/raw_all/features_raw_all_w10.csv",
+    "config": "code/configs/research_experiments.json",
+    "result_root": "results/robust_v2/raw_all"
+  },
+  "run_args": {
+    "test_size": 0.3,
+    "random_state": 42,
+    "max_rows": 0,
+    "feature_mode": "all",
+    "disable_feature_selection": true,
+    "n_jobs": 1
+  },
+  "hard_gates": [
+    "joblib load without exception and without warnings",
+    "rebuilt test set row-aligned with predictions.csv",
+    "argmax(pred_proba) == predictions.csv predicted_label on every row",
+    "probability rows sum to 1 (atol=1e-6, protocol 22.1 P1 tolerance; XGBoost predict_proba is float32 so its row sums deviate at ~1.2e-7)"
+  ],
+  "oof_not_reconstructed": "OOF cannot be recovered from the persisted final model: the K fold-models that produce out-of-fold probabilities were never persisted, and scoring the training set with the final model yields in-sample probabilities with different semantics. This script writes pred_proba only.",
+  "counts": {
+    "total": 110,
+    "rescored": 110,
+    "skipped": 0
+  },
+  "output_file_per_model": "pred_proba_rescored_20260829.csv"
+}
