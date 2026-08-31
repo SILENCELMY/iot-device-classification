@@ -51,3 +51,8 @@ results/unsw_pilot/**/features_*.csv
 
 # ---- 运行日志（原 code/ 仓库中即为未跟踪） ----
 *.log
+
+# UNSW 20 天特征缓存（主线 16.4 检验 1）：与 unsw_pilot 同理，可确定性再生
+# （pcap + code/scripts/core/extract_features_generic.py + 逐日 run_meta.json）
+results/unsw_features_full/features_*.csv
+results/unsw_features_full/logs/
