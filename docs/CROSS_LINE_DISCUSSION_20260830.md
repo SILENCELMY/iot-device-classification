@@ -3304,3 +3304,46 @@ staging packet 先写 `task_detail.csv`、`cpd_table.csv`、`gain_table.csv`、`
 commit；随后另行追加 §18.3 规定的三行 `RUN_AUTHORIZED` 并提交授权记录。没有实际 40 字符 commit 的
 精确授权块时，runner 会在读取真实特征和拟合前机械拒绝。正式结果无论哪条分支，仍不得恢复 CPD 的
 机制、预测或无标签部署身份，也不触碰 M2/M3、Route A/B、M4--M6 或独立线冻结结果。
+
+---
+
+## D12_FORMAL_RUN_AUTHORIZATION
+
+RUN_AUTHORIZED
+commit: 814fe29093a5bf3c31239479b196441b49abad24
+canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
+
+**授权边界**：上列 commit 是已审查实现的唯一授权身份；本授权记录自身的后续 commit 只增加这段
+文字，不改变 runner、测试或任何科学依赖。正式执行的 provenance 必须同时记录 authorized
+implementation commit 与 execution HEAD，并由 runner 逐文件核验二者之间的科学代码字节未变。
+
+**唯一执行模板**：每条 Python 命令均须带以下环境前缀：
+
+```text
+env OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl
+```
+
+先完整运行 A：对 `i=0..5` 分别执行（六片可并发）：
+
+```text
+<ENV> /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/unsw_test1.py --feature-root results/unsw_features_full --mac-map dataset/unsw/device_mac_map.csv --output-root /tmp/unsw_test1-A/shard-<i> --n-jobs 4 --shard-index <i> --shard-count 6 --authorized-commit 814fe29093a5bf3c31239479b196441b49abad24
+```
+
+六片均 exit 0 后，才执行：
+
+```text
+<ENV> /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/unsw_test1.py --merge-shards /tmp/unsw_test1-A/shard-0 /tmp/unsw_test1-A/shard-1 /tmp/unsw_test1-A/shard-2 /tmp/unsw_test1-A/shard-3 /tmp/unsw_test1-A/shard-4 /tmp/unsw_test1-A/shard-5 --output-root /tmp/unsw_test1-A/packet
+```
+
+A packet 完成后再按同一模板把根替换为 `/tmp/unsw_test1-B/`，完整运行 B 六片与 merge；**A/B 不得
+同时运行**。随后执行：
+
+```text
+/home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/unsw_test1.py --compare-runs /tmp/unsw_test1-A/packet /tmp/unsw_test1-B/packet
+<ENV> /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/unsw_test1.py --publish-canonical /tmp/unsw_test1-A/packet /tmp/unsw_test1-B/packet --output-root results/unsw_test1
+```
+
+执行前须只读确认 A/B 的 12 个 shard 路径、两个 packet 路径与 canonical 均不存在；若存在即报告，
+不得自行删除或覆盖。任一 shard、merge、compare、CPD 回归或 publish 非零即停止；不得改参数、补任务、
+换支持集或重跑选择性分支。完成后只追加 `D12_EXECUTION_COMPLETE` 的命令、退出码、墙钟、manifest 和
+硬门状态，不读取或解释 F1、CPD、gain 与判据分支。
