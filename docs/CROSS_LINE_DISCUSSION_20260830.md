@@ -1089,3 +1089,2218 @@ canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
 - 不启动 commissioning；
 - 不修改 M2/M3、Route A/B、M4–M6、M6 stop 或任何既有冻结结果；
 - 即使 D12 两条判据都过，也不恢复 CPD 的机制、预测或部署身份。
+
+
+## D12_IMPLEMENTATION_READY
+
+**状态**：`IMPLEMENTATION_ONLY / FORMAL_RUN_NOT_AUTHORIZED`。本节是 §18.2 第一阶段交付；未启动任何真实 UNSW 任务。
+
+### 1. 候选文件 SHA-256 与完整 diff
+
+```text
+49e71da8200c84237f6d364265307fd57a9a0de94401a78e08f23b3671cece31  code/scripts/analysis/unsw_test1.py
+6e8c00e9b86e16be75c36bd8192c432a43e043f1f9963d3d29a55e5db6eab490  code/scripts/analysis/test_unsw_test1.py
+```
+
+以下为相对 commit `8373131`（两个候选文件在该 commit 中均不存在）的完整新增 diff；未省略代码行。
+
+```diff
+diff --git a/code/scripts/analysis/unsw_test1.py b/code/scripts/analysis/unsw_test1.py
+new file mode 100644
+index 0000000..9dbfd78
+--- /dev/null
++++ b/code/scripts/analysis/unsw_test1.py
+@@ -0,0 +1,1811 @@
++#!/usr/bin/env python3
++"""Candidate implementation for D12/D13 Test 1 (UNSW, implementation stage).
++
++This module deliberately contains the implementation only.  It does not run at
++import time and it refuses a non-empty output directory.  The formal entry
++point is intended for an already-authorized staging run; the implementation
++stage uses :mod:`test_unsw_test1` with synthetic data only.
++
++The three scientific primitives below are intentionally imported from the
++mainline modules.  There is no local RF, balancing, or CPD implementation:
++
++* ``build_model`` -- ``robust_iot_research``
++* ``sample_balanced`` -- ``robust_iot_research``
++* ``cpd_y`` -- ``cpd_core``
++
++The code keeps the target label in a separate evaluation path.  A test label
++can be present in ``split_task`` because D13 explicitly requires balancing the
++test side with the mainline ``sample_balanced``.  It is never an argument to a
++fit/OOF function, threshold, or model-selection routine.
++"""
++
++from __future__ import annotations
++
++import argparse
++import hashlib
++import inspect
++import json
++import re
++import sys
++from dataclasses import dataclass
++from pathlib import Path
++from typing import Any, Iterable, Mapping, Sequence
++
++import numpy as np
++import pandas as pd
++from sklearn.metrics import confusion_matrix, f1_score
++from sklearn.model_selection import GroupKFold
++
++# The candidate lives beside cpd_core.py and one directory above the mainline
++# core module.  Explicit paths make both direct execution and test import
++# deterministic, without changing any existing file.
++ANALYSIS_DIR = Path(__file__).resolve().parent
++CORE_DIR = ANALYSIS_DIR.parent / "core"
++REPO_ROOT = ANALYSIS_DIR.parents[2]
++if str(CORE_DIR) not in sys.path:
++    sys.path.insert(0, str(CORE_DIR))
++if str(ANALYSIS_DIR) not in sys.path:
++    sys.path.insert(0, str(ANALYSIS_DIR))
++
++from robust_iot_research import (  # noqa: E402
++    SimpleStackingClassifier,
++    build_model,
++    sample_balanced,
++)
++from cpd_core import cpd_y  # noqa: E402
++
++
++# ---------------------------------------------------------------------------
++# Frozen D12/D13 constants
++# ---------------------------------------------------------------------------
++
++CATEGORY_ORDER: tuple[str, ...] = (
++    "appliance",
++    "camera",
++    "hub",
++    "sensor",
++    "speaker",
++    "switch",
++)
++
++STABLE_DEVICES: tuple[str, ...] = (
++    "AmazonEcho",
++    "BelkinWemoMotion",
++    "BelkinWemoSwitch",
++    "Dropcam",
++    "HPPrinter",
++    "NetatmoWeather",
++    "NetatmoWelcome",
++    "SamsungSmartCam",
++    "SmartThings",
++    "TribySpeaker",
++)
++
++MODEL_ORDER: tuple[str, ...] = ("rf", "xgboost", "lightgbm", "stacking")
++BASE_MODEL_ORDER: tuple[str, ...] = ("rf", "xgboost", "lightgbm")
++
++RANDOM_STATE = 42
++MIN_WINDOWS = 100
++MAX_ROWS = 20_000
++IID_TRAIN_FRACTION = 0.70
++OOF_BLOCKS = 5
++BOOTSTRAP_REPLICATES = 10_000
++BOOTSTRAP_SEED = 42
++BOOTSTRAP_Q = (0.025, 0.975)
++
++UNSW_META_COLUMNS = frozenset(
++    {
++        "device",
++        "day",
++        "label",
++        "category",
++        "source_file",
++        "window_id",
++        "window_start",
++        "window_end",
++        "window_start_epoch",
++    }
++)
++AUDIT_COLUMNS = frozenset({"side_packet_ratio", "other_packet_ratio"})
++REQUIRED_COLUMNS = frozenset(
++    {
++        "device",
++        "day",
++        "label",
++        "window_id",
++        "window_start_epoch",
++        "side_packet_ratio",
++        "other_packet_ratio",
++    }
++)
++
++_DAY_FILE_RE = re.compile(r"^features_day_(?P<day>.+)\.csv$")
++
++
++# ---------------------------------------------------------------------------
++# Small deterministic helpers
++# ---------------------------------------------------------------------------
++
++def canonical_json(value: Any) -> str:
++    """Return one stable JSON representation for CSV cells and manifests."""
++
++    return json.dumps(
++        value,
++        ensure_ascii=False,
++        sort_keys=True,
++        separators=(",", ":"),
++        allow_nan=False,
++    )
++
++
++def write_json(path: Path, value: Any) -> None:
++    """Write JSON with stable key order, indentation, and a final newline."""
++
++    path.write_text(
++        json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False)
++        + "\n",
++        encoding="utf-8",
++    )
++
++
++def sha256_file(path: Path) -> str:
++    digest = hashlib.sha256()
++    with path.open("rb") as handle:
++        for block in iter(lambda: handle.read(1 << 20), b""):
++            digest.update(block)
++    return digest.hexdigest()
++
++
++def prepare_empty_output_dir(path: Path) -> None:
++    """Create a staging directory, but never overwrite existing contents."""
++
++    if path.exists() and any(path.iterdir()):
++        raise FileExistsError(f"refusing to overwrite non-empty output directory: {path}")
++    path.mkdir(parents=True, exist_ok=True)
++
++
++def write_stable_csv(frame: pd.DataFrame, path: Path, columns: Sequence[str] | None = None) -> None:
++    """Write CSV with explicit column order, UTF-8, and LF line endings."""
++
++    out = frame.copy()
++    if columns is not None:
++        missing = [column for column in columns if column not in out.columns]
++        if missing:
++            raise ValueError(f"cannot serialize missing columns {missing} to {path}")
++        out = out.loc[:, list(columns)]
++    out.to_csv(
++        path,
++        index=False,
++        encoding="utf-8",
++        lineterminator="\n",
++        float_format="%.17g",
++    )
++
++
++def _as_string_tuple(values: Iterable[Any]) -> tuple[str, ...]:
++    return tuple(str(value) for value in values)
++
++
++def _json_value(value: Any) -> Any:
++    """Convert numpy/pandas scalar values to JSON-safe deterministic values."""
++
++    if isinstance(value, (np.integer,)):
++        return int(value)
++    if isinstance(value, (np.floating,)):
++        return float(value)
++    if isinstance(value, (np.bool_,)):
++        return bool(value)
++    if pd.isna(value):
++        return None
++    return value
++
++
++# ---------------------------------------------------------------------------
++# Task catalogue: 54 OOD + 20 IID = 74 definitions
++# ---------------------------------------------------------------------------
++
++@dataclass(frozen=True)
++class TaskDefinition:
++    name: str
++    kind: str
++    train_days: tuple[str, ...]
++    test_day: str
++    k: int | None
++
++    @property
++    def task_days(self) -> tuple[str, ...]:
++        return self.train_days + (self.test_day,)
++
++    def as_dict(self) -> dict[str, Any]:
++        return {
++            "name": self.name,
++            "kind": self.kind,
++            "train_days": list(self.train_days),
++            "test_day": self.test_day,
++            "k": self.k,
++        }
++
++
++def build_task_catalog(days: Sequence[str]) -> list[TaskDefinition]:
++    """Construct D12's fixed task order from the 20 chronological days.
++
++    OOD tasks are emitted by ``k=1,2,3`` and then by test-day order.  IID
++    tasks follow them in day order.  The ordering is part of the shard and
++    serialization contract.
++    """
++
++    ordered_days = tuple(sorted({str(day) for day in days}))
++    if len(ordered_days) != len(days):
++        raise ValueError("task days must be unique")
++    if len(ordered_days) != 20:
++        raise ValueError(f"D12 requires exactly 20 days, got {len(ordered_days)}")
++
++    tasks: list[TaskDefinition] = []
++    for k in (1, 2, 3):
++        for test_index in range(k, len(ordered_days)):
++            train_days = ordered_days[test_index - k : test_index]
++            test_day = ordered_days[test_index]
++            tasks.append(
++                TaskDefinition(
++                    name=f"ood_k{k}_{train_days[0]}_to_{test_day}",
++                    kind="ood",
++                    train_days=train_days,
++                    test_day=test_day,
++                    k=k,
++                )
++            )
++    for day in ordered_days:
++        tasks.append(
++            TaskDefinition(
++                name=f"iid_{day}",
++                kind="iid",
++                train_days=(day,),
++                test_day=day,
++                k=None,
++            )
++        )
++    validate_task_catalog(tasks, ordered_days)
++    return tasks
++
++
++# Short alias used by the CLI and convenient for audit code.
++build_tasks = build_task_catalog
++
++
++def validate_task_catalog(tasks: Sequence[TaskDefinition], days: Sequence[str]) -> dict[str, int]:
++    """Assert the mechanical 54/20/74 task count before any model fit."""
++
++    expected_days = tuple(sorted(str(day) for day in days))
++    if len(expected_days) != 20 or len(set(expected_days)) != 20:
++        raise AssertionError("task-count gate requires 20 unique days")
++    if len(tasks) != 74:
++        raise AssertionError(f"expected 74 task definitions, got {len(tasks)}")
++
++    names = [task.name for task in tasks]
++    if len(names) != len(set(names)):
++        raise AssertionError("task names are not unique")
++    counts = {
++        "ood": sum(task.kind == "ood" for task in tasks),
++        "iid": sum(task.kind == "iid" for task in tasks),
++        "paired_day_iid": sum(
++            task.kind == "iid" and task.test_day in {ood.test_day for ood in tasks if ood.kind == "ood"}
++            for task in tasks
++        ),
++        "task_definitions": len(tasks),
++        "panel_arms": 2,
++        "task_panel_cells": len(tasks) * 2,
++    }
++    if counts["ood"] != 54 or counts["iid"] != 20 or counts["paired_day_iid"] != 19:
++        raise AssertionError(f"D12/D13 task count mismatch: {counts}")
++    for task in tasks:
++        if task.kind == "ood":
++            if task.k not in (1, 2, 3) or len(task.train_days) != task.k:
++                raise AssertionError(f"invalid OOD task: {task}")
++            if task.train_days[-1] >= task.test_day:
++                raise AssertionError(f"OOD train/test days are not ordered: {task}")
++        elif task.kind == "iid":
++            if task.train_days != (task.test_day,) or task.k is not None:
++                raise AssertionError(f"invalid IID task: {task}")
++        else:
++            raise AssertionError(f"unknown task kind: {task.kind}")
++    return counts
++
++
++def tasks_for_shard(
++    tasks: Sequence[TaskDefinition], shard_index: int, shard_count: int
++) -> list[TaskDefinition]:
++    """Select tasks by fixed ordinal modulo for deterministic six-way sharding."""
++
++    if shard_count < 1 or not 0 <= shard_index < shard_count:
++        raise ValueError(f"invalid shard {shard_index}/{shard_count}")
++    return [task for index, task in enumerate(tasks) if index % shard_count == shard_index]
++
++
++# ---------------------------------------------------------------------------
++# Input and label preparation
++# ---------------------------------------------------------------------------
++
++def load_category_map(path: Path) -> dict[str, str]:
++    """Load ``device_id -> category`` from the UNSW MAC map.
++
++    Only IoT entries are accepted as model labels.  The map may contain other
++    IoT categories (for example ``health`` or ``light``); those are mapped and
++    then excluded by the frozen six-class panel rule.
++    """
++
++    table = pd.read_csv(path, dtype=str).fillna("")
++    required = {"device_id", "category"}
++    missing = sorted(required - set(table.columns))
++    if missing:
++        raise ValueError(f"MAC map missing columns: {missing}")
++    if "is_iot" in table.columns:
++        table = table[table["is_iot"].astype(str).str.strip() == "1"]
++    table["device_id"] = table["device_id"].astype(str).str.strip()
++    table["category"] = table["category"].astype(str).str.strip()
++    table = table[table["device_id"] != ""]
++    if table["device_id"].duplicated().any():
++        dup = table.loc[table["device_id"].duplicated(), "device_id"].tolist()
++        raise ValueError(f"duplicate IoT device_id in MAC map: {dup}")
++    return dict(zip(table["device_id"], table["category"], strict=True))
++
++
++def attach_categories(
++    features: pd.DataFrame, category_by_device: Mapping[str, str]
++) -> pd.DataFrame:
++    """Replace the raw device-identity label with the frozen type label."""
++
++    missing = sorted(set(features["device"].astype(str)) - set(category_by_device))
++    if missing:
++        raise ValueError(f"feature rows have no category mapping: {missing[:10]}")
++    out = features.copy()
++    out["device"] = out["device"].astype(str)
++    out["day"] = out["day"].astype(str)
++    out["category"] = out["device"].map(category_by_device).astype(str)
++    # Mainline sample_balanced consumes the column named label.  Its value is
++    # the category, never the device identity.
++    out["label"] = out["category"]
++    return out
++
++
++def numeric_feature_columns(features: pd.DataFrame) -> list[str]:
++    """Return only the 61 data features, excluding all metadata/audit fields."""
++
++    excluded = UNSW_META_COLUMNS | AUDIT_COLUMNS
++    return [
++        column
++        for column in features.columns
++        if column not in excluded and pd.api.types.is_numeric_dtype(features[column])
++    ]
++
++
++def validate_feature_table(
++    features: pd.DataFrame,
++    *,
++    require_61_features: bool = False,
++) -> dict[str, Any]:
++    """Validate finite features and the Ethernet side/other audit columns."""
++
++    missing = sorted(REQUIRED_COLUMNS - set(features.columns))
++    if missing:
++        raise ValueError(f"feature table missing required columns: {missing}")
++    columns = numeric_feature_columns(features)
++    if require_61_features and len(columns) != 61:
++        raise AssertionError(f"expected 61 numeric data features, got {len(columns)}")
++    if not columns:
++        raise ValueError("no numeric data features remain after metadata exclusion")
++
++    finite = np.isfinite(features[columns].to_numpy(dtype=float)).all()
++    if not finite:
++        raise AssertionError("data features contain NaN or inf")
++    side_zero = bool(np.all(features["side_packet_ratio"].to_numpy(dtype=float) == 0.0))
++    other_zero = bool(np.all(features["other_packet_ratio"].to_numpy(dtype=float) == 0.0))
++    if not side_zero or not other_zero:
++        raise AssertionError("side_packet_ratio/other_packet_ratio must be identically zero")
++    if not pd.api.types.is_numeric_dtype(features["window_id"]):
++        raise ValueError("window_id must be numeric")
++    if not pd.api.types.is_numeric_dtype(features["window_start_epoch"]):
++        raise ValueError("window_start_epoch must be numeric")
++    if features["device"].isna().any() or features["day"].isna().any():
++        raise ValueError("device/day metadata cannot be missing")
++    return {
++        "n_rows": int(len(features)),
++        "n_numeric_features": int(len(columns)),
++        "numeric_features": list(columns),
++        "finite": bool(finite),
++        "side_packet_ratio_zero": side_zero,
++        "other_packet_ratio_zero": other_zero,
++        "excluded_from_model_features": sorted(AUDIT_COLUMNS),
++    }
++
++
++def discover_input_files(feature_root: Path) -> list[tuple[str, Path, Path]]:
++    """Discover exactly 20 day CSVs and their 20 run_meta sidecars."""
++
++    found: list[tuple[str, Path, Path]] = []
++    for path in sorted(feature_root.glob("features_day_*.csv"), key=lambda item: item.name):
++        match = _DAY_FILE_RE.match(path.name)
++        if match is None:
++            continue
++        day = match.group("day")
++        meta = path.with_suffix(".run_meta.json")
++        if not meta.exists():
++            raise FileNotFoundError(f"missing run_meta sidecar for {path.name}: {meta.name}")
++        found.append((day, path, meta))
++    if len(found) != 20:
++        raise ValueError(f"D12 requires 20 feature CSVs, found {len(found)} in {feature_root}")
++    days = [item[0] for item in found]
++    if len(set(days)) != 20:
++        raise ValueError("duplicate day in feature CSV names")
++    return found
++
++
++def load_unsw_features(
++    feature_root: Path, mac_map_path: Path
++) -> tuple[pd.DataFrame, dict[str, Any], dict[str, Any]]:
++    """Load the formal input; this function is never called by synthetic tests."""
++
++    files = discover_input_files(feature_root)
++    category_map = load_category_map(mac_map_path)
++    frames: list[pd.DataFrame] = []
++    input_manifest: list[dict[str, Any]] = []
++    for day, csv_path, meta_path in files:
++        # Parsing the sidecar is an integrity check only; its scientific values
++        # are not used as labels, features, or model-selection inputs.
++        try:
++            json.loads(meta_path.read_text(encoding="utf-8"))
++        except json.JSONDecodeError as exc:
++            raise ValueError(f"invalid run_meta JSON: {meta_path}") from exc
++        frame = pd.read_csv(csv_path)
++        if "day" not in frame or set(frame["day"].astype(str)) != {day}:
++            raise ValueError(f"day column does not match filename in {csv_path.name}")
++        frames.append(frame)
++        input_manifest.extend(
++            [
++                {"file": csv_path.name, "sha256": sha256_file(csv_path)},
++                {"file": meta_path.name, "sha256": sha256_file(meta_path)},
++            ]
++        )
++    features = attach_categories(pd.concat(frames, ignore_index=True), category_map)
++    audit = validate_feature_table(features, require_61_features=True)
++    manifest = {
++        "feature_root_relative": "results/unsw_features_full",
++        "files": input_manifest,
++        "days": sorted(day for day, _, _ in files),
++        "feature_audit": audit,
++    }
++    return features, manifest, audit
++
++
++# ---------------------------------------------------------------------------
++# Device panels and deterministic splits
++# ---------------------------------------------------------------------------
++
++def device_day_window_counts(features: pd.DataFrame) -> pd.DataFrame:
++    counts = (
++        features.groupby(["device", "day"], sort=True)["window_id"]
++        .nunique()
++        .rename("n_windows")
++        .reset_index()
++    )
++    return counts.sort_values(["device", "day"], kind="stable").reset_index(drop=True)
++
++
++def _count_lookup(counts: pd.DataFrame) -> dict[tuple[str, str], int]:
++    return {
++        (str(row.device), str(row.day)): int(row.n_windows)
++        for row in counts.itertuples(index=False)
++    }
++
++
++def panel_devices(
++    features: pd.DataFrame,
++    task: TaskDefinition,
++    panel: str,
++    *,
++    min_windows: int = MIN_WINDOWS,
++) -> tuple[list[str], pd.DataFrame]:
++    """Return the task's device panel and the full device/day count table."""
++
++    if panel not in {"primary", "stable"}:
++        raise ValueError(f"unknown panel arm: {panel}")
++    counts = device_day_window_counts(features)
++    lookup = _count_lookup(counts)
++    required_days = (task.test_day,) if task.kind == "iid" else task.task_days
++    all_devices = sorted(str(device) for device in features["device"].unique())
++
++    def has_threshold(device: str) -> bool:
++        return all(lookup.get((device, day), 0) >= min_windows for day in required_days)
++
++    if panel == "stable":
++        all_days = tuple(sorted(str(day) for day in features["day"].unique()))
++        missing = [
++            f"{device}/{day}"
++            for device in STABLE_DEVICES
++            for day in all_days
++            if lookup.get((device, day), 0) < min_windows
++        ]
++        if missing:
++            raise AssertionError(
++                f"stable panel is not full across all input days for {task.name}: {missing[:10]}"
++            )
++        selected = list(STABLE_DEVICES)
++    else:
++        selected = [device for device in all_devices if has_threshold(device)]
++
++    # The panel is a six-class support restriction, not a post-result choice.
++    categories = features.set_index("device")["category"].to_dict()
++    selected = [
++        device for device in selected if str(categories.get(device, "")) in CATEGORY_ORDER
++    ]
++    if panel == "stable" and selected != list(STABLE_DEVICES):
++        raise AssertionError("stable panel contains a device outside the frozen six-class support")
++    if not selected:
++        raise AssertionError(f"empty {panel} panel for {task.name}")
++    return selected, counts
++
++
++def _sort_for_iid(data: pd.DataFrame) -> pd.DataFrame:
++    return data.sort_values(
++        ["window_start_epoch", "window_id"],
++        kind="mergesort",
++    )
++
++
++def iid_time_split(data: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
++    """Split each device's stable time order into the first 70% / last 30%."""
++
++    train_parts: list[pd.DataFrame] = []
++    test_parts: list[pd.DataFrame] = []
++    for _, group in data.groupby("device", sort=True):
++        ordered = _sort_for_iid(group)
++        n = len(ordered)
++        if n < 2:
++            raise ValueError("IID time split requires at least two windows per device")
++        n_train = int(np.floor(n * IID_TRAIN_FRACTION))
++        n_train = max(1, min(n - 1, n_train))
++        train_parts.append(ordered.iloc[:n_train])
++        test_parts.append(ordered.iloc[n_train:])
++    train = pd.concat(train_parts, ignore_index=True)
++    test = pd.concat(test_parts, ignore_index=True)
++    return train, test
++
++
++def sample_key_records(data: pd.DataFrame) -> list[dict[str, Any]]:
++    """Return deterministic, label-free sample keys for the audit packet."""
++
++    required = {"device", "day", "window_id"}
++    missing = sorted(required - set(data.columns))
++    if missing:
++        raise ValueError(f"cannot form sample keys; missing {missing}")
++    records: list[dict[str, Any]] = []
++    for row in data[["device", "day", "window_id"]].itertuples(index=False, name=None):
++        records.append(
++            {
++                "day": str(row[1]),
++                "device": str(row[0]),
++                "window_id": int(row[2]),
++            }
++        )
++    return records
++
++
++@dataclass
++class PreparedTask:
++    task: TaskDefinition
++    panel: str
++    train: pd.DataFrame
++    test: pd.DataFrame
++    detail: dict[str, Any]
++
++
++def split_task(
++    features: pd.DataFrame,
++    task: TaskDefinition,
++    panel: str,
++    *,
++    max_rows: int = MAX_ROWS,
++    random_state: int = RANDOM_STATE,
++    min_windows: int = MIN_WINDOWS,
++) -> PreparedTask:
++    """Apply panel filtering, split, and the prescribed two balancing calls."""
++
++    selected_devices, counts = panel_devices(
++        features,
++        task,
++        panel,
++        min_windows=min_windows,
++    )
++    relevant_days = set(task.task_days)
++    panel_data = features.loc[
++        features["device"].isin(selected_devices)
++        & features["day"].isin(relevant_days)
++        & features["category"].isin(CATEGORY_ORDER)
++    ].copy()
++    panel_data = panel_data.reset_index(drop=True)
++    if task.kind == "ood":
++        train_pre = panel_data[panel_data["day"].isin(task.train_days)].copy()
++        test_pre = panel_data[panel_data["day"] == task.test_day].copy()
++    else:
++        train_pre, test_pre = iid_time_split(panel_data)
++
++    if train_pre.empty or test_pre.empty:
++        raise AssertionError(f"empty split for {task.name}/{panel}")
++
++    # These are the only two calls to the mainline balancing implementation.
++    # In particular, do not replace this with a local sampler.
++    train = sample_balanced(train_pre, max_rows=max_rows, random_state=random_state)
++    test = sample_balanced(test_pre, max_rows=max_rows, random_state=random_state)
++    train = train.reset_index(drop=True)
++    test = test.reset_index(drop=True)
++
++    actual_categories = tuple(sorted(set(train["category"]) | set(test["category"])))
++    if actual_categories != tuple(sorted(CATEGORY_ORDER)):
++        raise AssertionError(
++            f"{task.name}/{panel} support is not the fixed six classes: {actual_categories}"
++        )
++    train_keys = sample_key_records(train)
++    test_keys = sample_key_records(test)
++    overlap = set((item["device"], item["day"], item["window_id"]) for item in train_keys) & set(
++        (item["device"], item["day"], item["window_id"]) for item in test_keys
++    )
++    if overlap:
++        raise AssertionError(f"train/test sample-key overlap in {task.name}/{panel}")
++
++    task_counts = counts[counts["day"].isin(relevant_days) & counts["device"].isin(selected_devices)]
++    device_day = {
++        str(device): {
++            str(day): int(n_windows)
++            for day, n_windows in sorted(
++                zip(group["day"], group["n_windows"], strict=True),
++                key=lambda item: item[0],
++            )
++        }
++        for device, group in task_counts.groupby("device", sort=True)
++    }
++    detail = {
++        "task": task.name,
++        "kind": task.kind,
++        "k": task.k,
++        "train_days": list(task.train_days),
++        "test_day": task.test_day,
++        "panel": panel,
++        "panel_device_count": len(selected_devices),
++        "panel_devices": list(selected_devices),
++        "device_day_windows": device_day,
++        "category_order": list(CATEGORY_ORDER),
++        "category_count": len(actual_categories),
++        "train_rows_before_sampling": int(len(train_pre)),
++        "test_rows_before_sampling": int(len(test_pre)),
++        "train_rows_after_sampling": int(len(train)),
++        "test_rows_after_sampling": int(len(test)),
++        "max_rows": int(max_rows),
++        "random_state": int(random_state),
++        "iid_split": (
++            "device_internal_sort(window_start_epoch,window_id),first_70pct_train,last_30pct_test"
++            if task.kind == "iid"
++            else "consecutive_complete_days"
++        ),
++        "train_sample_keys": train_keys,
++        "test_sample_keys": test_keys,
++    }
++    return PreparedTask(task=task, panel=panel, train=train, test=test, detail=detail)
++
++
++# ---------------------------------------------------------------------------
++# D13 OOF folds and model paths
++# ---------------------------------------------------------------------------
++
++@dataclass(frozen=True)
++class OofFold:
++    fold: int
++    mode: str
++    train_idx: tuple[int, ...]
++    val_idx: tuple[int, ...]
++    train_days: tuple[str, ...]
++    val_days: tuple[str, ...]
++    train_time_min: float | None
++    train_time_max: float | None
++    val_time_min: float | None
++    val_time_max: float | None
++
++
++def make_oof_folds(train: pd.DataFrame, task: TaskDefinition) -> list[OofFold]:
++    """Make the exact D13 day-grouped or five-block OOF folds."""
++
++    if train.empty:
++        raise ValueError("cannot make OOF folds for empty training data")
++    y_placeholder = np.zeros(len(train), dtype=int)
++    x_placeholder = np.zeros((len(train), 1), dtype=float)
++    days = train["day"].astype(str).to_numpy()
++    unique_days = np.unique(days)
++    pairs: list[tuple[str, np.ndarray, np.ndarray]] = []
++
++    if task.kind == "ood" and (task.k or 0) >= 2:
++        if len(unique_days) < 2:
++            raise AssertionError(f"{task.name} k>=2 has fewer than two training days")
++        n_splits = max(2, min(OOF_BLOCKS, len(unique_days)))
++        splitter = GroupKFold(n_splits=n_splits)
++        for train_idx, val_idx in splitter.split(x_placeholder, y_placeholder, groups=days):
++            pairs.append(("grouped_day", np.asarray(train_idx), np.asarray(val_idx)))
++    else:
++        # This is the same quantile/searchsorted construction used by the
++        # mainline SimpleStackingClassifier for one-group grouped OOF.
++        ws = train["window_start_epoch"].to_numpy(dtype=float)
++        n_blocks = max(2, min(OOF_BLOCKS, len(ws)))
++        edges = np.quantile(ws, np.linspace(0, 1, n_blocks + 1)[1:-1])
++        block_id = np.searchsorted(edges, ws, side="right")
++        for block in range(n_blocks):
++            val_idx = np.flatnonzero(block_id == block)
++            if len(val_idx) == 0:
++                continue
++            train_idx = np.flatnonzero(block_id != block)
++            pairs.append(("time_block", train_idx, val_idx))
++
++    folds: list[OofFold] = []
++    for fold_no, (mode, train_idx, val_idx) in enumerate(pairs):
++        if len(train_idx) == 0 or len(val_idx) == 0:
++            raise AssertionError(f"empty OOF side in fold {fold_no} for {task.name}")
++        if set(train_idx) & set(val_idx):
++            raise AssertionError(f"OOF train/validation overlap in fold {fold_no}")
++        train_times = train.iloc[train_idx]["window_start_epoch"].to_numpy(dtype=float)
++        val_times = train.iloc[val_idx]["window_start_epoch"].to_numpy(dtype=float)
++        folds.append(
++            OofFold(
++                fold=fold_no,
++                mode=mode,
++                train_idx=tuple(int(index) for index in train_idx),
++                val_idx=tuple(int(index) for index in val_idx),
++                train_days=tuple(sorted(set(days[train_idx]))),
++                val_days=tuple(sorted(set(days[val_idx]))),
++                train_time_min=float(train_times.min()),
++                train_time_max=float(train_times.max()),
++                val_time_min=float(val_times.min()),
++                val_time_max=float(val_times.max()),
++            )
++        )
++
++    validation_indices = [index for fold in folds for index in fold.val_idx]
++    if sorted(validation_indices) != list(range(len(train))):
++        raise AssertionError(f"OOF validation folds do not cover training rows for {task.name}")
++    return folds
++
++
++def assert_mainline_stacking_fold_semantics(
++    train: pd.DataFrame, task: TaskDefinition, folds: Sequence[OofFold]
++) -> None:
++    """Compare our persisted fold partition with the mainline splitter."""
++
++    model = SimpleStackingClassifier(
++        estimators=[],
++        final_estimator=None,
++        cv=OOF_BLOCKS,
++        random_state=RANDOM_STATE,
++        oof_mode="grouped",
++    )
++    actual = list(
++        model._splitter(
++            train,
++            np.zeros(len(train), dtype=int),
++            train["day"].astype(str).to_numpy(),
++            train["window_start_epoch"].to_numpy(dtype=float),
++        )
++    )
++    expected = [(np.asarray(fold.train_idx), np.asarray(fold.val_idx)) for fold in folds]
++    if len(actual) != len(expected) or any(
++        not np.array_equal(a[0], e[0]) or not np.array_equal(a[1], e[1])
++        for a, e in zip(actual, expected, strict=True)
++    ):
++        raise AssertionError("persisted OOF folds differ from mainline stacking splitter")
++
++
++def _encode_categories(labels: pd.Series) -> np.ndarray:
++    mapping = {label: index for index, label in enumerate(CATEGORY_ORDER)}
++    unknown = sorted(set(labels.astype(str)) - set(mapping))
++    if unknown:
++        raise ValueError(f"unknown category labels: {unknown}")
++    return labels.astype(str).map(mapping).to_numpy(dtype=int)
++
++
++def clean_model_features(data: pd.DataFrame, feature_columns: Sequence[str]) -> pd.DataFrame:
++    return data.loc[:, list(feature_columns)].replace([np.inf, -np.inf], np.nan).fillna(0.0)
++
++
++def _expand_probabilities(
++    probabilities: np.ndarray, classes: Sequence[Any], n_classes: int
++) -> np.ndarray:
++    full = np.zeros((len(probabilities), n_classes), dtype=float)
++    for source_index, cls in enumerate(np.asarray(classes, dtype=int)):
++        if not 0 <= int(cls) < n_classes:
++            raise AssertionError(f"model returned class outside fixed support: {cls}")
++        full[:, int(cls)] = probabilities[:, source_index]
++    return full
++
++
++def rf_oof_reference_cm(
++    train: pd.DataFrame,
++    feature_columns: Sequence[str],
++    task: TaskDefinition,
++    folds: Sequence[OofFold],
++    *,
++    n_jobs: int,
++) -> tuple[np.ndarray, dict[str, Any]]:
++    """Train mainline RF fold models and form the no-leakage reference CM."""
++
++    x = clean_model_features(train, feature_columns)
++    y = _encode_categories(train["label"])
++    probabilities = np.zeros((len(train), len(CATEGORY_ORDER)), dtype=float)
++    for fold in folds:
++        # Every fold model is constructed by the mainline factory.
++        model = build_model("rf", RANDOM_STATE, n_jobs, len(CATEGORY_ORDER))
++        if model is None:
++            raise RuntimeError("mainline RF factory unexpectedly returned None")
++        model.fit(x.iloc[list(fold.train_idx)], y[list(fold.train_idx)])
++        fold_proba = model.predict_proba(x.iloc[list(fold.val_idx)])
++        probabilities[np.ix_(list(fold.val_idx), np.asarray(model.classes_, dtype=int))] = fold_proba
++
++    row_sums = probabilities.sum(axis=1)
++    if not np.allclose(row_sums, 1.0, atol=1e-9):
++        raise AssertionError("RF OOF probability row does not sum to 1")
++    predictions = np.argmax(probabilities, axis=1)
++    cm = confusion_matrix(y, predictions, labels=np.arange(len(CATEGORY_ORDER)))
++    return cm, {
++        "n_rows": int(len(probabilities)),
++        "max_row_sum_error": float(np.max(np.abs(row_sums - 1.0))),
++        "row_sums_one": True,
++    }
++
++
++@dataclass
++class ModelPrediction:
++    name: str
++    predictions: np.ndarray
++    probabilities: np.ndarray
++
++
++def fit_model_predictions(
++    model_name: str,
++    train: pd.DataFrame,
++    test: pd.DataFrame,
++    feature_columns: Sequence[str],
++    *,
++    n_jobs: int,
++) -> ModelPrediction:
++    """Fit one fixed model and predict test features.
++
++    This function has no test-label input.  It is the fitting boundary audited
++    in D12; evaluation labels are consumed by the caller only after it returns.
++    """
++
++    x_train = clean_model_features(train, feature_columns)
++    x_test = clean_model_features(test, feature_columns)
++    y_train = _encode_categories(train["label"])
++    model = build_model(model_name, RANDOM_STATE, n_jobs, len(CATEGORY_ORDER))
++    if model is None:
++        raise RuntimeError(f"required model is unavailable: {model_name}")
++
++    if isinstance(model, SimpleStackingClassifier):
++        # k>=2: day groups; k=1 and IID: one group, mainline falls back to
++        # five continuous time blocks.  Both metadata arrays are supplied so
++        # the mainline splitter makes the D13 decision mechanically.
++        model.fit(
++            x_train,
++            y_train,
++            train_round=train["day"].astype(str).to_numpy(),
++            window_start=train["window_start_epoch"].to_numpy(dtype=float),
++        )
++    else:
++        model.fit(x_train, y_train)
++    probabilities = _expand_probabilities(
++        model.predict_proba(x_test),
++        getattr(model, "classes_", np.arange(len(CATEGORY_ORDER))),
++        len(CATEGORY_ORDER),
++    )
++    row_sums = probabilities.sum(axis=1)
++    if not np.allclose(row_sums, 1.0, atol=1e-9):
++        raise AssertionError(f"{model_name} probability rows do not sum to 1")
++    predictions = np.asarray(model.predict(x_test), dtype=int)
++    if not np.isin(predictions, np.arange(len(CATEGORY_ORDER))).all():
++        raise AssertionError(f"{model_name} predicted outside fixed class support")
++    return ModelPrediction(model_name, predictions, probabilities)
++
++
++def _fold_rows(
++    prepared: PreparedTask, folds: Sequence[OofFold], oof_model: str
++) -> list[dict[str, Any]]:
++    rows: list[dict[str, Any]] = []
++    for fold in folds:
++        rows.append(
++            {
++                "task": prepared.task.name,
++                "panel": prepared.panel,
++                "oof_model": oof_model,
++                "fold": fold.fold,
++                "mode": fold.mode,
++                "group_field": "day" if fold.mode == "grouped_day" else "none",
++                "train_indices": list(fold.train_idx),
++                "validation_indices": list(fold.val_idx),
++                "train_days": list(fold.train_days),
++                "validation_days": list(fold.val_days),
++                "train_time_min": fold.train_time_min,
++                "train_time_max": fold.train_time_max,
++                "validation_time_min": fold.val_time_min,
++                "validation_time_max": fold.val_time_max,
++            }
++        )
++    return rows
++
++
++@dataclass
++class TaskResult:
++    detail: dict[str, Any]
++    cpd: dict[str, Any]
++    gain: dict[str, Any]
++    models: list[dict[str, Any]]
++    oof_folds: list[dict[str, Any]]
++    probability_audit: dict[str, Any]
++
++
++def run_prepared_task(
++    prepared: PreparedTask,
++    feature_columns: Sequence[str],
++    *,
++    n_jobs: int,
++    model_names: Sequence[str] = MODEL_ORDER,
++) -> TaskResult:
++    """Run one task/panel cell; no file or canonical result is created here."""
++
++    requested = tuple(model_names)
++    if requested != MODEL_ORDER:
++        raise ValueError(f"formal model set must be exactly {MODEL_ORDER}, got {requested}")
++    folds = make_oof_folds(prepared.train, prepared.task)
++    assert_mainline_stacking_fold_semantics(prepared.train, prepared.task, folds)
++    ref_cm, ref_audit = rf_oof_reference_cm(
++        prepared.train,
++        feature_columns,
++        prepared.task,
++        folds,
++        n_jobs=n_jobs,
++    )
++
++    predictions: dict[str, ModelPrediction] = {}
++    model_rows: list[dict[str, Any]] = []
++    probability_audit: dict[str, Any] = {"rf_oof": ref_audit, "test_models": {}}
++    y_test = _encode_categories(prepared.test["label"])
++    for model_name in MODEL_ORDER:
++        result = fit_model_predictions(
++            model_name,
++            prepared.train,
++            prepared.test,
++            feature_columns,
++            n_jobs=n_jobs,
++        )
++        predictions[model_name] = result
++        score = float(
++            f1_score(
++                y_test,
++                result.predictions,
++                labels=np.arange(len(CATEGORY_ORDER)),
++                average="macro",
++                zero_division=0,
++            )
++        )
++        row_sums = result.probabilities.sum(axis=1)
++        probability_audit["test_models"][model_name] = {
++            "n_rows": int(len(row_sums)),
++            "max_row_sum_error": float(np.max(np.abs(row_sums - 1.0))),
++            "row_sums_one": bool(np.allclose(row_sums, 1.0, atol=1e-9)),
++        }
++        cm = confusion_matrix(y_test, result.predictions, labels=np.arange(len(CATEGORY_ORDER)))
++        model_rows.append(
++            {
++                "task": prepared.task.name,
++                "kind": prepared.task.kind,
++                "test_day": prepared.task.test_day,
++                "panel": prepared.panel,
++                "model": model_name,
++                "class_count": len(CATEGORY_ORDER),
++                "macro_f1": score,
++                "confusion_matrix": cm.tolist(),
++            }
++        )
++
++    target_cm = np.asarray(
++        next(row["confusion_matrix"] for row in model_rows if row["model"] == "rf"),
++        dtype=float,
++    )
++    cpd_value = cpd_y(ref_cm, target_cm)
++    cpd_row = {
++        "task": prepared.task.name,
++        "kind": prepared.task.kind,
++        "test_day": prepared.task.test_day,
++        "panel": prepared.panel,
++        "class_count": len(CATEGORY_ORDER),
++        "category_order": list(CATEGORY_ORDER),
++        "cpd_y": float(cpd_value),
++        "cm_ref_rf_oof": ref_cm.tolist(),
++        "cm_tgt_rf": target_cm.tolist(),
++    }
++
++    scores = {row["model"]: float(row["macro_f1"]) for row in model_rows}
++    best_base = max(BASE_MODEL_ORDER, key=lambda name: (scores[name], -BASE_MODEL_ORDER.index(name)))
++    gain_row = {
++        "task": prepared.task.name,
++        "kind": prepared.task.kind,
++        "test_day": prepared.task.test_day,
++        "panel": prepared.panel,
++        "class_count": len(CATEGORY_ORDER),
++        "rf_macro_f1": scores["rf"],
++        "xgboost_macro_f1": scores["xgboost"],
++        "lightgbm_macro_f1": scores["lightgbm"],
++        "best_base_model": best_base,
++        "best_base_macro_f1": scores[best_base],
++        "stacking_macro_f1": scores["stacking"],
++        "stacking_gain": scores["stacking"] - scores[best_base],
++    }
++
++    detail = dict(prepared.detail)
++    detail.update(
++        {
++            "oof_fold_count": len(folds),
++            "oof_mode": folds[0].mode,
++            "oof_group_field": "day" if folds[0].mode == "grouped_day" else "none",
++            "oof_semantics": (
++                "k>=2: GroupKFold(group=training_day)"
++                if folds[0].mode == "grouped_day"
++                else "k=1/IID: five continuous window_start_epoch blocks"
++            ),
++        }
++    )
++    return TaskResult(
++        detail=detail,
++        cpd=cpd_row,
++        gain=gain_row,
++        models=model_rows,
++        oof_folds=_fold_rows(prepared, folds, "rf_reference")
++        + _fold_rows(prepared, folds, "stacking"),
++        probability_audit=probability_audit,
++    )
++
++
++# ---------------------------------------------------------------------------
++# Bootstrap pass lines (D12/D13 frozen, deterministic)
++# ---------------------------------------------------------------------------
++
++def _ci(values: Sequence[float]) -> tuple[float, float]:
++    array = np.asarray(values, dtype=float)
++    lower, upper = np.quantile(array, BOOTSTRAP_Q, method="linear")
++    return float(lower), float(upper)
++
++
++def _cpd_clusters(
++    cpd_table: pd.DataFrame,
++    *,
++    panel: str,
++) -> tuple[dict[str, np.ndarray], dict[str, float], float, float]:
++    primary = cpd_table[cpd_table["panel"] == panel].copy()
++    ood = primary[primary["kind"] == "ood"]
++    iid = primary[primary["kind"] == "iid"]
++    if len(ood) != 54 or len(iid) != 20:
++        raise AssertionError("primary CPD table does not contain 54 OOD + 20 IID rows")
++    first_day = min(str(day) for day in iid["test_day"])
++    paired_days = sorted(set(ood["test_day"].astype(str)) & set(iid["test_day"].astype(str)))
++    if len(paired_days) != 19 or first_day in paired_days:
++        raise AssertionError(f"expected 19 paired test days, got {paired_days}")
++    ood_clusters = {
++        day: ood.loc[ood["test_day"].astype(str) == day, "cpd_y"].to_numpy(dtype=float)
++        for day in paired_days
++    }
++    iid_by_day = {
++        day: float(iid.loc[iid["test_day"].astype(str) == day, "cpd_y"].iloc[0])
++        for day in paired_days
++    }
++    ood_values = np.concatenate([ood_clusters[day] for day in paired_days])
++    iid_values = np.asarray([iid_by_day[day] for day in paired_days], dtype=float)
++    return ood_clusters, iid_by_day, float(np.mean(ood_values)), float(np.mean(iid_values))
++
++
++def bootstrap_cpd_difference(
++    cpd_table: pd.DataFrame,
++    *,
++    panel: str = "primary",
++    replicates: int = BOOTSTRAP_REPLICATES,
++    seed: int = BOOTSTRAP_SEED,
++) -> tuple[dict[str, Any], pd.DataFrame]:
++    """Cluster-bootstrap OOD mean minus paired IID mean by test day."""
++
++    if replicates < 1:
++        raise ValueError("replicates must be positive")
++    if panel not in {"primary", "stable"}:
++        raise ValueError(f"unknown panel: {panel}")
++    ood_clusters, iid_by_day, ood_mean, iid_mean = _cpd_clusters(cpd_table, panel=panel)
++    days = tuple(sorted(ood_clusters))
++    rng = np.random.default_rng(seed)
++    values: list[float] = []
++    attempts = 0
++    while len(values) < replicates:
++        attempts += 1
++        sampled = rng.integers(0, len(days), size=len(days))
++        sampled_ood = np.concatenate([ood_clusters[days[index]] for index in sampled])
++        sampled_iid = np.asarray([iid_by_day[days[index]] for index in sampled], dtype=float)
++        if len(sampled_ood) == 0 or len(sampled_iid) == 0:
++            continue
++        statistic = float(np.mean(sampled_ood) - np.mean(sampled_iid))
++        if np.isfinite(statistic):
++            values.append(statistic)
++    lower, upper = _ci(values)
++    summary = {
++        "criterion": "criterion_1_cpd_ood_minus_iid",
++        "panel": panel,
++        "ood_mean": ood_mean,
++        "paired_iid_mean": iid_mean,
++        "point_estimate": ood_mean - iid_mean,
++        "ci_lower": lower,
++        "ci_upper": upper,
++        "bootstrap_replicates": int(replicates),
++        "bootstrap_attempts": int(attempts),
++        "bootstrap_seed": int(seed),
++        "cluster_field": "test_day",
++        "paired_day_count": len(days),
++        "passed": (
++            bool((ood_mean - iid_mean) > 0 and lower > 0)
++            if panel == "primary"
++            else None
++        ),
++        "applicability": "primary_decision" if panel == "primary" else "sensitivity_only",
++    }
++    replicate_table = pd.DataFrame(
++        {
++            "criterion": "criterion_1_cpd_ood_minus_iid",
++            "panel": panel,
++            "replicate": np.arange(replicates, dtype=int),
++            "statistic": values,
++        }
++    )
++    return summary, replicate_table
++
++
++def bootstrap_stacking_gain(
++    cpd_table: pd.DataFrame,
++    gain_table: pd.DataFrame,
++    *,
++    panel: str,
++    replicates: int = BOOTSTRAP_REPLICATES,
++    seed: int = BOOTSTRAP_SEED,
++) -> tuple[dict[str, Any], pd.DataFrame]:
++    """Bootstrap criterion 2 by test-day clusters with a fixed OOD median."""
++
++    if replicates < 1:
++        raise ValueError("replicates must be positive")
++    cpd = cpd_table[(cpd_table["panel"] == panel) & (cpd_table["kind"] == "ood")].copy()
++    gain = gain_table[(gain_table["panel"] == panel) & (gain_table["kind"] == "ood")].copy()
++    merged = cpd[["task", "test_day", "cpd_y"]].merge(
++        gain[["task", "test_day", "stacking_gain"]],
++        on=["task", "test_day"],
++        how="inner",
++        validate="one_to_one",
++    )
++    if len(merged) != 54:
++        raise AssertionError(f"criterion 2 requires 54 OOD rows, got {len(merged)}")
++    median = float(np.median(merged["cpd_y"].to_numpy(dtype=float)))
++    merged["cpd_group"] = np.where(merged["cpd_y"] > median, "high", "low")
++    high = merged[merged["cpd_group"] == "high"]
++    low = merged[merged["cpd_group"] == "low"]
++    if high.empty or low.empty:
++        raise AssertionError("fixed CPD median produced an empty group")
++    high_mean = float(high["stacking_gain"].mean())
++    low_mean = float(low["stacking_gain"].mean())
++    diff_mean = high_mean - low_mean
++
++    clusters = {
++        str(day): group for day, group in merged.groupby("test_day", sort=True)
++    }
++    days = tuple(sorted(clusters))
++    rng = np.random.default_rng(seed)
++    high_values: list[float] = []
++    low_values: list[float] = []
++    diff_values: list[float] = []
++    attempts = 0
++    while len(high_values) < replicates:
++        attempts += 1
++        sampled = rng.integers(0, len(days), size=len(days))
++        sampled_frame = pd.concat([clusters[days[index]] for index in sampled], ignore_index=True)
++        sampled_high = sampled_frame[sampled_frame["cpd_group"] == "high"]["stacking_gain"]
++        sampled_low = sampled_frame[sampled_frame["cpd_group"] == "low"]["stacking_gain"]
++        if sampled_high.empty or sampled_low.empty:
++            continue
++        high_stat = float(sampled_high.mean())
++        low_stat = float(sampled_low.mean())
++        diff_stat = high_stat - low_stat
++        if all(np.isfinite(value) for value in (high_stat, low_stat, diff_stat)):
++            high_values.append(high_stat)
++            low_values.append(low_stat)
++            diff_values.append(diff_stat)
++
++    high_lower, high_upper = _ci(high_values)
++    low_lower, low_upper = _ci(low_values)
++    diff_lower, diff_upper = _ci(diff_values)
++    summary = {
++        "criterion": "criterion_2_high_cpd_stacking_gain",
++        "panel": panel,
++        "cpd_median": median,
++        "high_task_count": int(len(high)),
++        "low_task_count": int(len(low)),
++        "high_mean_gain": high_mean,
++        "high_ci_lower": high_lower,
++        "high_ci_upper": high_upper,
++        "low_mean_gain": low_mean,
++        "low_ci_lower": low_lower,
++        "low_ci_upper": low_upper,
++        "high_minus_low_mean": diff_mean,
++        "high_minus_low_ci_lower": diff_lower,
++        "high_minus_low_ci_upper": diff_upper,
++        "bootstrap_replicates": int(replicates),
++        "bootstrap_attempts": int(attempts),
++        "bootstrap_seed": int(seed),
++        "cluster_field": "test_day",
++        # Stable-device is repeated as sensitivity but is not a PASS/FAIL arm.
++        "passed": (
++            bool(high_mean < 0 and high_upper < 0)
++            if panel == "primary"
++            else None
++        ),
++        "applicability": "primary_decision" if panel == "primary" else "sensitivity_only",
++        "high_task_ids": sorted(high["task"].astype(str).tolist()),
++        "low_task_ids": sorted(low["task"].astype(str).tolist()),
++    }
++    replicate_table = pd.DataFrame(
++        {
++            "criterion": "criterion_2_high_cpd_stacking_gain",
++            "panel": panel,
++            "replicate": np.arange(replicates, dtype=int),
++            "high_mean_gain": high_values,
++            "low_mean_gain": low_values,
++            "high_minus_low": diff_values,
++        }
++    )
++    return summary, replicate_table
++
++
++def build_passline_tables(
++    cpd_table: pd.DataFrame,
++    gain_table: pd.DataFrame,
++    *,
++    replicates: int = BOOTSTRAP_REPLICATES,
++) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
++    """Build criterion summaries and all finite bootstrap replicate rows."""
++
++    summaries: list[dict[str, Any]] = []
++    replicate_frames: list[pd.DataFrame] = []
++    for panel in ("primary", "stable"):
++        c1, r1 = bootstrap_cpd_difference(
++            cpd_table,
++            panel=panel,
++            replicates=replicates,
++        )
++        summaries.append(c1)
++        replicate_frames.append(r1)
++    for panel in ("primary", "stable"):
++        summary, replicas = bootstrap_stacking_gain(
++            cpd_table,
++            gain_table,
++            panel=panel,
++            replicates=replicates,
++        )
++        summaries.append(summary)
++        replicate_frames.append(replicas)
++    passline = pd.DataFrame(summaries)
++    replicas = pd.concat(replicate_frames, ignore_index=True)
++    # Three-branch overall decision is fixed and uses primary only.
++    criterion_1_pass = bool(
++        next(
++            item["passed"]
++            for item in summaries
++            if item["criterion"] == "criterion_1_cpd_ood_minus_iid"
++            and item["panel"] == "primary"
++        )
++    )
++    criterion_2_pass = bool(next(item for item in summaries if item["criterion"].startswith("criterion_2") and item["panel"] == "primary")["passed"])
++    if criterion_1_pass and criterion_2_pass:
++        overall = "both_pass"
++    elif criterion_1_pass or criterion_2_pass:
++        overall = "partial_default_not_pass"
++    else:
++        overall = "both_fail"
++    decision = {
++        "criterion_1_pass": criterion_1_pass,
++        "criterion_2_pass": criterion_2_pass,
++        "overall_three_branch": overall,
++    }
++    return passline, replicas, decision
++
++
++# ---------------------------------------------------------------------------
++# Audits, output packets, and deterministic staging
++# ---------------------------------------------------------------------------
++
++def function_level_leakage_audit() -> dict[str, Any]:
++    """Machine-check the label boundary required by §18.2 item 3."""
++
++    fit_signature = list(inspect.signature(fit_model_predictions).parameters)
++    oof_signature = list(inspect.signature(rf_oof_reference_cm).parameters)
++    forbidden_test_tokens = {"y_test", "test_label", "test_labels", "target_label"}
++    fit_bad = sorted(forbidden_test_tokens.intersection(fit_signature))
++    oof_bad = sorted(forbidden_test_tokens.intersection(oof_signature))
++    source = inspect.getsource(fit_model_predictions)
++    # The local y_test variable is intentionally post-fit scoring.  It is
++    # checked as a documented evaluation-only use rather than treated as an
++    # input to the fitting boundary.
++    return {
++        "pass": not fit_bad and not oof_bad and "model.fit" in source,
++        "fit_function": "fit_model_predictions",
++        "fit_parameters": fit_signature,
++        "oof_function": "rf_oof_reference_cm",
++        "oof_parameters": oof_signature,
++        "test_label_parameters_in_fit": fit_bad,
++        "test_label_parameters_in_oof": oof_bad,
++        "test_labels_appear_in": {
++            "split_task": "label column is consumed only by the prescribed test-side sample_balanced call",
++            "fit_model_predictions": "local y_test is read after fit/predict for macro-F1 only",
++            "run_prepared_task": "y_test is read after all models return for CM and gain reporting",
++        },
++        "forbidden_flow": [
++            "test labels do not enter model.fit",
++            "test labels do not enter OOF fold construction",
++            "test labels do not enter thresholds or model selection",
++        ],
++    }
++
++
++def collect_static_acceptance(
++    feature_audit: Mapping[str, Any],
++    task_details: Sequence[Mapping[str, Any]],
++    oof_rows: Sequence[Mapping[str, Any]],
++    probability_audits: Sequence[Mapping[str, Any]],
++    task_counts: Mapping[str, int],
++) -> dict[str, Any]:
++    """Collect local D12 gates; dual-run and cpd-core gates are external."""
++
++    def category_order_of(row: Mapping[str, Any]) -> Any:
++        value = row.get("category_order")
++        if isinstance(value, str):
++            try:
++                return json.loads(value)
++            except json.JSONDecodeError:
++                return value
++        return value
++
++    support_gate = bool(task_details) and all(
++        row.get("category_count") == 6
++        and category_order_of(row) == list(CATEGORY_ORDER)
++        and row.get("panel_device_count", 0) > 0
++        for row in task_details
++    )
++    oof_gate = bool(oof_rows) and all(
++        row.get("mode") in {"grouped_day", "time_block"}
++        and row.get("train_indices")
++        and row.get("validation_indices")
++        for row in oof_rows
++    )
++    probability_gate = all(
++        bool(audit.get("row_sums_one"))
++        for audit in probability_audits
++        if isinstance(audit, Mapping)
++    )
++    leakage = function_level_leakage_audit()
++    local = {
++        "task_definition_count": task_counts.get("task_definitions") == 74,
++        "task_panel_count": task_counts.get("task_panel_cells") == 148,
++        "support_and_device_panel": support_gate,
++        "oof_fold_records": oof_gate,
++        "probability_row_sums": probability_gate,
++        "feature_finite_61": bool(feature_audit.get("finite"))
++        and int(feature_audit.get("n_numeric_features", -1)) == 61,
++        "side_other_zero_and_excluded": bool(
++            feature_audit.get("side_packet_ratio_zero")
++            and feature_audit.get("other_packet_ratio_zero")
++            and set(feature_audit.get("excluded_from_model_features", [])) == set(AUDIT_COLUMNS)
++        ),
++        "function_level_no_label_leakage": bool(leakage["pass"]),
++    }
++    return {
++        "local_gates": local,
++        "local_all_pass": bool(all(local.values())),
++        "external_gates": {
++            "deterministic_double_run": "required_before_canonical_output",
++            "test_cpd_core": "required_before_canonical_output",
++        },
++        "constants": {
++            "category_order": list(CATEGORY_ORDER),
++            "stable_devices": list(STABLE_DEVICES),
++            "max_rows": MAX_ROWS,
++            "random_state": RANDOM_STATE,
++            "iid_train_fraction": IID_TRAIN_FRACTION,
++            "bootstrap_replicates": BOOTSTRAP_REPLICATES,
++            "bootstrap_seed": BOOTSTRAP_SEED,
++        },
++        "leakage_audit": leakage,
++    }
++
++
++def _serialize_detail_frame(details: Sequence[Mapping[str, Any]]) -> pd.DataFrame:
++    rows = []
++    for detail in details:
++        row = dict(detail)
++        for column in ("train_days", "panel_devices", "device_day_windows", "train_sample_keys", "test_sample_keys"):
++            row[column] = canonical_json(row[column])
++        rows.append(row)
++    columns = [
++        "task", "kind", "k", "train_days", "test_day", "panel",
++        "panel_device_count", "panel_devices", "device_day_windows",
++        "category_order", "category_count", "train_rows_before_sampling",
++        "test_rows_before_sampling", "train_rows_after_sampling",
++        "test_rows_after_sampling", "max_rows", "random_state", "iid_split",
++        "oof_fold_count", "oof_mode", "oof_group_field", "oof_semantics",
++        "train_sample_keys", "test_sample_keys",
++    ]
++    for row in rows:
++        row["category_order"] = canonical_json(row["category_order"])
++    return pd.DataFrame(rows, columns=columns)
++
++
++def _serialize_nested_frame(rows: Sequence[Mapping[str, Any]], columns: Sequence[str]) -> pd.DataFrame:
++    serialized: list[dict[str, Any]] = []
++    nested_columns = {
++        "category_order",
++        "cm_ref_rf_oof",
++        "cm_tgt_rf",
++        "confusion_matrix",
++        "train_indices",
++        "validation_indices",
++        "train_days",
++        "validation_days",
++        "high_task_ids",
++        "low_task_ids",
++    }
++    for item in rows:
++        row = dict(item)
++        for column in nested_columns:
++            if column in row:
++                row[column] = canonical_json(row[column])
++        serialized.append(row)
++    return pd.DataFrame(serialized, columns=list(columns))
++
++
++def _all_task_results(
++    features: pd.DataFrame,
++    tasks: Sequence[TaskDefinition],
++    feature_columns: Sequence[str],
++    *,
++    n_jobs: int,
++) -> tuple[list[TaskResult], dict[str, Any]]:
++    results: list[TaskResult] = []
++    for task in tasks:
++        for panel in ("primary", "stable"):
++            prepared = split_task(features, task, panel)
++            results.append(run_prepared_task(prepared, feature_columns, n_jobs=n_jobs))
++    probability_audits: list[dict[str, Any]] = []
++    for result in results:
++        probability_audits.append(result.probability_audit["rf_oof"])
++        probability_audits.extend(result.probability_audit["test_models"].values())
++    return results, {
++        "probability_audits": probability_audits,
++        "n_task_results": len(results),
++    }
++
++
++def write_shard_packet(
++    output_root: Path,
++    results: Sequence[TaskResult],
++    feature_audit: Mapping[str, Any],
++    task_counts: Mapping[str, int],
++    probability_audits: Sequence[Mapping[str, Any]] = (),
++) -> None:
++    """Write deterministic raw tables for one task shard."""
++
++    prepare_empty_output_dir(output_root)
++    detail = _serialize_detail_frame([result.detail for result in results])
++    cpd_rows = [result.cpd for result in results]
++    gain_rows = [result.gain for result in results]
++    fold_rows = [row for result in results for row in result.oof_folds]
++    write_stable_csv(detail, output_root / "task_detail.csv")
++    write_stable_csv(
++        _serialize_nested_frame(
++            cpd_rows,
++            ["task", "kind", "test_day", "panel", "class_count", "category_order", "cpd_y", "cm_ref_rf_oof", "cm_tgt_rf"],
++        ),
++        output_root / "cpd_table.csv",
++    )
++    write_stable_csv(
++        _serialize_nested_frame(
++            gain_rows,
++            [
++                "task", "kind", "test_day", "panel", "class_count", "rf_macro_f1",
++                "xgboost_macro_f1", "lightgbm_macro_f1", "best_base_model",
++                "best_base_macro_f1", "stacking_macro_f1", "stacking_gain",
++            ],
++        ),
++        output_root / "gain_table.csv",
++    )
++    write_stable_csv(
++        _serialize_nested_frame(
++            fold_rows,
++            [
++                "task", "panel", "oof_model", "fold", "mode", "group_field",
++                "train_indices", "validation_indices", "train_days", "validation_days",
++                "train_time_min", "train_time_max", "validation_time_min", "validation_time_max",
++            ],
++        ),
++        output_root / "oof_folds.csv",
++    )
++    write_json(
++        output_root / "stage_audit.json",
++        {
++            "feature_audit": dict(feature_audit),
++            "task_counts": dict(task_counts),
++            "result_cells": len(results),
++            "probability_audits": [dict(audit) for audit in probability_audits],
++        },
++    )
++
++
++def _read_nested_csv(path: Path) -> pd.DataFrame:
++    return pd.read_csv(path, keep_default_na=False)
++
++
++def merge_shard_packets(
++    shard_roots: Sequence[Path],
++    output_root: Path,
++    *,
++    feature_audit: Mapping[str, Any],
++    task_counts: Mapping[str, int],
++    external_gates_verified: bool = False,
++) -> None:
++    """Merge six deterministic task shards and finalize only after external gates."""
++
++    if len(shard_roots) != 6:
++        raise ValueError(f"D13 shard plan requires six shard roots, got {len(shard_roots)}")
++    detail_frames = [_read_nested_csv(root / "task_detail.csv") for root in shard_roots]
++    cpd_frames = [_read_nested_csv(root / "cpd_table.csv") for root in shard_roots]
++    gain_frames = [_read_nested_csv(root / "gain_table.csv") for root in shard_roots]
++    fold_frames = [_read_nested_csv(root / "oof_folds.csv") for root in shard_roots]
++    details = pd.concat(detail_frames, ignore_index=True).sort_values(["task", "panel"], kind="stable")
++    cpd = pd.concat(cpd_frames, ignore_index=True).sort_values(["task", "panel"], kind="stable")
++    gain = pd.concat(gain_frames, ignore_index=True).sort_values(["task", "panel"], kind="stable")
++    folds = pd.concat(fold_frames, ignore_index=True).sort_values(
++        ["task", "panel", "oof_model", "fold"], kind="stable"
++    )
++    if len(details) != 148 or len(cpd) != 148 or len(gain) != 148:
++        raise AssertionError("merged shards do not contain 74 tasks x 2 panels")
++    for name, frame in (("task_detail", details), ("cpd", cpd), ("gain", gain)):
++        if frame[["task", "panel"]].duplicated().any():
++            raise AssertionError(f"duplicate task/panel rows in merged {name} table")
++        if set(frame["panel"]) != {"primary", "stable"}:
++            raise AssertionError(f"merged {name} table does not contain both panel arms")
++    canonical_output = output_root.resolve() == (REPO_ROOT / "results" / "unsw_test1").resolve()
++    if canonical_output and not external_gates_verified:
++        raise PermissionError(
++            "canonical output requires deterministic double-run and test_cpd_core verification"
++        )
++
++    shard_manifests = [
++        json.loads((root / "input_manifest.json").read_text(encoding="utf-8"))
++        for root in shard_roots
++        if (root / "input_manifest.json").exists()
++    ]
++    input_files: list[dict[str, str]] = []
++    input_days: list[str] = []
++    if shard_manifests:
++        first_input = shard_manifests[0]["input_manifest"]
++        input_files = list(first_input.get("files", []))
++        input_days = list(first_input.get("days", []))
++        expected_manifest = canonical_json(first_input)
++        if any(canonical_json(item.get("input_manifest", {})) != expected_manifest for item in shard_manifests[1:]):
++            raise AssertionError("input manifests differ across task shards")
++
++    prepare_empty_output_dir(output_root)
++    write_stable_csv(details, output_root / "task_detail.csv")
++    write_stable_csv(cpd, output_root / "cpd_table.csv")
++    write_stable_csv(gain, output_root / "gain_table.csv")
++    write_stable_csv(folds, output_root / "oof_folds.csv")
++    passline, replicas, decision = build_passline_tables(cpd, gain)
++    write_stable_csv(passline, output_root / "passline.csv")
++    write_stable_csv(replicas, output_root / "bootstrap_replicates.csv")
++    acceptance = collect_static_acceptance(
++        feature_audit,
++        details.to_dict(orient="records"),
++        folds.to_dict(orient="records"),
++        [
++            audit
++            for root in shard_roots
++            for audit in json.loads((root / "stage_audit.json").read_text(encoding="utf-8"))["probability_audits"]
++        ],
++        task_counts,
++    )
++    acceptance["external_gates"] = {
++        "deterministic_double_run": bool(external_gates_verified),
++        "test_cpd_core": bool(external_gates_verified),
++    }
++    acceptance["overall_local_and_external"] = bool(
++        acceptance["local_all_pass"] and external_gates_verified
++    )
++    acceptance["decision_summary"] = decision
++    write_json(output_root / "acceptance.json", acceptance)
++    write_json(
++        output_root / "provenance.json",
++        {
++            "protocol": "D12+D13",
++            "implementation": "code/scripts/analysis/unsw_test1.py",
++            "input_manifest": {
++                "days": input_days,
++                "files": input_files,
++            },
++            "category_order": list(CATEGORY_ORDER),
++            "stable_devices": list(STABLE_DEVICES),
++            "model_order": list(MODEL_ORDER),
++            "max_rows": MAX_ROWS,
++            "random_state": RANDOM_STATE,
++            "iid_split": "per-device stable (window_start_epoch, window_id), floor(70%) train",
++            "oof": "GroupKFold by training day for k>=2; five time blocks for k=1/IID",
++            "cpd": "cpd_core.cpd_y(CM_ref_RF_OOF, CM_tgt_RF)",
++            "bootstrap": "numpy.default_rng(42), linear quantiles, 10000 finite replicates",
++            "no_absolute_staging_path": True,
++            "no_wall_clock_or_completion_order": True,
++        },
++    )
++    note = (
++        "# TEST1_RESULTS_NOTE.md\n\n"
++        "This deterministic packet transcribes D12/D13 tables and execution "
++        "definitions only. It contains no scientific interpretation or PASS/FAIL "
++        "claim beyond the frozen mechanical pass lines.\n"
++    )
++    (output_root / "TEST1_RESULTS_NOTE.md").write_text(note, encoding="utf-8")
++    write_md5_manifest(output_root)
++
++
++def deterministic_file_names(root: Path) -> list[str]:
++    """List the canonical deterministic packet files, excluding logs/timing."""
++
++    names = [
++        "task_detail.csv",
++        "cpd_table.csv",
++        "gain_table.csv",
++        "oof_folds.csv",
++        "passline.csv",
++        "bootstrap_replicates.csv",
++        "acceptance.json",
++        "provenance.json",
++        "TEST1_RESULTS_NOTE.md",
++    ]
++    return [name for name in names if (root / name).exists()]
++
++
++def compare_deterministic_packets(first: Path, second: Path) -> dict[str, Any]:
++    """Compare two staging packets byte-for-byte without reading scientific values."""
++
++    names = sorted(set(deterministic_file_names(first)) | set(deterministic_file_names(second)))
++    missing = [name for name in names if not (first / name).exists() or not (second / name).exists()]
++    differing = [
++        name
++        for name in names
++        if (first / name).exists()
++        and (second / name).exists()
++        and (first / name).read_bytes() != (second / name).read_bytes()
++    ]
++    return {
++        "files": names,
++        "missing": missing,
++        "differing": differing,
++        "pass": not missing and not differing,
++    }
++
++
++def write_md5_manifest(root: Path) -> None:
++    """Write a stable md5 list after all deterministic files are present."""
++
++    names = deterministic_file_names(root)
++    lines = [f"{hashlib.md5((root / name).read_bytes()).hexdigest()}  {name}" for name in names]
++    (root / "manifest.md5").write_text("\n".join(lines) + "\n", encoding="utf-8")
++
++
++def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
++    parser = argparse.ArgumentParser(
++        description="D12/D13 UNSW Test 1 candidate; use only with an authorized staging root."
++    )
++    parser.add_argument("--feature-root", type=Path, default=Path("results/unsw_features_full"))
++    parser.add_argument("--mac-map", type=Path, default=Path("dataset/unsw/device_mac_map.csv"))
++    parser.add_argument("--output-root", type=Path, default=None)
++    parser.add_argument("--n-jobs", type=int, default=4)
++    parser.add_argument("--shard-index", type=int, default=0)
++    parser.add_argument("--shard-count", type=int, default=1)
++    parser.add_argument(
++        "--merge-shards",
++        nargs=6,
++        type=Path,
++        metavar=("SHARD0", "SHARD1", "SHARD2", "SHARD3", "SHARD4", "SHARD5"),
++        help="Merge six completed shard packets; requires --external-gates-verified.",
++    )
++    parser.add_argument(
++        "--compare-runs",
++        nargs=2,
++        type=Path,
++        metavar=("RUN_A", "RUN_B"),
++        help="Compare two complete deterministic staging packets and exit.",
++    )
++    parser.add_argument(
++        "--external-gates-verified",
++        action="store_true",
++        help="Only the post-review staging coordinator may use this; never used by synthetic tests.",
++    )
++    return parser.parse_args(argv)
++
++
++def main(argv: Sequence[str] | None = None) -> int:
++    args = parse_args(argv)
++    if args.merge_shards and args.compare_runs:
++        raise SystemExit("--merge-shards and --compare-runs are mutually exclusive")
++    if args.compare_runs:
++        comparison = compare_deterministic_packets(args.compare_runs[0], args.compare_runs[1])
++        print(json.dumps(comparison, ensure_ascii=False, sort_keys=True), flush=True)
++        return 0 if comparison["pass"] else 1
++    if args.output_root is None:
++        raise SystemExit("--output-root is required for staging or shard merge")
++    if args.n_jobs < 1:
++        raise SystemExit("--n-jobs must be positive")
++    canonical_output = args.output_root.resolve() == (REPO_ROOT / "results" / "unsw_test1").resolve()
++    if canonical_output and not args.external_gates_verified:
++        raise SystemExit("canonical results/unsw_test1 is created only by the reviewed finalizer")
++
++    if args.merge_shards:
++        first_audit = json.loads(
++            (args.merge_shards[0] / "stage_audit.json").read_text(encoding="utf-8")
++        )
++        merge_shard_packets(
++            args.merge_shards,
++            args.output_root,
++            feature_audit=first_audit["feature_audit"],
++            task_counts=first_audit["task_counts"],
++            external_gates_verified=args.external_gates_verified,
++        )
++        print(f"merged deterministic packet: output={args.output_root}", flush=True)
++        return 0
++
++    features, manifest, feature_audit = load_unsw_features(args.feature_root, args.mac_map)
++    days = sorted(features["day"].astype(str).unique())
++    tasks = build_task_catalog(days)
++    task_counts = validate_task_catalog(tasks, days)
++    selected = tasks_for_shard(tasks, args.shard_index, args.shard_count)
++    if args.shard_count == 1 and args.shard_index != 0:
++        raise SystemExit("single-shard mode requires --shard-index 0")
++
++    results, run_audit = _all_task_results(
++        features,
++        selected,
++        feature_audit["numeric_features"],
++        n_jobs=args.n_jobs,
++    )
++    shard_audit = {
++        "input_manifest": manifest,
++        "feature_audit": feature_audit,
++        "run_audit": run_audit,
++        "task_counts": task_counts,
++        "shard_index": args.shard_index,
++        "shard_count": args.shard_count,
++    }
++    write_shard_packet(
++        args.output_root,
++        results,
++        feature_audit,
++        task_counts,
++        probability_audits=run_audit["probability_audits"],
++    )
++    write_json(args.output_root / "input_manifest.json", shard_audit)
++    print(
++        f"staging shard complete: index={args.shard_index}/{args.shard_count} "
++        f"task_panel_cells={len(results)} output={args.output_root}",
++        flush=True,
++    )
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/code/scripts/analysis/test_unsw_test1.py b/code/scripts/analysis/test_unsw_test1.py
+new file mode 100644
+index 0000000..ac2fc3c
+--- /dev/null
++++ b/code/scripts/analysis/test_unsw_test1.py
+@@ -0,0 +1,256 @@
++#!/usr/bin/env python3
++"""Pure-synthetic tests for the D12/D13 UNSW Test 1 candidate.
++
++This file intentionally does not discover, read, or execute any UNSW input.
++The synthetic checks cover task counts, the two panel definitions, the fixed
++label axis, D13's time split and OOF semantics, mainline primitive usage, the
++same-shape CPD call, and the function-level label boundary.
++"""
++
++from __future__ import annotations
++
++import inspect
++import sys
++from pathlib import Path
++
++import numpy as np
++import pandas as pd
++
++sys.path.insert(0, str(Path(__file__).resolve().parent))
++import unsw_test1 as U  # noqa: E402
++
++
++def check(label: str, condition: bool) -> None:
++    if not condition:
++        raise AssertionError(label)
++    print(f"  PASS  {label}")
++
++
++def synthetic_days() -> list[str]:
++    return [f"d{index:02d}" for index in range(20)]
++
++
++def synthetic_features() -> pd.DataFrame:
++    # Ten stable devices, six categories, five windows per device/day.  The
++    # panel function receives a lower threshold in this synthetic test; the
++    # production constant remains exactly 100.
++    device_category = {
++        "AmazonEcho": "speaker",
++        "BelkinWemoMotion": "sensor",
++        "BelkinWemoSwitch": "switch",
++        "Dropcam": "camera",
++        "HPPrinter": "appliance",
++        "NetatmoWeather": "sensor",
++        "NetatmoWelcome": "camera",
++        "SamsungSmartCam": "camera",
++        "SmartThings": "hub",
++        "TribySpeaker": "speaker",
++    }
++    rows: list[dict[str, object]] = []
++    row_id = 0
++    for day_index, day in enumerate(synthetic_days()):
++        for device_index, device in enumerate(U.STABLE_DEVICES):
++            for window_id in range(5):
++                rows.append(
++                    {
++                        "device": device,
++                        "day": day,
++                        "category": device_category[device],
++                        "label": device_category[device],
++                        "window_id": window_id,
++                        "window_start_epoch": float(day_index * 1000 + device_index * 10 + window_id),
++                        "side_packet_ratio": 0.0,
++                        "other_packet_ratio": 0.0,
++                        "source_file": f"{day}.pcap",
++                        "f0": float((device_index + window_id) % 7),
++                        "f1": float(day_index),
++                        "f2": float(row_id % 11),
++                    }
++                )
++                row_id += 1
++    return pd.DataFrame(rows)
++
++
++def test_task_catalogue() -> None:
++    tasks = U.build_task_catalog(synthetic_days())
++    counts = U.validate_task_catalog(tasks, synthetic_days())
++    check("task catalog has 54 OOD + 20 IID + 19 paired IID", counts == {
++        "ood": 54,
++        "iid": 20,
++        "paired_day_iid": 19,
++        "task_definitions": 74,
++        "panel_arms": 2,
++        "task_panel_cells": 148,
++    })
++    check("six-way shard assignment covers each task exactly once",
++          sorted(task.name for i in range(6) for task in U.tasks_for_shard(tasks, i, 6))
++          == sorted(task.name for task in tasks))
++
++
++def test_feature_and_panel_rules() -> None:
++    features = synthetic_features()
++    audit = U.validate_feature_table(features)
++    check("synthetic feature finite audit passes", audit["finite"])
++    check("side/other audit columns are zero", audit["side_packet_ratio_zero"] and audit["other_packet_ratio_zero"])
++    task = U.build_task_catalog(synthetic_days())[2]  # first k=1 task after d00/d01/d02 ordering
++    primary, _ = U.panel_devices(features, task, "primary", min_windows=5)
++    stable, _ = U.panel_devices(features, task, "stable", min_windows=5)
++    check("primary panel selects the ten six-class devices", primary == list(U.STABLE_DEVICES))
++    check("stable panel is exactly the frozen ten devices", stable == list(U.STABLE_DEVICES))
++    prepared = U.split_task(
++        features,
++        task,
++        "primary",
++        max_rows=20,
++        random_state=42,
++        min_windows=5,
++    )
++    check("split uses fixed six-class order", set(prepared.train.label) | set(prepared.test.label) == set(U.CATEGORY_ORDER))
++    check("D13 sample cap is recorded", prepared.detail["max_rows"] == 20)
++    check("sample keys are label-free", all(set(key) == {"day", "device", "window_id"} for key in prepared.detail["train_sample_keys"]))
++
++
++def test_iid_time_order() -> None:
++    data = pd.DataFrame(
++        {
++            "device": ["a"] * 10,
++            "window_start_epoch": [9, 1, 8, 0, 7, 2, 6, 3, 5, 4],
++            "window_id": [9, 1, 8, 0, 7, 2, 6, 3, 5, 4],
++        }
++    )
++    train, test = U.iid_time_split(data)
++    check("IID first 70% is sorted by (epoch, window_id)", train["window_id"].tolist() == list(range(7)))
++    check("IID last 30% is the later time block", test["window_id"].tolist() == [7, 8, 9])
++
++
++def test_oof_semantics() -> None:
++    features = synthetic_features()
++    tasks = U.build_task_catalog(synthetic_days())
++    one_day = U.split_task(features, tasks[0], "primary", max_rows=20, min_windows=5)
++    one_day_folds = U.make_oof_folds(one_day.train, tasks[0])
++    check("k=1 OOF uses time blocks", all(fold.mode == "time_block" for fold in one_day_folds))
++    U.assert_mainline_stacking_fold_semantics(one_day.train, tasks[0], one_day_folds)
++    check("k=1 persisted folds equal mainline splitter", True)
++
++    # The first k=2 task is after the 53 k=1 tasks.
++    two_day = U.split_task(features, tasks[19], "primary", max_rows=20, min_windows=5)
++    two_day_folds = U.make_oof_folds(two_day.train, tasks[19])
++    check("k=2 OOF uses training-day groups", all(fold.mode == "grouped_day" for fold in two_day_folds))
++    check("grouped OOF validation days do not overlap training days",
++          all(not (set(fold.train_days) & set(fold.val_days)) for fold in two_day_folds))
++    U.assert_mainline_stacking_fold_semantics(two_day.train, tasks[19], two_day_folds)
++
++
++def test_synthetic_rf_reference() -> None:
++    features = synthetic_features()
++    task = U.build_task_catalog(synthetic_days())[0]
++    prepared = U.split_task(features, task, "primary", max_rows=20, min_windows=5)
++    folds = U.make_oof_folds(prepared.train, task)
++    cm, audit = U.rf_oof_reference_cm(
++        prepared.train,
++        ["f0", "f1", "f2"],
++        task,
++        folds,
++        n_jobs=1,
++    )
++    check("synthetic RF OOF reference has fixed 6x6 shape", cm.shape == (6, 6))
++    check("synthetic RF OOF probability rows sum to one", audit["row_sums_one"])
++    check("synthetic RF OOF uses every validation row", int(cm.sum()) == len(prepared.train))
++
++
++def test_synthetic_all_fixed_models() -> None:
++    features = synthetic_features()
++    task = U.build_task_catalog(synthetic_days())[0]
++    prepared = U.split_task(features, task, "primary", max_rows=20, min_windows=5)
++    for model_name in U.MODEL_ORDER:
++        result = U.fit_model_predictions(
++            model_name,
++            prepared.train,
++            prepared.test,
++            ["f0", "f1", "f2"],
++            n_jobs=1,
++        )
++        check(f"synthetic {model_name} fit/predict has fixed probability rows", result.probabilities.shape[1] == 6)
++        check(f"synthetic {model_name} probability rows sum to one", np.allclose(result.probabilities.sum(axis=1), 1.0))
++
++
++def test_synthetic_passlines() -> None:
++    tasks = U.build_task_catalog(synthetic_days())
++    cpd_rows: list[dict[str, object]] = []
++    gain_rows: list[dict[str, object]] = []
++    for panel in ("primary", "stable"):
++        for index, task in enumerate(tasks):
++            cpd_rows.append(
++                {
++                    "task": task.name,
++                    "kind": task.kind,
++                    "test_day": task.test_day,
++                    "panel": panel,
++                    "cpd_y": float(index + (0.25 if panel == "stable" else 0.0)),
++                }
++            )
++            if task.kind == "ood":
++                gain = -1.0 if index % 2 else 1.0
++            else:
++                gain = 0.0
++            gain_rows.append(
++                {
++                    "task": task.name,
++                    "kind": task.kind,
++                    "test_day": task.test_day,
++                    "panel": panel,
++                    "stacking_gain": gain,
++                }
++            )
++    passline, replicas, decision = U.build_passline_tables(
++        pd.DataFrame(cpd_rows),
++        pd.DataFrame(gain_rows),
++        replicates=25,
++    )
++    check("synthetic passline includes primary and stable criterion summaries", len(passline) == 4)
++    check("synthetic passline stores every bootstrap replicate", len(replicas) == 25 * 4)
++    check("synthetic overall branch is one of the frozen three", decision["overall_three_branch"] in {
++        "both_pass", "partial_default_not_pass", "both_fail"
++    })
++
++
++def test_primitive_imports_and_label_boundary() -> None:
++    source = inspect.getsource(U)
++    check("candidate imports mainline build_model", "from robust_iot_research import" in source and "build_model" in source)
++    check("candidate imports mainline sample_balanced", "sample_balanced" in source)
++    check("candidate imports cpd_core.cpd_y", "from cpd_core import cpd_y" in source)
++    check("candidate has no private CPD implementation", "def cpd_y" not in source and "def compute_cpd" not in source)
++    audit = U.function_level_leakage_audit()
++    check("fit/OOF signatures have no test-label parameters", audit["pass"])
++    check("fit function has no y_test parameter", "y_test" not in audit["fit_parameters"])
++
++    cm_ref = np.diag([8, 7, 6, 5, 4, 3]).astype(float)
++    cm_tgt = cm_ref.copy()
++    cm_tgt[0, 1] = 1.0
++    cm_tgt[0, 0] -= 1.0
++    got = U.cpd_y(cm_ref, cm_tgt)
++    check("CPD is obtained from the imported cpd_core function", got > 0.0)
++
++
++def main() -> int:
++    print("=" * 78)
++    print("D12/D13 UNSW Test 1 candidate — pure synthetic tests")
++    print("=" * 78)
++    for test in (
++        test_task_catalogue,
++        test_feature_and_panel_rules,
++        test_iid_time_order,
++        test_oof_semantics,
++        test_synthetic_rf_reference,
++        test_synthetic_all_fixed_models,
++        test_synthetic_passlines,
++        test_primitive_imports_and_label_boundary,
++    ):
++        print(f"--- {test.__name__}")
++        test()
++    print("synthetic tests: all pass")
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+```
+
+### 2. 测试与退出码
+
+- `MPLCONFIGDIR=/tmp/iotcls-test-mpl /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/test_unsw_test1.py`：exit `0`；36 项纯合成断言全部 PASS，覆盖任务/面板计数、六类轴、70/30 时间切分、两种 OOF、RF OOF CM、四个固定模型、bootstrap、主线 primitive import 与标签边界。
+- `/home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/test_cpd_core.py`：exit `0`；`15/15 PASS`。
+- `MPLCONFIGDIR=/tmp/iotcls-test-mpl /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/test_oof_modes.py`：exit `0`；全部通过。
+- `git diff --check`：exit `0`。未运行正式 UNSW CLI、smoke 或任何真实任务；`results/unsw_test1/` 未创建。
+
+### 3. 函数级标签边界
+
+- `attach_categories` 将原始 `device` 身份映射为 `device_mac_map.csv` 的 `category`，并只把六类公共支持写入模型用的 `label`；设备身份只保留为面板/样本键元数据。
+- `split_task(features, task, panel, ...)` 的 `train_pre`/`test_pre` 含 `label`，因为 D13 明确要求训练侧和测试侧均调用主线 `sample_balanced(..., max_rows=20000, random_state=42)`；测试标签在此仅用于规定的测试集平衡，不进入拟合。
+- `rf_oof_reference_cm(train, feature_columns, task, folds, n_jobs)` 只接收训练表，折内 RF 只用训练折标签拟合；验证标签只用于拟合完成后的 OOF 混淆矩阵统计。
+- `fit_model_predictions(model_name, train, test, feature_columns, n_jobs)` 没有 `y_test`/`test_label` 参数，且只从 `train` 取 `label`、只从 `test` 选数值特征列；模型 fit/predict 完成后，`run_prepared_task` 才用 `prepared.test["label"]` 计算 CM、macro-F1 和固定定义的 `stacking_gain`。
+- bootstrap 只接收已经落盘/汇总的 `cpd_y` 与 gain；中位数在 54 个 primary OOD 任务上一次预先计算，既不在 bootstrap 内重算，也不用于回训、阈值或校准。`best_base_model` 只是结果表中 `gain_vs_best_base` 的事后描述，不触发再次训练或模型选择。
+
+### 4. 静态任务与面板计数断言
+
+`build_task_catalog` + `validate_task_catalog` 在任何模型 fit 前断言：20 天构成 54 个连续 OOD 任务（`k=1,2,3`）、20 个 IID 任务、19 个 paired-day IID，合计 74 个任务定义；`primary` 与 `stable` 两臂固定为 `74 × 2 = 148` 个 task/panel cells。分片按任务序号 modulo 6，六片并集恰覆盖 74 个任务一次。
+
+### 5. 固定标签、stable 面板、采样与 OOF 断言
+
+- `CATEGORY_ORDER = [appliance, camera, hub, sensor, speaker, switch]`；每个 task/panel 强制六类支持，类别轴用于 RF OOF CM、RF 测试 CM、CPD 与 macro-F1。
+- `STABLE_DEVICES` 固定为 10 台：`AmazonEcho / BelkinWemoMotion / BelkinWemoSwitch / Dropcam / HPPrinter / NetatmoWeather / NetatmoWelcome / SamsungSmartCam / SmartThings / TribySpeaker`；stable 臂还强制这 10 台在输入全部 20 天均达到 `>=100` 窗。
+- `MAX_ROWS=20000`、`RANDOM_STATE=42`；每个 task 先做面板/时间切分，再分别调用主线 `sample_balanced`。IID 在每台设备内按 `(window_start_epoch, window_id)` stable 排序，前 `floor(70%)` 为 train、余下为 test。
+- OOD `k>=2` 的 RF OOF 与 stacking 使用训练 `day` 的主线 `GroupKFold`；OOD `k=1` 及 IID 单日使用五个连续 `window_start_epoch` 时间块。候选会把持久化 fold 与主线 `SimpleStackingClassifier._splitter` 逐折比较，并落盘每折索引、训练/验证日和时间边界。
+- `side_packet_ratio` / `other_packet_ratio` 必须恒为 0，且从 61 个模型特征中排除；特征有限性、概率行和 `1 ± 1e-9`、设备/类别清单均有断言。
+
+### 6. 预期 CLI、分片、输出与 md5 规范
+
+正式运行只在主线完成复核并追加 `RUN_AUTHORIZED` 后执行。每个 `/tmp` staging 根采用 6 片、每模型 `n_jobs=4`（总线程不超过 24）：
+
+```bash
+PY=/home/lmy/anaconda3/envs/iotcls/bin/python
+$PY code/scripts/analysis/unsw_test1.py --feature-root results/unsw_features_full --mac-map dataset/unsw/device_mac_map.csv --output-root /tmp/unsw_test1-A/shard-0 --n-jobs 4 --shard-index 0 --shard-count 6
+# 将 shard-index 0..5 分别写入 /tmp/unsw_test1-A/shard-0..5；B 根同构重跑。
+$PY code/scripts/analysis/unsw_test1.py --merge-shards /tmp/unsw_test1-A/shard-0 /tmp/unsw_test1-A/shard-1 /tmp/unsw_test1-A/shard-2 /tmp/unsw_test1-A/shard-3 /tmp/unsw_test1-A/shard-4 /tmp/unsw_test1-A/shard-5 --output-root /tmp/unsw_test1-A/packet
+$PY code/scripts/analysis/unsw_test1.py --merge-shards /tmp/unsw_test1-B/shard-0 /tmp/unsw_test1-B/shard-1 /tmp/unsw_test1-B/shard-2 /tmp/unsw_test1-B/shard-3 /tmp/unsw_test1-B/shard-4 /tmp/unsw_test1-B/shard-5 --output-root /tmp/unsw_test1-B/packet
+$PY code/scripts/analysis/unsw_test1.py --compare-runs /tmp/unsw_test1-A/packet /tmp/unsw_test1-B/packet
+# 仅在 compare-runs 通过且 test_cpd_core 已通过后，由主线协调器传入 --external-gates-verified：
+$PY code/scripts/analysis/unsw_test1.py --merge-shards /tmp/unsw_test1-A/shard-0 /tmp/unsw_test1-A/shard-1 /tmp/unsw_test1-A/shard-2 /tmp/unsw_test1-A/shard-3 /tmp/unsw_test1-A/shard-4 /tmp/unsw_test1-A/shard-5 --output-root results/unsw_test1 --external-gates-verified
+```
+
+staging packet 先写 `task_detail.csv`、`cpd_table.csv`、`gain_table.csv`、`oof_folds.csv`、`stage_audit.json`、`input_manifest.json`；终态规范包包含 D12 列出的 `task_detail.csv`、`cpd_table.csv`、`gain_table.csv`、`passline.csv`、`acceptance.json`、`provenance.json`、`TEST1_RESULTS_NOTE.md`，以及 D13 要求逐折/逐复制审计的 `oof_folds.csv`、`bootstrap_replicates.csv` 和 `manifest.md5`。stable 摘要重复生成但 `passed=null`、`applicability=sensitivity_only`，不产生 PASS/FAIL。
+
+确定性规则：CSV 使用固定列序、UTF-8、LF、`%.17g`；JSON 使用排序键、固定缩进、末尾换行；任务/面板/折/复制按固定顺序序列化。`provenance.json` 和科学表不含当前时间、墙钟、绝对 staging 路径或分片完成顺序；`manifest.md5` 按固定规范文件清单计算，manifest 自身不纳入自身 hash。`compare-runs` 对规范文件逐字节比较；任何失败都不得生成 canonical `results/unsw_test1/`。
+
+本阶段未执行 git add/commit；既有未跟踪的 `independent/` 与 `results/meta_mismatch_exploratory/` 未读取、未清理、未修改。
+
+---
+
+## D12_IMPLEMENTATION_REVIEW
+
+**状态**：`MAINLINE_REVIEW_PASSED / FORMAL_RUN_NOT_YET_AUTHORIZED`。
+
+**性质**：主线对 Luna 的 `D12_IMPLEMENTATION_READY` 候选作盲态代码复核与纯合成验收。本节形成时
+仍未运行任何真实 UNSW 任务，`results/unsw_test1/` 仍不存在。上节保留为 Luna 原始交付的审计轨迹；
+其中的旧文件哈希、旧 CLI 和“side/other 从 61 维中排除”等描述均已被本节的复核修正版取代，不能再
+作为正式运行入口。
+
+### 1. 盲态列审计发现并修正的阻塞错误
+
+对 20 个 `features_day_*.csv` 只读 `nrows=1`，结果为：20/20 表头完全一致；每个文件均有 **61** 个
+数值模型列；`side_packet_ratio` 与 `other_packet_ratio` 明确属于这 61 列。Luna 初稿把二者作为 audit
+列排除，却仍断言模型列数为 61，故真实入口会在任何拟合前以 **59 != 61** 退出。
+
+复核修正版保留完整冻结 61 维；两列在 UNSW 上须继续恒为 0，并明确标记为常数占位列。D12 §6 的
+原约束是“不得对这两列作特征重要性比较”，不是授权把 61 维改为 59 维。当前实现不生成任何特征
+重要性产物，因此这一修正不改判据、不增特征工程，也没有使用结果作选择。
+
+### 2. 主线复核后固化的结构门
+
+1. `fit_model_predictions` 只接收已经剥离 `label/category` 的精确特征表；若传入含标签测试表立即拒绝。
+   四个固定模型全部完成拟合与预测后，`run_prepared_task` 才首次读取 `y_test` 作 CM、macro-F1 和冻结
+   gain 的事后评分。测试侧 `sample_balanced` 仍按 D13 在 split 层使用标签，只决定预冻结的评测样本，
+   不进入 fit、OOF、校准、阈值或部署路由。
+2. 六类支持不再只检查 `train union test`；每个 task/panel 的 train 与 test **分别**断言完整覆盖固定六类，
+   并分别落盘类别轴与计数。
+3. 概率门要求恰有 `148 x (1 RF-OOF + 4 test models) = 740` 个具名且不重复的审计项；每项须非空、
+   有限、位于 `[0,1]` 且行和误差不超过 `1e-9`，空列表不能利用 `all([])` 误过。
+4. OOF 门从落盘索引重新复算：148 cells x RF-reference/Stacking 两套记录，共 296 个 task-model 组；
+   每折 train/validation 必须互补无交，validation 恰覆盖全部训练行，分组日不相交，且 RF 与 Stacking
+   的逐折索引逐位相同。单日必须恰为 5 个时间块，k>=2 必须恰为训练日数个 GroupKFold 折。
+5. 六个 shard 的规范文件必须 6/6 齐全；shard index 必须恰为 0..5；每片任务集合必须等于冻结的
+   modulo 分片；输入 20 日/40 文件、MAC 类型映射哈希、特征审计、代码、git commit、Python/包版本、
+   线程环境和规范化命令必须跨片一致。缺片、重复片或混合运行包均拒绝。
+6. shard merge 在内存中完成全部本地门后才写包，并通过同级临时目录原子 rename 发布；任何门失败，
+   输出路径保持不存在。merge 被禁止直接写 `results/unsw_test1/`。
+7. 两次 staging 比较使用固定的 10 个完整规范文件（含 `manifest.md5`）；即使两边同时缺同一文件也
+   必须 FAIL，并各自复算 manifest。两个 packet 路径还必须不同。
+8. 删除未经验证的 `--external-gates-verified` 布尔开关。唯一 canonical finalizer 是
+   `--publish-canonical RUN_A RUN_B`：它自行验证两包逐字节一致、本地 acceptance 全绿、授权代码与
+   当前环境一致，并实际执行冻结的 `test_cpd_core.py` 取得 15/15；随后才原子生成 canonical 目录。
+9. provenance 现包含：授权实现 commit、执行 HEAD、runner/合成测试/CPD 测试/CPD core/主线模型脚本
+   SHA-256、输入与 MAC map SHA-256、Python 与五个关键包版本、规范化 shard/merge/publish 命令。
+   正式进程还强制四个线程环境变量均为 4、`MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl`，故 6 片并发的
+   线程上限为 24；A/B 必须顺序完成，不能同时启动 12 片。
+
+### 3. 复核验证（全部不含真实 UNSW 模型）
+
+- 纯合成测试：exit `0`，**50 项 PASS**；其中完整构造 74 x 2 cells，复算 296 个 OOF 组与 740 个
+  概率审计，`local_all_pass=true`；另覆盖标签表拒绝、同缺文件不得误过、缺 shard 时输出不存在。
+- `test_cpd_core.py`：exit `0`，**15/15 PASS**。
+- `test_oof_modes.py`：exit `0`，全部通过。
+- `py_compile`、`git diff --check`：exit `0`。
+- 真实输入纯列审计：20/20 同 schema；数值特征计数集合为 `{61}`；两列 audit 常数特征均在 61 维中。
+- 复核候选 SHA-256：
+
+```text
+03b4e67af4aab01da203ff781c06859203af9dd90c28f763126079ca8a2f50a3  code/scripts/analysis/unsw_test1.py
+81acef815323bb36f9dcf33b12192c9a87b123e4ff54c18ea867ea8c8bb4d855  code/scripts/analysis/test_unsw_test1.py
+```
+
+### 4. 尚未越过的权限边界
+
+本节只表示实现审查通过，**不等于正式运行授权**。主线须先把本节与复核候选提交，取得不可变的完整
+commit；随后另行追加 §18.3 规定的三行 `RUN_AUTHORIZED` 并提交授权记录。没有实际 40 字符 commit 的
+精确授权块时，runner 会在读取真实特征和拟合前机械拒绝。正式结果无论哪条分支，仍不得恢复 CPD 的
+机制、预测或无标签部署身份，也不触碰 M2/M3、Route A/B、M4--M6 或独立线冻结结果。
