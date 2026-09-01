@@ -3768,3 +3768,85 @@ implementation commit `6e3d763912159ed731f07c7be41b39e2a56e5820` 只是 R4 launc
 implementation commit，禁止再次启动。下一步必须先冻结 R4 的精确 A/B/control 路径、服务属性和启动器
 身份，修改并单独提交 launcher，完成 review preflight，再由用户另行授权；在新的精确授权块出现前，
 任何人或服务器均不得运行真实 R4 shard、merge、compare 或 publish。
+
+---
+
+## D12_R4_SERVER_LAUNCHER_PROTOCOL
+
+**状态**：`R4_SERVER_PROTOCOL_FROZEN / R4_LAUNCHER_NOT_YET_IMPLEMENTED / R4_FORMAL_RUN_NOT_AUTHORIZED`。
+
+**唯一科学身份**：R4 launcher 只能编排 implementation commit
+`6e3d763912159ed731f07c7be41b39e2a56e5820`；不得再修改 runner、两个合成测试、CPD/OOF 回归、主线模型
+实现或任何输入。现有 R3 launcher commit `2c42bd68068446301d5568ccda58c03044211f7f` 已消费并永久停止。
+
+### 1. R4 服务器与路径身份
+
+```text
+formal_service = iotcls-unsw-test1-r4.service
+review_preflight_service = iotcls-unsw-test1-r4-review-preflight.service
+formal_preflight_service = iotcls-unsw-test1-r4-formal-preflight.service
+A = /tmp/unsw_test1-R4-A
+B = /tmp/unsw_test1-R4-B
+CONTROL = /tmp/iotcls-unsw-test1-R4-control
+CANONICAL = results/unsw_test1
+MPLCONFIGDIR = /tmp/iotcls-unsw-test1-mpl
+```
+
+R4 启动前 A/B/CONTROL/CANONICAL 必须全部不存在。R3、R2 与更早取证路径一律不得删除、覆盖、修改、
+merge、补跑或复用。launcher 文件仍唯一为 `code/scripts/analysis/run_unsw_test1_server.sh`，但必须把全部
+路径、环境变量和授权检查由 R3 身份完整替换为 R4，不能保留兼容旧身份的分支。
+
+### 2. 固定服务属性与资源口径
+
+review preflight、formal preflight 与 formal service 共同固定：
+
+```text
+--service-type=exec
+--working-directory=/home/lmy/iot-device-classification
+--property=Restart=no
+--property=KillMode=control-group
+--property=CPUQuota=2400%
+--property=NoNewPrivileges=yes
+--property=IPAddressDeny=any
+--property=RestrictAddressFamilies=AF_UNIX
+--property=RuntimeMaxSec=16h
+--property=TimeoutStopSec=2min
+```
+
+launcher 继续清空冻结的代理/证书/包管理器代理变量，并在 Python import 前验证 AF_INET/AF_INET6 socket
+均被拒绝。formal CLI 仍为六 shard 并发、每 shard `--n-jobs 4`，四个进程级线程变量仍为 4；R4 runner
+内部仅对 Stacking 应用已审查的单线程边界。A 完成并 merge 后才能启动 B；compare PASS 后才能 publish。
+
+### 3. review preflight 与 formal 授权严格分账
+
+1. review preflight 仅可调用 launcher 的 `--review-preflight-only`：验证 launcher 自身 commit/hash、当前
+   HEAD、R4 目标不存在、CPU/内存/磁盘、20+20 输入文件存在、MAC map 存在、canonical Python 与固定包
+   版本，以及 implementation commit 中 runner/test/probe/CPD/OOF/mainline 文件与工作树逐字节一致。
+   它不要求 formal 授权块，不创建 CONTROL，不启用 linger，不启动真实 task/smoke。
+2. formal preflight 才调用 runner 的完整 `validate_run_authorization`，并同时要求讨论文档出现两个相邻、
+   精确身份块：
+
+```text
+R4_RUN_AUTHORIZED
+implementation_commit: 6e3d763912159ed731f07c7be41b39e2a56e5820
+launcher_commit: <FULL_LAUNCHER_COMMIT>
+launcher_sha256: <LAUNCHER_SHA256>
+
+RUN_AUTHORIZED
+commit: 6e3d763912159ed731f07c7be41b39e2a56e5820
+canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
+```
+
+   缺任一块、任一 hash/HEAD 不符或旧授权误配均 fail-closed。
+3. launcher 提交后先在上述系统隔离属性下运行一次 review preflight transient unit，必须 exit `0` 且
+   journal 只记录机械 PASS。随后把 launcher commit/SHA-256 与检查结果追加到本文档；仍不得运行 formal
+   preflight，因为 formal 授权尚不存在。
+4. 用户今后明确“授权 R4 正式双跑”后，才允许另行追加完整精确授权块并提交；再以授权记录后的 HEAD
+   运行 formal preflight。formal preflight PASS 后方可临时 `enable-linger lmy` 并只提交一次 formal service。
+   无论服务成功或失败均恢复 `Linger=no`。
+
+### 4. 失败边界
+
+任一 preflight、shard、merge、compare、CPD regression 或 publish 非零立即停止；`Restart=no`，不自动
+恢复，不改参数，不选择性补跑，不删除现场。canonical 只有在两包逐字节一致且全部既有硬门通过时才可
+原子生成。不得因 R3 已定位为 Stacking 确定性问题而放宽 R4 比较门。
