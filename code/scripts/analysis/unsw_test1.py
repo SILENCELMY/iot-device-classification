@@ -41,6 +41,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix, f1_score
 from sklearn.model_selection import GroupKFold
+from threadpoolctl import threadpool_limits
 
 # The candidate lives beside cpd_core.py and one directory above the mainline
 # core module.  Explicit paths make both direct execution and test import
@@ -98,11 +99,20 @@ OOF_BLOCKS = 5
 BOOTSTRAP_REPLICATES = 10_000
 BOOTSTRAP_SEED = 42
 BOOTSTRAP_Q = (0.025, 0.975)
+STACKING_N_JOBS = 1
+STACKING_BASE_MODEL_ORDER: tuple[str, ...] = ("rf", "xgboost", "lightgbm")
+STACKING_LIGHTGBM_DETERMINISTIC_PARAMS: dict[str, bool] = {
+    "deterministic": True,
+    "force_col_wise": True,
+}
 
 CANONICAL_PYTHON = Path("/home/lmy/anaconda3/envs/iotcls/bin/python")
 DISCUSSION_PATH = REPO_ROOT / "docs" / "CROSS_LINE_DISCUSSION_20260830.md"
 IMPLEMENTATION_PATH = Path("code/scripts/analysis/unsw_test1.py")
 SYNTHETIC_TEST_PATH = Path("code/scripts/analysis/test_unsw_test1.py")
+DETERMINISM_PROBE_PATH = Path(
+    "code/scripts/analysis/test_unsw_test1_determinism_probe.py"
+)
 CPD_REGRESSION_PATH = Path("code/scripts/analysis/test_cpd_core.py")
 CPD_CORE_PATH = Path("code/scripts/analysis/cpd_core.py")
 MAINLINE_MODEL_PATH = Path("code/scripts/core/robust_iot_research.py")
@@ -120,6 +130,7 @@ CANONICAL_PACKAGE_VERSIONS: dict[str, str] = {
     "scikit-learn": "1.9.0",
     "xgboost": "3.2.0",
     "lightgbm": "4.6.0",
+    "threadpoolctl": "3.6.0",
 }
 
 EXPECTED_TASK_DEFINITIONS = 74
@@ -1036,6 +1047,52 @@ class ModelPrediction:
     probabilities: np.ndarray
 
 
+def build_test1_model(model_name: str, *, n_jobs: int):
+    """Build one mainline model with the frozen R4 execution constraints.
+
+    Standalone models retain the formal caller's thread count.  Stacking is
+    numerically isolated to one thread and its required LightGBM member is put
+    in explicit deterministic column-wise mode.  The model family and all
+    scientific hyperparameters continue to come from the mainline factory.
+    """
+
+    effective_n_jobs = STACKING_N_JOBS if model_name == "stacking" else n_jobs
+    model = build_model(
+        model_name,
+        RANDOM_STATE,
+        effective_n_jobs,
+        len(CATEGORY_ORDER),
+    )
+    if model is None:
+        raise RuntimeError(f"required model is unavailable: {model_name}")
+    if model_name != "stacking":
+        if isinstance(model, SimpleStackingClassifier):
+            raise AssertionError(f"unexpected stacking instance for model {model_name}")
+        return model
+    if not isinstance(model, SimpleStackingClassifier):
+        raise AssertionError("mainline stacking factory returned an unexpected model type")
+
+    estimator_names = tuple(name for name, _estimator in model.estimators)
+    if estimator_names != STACKING_BASE_MODEL_ORDER:
+        raise AssertionError(
+            "formal stacking base models changed: "
+            f"expected {STACKING_BASE_MODEL_ORDER}, got {estimator_names}"
+        )
+    for name, estimator in model.estimators:
+        params = estimator.get_params(deep=False)
+        if params.get("n_jobs") != STACKING_N_JOBS:
+            raise AssertionError(f"stacking base model {name} is not single-threaded")
+        if name == "lightgbm":
+            estimator.set_params(**STACKING_LIGHTGBM_DETERMINISTIC_PARAMS)
+            configured = estimator.get_params(deep=False)
+            if any(
+                configured.get(key) is not expected
+                for key, expected in STACKING_LIGHTGBM_DETERMINISTIC_PARAMS.items()
+            ):
+                raise AssertionError("LightGBM deterministic parameters were not applied")
+    return model
+
+
 def fit_model_predictions(
     model_name: str,
     train: pd.DataFrame,
@@ -1058,30 +1115,33 @@ def fit_model_predictions(
         raise AssertionError("fit boundary requires the exact ordered feature-only columns")
     x_test = test_features.loc[:, list(feature_columns)].copy()
     y_train = _encode_categories(train["label"])
-    model = build_model(model_name, RANDOM_STATE, n_jobs, len(CATEGORY_ORDER))
-    if model is None:
-        raise RuntimeError(f"required model is unavailable: {model_name}")
+    model = build_test1_model(model_name, n_jobs=n_jobs)
 
     if isinstance(model, SimpleStackingClassifier):
         # k>=2: day groups; k=1 and IID: one group, mainline falls back to
         # five continuous time blocks.  Both metadata arrays are supplied so
         # the mainline splitter makes the D13 decision mechanically.
-        model.fit(
-            x_train,
-            y_train,
-            train_round=train["day"].astype(str).to_numpy(),
-            window_start=train["window_start_epoch"].to_numpy(dtype=float),
-        )
+        with threadpool_limits(limits=STACKING_N_JOBS):
+            model.fit(
+                x_train,
+                y_train,
+                train_round=train["day"].astype(str).to_numpy(),
+                window_start=train["window_start_epoch"].to_numpy(dtype=float),
+            )
+            raw_probabilities = model.predict_proba(x_test)
+            raw_predictions = model.predict(x_test)
     else:
         model.fit(x_train, y_train)
+        raw_probabilities = model.predict_proba(x_test)
+        raw_predictions = model.predict(x_test)
     probabilities = _expand_probabilities(
-        model.predict_proba(x_test),
+        raw_probabilities,
         getattr(model, "classes_", np.arange(len(CATEGORY_ORDER))),
         len(CATEGORY_ORDER),
         context=model_name,
     )
     probability_row_audit(probabilities, model_name)
-    predictions = np.asarray(model.predict(x_test), dtype=int)
+    predictions = np.asarray(raw_predictions, dtype=int)
     if not np.isin(predictions, np.arange(len(CATEGORY_ORDER))).all():
         raise AssertionError(f"{model_name} predicted outside fixed class support")
     return ModelPrediction(model_name, predictions, probabilities)
@@ -1854,6 +1914,7 @@ def validate_run_authorization(authorized_commit: str) -> dict[str, Any]:
     for relative in (
         IMPLEMENTATION_PATH,
         SYNTHETIC_TEST_PATH,
+        DETERMINISM_PROBE_PATH,
         CPD_REGRESSION_PATH,
         CPD_CORE_PATH,
         MAINLINE_MODEL_PATH,
@@ -2226,6 +2287,12 @@ def merge_shard_packets(shard_roots: Sequence[Path], output_root: Path) -> None:
         "model_feature_columns": bundle["feature_audit"]["numeric_features"],
         "max_rows": MAX_ROWS,
         "random_state": RANDOM_STATE,
+        "stacking_execution": {
+            "n_jobs": STACKING_N_JOBS,
+            "threadpool_limits": STACKING_N_JOBS,
+            "base_model_order": list(STACKING_BASE_MODEL_ORDER),
+            "lightgbm": dict(STACKING_LIGHTGBM_DETERMINISTIC_PARAMS),
+        },
         "iid_split": "per-device stable (window_start_epoch, window_id), floor(70%) train",
         "oof": "GroupKFold by training day for k>=2; five time blocks for k=1/IID",
         "cpd": "cpd_core.cpd_y(CM_ref_RF_OOF, CM_tgt_RF)",

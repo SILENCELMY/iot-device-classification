@@ -13,6 +13,7 @@ import inspect
 import sys
 import tempfile
 from pathlib import Path
+from unittest import mock
 
 import numpy as np
 import pandas as pd
@@ -261,6 +262,118 @@ def test_synthetic_all_fixed_models() -> None:
     check("fit boundary rejects a label-bearing test frame", rejected)
 
 
+def test_stacking_deterministic_execution_constraints() -> None:
+    class FakeEstimator:
+        def __init__(self, name: str, n_jobs: int) -> None:
+            self.name = name
+            self.params: dict[str, object] = {"n_jobs": n_jobs}
+
+        def get_params(self, deep: bool = False) -> dict[str, object]:
+            del deep
+            return dict(self.params)
+
+        def set_params(self, **params):
+            self.params.update(params)
+            return self
+
+    factory_calls: list[tuple[str, int]] = []
+
+    def fake_factory(name: str, random_state: int, n_jobs: int, class_count: int):
+        check("deterministic factory keeps the frozen seed", random_state == U.RANDOM_STATE)
+        check("deterministic factory keeps the frozen class count", class_count == len(U.CATEGORY_ORDER))
+        factory_calls.append((name, n_jobs))
+        if name != "stacking":
+            return FakeEstimator(name, n_jobs)
+        return U.SimpleStackingClassifier(
+            estimators=[
+                (base_name, FakeEstimator(base_name, n_jobs))
+                for base_name in U.STACKING_BASE_MODEL_ORDER
+            ],
+            final_estimator=object(),
+            cv=5,
+            random_state=U.RANDOM_STATE,
+            oof_mode="grouped",
+        )
+
+    with mock.patch.object(U, "build_model", side_effect=fake_factory):
+        standalone = U.build_test1_model("rf", n_jobs=4)
+        stacking = U.build_test1_model("stacking", n_jobs=4)
+    check("standalone model retains formal n_jobs=4", standalone.get_params()["n_jobs"] == 4)
+    check("only stacking factory is forced to n_jobs=1", factory_calls == [("rf", 4), ("stacking", 1)])
+    check(
+        "every stacking base model is single-threaded",
+        all(model.get_params()["n_jobs"] == 1 for _name, model in stacking.estimators),
+    )
+    lightgbm = dict(stacking.estimators)["lightgbm"].get_params()
+    check(
+        "stacking LightGBM has both deterministic parameters",
+        all(lightgbm[key] is value for key, value in U.STACKING_LIGHTGBM_DETERMINISTIC_PARAMS.items()),
+    )
+
+    limit_state = {"active": False, "limits": []}
+
+    class RecordingLimit:
+        def __init__(self, limits: int) -> None:
+            limit_state["limits"].append(limits)
+
+        def __enter__(self):
+            if limit_state["active"]:
+                raise AssertionError("thread limit context entered recursively")
+            limit_state["active"] = True
+            return self
+
+        def __exit__(self, exc_type, exc_value, traceback):
+            del exc_type, exc_value, traceback
+            limit_state["active"] = False
+
+    class RecordingStacking(U.SimpleStackingClassifier):
+        def __init__(self) -> None:
+            self.classes_ = np.arange(len(U.CATEGORY_ORDER))
+            self.calls: list[tuple[str, bool]] = []
+
+        def fit(self, x, y, train_round=None, window_start=None):
+            del x, y, train_round, window_start
+            self.calls.append(("fit", bool(limit_state["active"])))
+            return self
+
+        def predict_proba(self, x):
+            self.calls.append(("predict_proba", bool(limit_state["active"])))
+            probabilities = np.zeros((len(x), len(U.CATEGORY_ORDER)), dtype=float)
+            probabilities[:, 0] = 1.0
+            return probabilities
+
+        def predict(self, x):
+            self.calls.append(("predict", bool(limit_state["active"])))
+            return np.zeros(len(x), dtype=int)
+
+    recording = RecordingStacking()
+    train = pd.DataFrame(
+        {
+            "label": list(U.CATEGORY_ORDER),
+            "day": ["d0", "d0", "d1", "d1", "d2", "d2"],
+            "window_start_epoch": np.arange(6, dtype=float),
+            "f0": np.arange(6, dtype=float),
+        }
+    )
+    test_features = pd.DataFrame({"f0": [0.5, 1.5]})
+    with mock.patch.object(U, "build_test1_model", return_value=recording), mock.patch.object(
+        U, "threadpool_limits", side_effect=lambda limits: RecordingLimit(limits)
+    ):
+        result = U.fit_model_predictions(
+            "stacking", train, test_features, ["f0"], n_jobs=4
+        )
+    check(
+        "single thread context covers stacking fit and both predictions",
+        recording.calls == [
+            ("fit", True),
+            ("predict_proba", True),
+            ("predict", True),
+        ],
+    )
+    check("stacking thread context uses exactly limit=1", limit_state["limits"] == [1])
+    check("stacking deterministic wrapper preserves fixed output shape", result.probabilities.shape == (2, 6))
+
+
 def test_synthetic_passlines() -> None:
     tasks = U.build_task_catalog(synthetic_days())
     cpd_rows: list[dict[str, object]] = []
@@ -452,6 +565,7 @@ def main() -> int:
         test_synthetic_rf_reference,
         test_probability_normalization_and_strict_audit,
         test_synthetic_all_fixed_models,
+        test_stacking_deterministic_execution_constraints,
         test_synthetic_passlines,
         test_primitive_imports_and_label_boundary,
         test_packet_and_publication_guards,
