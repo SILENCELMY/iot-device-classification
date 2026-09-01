@@ -3455,3 +3455,64 @@ implementation commit `f29486baa67eba098065dcd41338f6ea40d13e2b` 只是下一次
 完整重跑，须另行追加精确三行授权块并提交，且执行模板必须改用全新、预先不存在的 R2 A/B staging
 根；旧 `/tmp/unsw_test1-A/shard-0..5` 永久只作失败取证。该授权记录出现之前，Luna、服务器或主线均
 不得运行真实 shard、merge、compare 或 publish。
+
+---
+
+## D12_R2_FORMAL_RUN_AUTHORIZATION
+
+RUN_AUTHORIZED
+commit: f29486baa67eba098065dcd41338f6ea40d13e2b
+canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
+
+**授权决定**：用户于 2026-09-01 明确授权 R2 完整双跑。授权对象仅为上列已经通过修复验收的
+implementation commit；本节提交后不得再改 runner、测试或科学依赖，也不得在 R2 完成前创建新的 Git
+commit，以保证全部 shard 记录同一 execution HEAD。
+
+**网络与代理边界**：全程禁止网络、代理、VPN、下载和安装依赖。每条 Python 命令必须使用以下完整
+前缀（记为 `<ENV_R2>`），使子进程不继承常见代理变量：
+
+```text
+env -u http_proxy -u https_proxy -u all_proxy -u ftp_proxy -u no_proxy -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY -u FTP_PROXY -u NO_PROXY OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl
+```
+
+**唯一 R2 staging 身份**：
+
+```text
+A = /tmp/unsw_test1-R2-A
+B = /tmp/unsw_test1-R2-B
+CONTROL_LOG = /tmp/iotcls-unsw-test1-R2-logs
+CANONICAL = results/unsw_test1
+```
+
+执行前须确认 A/B 的 12 个 shard 路径、两个 packet、CONTROL_LOG 与 CANONICAL 全部不存在；任一存在
+即停止，不得删除、覆盖或换名。旧 `/tmp/unsw_test1-A` 是失败取证根，禁止读取科学表、修改、merge、
+删除、覆盖或复用。未跟踪的 `code/scripts/analysis/run_unsw_test1_server.sh` 也禁止使用或修改。
+
+先完整运行 R2-A；`i=0..5` 六片可并发，每片的唯一命令为：
+
+```text
+<ENV_R2> /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/unsw_test1.py --feature-root results/unsw_features_full --mac-map dataset/unsw/device_mac_map.csv --output-root /tmp/unsw_test1-R2-A/shard-<i> --n-jobs 4 --shard-index <i> --shard-count 6 --authorized-commit f29486baa67eba098065dcd41338f6ea40d13e2b
+```
+
+六片均有可持久核对的 exit `0` 后才执行：
+
+```text
+<ENV_R2> /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/unsw_test1.py --merge-shards /tmp/unsw_test1-R2-A/shard-0 /tmp/unsw_test1-R2-A/shard-1 /tmp/unsw_test1-R2-A/shard-2 /tmp/unsw_test1-R2-A/shard-3 /tmp/unsw_test1-R2-A/shard-4 /tmp/unsw_test1-R2-A/shard-5 --output-root /tmp/unsw_test1-R2-A/packet
+```
+
+A packet exit `0` 后，才把根严格替换为 `/tmp/unsw_test1-R2-B`，完整运行 B 六片与 B merge；A/B 不得
+并发。两个 packet 均 exit `0` 后，依次执行：
+
+```text
+<ENV_R2> /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/unsw_test1.py --compare-runs /tmp/unsw_test1-R2-A/packet /tmp/unsw_test1-R2-B/packet
+<ENV_R2> /home/lmy/anaconda3/envs/iotcls/bin/python code/scripts/analysis/unsw_test1.py --publish-canonical /tmp/unsw_test1-R2-A/packet /tmp/unsw_test1-R2-B/packet --output-root results/unsw_test1
+```
+
+**监督与失败规则**：Luna 保持前台监督，不使用 systemd、nohup、tmux、screen 或 disown。CONTROL_LOG
+只保存命令、进度、stdout/stderr 与每个进程的退出码，不得打印或解释 F1、CPD、gain 或判据分支。
+任一 shard、merge、compare、CPD 回归或 publish 非零时，立即停止；若并发 shard 尚在运行，只终止该轮
+同胞进程。不得改参数、选择性补跑、删除输出或自行恢复。若 Luna/PTY 意外退出，也不得凭目录存在推定
+exit `0`；保留现场并交回主线只读核验。
+
+全部完成后只追加 `D12_R2_EXECUTION_COMPLETE`，记录实际命令、退出码、墙钟、日志清单、manifest 与
+硬门状态，不读取或解释科学指标。canonical 成功发布后仍由主线另行盲态验收。
