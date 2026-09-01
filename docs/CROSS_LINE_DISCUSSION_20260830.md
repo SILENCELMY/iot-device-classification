@@ -3347,3 +3347,64 @@ A packet 完成后再按同一模板把根替换为 `/tmp/unsw_test1-B/`，完�
 不得自行删除或覆盖。任一 shard、merge、compare、CPD 回归或 publish 非零即停止；不得改参数、补任务、
 换支持集或重跑选择性分支。完成后只追加 `D12_EXECUTION_COMPLETE` 的命令、退出码、墙钟、manifest 和
 硬门状态，不读取或解释 F1、CPD、gain 与判据分支。
+
+---
+
+## D12_FORMAL_RUN_ENGINEERING_GATE_FAILURE_20260901
+
+**状态**：`ENGINEERING_GATE_FAILURE_STOP / OLD_RUN_AUTHORIZATION_CONSUMED / REPAIR_PROTOCOL_FROZEN / RERUN_NOT_AUTHORIZED`。
+
+**性质**：本节只处理概率行和审计的工程一致性缺陷。形成以下事实与修复规则时，未读取或解释任何
+F1、CPD、gain、passline 或科学判据分支；不得据此改变 D12/D13 的模型、任务、支持集或 `1e-9` 硬门。
+
+### 1. 已发生事件与止损边界
+
+1. 旧授权 commit `814fe29093a5bf3c31239479b196441b49abad24` 的正式 A 六片均形成原子 shard
+   目录；监督会话随后意外退出。只读调用 runner 自身的 `_validated_shards` 后，六片结构、任务覆盖、
+   provenance、线程环境与 740 个审计项计数均通过。该检查不生成 packet，也不读取性能指标。
+2. 在不重跑、不修改 A shard 的恢复点执行 A merge，命令 exit `1`，墙钟约 17 秒；日志
+   `/tmp/iotcls-unsw-test1-A-merge-recovery.T47SMW.log` 的唯一失败门为
+   `probability_row_sums`。原子发布保证 `/tmp/unsw_test1-A/packet` 仍不存在；B、compare、publish 均未
+   执行，`results/unsw_test1/` 仍不存在。
+3. 失败分解仅查看概率审计元数据：740 项中有 148 项的显式绝对行和误差超过 `1e-9`，恰为全部
+   `test_xgboost` task/panel；范围为 `8.6978161562001333e-08` 至
+   `9.1036781668663025e-08`。其余来源未触发该门。
+4. 本次 A 是**失败运行的取证材料**：不得修改、补写、merge、删除、覆盖或作为后续 A/B 的任一臂。
+   旧 `RUN_AUTHORIZED` 仅对应这次已停止执行，不得用于修复后运行。
+
+### 2. 根因（冻结为工程缺陷，不作科学解释）
+
+`XGBoost.predict_proba` 在当前冻结环境返回 float32 概率；`_expand_probabilities` 将各 float32 分量复制到
+float64 六类矩阵，但复制不会消除原有量化误差，故部分行和偏离 1 约 `9e-8`。shard 侧
+`probability_row_audit` 使用 `np.allclose(row_sums, 1.0, atol=1e-9)`，未显式设置 `rtol=0`，默认相对
+容差使 `row_sums_one=true`；merge 侧同时要求记录的 `max_row_sum_error <= 1e-9`，因而在 packet 发布前
+正确拒绝。两处对同一冻结门使用了不一致谓词，纯合成测试没有覆盖 float32 量化输入。
+
+### 3. 预冻结修复（实现不得越界）
+
+1. **不改变硬门**：定义唯一常量 `PROBABILITY_ROW_SUM_ATOL = 1e-9`；shard 审计与 merge 均直接使用
+   `max(abs(row_sum - 1)) <= PROBABILITY_ROW_SUM_ATOL`。不得依赖带默认 `rtol` 的 `np.allclose`，不得把
+   门放宽到 `1e-7`、`1e-6` 或按模型特判。
+2. 增加一个所有模型共用的确定性概率单纯形规范化函数。它须先检查原数组为非空二维浮点矩阵、有限、
+   元素位于现有 `[-1e-12, 1+1e-12]` 边界且每行和为正；规范化前允许的纯舍入漂移上限固定为
+   `max(1e-12, n_classes * eps(source_dtype))`。超出即拒绝，不能用归一化掩盖实质畸形概率。
+3. 通过原检查后，将概率转为 float64 并除以各自行和；规范化后必须通过同一 `1e-9` 绝对门。
+   `_expand_probabilities` 对 RF、XGBoost、LightGBM、Stacking 统一走该函数；RF-OOF 的每折概率也须走
+   同一路径。不得只为 XGBoost 加补丁。
+4. 该变换是每行除以正标量，保持类内排序与 argmax 不变；正式四模型测试预测仍由冻结的
+   `model.predict` 产生，RF-OOF 的 argmax 也数学不变。不得借此校准、调阈值、改标签或接触目标标签。
+5. 不修改规范输出文件集合和科学判据。代码 provenance 与测试哈希须更新；旧 shard 因代码身份不同
+   永远不可被修复版 merge/publish 接受。
+
+### 4. 修复验收与重新授权边界
+
+1. 新增纯合成回归：float32 分量复制后绝对行和误差大于 `1e-9` 的夹具必须先复现旧矛盾；未经规范化
+   的该矩阵必须被严格审计拒绝，统一规范化后须达到 `1e-9`，且 argmax 不变。
+2. 新增畸形概率拒绝测试；现有四固定模型合成测试须把默认 `np.allclose` 改为显式绝对误差门。
+3. 重新执行 `test_unsw_test1.py`、`test_cpd_core.py`、`test_oof_modes.py`、`py_compile` 与
+   `git diff --check`。这些测试不得读取正式 A 的科学表，也不得运行任何真实 UNSW task/smoke。
+4. 修复实现与测试通过复核后取得新的不可变 implementation commit；随后必须另行追加新的三行
+   `RUN_AUTHORIZED` 才能正式重跑。重跑须使用全新且预先不存在的根（建议
+   `/tmp/unsw_test1-R2-A`、`/tmp/unsw_test1-R2-B`），从 A、B 两臂完整执行，不能复用本次任何 shard。
+5. 本节**不授权实现提交后的正式运行**。在新的精确授权块落盘前，任何真实 UNSW 拟合、merge、B、
+   compare 或 canonical publish 均禁止。
