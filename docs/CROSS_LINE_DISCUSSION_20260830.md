@@ -3711,3 +3711,60 @@ gain、passline、acceptance 或任何科学判据，不构成 R4 真实 shard�
 4. 实现与测试通过后须形成新的 implementation commit 和 SHA-256，并另行审查 R4 launcher。正式 R4 必须
    使用全新、预先不存在的 A/B/control 根和新的精确授权块；本节以及用户“开始修复”的指令均不授权正式
    UNSW 计算。正式双跑若再次出现任一字节差异，仍立即停止，不得放宽门或事后挽救。
+
+---
+
+## D12_R4_REPAIR_IMPLEMENTATION_REVIEW
+
+**状态**：`R4_REPAIR_IMPLEMENTATION_REVIEW_PASSED / R4_SERVER_LAUNCHER_NOT_YET_REVIEWED / R4_FORMAL_RUN_NOT_AUTHORIZED`。
+
+**协议与实现身份**：修复边界先冻结于 commit
+`c31f32252e4bad1308ef7c3faabcc8a0ade0044e`；实现与测试随后固化为 implementation commit
+`6e3d763912159ed731f07c7be41b39e2a56e5820`。本节只记录离线实现验收，不包含 R4 启动器身份或
+`RUN_AUTHORIZED` 块。
+
+### 1. 实现核对
+
+1. `build_test1_model` 继续唯一调用主线 `build_model`。独立 RF/XGBoost/LightGBM 保留 formal 调用方的
+   `n_jobs=4`；仅 Stacking factory 与其内部固定为 `n_jobs=1`，并机械要求内部顺序仍严格为
+   `rf, xgboost, lightgbm`，否则 fail-closed。
+2. 仅 Stacking 内部 LightGBM 增加 `deterministic=True` 与 `force_col_wise=True`；树数、深度、学习率、
+   采样、类别数、随机种子及其他科学超参数未改变。Stacking 的 fit、predict_proba、predict 全部处于
+   `threadpool_limits(limits=1)`；非 Stacking 不进入该上下文。
+3. `threadpoolctl==3.6.0` 已加入 canonical package version gate；确定性 probe 加入授权脚本哈希清单；
+   packet provenance 显式记录 Stacking 的内部线程数、基学习器顺序与 LightGBM 确定性参数。
+4. 未修改 `robust_iot_research.py`、`cpd_core.py`、输入、任务、支持集、panel、抽样、OOF、CPD、bootstrap、
+   passline、比较门或任何既有冻结结果；没有取整、容差比较、删列、删文件或 A/B 选择逻辑。
+
+### 2. 离线验收（未运行真实 UNSW task/smoke）
+
+- `test_unsw_test1.py`：exit `0`，**72 项 PASS**；新增检查覆盖独立模型线程数不变、Stacking 单线程、
+  LightGBM 两个确定性参数、线程上下文同时覆盖 fit 与两次预测，以及原标签边界/概率/packet 门不回退。
+- `test_unsw_test1_determinism_probe.py`：exit `0`；两个串行独立进程与三个并发独立进程的预测/概率
+  SHA-256 完全一致：`caf5c869dbd3a05915a89ccb495f214faf7d5ecd6e7c53642e1ecb0635283098`。probe
+  只使用固定合成数据并只输出哈希。
+- `test_cpd_core.py`：exit `0`，15/15 PASS；`test_oof_modes.py`：exit `0`，全部通过。
+- `py_compile`、`bash -n run_unsw_test1_server.sh`、`git diff --check`：exit `0`。
+- 以旧 implementation commit `f29486baa67eba098065dcd41338f6ea40d13e2b` 调用 formal 授权校验时，
+  新 runner 被机械拒绝为 working-copy mismatch；R2/R3 旧授权不能误启 R4 实现。
+- 全程未联网、未开代理、未安装依赖、未读取真实 UNSW 特征或 R3 科学表，未启动 shard、merge、compare、
+  publish 或任何后台服务。R3 与更早失败取证目录保持未改。
+
+实现与回归文件 SHA-256：
+
+```text
+711650aadd08c3f041381913f394270fcfb4c60976fe1610b9eed4f2217297c1  code/scripts/analysis/unsw_test1.py
+bce2b77c7ae3464e9eea03560285dcc8b4da1486c8d91e26aabdf30f7881bd66  code/scripts/analysis/test_unsw_test1.py
+b895885fbcd3091d0033c31ab7e8f492b1611843de548fabe29725d5321924f7  code/scripts/analysis/test_unsw_test1_determinism_probe.py
+a695c92f9dba320b1c06c498d8dcfa720cb2a10dae5304b82189a01e08460ee6  code/scripts/analysis/test_cpd_core.py
+8a65b3a0dbd9ba43eb89752199cad4833706cd505626345753360793f419ce82  code/scripts/analysis/test_oof_modes.py
+1d29434570d35422ce2b7cd9d485259f5520761aa11999342ca9b0cc2f36a5e3  code/scripts/core/robust_iot_research.py
+```
+
+### 3. 权限边界
+
+implementation commit `6e3d763912159ed731f07c7be41b39e2a56e5820` 只是 R4 launcher 与 formal
+授权的候选科学身份。现有 `run_unsw_test1_server.sh` 仍是已消费的 R3 launcher，绑定 R3 路径和旧
+implementation commit，禁止再次启动。下一步必须先冻结 R4 的精确 A/B/control 路径、服务属性和启动器
+身份，修改并单独提交 launcher，完成 review preflight，再由用户另行授权；在新的精确授权块出现前，
+任何人或服务器均不得运行真实 R4 shard、merge、compare 或 publish。
