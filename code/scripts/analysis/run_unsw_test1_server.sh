@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# Unattended, fail-fast executor for the R3 D12/D13 formal run.
+# Unattended, fail-fast executor for the R4 D12/D13 formal run.
 # This file orchestrates only frozen runner commands.  It never reads or
 # interprets F1, CPD, gain, passline, or acceptance values.
 
@@ -13,11 +13,11 @@ RUNNER_REL="code/scripts/analysis/unsw_test1.py"
 RUNNER="$REPO_ROOT/$RUNNER_REL"
 LAUNCHER_REL="code/scripts/analysis/run_unsw_test1_server.sh"
 DISCUSSION_PATH="$REPO_ROOT/docs/CROSS_LINE_DISCUSSION_20260830.md"
-AUTHORIZED_COMMIT="f29486baa67eba098065dcd41338f6ea40d13e2b"
+AUTHORIZED_COMMIT="6e3d763912159ed731f07c7be41b39e2a56e5820"
 
-A_ROOT="/tmp/unsw_test1-R3-A"
-B_ROOT="/tmp/unsw_test1-R3-B"
-CONTROL_ROOT="/tmp/iotcls-unsw-test1-R3-control"
+A_ROOT="/tmp/unsw_test1-R4-A"
+B_ROOT="/tmp/unsw_test1-R4-B"
+CONTROL_ROOT="/tmp/iotcls-unsw-test1-R4-control"
 CANONICAL_ROOT="$REPO_ROOT/results/unsw_test1"
 MPL_ROOT="/tmp/iotcls-unsw-test1-mpl"
 
@@ -78,9 +78,9 @@ record_exit() {
             printf 'finished_at=%s\n' "$(date --iso-8601=seconds)"
             printf 'execution_head=%s\n' "$(git -C "$REPO_ROOT" rev-parse HEAD 2>/dev/null || true)"
             printf 'authorized_commit=%s\n' "$AUTHORIZED_COMMIT"
-            printf 'launcher_commit=%s\n' "${D12_R3_LAUNCHER_COMMIT:-unset}"
-            printf 'launcher_sha256=%s\n' "${D12_R3_LAUNCHER_SHA256:-unset}"
-            printf 'execution_head_expected=%s\n' "${D12_R3_EXECUTION_HEAD:-unset}"
+            printf 'launcher_commit=%s\n' "${D12_R4_LAUNCHER_COMMIT:-unset}"
+            printf 'launcher_sha256=%s\n' "${D12_R4_LAUNCHER_SHA256:-unset}"
+            printf 'execution_head_expected=%s\n' "${D12_R4_EXECUTION_HEAD:-unset}"
         } > "$CONTROL_ROOT/final_status.env"
     fi
     if [[ "$rc" -eq 0 ]]; then
@@ -126,32 +126,55 @@ for family, name in ((socket.AF_INET, "AF_INET"), (socket.AF_INET6, "AF_INET6"))
 '
 }
 
-verify_r3_authorization_block() {
+verify_r4_authorization_block() {
     "$PYTHON_BIN" -c '
 from pathlib import Path
 import sys
 
 discussion, implementation, launcher_commit, launcher_sha256 = sys.argv[1:]
 expected = (
-    "R3_RUN_AUTHORIZED\n"
+    "R4_RUN_AUTHORIZED\n"
     f"implementation_commit: {implementation}\n"
     f"launcher_commit: {launcher_commit}\n"
-    f"launcher_sha256: {launcher_sha256}"
+    f"launcher_sha256: {launcher_sha256}\n\n"
+    "RUN_AUTHORIZED\n"
+    f"commit: {implementation}\n"
+    "canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python"
 )
 if expected not in Path(discussion).read_text(encoding="utf-8"):
-    raise SystemExit("exact R3_RUN_AUTHORIZED block is absent")
+    raise SystemExit("exact adjacent R4 authorization blocks are absent")
 ' "$DISCUSSION_PATH" "$AUTHORIZED_COMMIT" \
-        "$D12_R3_LAUNCHER_COMMIT" "$D12_R3_LAUNCHER_SHA256"
+        "$D12_R4_LAUNCHER_COMMIT" "$D12_R4_LAUNCHER_SHA256"
+}
+
+verify_implementation_bytes() {
+    local relative current_hash committed_hash
+    for relative in \
+        code/scripts/analysis/unsw_test1.py \
+        code/scripts/analysis/test_unsw_test1.py \
+        code/scripts/analysis/test_unsw_test1_determinism_probe.py \
+        code/scripts/analysis/test_cpd_core.py \
+        code/scripts/analysis/test_oof_modes.py \
+        code/scripts/analysis/cpd_core.py \
+        code/scripts/core/robust_iot_research.py; do
+        current_hash="$(sha256sum "$REPO_ROOT/$relative" | awk '{print $1}')"
+        committed_hash="$(
+            git -C "$REPO_ROOT" show "$AUTHORIZED_COMMIT:$relative" \
+                | sha256sum | awk '{print $1}'
+        )"
+        [[ "$current_hash" == "$committed_hash" ]] \
+            || die "implementation_worktree_mismatch_$relative"
+    done
 }
 
 preflight() {
     local authorization_scope="$1"
-    [[ -n "${D12_R3_LAUNCHER_COMMIT:-}" ]] || die "D12_R3_LAUNCHER_COMMIT_missing"
-    [[ -n "${D12_R3_LAUNCHER_SHA256:-}" ]] || die "D12_R3_LAUNCHER_SHA256_missing"
-    [[ -n "${D12_R3_EXECUTION_HEAD:-}" ]] || die "D12_R3_EXECUTION_HEAD_missing"
-    [[ "$D12_R3_LAUNCHER_COMMIT" =~ ^[0-9a-f]{40}$ ]] || die "launcher_commit_not_full_hash"
-    [[ "$D12_R3_LAUNCHER_SHA256" =~ ^[0-9a-f]{64}$ ]] || die "launcher_sha256_not_full_hash"
-    [[ "$D12_R3_EXECUTION_HEAD" =~ ^[0-9a-f]{40}$ ]] || die "execution_head_not_full_hash"
+    [[ -n "${D12_R4_LAUNCHER_COMMIT:-}" ]] || die "D12_R4_LAUNCHER_COMMIT_missing"
+    [[ -n "${D12_R4_LAUNCHER_SHA256:-}" ]] || die "D12_R4_LAUNCHER_SHA256_missing"
+    [[ -n "${D12_R4_EXECUTION_HEAD:-}" ]] || die "D12_R4_EXECUTION_HEAD_missing"
+    [[ "$D12_R4_LAUNCHER_COMMIT" =~ ^[0-9a-f]{40}$ ]] || die "launcher_commit_not_full_hash"
+    [[ "$D12_R4_LAUNCHER_SHA256" =~ ^[0-9a-f]{64}$ ]] || die "launcher_sha256_not_full_hash"
+    [[ "$D12_R4_EXECUTION_HEAD" =~ ^[0-9a-f]{40}$ ]] || die "execution_head_not_full_hash"
 
     verify_proxy_environment_cleared
     verify_ip_sockets_blocked
@@ -159,16 +182,18 @@ preflight() {
     local current_hash committed_hash
     current_hash="$(sha256sum "$REPO_ROOT/$LAUNCHER_REL" | awk '{print $1}')"
     committed_hash="$(
-        git -C "$REPO_ROOT" show "$D12_R3_LAUNCHER_COMMIT:$LAUNCHER_REL" \
+        git -C "$REPO_ROOT" show "$D12_R4_LAUNCHER_COMMIT:$LAUNCHER_REL" \
             | sha256sum | awk '{print $1}'
     )"
-    [[ "$current_hash" == "$D12_R3_LAUNCHER_SHA256" ]] || die "launcher_worktree_hash_mismatch"
-    [[ "$committed_hash" == "$D12_R3_LAUNCHER_SHA256" ]] || die "launcher_commit_hash_mismatch"
-    [[ "$(git -C "$REPO_ROOT" rev-parse HEAD)" == "$D12_R3_EXECUTION_HEAD" ]] \
+    [[ "$current_hash" == "$D12_R4_LAUNCHER_SHA256" ]] || die "launcher_worktree_hash_mismatch"
+    [[ "$committed_hash" == "$D12_R4_LAUNCHER_SHA256" ]] || die "launcher_commit_hash_mismatch"
+    [[ "$(git -C "$REPO_ROOT" rev-parse HEAD)" == "$D12_R4_EXECUTION_HEAD" ]] \
         || die "execution_head_mismatch"
 
+    verify_implementation_bytes
+
     if [[ "$authorization_scope" == "formal" ]]; then
-        verify_r3_authorization_block
+        verify_r4_authorization_block
     elif [[ "$authorization_scope" != "review" ]]; then
         die "unknown_authorization_scope_$authorization_scope"
     fi
@@ -197,8 +222,13 @@ preflight() {
         [[ ! -e "$target" ]] || die "preexisting_target_$target"
     done
 
-    "$PYTHON_BIN" -c \
-        "import sys; sys.path.insert(0, '$REPO_ROOT/code/scripts/analysis'); import unsw_test1 as u; u.runtime_provenance(u.validate_run_authorization('$AUTHORIZED_COMMIT'))"
+    if [[ "$authorization_scope" == "formal" ]]; then
+        "$PYTHON_BIN" -c \
+            "import sys; sys.path.insert(0, '$REPO_ROOT/code/scripts/analysis'); import unsw_test1 as u; u.runtime_provenance(u.validate_run_authorization('$AUTHORIZED_COMMIT'))"
+    else
+        "$PYTHON_BIN" -c \
+            "import sys; sys.path.insert(0, '$REPO_ROOT/code/scripts/analysis'); import unsw_test1 as u; u.runtime_provenance({'review_scope': True})"
+    fi
 
     log "status=PASS scope=$authorization_scope execution_head=$(git -C "$REPO_ROOT" rev-parse HEAD) launcher_sha256=$current_hash network_isolation=AF_UNIX_only"
 }
@@ -277,8 +307,8 @@ main() {
         printf 'started_at=%s\n' "$(date --iso-8601=seconds)"
         printf 'execution_head=%s\n' "$(git -C "$REPO_ROOT" rev-parse HEAD)"
         printf 'authorized_commit=%s\n' "$AUTHORIZED_COMMIT"
-        printf 'launcher_commit=%s\n' "$D12_R3_LAUNCHER_COMMIT"
-        printf 'launcher_sha256=%s\n' "$D12_R3_LAUNCHER_SHA256"
+        printf 'launcher_commit=%s\n' "$D12_R4_LAUNCHER_COMMIT"
+        printf 'launcher_sha256=%s\n' "$D12_R4_LAUNCHER_SHA256"
         printf 'network_policy=IPAddressDeny_any_RestrictAddressFamilies_AF_UNIX_proxy_variables_cleared\n'
         printf 'restart_policy=none\n'
     } > "$CONTROL_ROOT/launch_record.env"
