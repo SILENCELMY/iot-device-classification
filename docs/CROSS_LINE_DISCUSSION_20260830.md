@@ -3890,3 +3890,32 @@ scope 额外要求相邻的 R4 launcher 授权块与 runner `RUN_AUTHORIZED` 块
 但在用户明确授权且相邻精确块提交前，禁止运行 formal preflight、禁止 enable-linger、禁止启动
 `iotcls-unsw-test1-r4.service`。未来授权块必须逐字使用本节的 implementation commit、launcher commit 与
 launcher SHA-256；任何身份变化须退回重新审查，不能直接替换。
+
+---
+
+## D12_R4_FORMAL_RUN_AUTHORIZATION
+
+**状态**：`R4_RUN_AUTHORIZED / FORMAL_PREFLIGHT_NOT_YET_RUN / FORMAL_SERVICE_NOT_YET_STARTED`。
+
+用户于 2026-09-01 明确指令“授权 R4 正式双跑”。授权对象严格限于已经通过 implementation review 与
+隔离 launcher review 的下列相邻身份块：
+
+R4_RUN_AUTHORIZED
+implementation_commit: 6e3d763912159ed731f07c7be41b39e2a56e5820
+launcher_commit: 35defd1b5c7e2150f46e5b111681b85d9766fac3
+launcher_sha256: 93ebdffe0ac8f2d8f3bebcce9ee37d5b2a845871886dbb49da697fbd70f532b4
+
+RUN_AUTHORIZED
+commit: 6e3d763912159ed731f07c7be41b39e2a56e5820
+canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
+
+本节提交后的完整 HEAD 是唯一 `D12_R4_EXECUTION_HEAD`。自该提交起至 R4 服务成功或失败终止，不得再
+创建 Git commit，不得修改 runner、测试、launcher、输入、讨论文档或任何冻结文件。先在
+`iotcls-unsw-test1-r4-formal-preflight.service` 中使用 §D12_R4_SERVER_LAUNCHER_PROTOCOL 的固定隔离属性
+执行 `--preflight-only`；必须 exit `0` 且 journal 出现正确 execution HEAD、launcher SHA-256 与
+`network_isolation=AF_UNIX_only`。随后才允许临时 enable-linger，并只提交一次
+`iotcls-unsw-test1-r4.service` 启动命令。
+
+正式服务继续执行 A 六片、A merge、B 六片、B merge、compare、publish 的冻结顺序。任一非零立即停止，
+`Restart=no`，不补跑、不改参数、不删除或覆盖现场、不选择 A/B 之一。监控只读机械状态与任务 ID，不读取
+或解释 F1、CPD、gain、passline、acceptance 等科学量。无论成功失败，服务终止后先恢复 `Linger=no`。
