@@ -3850,3 +3850,43 @@ canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
 任一 preflight、shard、merge、compare、CPD regression 或 publish 非零立即停止；`Restart=no`，不自动
 恢复，不改参数，不选择性补跑，不删除现场。canonical 只有在两包逐字节一致且全部既有硬门通过时才可
 原子生成。不得因 R3 已定位为 Stacking 确定性问题而放宽 R4 比较门。
+
+---
+
+## D12_R4_SERVER_LAUNCHER_REVIEW
+
+**状态**：`R4_LAUNCHER_REVIEW_PASSED / R4_READY_FOR_SEPARATE_AUTHORIZATION / R4_FORMAL_RUN_NOT_AUTHORIZED`。
+
+### 1. 冻结身份
+
+```text
+implementation_commit: 6e3d763912159ed731f07c7be41b39e2a56e5820
+launcher_commit: 35defd1b5c7e2150f46e5b111681b85d9766fac3
+launcher_sha256: 93ebdffe0ac8f2d8f3bebcce9ee37d5b2a845871886dbb49da697fbd70f532b4
+review_execution_head: 35defd1b5c7e2150f46e5b111681b85d9766fac3
+canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
+```
+
+launcher 已完整切换为 R4 A/B/control、R4 三个 unit 名和 `D12_R4_*` 环境身份；代码中机械检索无 R3
+残留。formal runner 命令仍为 6 shard、`--n-jobs 4`，其内部 Stacking 单线程由 implementation commit
+控制。review scope 验证 implementation 七个文件与 commit 字节一致并只调用 package/runtime 门；formal
+scope 额外要求相邻的 R4 launcher 授权块与 runner `RUN_AUTHORIZED` 块，并调用完整 runner 授权校验。
+
+### 2. review preflight 事实（2026-09-01 15:40 CST）
+
+- `bash -n`、`git diff --check`：exit `0`；R4 三个目标 unit 启动前均为 `LoadState=not-found`。
+- 使用 §D12_R4_SERVER_LAUNCHER_PROTOCOL 冻结的全部 systemd 属性启动
+  `iotcls-unsw-test1-r4-review-preflight.service`，仅传 `--review-preflight-only`：systemd-run exit `0`，
+  unit result `success`，主进程 status `0`，墙钟 813ms。
+- journal 唯一机械终态为：`status=PASS scope=review`、上述 execution HEAD/launcher SHA-256、
+  `network_isolation=AF_UNIX_only`；未打印科学指标。
+- unit 已 `--collect`，复核为 `LoadState=not-found / ActiveState=inactive`；A/B/control/canonical 全部仍
+  不存在，`Linger=no`。没有创建后台服务、真实 task/smoke、shard、merge、compare 或 publish。
+- 全程禁网、代理变量清空、无下载或依赖安装；R3/R2/旧 A 取证材料未改。
+
+### 3. 尚未授予的权限
+
+本节不包含 `R4_RUN_AUTHORIZED` 或新的 `RUN_AUTHORIZED` 块。R4 已具备请求用户单独正式授权的技术前置，
+但在用户明确授权且相邻精确块提交前，禁止运行 formal preflight、禁止 enable-linger、禁止启动
+`iotcls-unsw-test1-r4.service`。未来授权块必须逐字使用本节的 implementation commit、launcher commit 与
+launcher SHA-256；任何身份变化须退回重新审查，不能直接替换。
