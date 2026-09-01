@@ -175,7 +175,9 @@ preflight() {
 
     [[ -x "$PYTHON_BIN" ]] || die "canonical_python_missing"
     [[ -f "$RUNNER" ]] || die "runner_missing"
-    [[ "$(nproc)" -ge 24 ]] || die "fewer_than_24_cpus"
+    # GNU nproc honors OMP_NUM_THREADS in this environment; use the online
+    # host count so the frozen per-process OMP cap cannot falsify this gate.
+    [[ "$(getconf _NPROCESSORS_ONLN)" -ge 24 ]] || die "fewer_than_24_cpus"
 
     local available_mem_kb available_disk_kb
     available_mem_kb="$(awk '/MemAvailable:/ {print $2}' /proc/meminfo)"
