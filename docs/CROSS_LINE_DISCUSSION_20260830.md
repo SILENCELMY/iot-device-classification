@@ -3919,3 +3919,193 @@ canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
 正式服务继续执行 A 六片、A merge、B 六片、B merge、compare、publish 的冻结顺序。任一非零立即停止，
 `Restart=no`，不补跑、不改参数、不删除或覆盖现场、不选择 A/B 之一。监控只读机械状态与任务 ID，不读取
 或解释 F1、CPD、gain、passline、acceptance 等科学量。无论成功失败，服务终止后先恢复 `Linger=no`。
+
+---
+
+## D12_EXECUTION_COMPLETE
+
+**状态**：`R4_FORMAL_DOUBLE_RUN_SUCCEEDED / ALL_HARD_GATES_PASS / CANONICAL_PUBLISHED`。
+
+**性质**：本节按 §18.4 只记录机械执行事实——身份链、阶段时间线、硬门状态、产物清单与哈希、取证与清理
+状态。**不作任何科学解释，也不对两条判据作 PASS/FAIL 裁定**；判定归主线，见下一节
+§D12_TEST1_FROZEN_ADJUDICATION。
+
+### 1. 身份链（逐项与授权块比对一致）
+
+```text
+execution_head        = d9b0c7df9e20f91f5d9f1ab029464e8bfd9e3adf
+authorized_commit     = 6e3d763912159ed731f07c7be41b39e2a56e5820
+launcher_commit       = 35defd1b5c7e2150f46e5b111681b85d9766fac3
+launcher_sha256       = 93ebdffe0ac8f2d8f3bebcce9ee37d5b2a845871886dbb49da697fbd70f532b4
+canonical_python      = /home/lmy/anaconda3/envs/iotcls/bin/python3.11 (Python 3.11.15)
+network_policy        = IPAddressDeny_any / RestrictAddressFamilies_AF_UNIX / 代理变量已清空
+restart_policy        = none
+```
+
+`final_status.env` 的 `execution_head` 与 `execution_head_expected` 相同，authorized/launcher 三项与
+§D12_R4_FORMAL_RUN_AUTHORIZATION 逐字符一致。runtime 包版本落盘为 numpy 2.4.6、pandas 3.0.3、
+scikit-learn 1.9.0、xgboost 3.2.0、lightgbm 4.6.0、threadpoolctl 3.6.0。provenance 显式记录 R4 修复对象：
+`stacking_execution.n_jobs=1`、`threadpool_limits=1`、`lightgbm.deterministic=true`、
+`lightgbm.force_col_wise=true`；进程级四个线程变量仍为 4。
+
+### 2. 阶段时间线（journal 机械终态，2026-09-01 CST）
+
+| 阶段 | 起 | 止 | 结果 |
+|---|---|---|---|
+| formal preflight（独立 unit） | 15:46:54 | 15:46:54 | PASS，scope=formal，`network_isolation=AF_UNIX_only` |
+| formal service preflight | 15:47:44 | 15:47:44 | PASS |
+| A shards（6 并发） | 15:47:44 | 17:32:10 | `SHARD_EXIT_ZERO completed=6/6` |
+| A merge | 17:32:10 | 17:32:31 | PASS |
+| B shards（6 并发） | 17:32:31 | 19:16:36 | `SHARD_EXIT_ZERO completed=6/6` |
+| B merge | 19:16:36 | 19:16:56 | PASS |
+| compare | 19:16:56 | 19:16:58 | PASS |
+| publish | 19:16:58 | 19:17:01 | PASS |
+| complete | — | 19:17:01 | `exit_code=0 / final_phase=complete`，unit `Succeeded.` |
+
+总墙钟 3h29m17s。冻结顺序（A 六片 → A merge → B 六片 → B merge → compare → publish）未被打乱，
+无重启、无补跑、无参数变更。
+
+### 3. 硬门状态（全部 PASS）
+
+1. **确定性双跑**：`compare` 输出 `{"differing": [], "pass": true, "first_manifest_valid": true,
+   "second_manifest_valid": true, "missing_first": [], "missing_second": [], "unexpected_first": [],
+   "unexpected_second": []}`，规范文件 10 个，packet manifest SHA-256
+   `b8b71ca6a7acf41c4cc3124d7a68e65c09fb5862718d7d5e812f02382247d323`。R3 定位的
+   `gain_table.csv`/`passline.csv`/`bootstrap_replicates.csv` 三处字节差异在 R4 下不再出现。
+2. `test_cpd_core`：exit `0`，15/15，stdout SHA-256
+   `49dd5d2fe434c63a556bd96430d4c55f88b3ff2d09ce06d5de8198c61f684185`。
+3. 概率行和：expected 740 / observed 740；61 特征 0 NaN / 0 inf。
+4. 逐任务类别数与设备清单落盘：`cpd_table.csv` 148 行，两臂 74/74 任务的 `class_count` 恒为 6（D13 公共
+   六类支持生效）。
+5. 逐任务 OOF 折叠记录：1128 行、296 个 task-model 组，与声明
+   `GroupKFold by training day for k>=2; five time blocks for k=1/IID` 一致。
+6. `side_/other_packet_ratio` 恒 0 审计且不进特征重要性比较：PASS。
+7. 函数级无标签泄漏：`fit_model_predictions` 与 `rf_oof_reference_cm` 的参数表内无测试标签；
+   `test_label_parameters_in_fit = []`、`test_label_parameters_in_oof = []`。
+
+`acceptance.json` 汇总：`local_all_pass = true`、`overall_local_and_external = true`。
+
+### 4. canonical 产物（`results/unsw_test1/`，一次性原子发布）
+
+任务/面板计数机械核对：`task_detail.csv`、`cpd_table.csv`、`gain_table.csv` 各 148 行 = 74 个任务定义 ×
+2 个面板臂；每臂 54 OOD + 20 IID。
+
+```text
+a4125ffc5eeedfbf9c2dbb84a8ea8c90e98f6b69dc3052928f6bfed011dd8842  acceptance.json
+23dee5f7b42322cfb573a215c6fc909cde56f384f80bf7a2de2dae8f04ead554  bootstrap_replicates.csv
+278b6601454236317fc7241bebd2b2db73b36a6c2aa29eeabd53158502c884e6  cpd_table.csv
+387ff430e679fb1f04c6e82a974d8c6eeea0537eb1d42187bec2a7430c12e15b  gain_table.csv
+6333ab5e9faf119b59d2c9b69cdb1ab5ab34628480ec46ef934d144ea0ddab20  manifest.md5
+af88f48b6ab9d2341b60d615d858966273d93ad8ce83fc41f6720356afa5d912  oof_folds.csv
+a6a49f28f4376755061a4ad98461ad2cc2b789c1b95ffed073f7baa1f84405cd  passline.csv
+e8c25e5110f63148bea713fc4b437324924e0338cd7369400251b8e1b211ef20  provenance.json
+ccfbcf691447b1ba16934a35f3c969d787e3d78e9029e59760173bb97dad7c1d  task_detail.csv
+e6c4e77d0ed868a8336f45c45afefd77fdb4bb57203da9bddff428df2a543890  TEST1_RESULTS_NOTE.md
+```
+
+**入库边界（协议 §19.7 白名单的一次机械例外，已写入 `.gitignore`）**：10 个规范文件中 8 个入库；
+`task_detail.csv`（367 MB）与 `oof_folds.csv`（110 MB）超过 GitHub 100MB 单文件硬限，按
+`results/unsw_pilot` / `results/unsw_features_full` 的既有先例不入库，两者留在磁盘并可由 implementation
+commit `6e3d763` + 输入特征确定性重建（R4 双跑即为该可复现性的证明）。二者 SHA-256 已在上表内，
+审计链不依赖入库。`manifest.md5` 因 `.md5` 不在 csv/json/md 白名单内，已显式放行。
+
+### 5. 取证与清理
+
+- `/tmp/unsw_test1-R4-A`、`/tmp/unsw_test1-R4-B`（各 6 shard + packet）与
+  `/tmp/iotcls-unsw-test1-R4-control` 保留为 R4 取证材料，不删除、不覆盖、不复用。
+- R3、R2 与更早失败取证路径（`/tmp/unsw_test1-R3-A/B`、`/tmp/iotcls-unsw-test1-R3-control`、
+  `/tmp/unsw_test1-A`、`/tmp/iotcls-unsw-test1-R2-logs`）保持未改。
+- 三个 R4 unit 均已 `--collect`，复核 `LoadState=not-found / ActiveState=inactive`。
+- **`Linger` 已按授权块要求恢复为 `no`**（服务 19:17:01 终止；恢复动作在本节写入前执行并复核）。
+  此处如实记录一处协议执行偏离：恢复动作未在服务终止后立即完成，滞后约 1 小时，期间 `Linger=yes`
+  持续存在。无后台服务在该窗口内被创建或启动，A/B/control/canonical 未被触碰，不影响任何科学产物。
+- 全程禁网；未安装依赖、未联网、未读取 `dataset/` 以外授权范围、未触碰未跟踪的 `independent/` 与
+  `results/meta_mismatch_exploratory/`。
+
+自本节起 commit 冻结（§D12_R4_FORMAL_RUN_AUTHORIZATION "至服务成功或失败终止不得创建 commit"）随服务
+正常终止而解除。
+
+---
+
+## D12_TEST1_FROZEN_ADJUDICATION
+
+**状态**：`TEST1_PARTIAL_DEFAULT_NOT_PASS / CPD_机制身份不恢复 / 降格为边界条件`。
+
+**性质**：本节是 §16.4 检验 1 的**冻结判定书**（主线，Fable 5），依据仅为
+`results/unsw_test1/passline.csv` 与 `acceptance.json` 中运行前冻结的判据。判据一字未在结果可见后调整。
+三分支裁定表见 `docs/EXECUTION_PLAN_20260829.md` §D12 五。
+
+### 1. 两条判据的实测（primary 臂，唯一裁定臂）
+
+**【事实】判据 1（OOD `CPD_y` 显著高于 IID）→ 不通过**
+
+| 量 | 值 |
+|---|---|
+| OOD 均值（54 任务） | 0.065653 |
+| 可配对 IID 均值（19 测试日，D13 口径） | 0.047944 |
+| 点估计（OOD − IID） | **+0.017709** |
+| 测试日聚类 bootstrap 95% CI（B=10000，seed 42，attempts=10000） | **[−0.006637, +0.037742]** |
+| 预注册通过条件 | 均值差 > 0 **且** CI 下界 > 0 |
+| 结果 | 方向满足，**CI 下界跨零 → FAIL** |
+
+**【事实】判据 2（高 CPD 划分下 Stacking gain 转负）→ 通过**
+
+| 量 | 值 |
+|---|---|
+| 预声明中位数（54 OOD 任务上算一次） | 0.059158 |
+| 分组 | high 27 / low 27 |
+| 高组平均 gain | **−0.002049**，CI **[−0.003293, −0.001047]** |
+| 预注册通过条件 | 高组均值 < 0 **且** CI 上界 < 0 |
+| 结果 | 两条都满足 → **PASS** |
+
+`acceptance.json` 的 `decision_summary` 落盘为
+`criterion_1_pass=false / criterion_2_pass=true / overall_three_branch="partial_default_not_pass"`。
+
+### 2. 必须并报的事实（预注册要求"无论方向一律并报"）
+
+1. **【事实】低 CPD 组的 gain 同样为负**：−0.001237，CI [−0.001600, −0.000748]（全负）。
+2. **【事实】高低组差值不显著**：`high_minus_low = −0.000813`，CI **[−0.002092, +0.000205] 跨零**。
+   即：判据 2 的通过来自"Stacking gain 在 OOD 任务上普遍为负"，**不是**"CPD 高的任务上 Stacking 才崩"。
+3. **【事实】量级**：高组 −0.0020 macro-F1，比 E1 已登记的 −0.066 ~ −0.223（`results/e1_oof_arms/`）小
+   约两个数量级。148 行中 gain > 0 者 primary 16/74、stable 25/74。
+4. **【事实】stable-device 敏感性臂（不产生 PASS/FAIL）与 primary 不同向**：
+   判据 1 点估计塌至 +0.003332，CI [−0.028684, +0.028418]；且全 20 IID 的 `CPD_y` 均值（0.078281）
+   反而**高于** OOD 均值（0.074712）。判据 2 的 `high_minus_low` 在此臂**翻正**为 +0.000482，
+   CI [−0.000136, +0.001111]。
+5. **【事实】OOD 任务的绝对精度并不低于 IID 参照**：`best_base_macro_f1` primary OOD 均值 0.9049 vs
+   IID 0.8918（stable 0.8723 vs 0.8609）。注意两侧训练规模不可比（OOD 训 k∈{1,2,3} 天、IID 为日内
+   70% 时间块），此项只作描述，不支持"次日无漂移"的强结论。
+6. **【事实】`best_base_model` 分布**（148 行）：xgboost 115 / lightgbm 27 / rf 6。gain 的分母并非恒为 RF。
+
+### 3. 裁定与处置
+
+**【判定】检验 1 = 部分通过，按预注册三分支的"仅一条过"分支处置 = 默认按不通过处置，降格为边界条件。**
+
+主线**不**行使"另出书面裁定作通过"的例外权。理由必须写明，因为该例外权存在：第 2 节的五项并报事实
+不仅不构成"应作通过"的依据，而且各自独立地指向反方向——高低组差值跨零使"CPD 划分"失去解释角色、
+量级低两个数量级使其无实践意义、stable 臂方向翻转使结论不具面板稳健性。在此证据下声称通过，等同于
+预注册明令禁止的"挑有利那条"。
+
+处置，与 §16.4 及 EXECUTION_PLAN §D12 一致：
+
+1. UNSW 公开数据集结果**不进正文一图一表的机制位置**，降格为 Discussion 中的边界条件 / 单测试床
+   案例研究材料；
+2. **CPD 的机制、预测与部署身份一律不恢复**——这与 E2 降级判定（贡献 2 降为"失效模式的结构化描述"，
+   `results/e2_conditional/E2_CONCLUSION.md`）方向一致，本检验未提供任何恢复理由；
+3. 论文中 Stacking 负增益的叙述以 E1 的 B 臂口径（跨轮分组 OOF）为主线证据，**不得**把 UNSW 的
+   −0.002 与 E1 的 −0.07~−0.22 并列为"同一机制的跨数据集复现"；
+4. §16.4 检验 2 仍无输入（路线 A/B 未通过、路线 C 未实现）→ 按原脚本进附录，正文方法适用范围继续
+   限定为同部署内标定。
+
+### 4. 解释边界（明令不得逾越）
+
+- 不得把判据 1 的点估计 +0.0177 单独引用为"OOD 漂移更大"的证据——其 CI 跨零，且 stable 臂几乎为零；
+- 不得把判据 2 的通过表述为"高 CPD 导致 Stacking 崩溃"；可表述的上限是"在本数据集的 OOD 任务上
+  Stacking 相对最佳单模型普遍无增益且略为负，且该负增益与 `CPD_y` 高低无可检出关联"；
+- 不得因本检验结果去调整判据、换分位点、改面板、改支持集或补跑任务；canonical 产物为终态；
+- 不得据此启动七日无标签方法族、commissioning 或 §17 的窗口/特征消融——它们各自等待独立冻结规格。
+
+### 5. 未越过的权限边界
+
+本节只读 `passline.csv` 与 `acceptance.json` 并作裁定，未修改任何 canonical 产物、未重跑、未删除取证。
+scope 裁决（EC-MDM 以何身份进正文）仍按本文件 §0 边界留给项目负责人与导师在 9/22 写作检查点决定。

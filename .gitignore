@@ -56,3 +56,12 @@ results/unsw_pilot/**/features_*.csv
 # （pcap + code/scripts/core/extract_features_generic.py + 逐日 run_meta.json）
 results/unsw_features_full/features_*.csv
 results/unsw_features_full/logs/
+
+# D12/D13 检验 1 canonical packet（results/unsw_test1/）：
+# manifest.md5 是 packet 的规范文件之一（457 B），但 .md5 不在上面的 csv/json/md 白名单里 —— 显式放行。
+!results/unsw_test1/manifest.md5
+# 逐窗口/逐折明细两个文件超过 GitHub 100MB 单文件硬限（task_detail 367MB、oof_folds 110MB），不入库。
+# 二者可由 implementation commit 6e3d763 + 输入特征确定性重建（R4 双跑已证明逐字节可复现），
+# 其 SHA-256 已随全部 10 个规范文件记入讨论文档 §D12_EXECUTION_COMPLETE，审计链不依赖入库。
+results/unsw_test1/task_detail.csv
+results/unsw_test1/oof_folds.csv

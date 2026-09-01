@@ -1,0 +1,601 @@
+{
+  "bootstrap": "numpy.default_rng(42), linear quantiles, 10000 finite replicates",
+  "canonical_publication": {
+    "deterministic_double_run": {
+      "normative_file_count": 10,
+      "packet_manifest_sha256": "b8b71ca6a7acf41c4cc3124d7a68e65c09fb5862718d7d5e812f02382247d323",
+      "pass": true
+    },
+    "no_absolute_staging_path": true,
+    "normalized_command": [
+      "OMP_NUM_THREADS=4",
+      "OPENBLAS_NUM_THREADS=4",
+      "MKL_NUM_THREADS=4",
+      "NUMEXPR_NUM_THREADS=4",
+      "MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl",
+      "/home/lmy/anaconda3/envs/iotcls/bin/python",
+      "code/scripts/analysis/unsw_test1.py",
+      "--publish-canonical",
+      "<RUN_A_PACKET>",
+      "<RUN_B_PACKET>",
+      "--output-root",
+      "results/unsw_test1"
+    ],
+    "test_cpd_core": {
+      "exit_code": 0,
+      "expected": "15/15",
+      "pass": true,
+      "stdout_sha256": "49dd5d2fe434c63a556bd96430d4c55f88b3ff2d09ce06d5de8198c61f684185",
+      "summary_present": true,
+      "test_sha256": "a695c92f9dba320b1c06c498d8dcfa720cb2a10dae5304b82189a01e08460ee6"
+    }
+  },
+  "category_order": [
+    "appliance",
+    "camera",
+    "hub",
+    "sensor",
+    "speaker",
+    "switch"
+  ],
+  "cpd": "cpd_core.cpd_y(CM_ref_RF_OOF, CM_tgt_RF)",
+  "iid_split": "per-device stable (window_start_epoch, window_id), floor(70%) train",
+  "implementation": "code/scripts/analysis/unsw_test1.py",
+  "input_manifest": {
+    "days": [
+      "16-09-23",
+      "16-09-24",
+      "16-09-25",
+      "16-09-26",
+      "16-09-27",
+      "16-09-28",
+      "16-09-29",
+      "16-09-30",
+      "16-10-01",
+      "16-10-02",
+      "16-10-03",
+      "16-10-04",
+      "16-10-05",
+      "16-10-06",
+      "16-10-07",
+      "16-10-08",
+      "16-10-09",
+      "16-10-10",
+      "16-10-11",
+      "16-10-12"
+    ],
+    "feature_audit": {
+      "feature_importance_comparison_performed": false,
+      "finite": true,
+      "n_numeric_features": 61,
+      "n_rows": 1317887,
+      "numeric_features": [
+        "packet_count",
+        "byte_count",
+        "len_mean",
+        "len_std",
+        "len_min",
+        "len_max",
+        "len_range",
+        "len_cv",
+        "len_p10",
+        "len_p25",
+        "len_p50",
+        "len_p75",
+        "len_p90",
+        "len_p95",
+        "len_iqr",
+        "interarrival_mean",
+        "interarrival_std",
+        "interarrival_min",
+        "interarrival_max",
+        "interarrival_cv",
+        "interarrival_p10",
+        "interarrival_p25",
+        "interarrival_p50",
+        "interarrival_p75",
+        "interarrival_p90",
+        "interarrival_p95",
+        "interarrival_iqr",
+        "burst_packet_ratio",
+        "long_gap_ratio",
+        "burst_count",
+        "burst_size_mean",
+        "burst_size_std",
+        "burst_size_max",
+        "burst_size_min",
+        "burst_packet_fraction",
+        "up_packet_ratio",
+        "down_packet_ratio",
+        "side_packet_ratio",
+        "other_packet_ratio",
+        "up_down_ratio",
+        "up_len_mean",
+        "up_len_std",
+        "up_len_p50",
+        "down_len_mean",
+        "down_len_std",
+        "down_len_p50",
+        "up_ia_mean",
+        "up_ia_std",
+        "down_ia_mean",
+        "down_ia_std",
+        "len_up_down_diff",
+        "subwin_packet_mean",
+        "subwin_packet_std",
+        "subwin_packet_min",
+        "subwin_packet_max",
+        "subwin_packet_cv",
+        "subwin_byte_mean",
+        "subwin_byte_std",
+        "subwin_byte_min",
+        "subwin_byte_max",
+        "active_subwin_count"
+      ],
+      "other_packet_ratio_zero": true,
+      "side_packet_ratio_zero": true,
+      "zero_audit_columns_in_model_features": [
+        "other_packet_ratio",
+        "side_packet_ratio"
+      ]
+    },
+    "feature_root_relative": "results/unsw_features_full",
+    "files": [
+      {
+        "file": "features_day_16-09-23.csv",
+        "sha256": "e3b67dd2f94c5ded80ba5737d0a1a20006d7fc7c2157862f254032ef221b7cea"
+      },
+      {
+        "file": "features_day_16-09-23.run_meta.json",
+        "sha256": "3b7ec940771132adfaacceaa7bca47277b9286f56404db4111ff438469d89da4"
+      },
+      {
+        "file": "features_day_16-09-24.csv",
+        "sha256": "c246e2d521f840e40ffa8272d104d40265e092350719bcf2456c009c1129cd2e"
+      },
+      {
+        "file": "features_day_16-09-24.run_meta.json",
+        "sha256": "029f50d1fda51f6141012c478108dd7884e36a886e72a7ec204f2266c6fe684c"
+      },
+      {
+        "file": "features_day_16-09-25.csv",
+        "sha256": "106ab4b6ab33ac8cba951b4919d7226806a37f45304ba16516deef02eb6f9d08"
+      },
+      {
+        "file": "features_day_16-09-25.run_meta.json",
+        "sha256": "3e07b814f80f6e8fa5848abfefc2881d7cf908ca848b5826b7330a7db1639595"
+      },
+      {
+        "file": "features_day_16-09-26.csv",
+        "sha256": "3786c3ecdde4025b8dde76304851339ca685ffe778378978e5311a300e9d9d59"
+      },
+      {
+        "file": "features_day_16-09-26.run_meta.json",
+        "sha256": "d0eb31bda66c7b97ebb63290339fe0e58fb1bd6d3cb5420dad526a51d4f81f36"
+      },
+      {
+        "file": "features_day_16-09-27.csv",
+        "sha256": "e6437512c12c9ecce2e65da84b42529ddb3ce888cec08bcc26f684b6471635e8"
+      },
+      {
+        "file": "features_day_16-09-27.run_meta.json",
+        "sha256": "35c662ae15ac3a3606df56fce377b8f84f17e834572109f9ae6703e618417f87"
+      },
+      {
+        "file": "features_day_16-09-28.csv",
+        "sha256": "97d66c265c13560a7b7ba053edda04828c7aca36cdfa4429ea13adf4dde0bf89"
+      },
+      {
+        "file": "features_day_16-09-28.run_meta.json",
+        "sha256": "eed8aeee2a6f992fba9b620e01412c328f309aef93415a673fc09e440624cbf0"
+      },
+      {
+        "file": "features_day_16-09-29.csv",
+        "sha256": "119a29ac33ba2a5b839e7a03f4fa24ed997b5d93746141ed7f920fa86b455fef"
+      },
+      {
+        "file": "features_day_16-09-29.run_meta.json",
+        "sha256": "b58a29b509f9024de67668265725c92a408c4a78929cd1f821c382b3ceb4d50f"
+      },
+      {
+        "file": "features_day_16-09-30.csv",
+        "sha256": "6b68b1b7a77a936471bdb6b8db6c7380935d1df65654d3b46a354a4b5318a2f9"
+      },
+      {
+        "file": "features_day_16-09-30.run_meta.json",
+        "sha256": "9b6e5a5afab71e5dd844858272ac64930e603ead0035945b46a1294c2cd42082"
+      },
+      {
+        "file": "features_day_16-10-01.csv",
+        "sha256": "e5dcb673c4d039bb4c319d0d0bba9230835394db224320fbd9f59321dd4dbf2c"
+      },
+      {
+        "file": "features_day_16-10-01.run_meta.json",
+        "sha256": "69accc30435185f9ce73074788bbb9d7a7824cf7797f9b939693ab7d04f806cd"
+      },
+      {
+        "file": "features_day_16-10-02.csv",
+        "sha256": "d43705f3799989a9515aa59335bf02bf5f94ca0724964d5e8d3fa6a26659037e"
+      },
+      {
+        "file": "features_day_16-10-02.run_meta.json",
+        "sha256": "3e8c12ff73c225c43f1bdccbc11857ca4ffeecf924ddb07c2eaf79aedd877653"
+      },
+      {
+        "file": "features_day_16-10-03.csv",
+        "sha256": "7a9fd76e8208ff58c4c3d9ebb419ef519735e7afd8029031dc1c84d3a97095a2"
+      },
+      {
+        "file": "features_day_16-10-03.run_meta.json",
+        "sha256": "c60d94d4e80dce7aa5e93b2e9b8af09ec3ae1786fa1826077d249e4e08c9b263"
+      },
+      {
+        "file": "features_day_16-10-04.csv",
+        "sha256": "a4e241b3f72df4897a979c3ff55fa28a481d26e2115cb07315d551070d5745c0"
+      },
+      {
+        "file": "features_day_16-10-04.run_meta.json",
+        "sha256": "90757bcd19c862372d89905c7c6fa2f5809efacacf27f9126e739f8f8fdd3da9"
+      },
+      {
+        "file": "features_day_16-10-05.csv",
+        "sha256": "9a76262ec167e638230770f395588b0a13e255e155a604bcd7e9af6492ed333b"
+      },
+      {
+        "file": "features_day_16-10-05.run_meta.json",
+        "sha256": "8c2903a840adc1a41c013ffae37cccbc161d6f0bb1d19ee13b13d2fe4c453bd1"
+      },
+      {
+        "file": "features_day_16-10-06.csv",
+        "sha256": "523bebb1fbbdf7542b3922bca5ffda6d34dd5edf045394bf6ebdeed79599ae35"
+      },
+      {
+        "file": "features_day_16-10-06.run_meta.json",
+        "sha256": "6a90d268700279454d1d1a40e848301fd499e2cd3835938fbb0586abd6daddf2"
+      },
+      {
+        "file": "features_day_16-10-07.csv",
+        "sha256": "694884f5b309f2affcf07a3091596d752c74e5197ff3ca83dd422c1cfe295d43"
+      },
+      {
+        "file": "features_day_16-10-07.run_meta.json",
+        "sha256": "9bbcb057c3703c52968a12c2b56a85d1d2d01a284d114560992035a9ef02e971"
+      },
+      {
+        "file": "features_day_16-10-08.csv",
+        "sha256": "8eaf0bb5bda4472da6de547f5f70c0b1bdfd36a4610c03e9521f7d46c5bd29d2"
+      },
+      {
+        "file": "features_day_16-10-08.run_meta.json",
+        "sha256": "f4b9c472bb0fd2b088e52a5c4c5b51abad3bb337d603cbe5dca9385d1642b0d6"
+      },
+      {
+        "file": "features_day_16-10-09.csv",
+        "sha256": "2a361aff8cb47ea12c6742d474953345a870d0cdf2ed8bc8ac1a5aedf07cf27f"
+      },
+      {
+        "file": "features_day_16-10-09.run_meta.json",
+        "sha256": "1e8a6730f6df1b5fe4b7b9d2a230e69261a60ad688277281ca154051430d593d"
+      },
+      {
+        "file": "features_day_16-10-10.csv",
+        "sha256": "945e50e26f0a42e04202e41ad2848d6ee43bfad337d4c66fe438cecdad2d8a0c"
+      },
+      {
+        "file": "features_day_16-10-10.run_meta.json",
+        "sha256": "5da2f46413e04b9f25480c3976e322bee00e092bda4d40bdd501d0811fb456bd"
+      },
+      {
+        "file": "features_day_16-10-11.csv",
+        "sha256": "e426813fd51808392514444c0005ef6437aacb4e104c356333a6155360f41aac"
+      },
+      {
+        "file": "features_day_16-10-11.run_meta.json",
+        "sha256": "cadd36e70fa8f90c061b80bc3898b1454acf3cd909e5e39a87512db264b74a7e"
+      },
+      {
+        "file": "features_day_16-10-12.csv",
+        "sha256": "c7f5fe54bdb46ce3aa8d4756cb96e105e9a504442f357c7763046e5f197f5107"
+      },
+      {
+        "file": "features_day_16-10-12.run_meta.json",
+        "sha256": "cb0a5085175ae013f6dada2e0a2401ed5400dd363e11e93d4941fb38e2eadead"
+      }
+    ],
+    "mac_map": {
+      "file": "dataset/unsw/device_mac_map.csv",
+      "sha256": "04a10cf992fd8599c9feff7cb6e8570c8c8fd6bbf4f24f4392bd7547e58d8e56"
+    }
+  },
+  "max_rows": 20000,
+  "model_feature_columns": [
+    "packet_count",
+    "byte_count",
+    "len_mean",
+    "len_std",
+    "len_min",
+    "len_max",
+    "len_range",
+    "len_cv",
+    "len_p10",
+    "len_p25",
+    "len_p50",
+    "len_p75",
+    "len_p90",
+    "len_p95",
+    "len_iqr",
+    "interarrival_mean",
+    "interarrival_std",
+    "interarrival_min",
+    "interarrival_max",
+    "interarrival_cv",
+    "interarrival_p10",
+    "interarrival_p25",
+    "interarrival_p50",
+    "interarrival_p75",
+    "interarrival_p90",
+    "interarrival_p95",
+    "interarrival_iqr",
+    "burst_packet_ratio",
+    "long_gap_ratio",
+    "burst_count",
+    "burst_size_mean",
+    "burst_size_std",
+    "burst_size_max",
+    "burst_size_min",
+    "burst_packet_fraction",
+    "up_packet_ratio",
+    "down_packet_ratio",
+    "side_packet_ratio",
+    "other_packet_ratio",
+    "up_down_ratio",
+    "up_len_mean",
+    "up_len_std",
+    "up_len_p50",
+    "down_len_mean",
+    "down_len_std",
+    "down_len_p50",
+    "up_ia_mean",
+    "up_ia_std",
+    "down_ia_mean",
+    "down_ia_std",
+    "len_up_down_diff",
+    "subwin_packet_mean",
+    "subwin_packet_std",
+    "subwin_packet_min",
+    "subwin_packet_max",
+    "subwin_packet_cv",
+    "subwin_byte_mean",
+    "subwin_byte_std",
+    "subwin_byte_min",
+    "subwin_byte_max",
+    "active_subwin_count"
+  ],
+  "model_order": [
+    "rf",
+    "xgboost",
+    "lightgbm",
+    "stacking"
+  ],
+  "no_absolute_staging_path": true,
+  "no_wall_clock_or_completion_order": true,
+  "normalized_merge_command": [
+    "OMP_NUM_THREADS=4",
+    "OPENBLAS_NUM_THREADS=4",
+    "MKL_NUM_THREADS=4",
+    "NUMEXPR_NUM_THREADS=4",
+    "MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl",
+    "/home/lmy/anaconda3/envs/iotcls/bin/python",
+    "code/scripts/analysis/unsw_test1.py",
+    "--merge-shards",
+    "<STAGING_ROOT>/shard-0",
+    "<STAGING_ROOT>/shard-1",
+    "<STAGING_ROOT>/shard-2",
+    "<STAGING_ROOT>/shard-3",
+    "<STAGING_ROOT>/shard-4",
+    "<STAGING_ROOT>/shard-5",
+    "--output-root",
+    "<STAGING_ROOT>/packet"
+  ],
+  "normalized_shard_commands": [
+    [
+      "OMP_NUM_THREADS=4",
+      "OPENBLAS_NUM_THREADS=4",
+      "MKL_NUM_THREADS=4",
+      "NUMEXPR_NUM_THREADS=4",
+      "MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl",
+      "/home/lmy/anaconda3/envs/iotcls/bin/python",
+      "code/scripts/analysis/unsw_test1.py",
+      "--feature-root",
+      "results/unsw_features_full",
+      "--mac-map",
+      "dataset/unsw/device_mac_map.csv",
+      "--output-root",
+      "<STAGING_ROOT>/shard-0",
+      "--n-jobs",
+      "4",
+      "--shard-index",
+      "0",
+      "--shard-count",
+      "6",
+      "--authorized-commit",
+      "6e3d763912159ed731f07c7be41b39e2a56e5820"
+    ],
+    [
+      "OMP_NUM_THREADS=4",
+      "OPENBLAS_NUM_THREADS=4",
+      "MKL_NUM_THREADS=4",
+      "NUMEXPR_NUM_THREADS=4",
+      "MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl",
+      "/home/lmy/anaconda3/envs/iotcls/bin/python",
+      "code/scripts/analysis/unsw_test1.py",
+      "--feature-root",
+      "results/unsw_features_full",
+      "--mac-map",
+      "dataset/unsw/device_mac_map.csv",
+      "--output-root",
+      "<STAGING_ROOT>/shard-1",
+      "--n-jobs",
+      "4",
+      "--shard-index",
+      "1",
+      "--shard-count",
+      "6",
+      "--authorized-commit",
+      "6e3d763912159ed731f07c7be41b39e2a56e5820"
+    ],
+    [
+      "OMP_NUM_THREADS=4",
+      "OPENBLAS_NUM_THREADS=4",
+      "MKL_NUM_THREADS=4",
+      "NUMEXPR_NUM_THREADS=4",
+      "MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl",
+      "/home/lmy/anaconda3/envs/iotcls/bin/python",
+      "code/scripts/analysis/unsw_test1.py",
+      "--feature-root",
+      "results/unsw_features_full",
+      "--mac-map",
+      "dataset/unsw/device_mac_map.csv",
+      "--output-root",
+      "<STAGING_ROOT>/shard-2",
+      "--n-jobs",
+      "4",
+      "--shard-index",
+      "2",
+      "--shard-count",
+      "6",
+      "--authorized-commit",
+      "6e3d763912159ed731f07c7be41b39e2a56e5820"
+    ],
+    [
+      "OMP_NUM_THREADS=4",
+      "OPENBLAS_NUM_THREADS=4",
+      "MKL_NUM_THREADS=4",
+      "NUMEXPR_NUM_THREADS=4",
+      "MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl",
+      "/home/lmy/anaconda3/envs/iotcls/bin/python",
+      "code/scripts/analysis/unsw_test1.py",
+      "--feature-root",
+      "results/unsw_features_full",
+      "--mac-map",
+      "dataset/unsw/device_mac_map.csv",
+      "--output-root",
+      "<STAGING_ROOT>/shard-3",
+      "--n-jobs",
+      "4",
+      "--shard-index",
+      "3",
+      "--shard-count",
+      "6",
+      "--authorized-commit",
+      "6e3d763912159ed731f07c7be41b39e2a56e5820"
+    ],
+    [
+      "OMP_NUM_THREADS=4",
+      "OPENBLAS_NUM_THREADS=4",
+      "MKL_NUM_THREADS=4",
+      "NUMEXPR_NUM_THREADS=4",
+      "MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl",
+      "/home/lmy/anaconda3/envs/iotcls/bin/python",
+      "code/scripts/analysis/unsw_test1.py",
+      "--feature-root",
+      "results/unsw_features_full",
+      "--mac-map",
+      "dataset/unsw/device_mac_map.csv",
+      "--output-root",
+      "<STAGING_ROOT>/shard-4",
+      "--n-jobs",
+      "4",
+      "--shard-index",
+      "4",
+      "--shard-count",
+      "6",
+      "--authorized-commit",
+      "6e3d763912159ed731f07c7be41b39e2a56e5820"
+    ],
+    [
+      "OMP_NUM_THREADS=4",
+      "OPENBLAS_NUM_THREADS=4",
+      "MKL_NUM_THREADS=4",
+      "NUMEXPR_NUM_THREADS=4",
+      "MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl",
+      "/home/lmy/anaconda3/envs/iotcls/bin/python",
+      "code/scripts/analysis/unsw_test1.py",
+      "--feature-root",
+      "results/unsw_features_full",
+      "--mac-map",
+      "dataset/unsw/device_mac_map.csv",
+      "--output-root",
+      "<STAGING_ROOT>/shard-5",
+      "--n-jobs",
+      "4",
+      "--shard-index",
+      "5",
+      "--shard-count",
+      "6",
+      "--authorized-commit",
+      "6e3d763912159ed731f07c7be41b39e2a56e5820"
+    ]
+  ],
+  "oof": "GroupKFold by training day for k>=2; five time blocks for k=1/IID",
+  "protocol": "D12+D13",
+  "random_state": 42,
+  "runtime": {
+    "authorization": {
+      "authorized_implementation_commit": "6e3d763912159ed731f07c7be41b39e2a56e5820",
+      "execution_head_commit": "d9b0c7df9e20f91f5d9f1ab029464e8bfd9e3adf",
+      "script_sha256": {
+        "code/scripts/analysis/cpd_core.py": "5bdb08b29a51d013b8f5da66244b4ed5ba8b0886da38bf2370e436ff881fbe77",
+        "code/scripts/analysis/test_cpd_core.py": "a695c92f9dba320b1c06c498d8dcfa720cb2a10dae5304b82189a01e08460ee6",
+        "code/scripts/analysis/test_unsw_test1.py": "bce2b77c7ae3464e9eea03560285dcc8b4da1486c8d91e26aabdf30f7881bd66",
+        "code/scripts/analysis/test_unsw_test1_determinism_probe.py": "b895885fbcd3091d0033c31ab7e8f492b1611843de548fabe29725d5321924f7",
+        "code/scripts/analysis/unsw_test1.py": "711650aadd08c3f041381913f394270fcfb4c60976fe1610b9eed4f2217297c1",
+        "code/scripts/core/robust_iot_research.py": "1d29434570d35422ce2b7cd9d485259f5520761aa11999342ca9b0cc2f36a5e3"
+      }
+    },
+    "mplconfigdir": "/tmp/iotcls-unsw-test1-mpl",
+    "packages": {
+      "lightgbm": "4.6.0",
+      "numpy": "2.4.6",
+      "pandas": "3.0.3",
+      "scikit-learn": "1.9.0",
+      "threadpoolctl": "3.6.0",
+      "xgboost": "3.2.0"
+    },
+    "platform_machine": "x86_64",
+    "platform_system": "Linux",
+    "python_executable": "/home/lmy/anaconda3/envs/iotcls/bin/python3.11",
+    "python_version": "3.11.15",
+    "thread_environment": {
+      "MKL_NUM_THREADS": "4",
+      "NUMEXPR_NUM_THREADS": "4",
+      "OMP_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4"
+    }
+  },
+  "stable_devices": [
+    "AmazonEcho",
+    "BelkinWemoMotion",
+    "BelkinWemoSwitch",
+    "Dropcam",
+    "HPPrinter",
+    "NetatmoWeather",
+    "NetatmoWelcome",
+    "SamsungSmartCam",
+    "SmartThings",
+    "TribySpeaker"
+  ],
+  "stacking_execution": {
+    "base_model_order": [
+      "rf",
+      "xgboost",
+      "lightgbm"
+    ],
+    "lightgbm": {
+      "deterministic": true,
+      "force_col_wise": true
+    },
+    "n_jobs": 1,
+    "threadpool_limits": 1
+  }
+}

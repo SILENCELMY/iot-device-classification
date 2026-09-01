@@ -1,0 +1,103 @@
+{
+  "constants": {
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 42,
+    "category_order": [
+      "appliance",
+      "camera",
+      "hub",
+      "sensor",
+      "speaker",
+      "switch"
+    ],
+    "iid_train_fraction": 0.7,
+    "max_rows": 20000,
+    "random_state": 42,
+    "stable_devices": [
+      "AmazonEcho",
+      "BelkinWemoMotion",
+      "BelkinWemoSwitch",
+      "Dropcam",
+      "HPPrinter",
+      "NetatmoWeather",
+      "NetatmoWelcome",
+      "SamsungSmartCam",
+      "SmartThings",
+      "TribySpeaker"
+    ]
+  },
+  "decision_summary": {
+    "criterion_1_pass": false,
+    "criterion_2_pass": true,
+    "overall_three_branch": "partial_default_not_pass"
+  },
+  "external_gates": {
+    "deterministic_double_run": {
+      "normative_file_count": 10,
+      "packet_manifest_sha256": "b8b71ca6a7acf41c4cc3124d7a68e65c09fb5862718d7d5e812f02382247d323",
+      "pass": true
+    },
+    "test_cpd_core": {
+      "exit_code": 0,
+      "expected": "15/15",
+      "pass": true,
+      "stdout_sha256": "49dd5d2fe434c63a556bd96430d4c55f88b3ff2d09ce06d5de8198c61f684185",
+      "summary_present": true,
+      "test_sha256": "a695c92f9dba320b1c06c498d8dcfa720cb2a10dae5304b82189a01e08460ee6"
+    }
+  },
+  "leakage_audit": {
+    "feature_only_test_boundary": true,
+    "fit_function": "fit_model_predictions",
+    "fit_parameters": [
+      "model_name",
+      "train",
+      "test_features",
+      "feature_columns",
+      "n_jobs"
+    ],
+    "forbidden_flow": [
+      "test labels do not enter model.fit",
+      "test labels do not enter OOF fold construction",
+      "test labels do not select a model for fitting or deployment; best_base is an evaluation denominator only"
+    ],
+    "oof_function": "rf_oof_reference_cm",
+    "oof_parameters": [
+      "train",
+      "feature_columns",
+      "task",
+      "folds",
+      "n_jobs"
+    ],
+    "pass": true,
+    "test_label_parameters_in_fit": [],
+    "test_label_parameters_in_oof": [],
+    "test_labels_appear_in": {
+      "fit_model_predictions": "no test label/category column is accepted; only an exact feature frame",
+      "run_prepared_task": "y_test is read after all models return for CM and gain reporting",
+      "split_task": "label column is consumed only by the prescribed test-side sample_balanced call"
+    }
+  },
+  "local_all_pass": true,
+  "local_gates": {
+    "feature_finite_61": true,
+    "function_level_no_label_leakage": true,
+    "oof_fold_records": true,
+    "probability_row_sums": true,
+    "side_other_zero_no_importance_comparison": true,
+    "support_and_device_panel": true,
+    "task_definition_count": true,
+    "task_panel_count": true
+  },
+  "oof_audit": {
+    "oof_rows": 1128,
+    "pass": true,
+    "reason": "ok",
+    "task_model_groups": 296
+  },
+  "overall_local_and_external": true,
+  "probability_audit": {
+    "expected": 740,
+    "observed": 740
+  }
+}
