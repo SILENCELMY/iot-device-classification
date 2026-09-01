@@ -3576,3 +3576,78 @@ exit `0`；保留现场并交回主线只读核验。
    merge、compare、CPD 回归或 publish 非零均停止，不删除、不覆盖、不改参数、不选择性重跑。
 4. 监控会话中断只需重新连接服务状态，不影响任务；服务本身退出或宿主重启则保留现场交回主线，未经
    新书面裁定不得恢复。完成后恢复 linger，并只记录命令、退出码、墙钟、manifest 与硬门状态。
+
+---
+
+## D12_R3_SERVER_IMPLEMENTATION_REVIEW_AND_AUTHORIZATION
+
+**状态**：`R3_SERVER_REVIEW_PASSED / R3_RUN_AUTHORIZED / FORMAL_SERVICE_NOT_YET_STARTED`。
+
+### 1. 启动器身份与盲态验收
+
+- 科学 implementation commit 保持 `f29486baa67eba098065dcd41338f6ea40d13e2b`；runner/test SHA-256
+  仍分别为 `63f39300138ec7d88c716247425cc62f59dcb2220b4a41654fef4db86c4a1c30` 与
+  `597ac1b7e2f075a3b7addc5fc7250cac1a3e2ee2699b542d8feb090580f28f33`。
+- R3 launcher commit：`2c42bd68068446301d5568ccda58c03044211f7f`。
+- R3 launcher SHA-256：`e57abf0f3ed5793b061825c6b2f45f0a30bda0da131929750cb16e624d719df7`。
+- 离线回归：`test_unsw_test1.py` 61 项 PASS；`test_cpd_core.py` 15/15 PASS；
+  `test_oof_modes.py` 全部 PASS；`bash -n`、`py_compile`、`git diff --check` 均 exit `0`。
+- 首次同构 review preflight 在任何输入读取前 fail-closed：启动器先导出 `OMP_NUM_THREADS=4`，GNU
+  `nproc` 因而报告 4 并误触发 `fewer_than_24_cpus`。独立同构探针确认 `_NPROCESSORS_ONLN=32`；仅把
+  资源门改为不受 OpenMP 上限影响的在线核数后重新提交。第二次 review preflight exit `0`，墙钟 734ms，
+  journal 明确记录 `network_isolation=AF_UNIX_only`。该事件不含真实 task/smoke 或科学指标。
+
+### 2. 精确 R3 授权块
+
+R3_RUN_AUTHORIZED
+implementation_commit: f29486baa67eba098065dcd41338f6ea40d13e2b
+launcher_commit: 2c42bd68068446301d5568ccda58c03044211f7f
+launcher_sha256: e57abf0f3ed5793b061825c6b2f45f0a30bda0da131929750cb16e624d719df7
+canonical_python: /home/lmy/anaconda3/envs/iotcls/bin/python
+
+用户已明确同意改用“服务器托管 R3，Luna 监控”。本节提交后的完整 HEAD 记为
+`<AUTHORIZATION_RECORD_HEAD>`；主线须在不再创建任何 Git commit 的前提下解析该值，并同时作为
+`D12_R3_EXECUTION_HEAD` 传给 formal preflight 与正式服务。启动器会机械拒绝 HEAD、launcher commit/hash
+或上述精确授权块任一不符。
+
+### 3. 唯一 formal preflight 与服务属性
+
+formal preflight 和正式服务必须共同使用以下属性，除 preflight 增加 `--wait --collect` 且调用
+`--preflight-only` 外不得分叉：
+
+```text
+--service-type=exec
+--working-directory=/home/lmy/iot-device-classification
+--property=Restart=no
+--property=KillMode=control-group
+--property=CPUQuota=2400%
+--property=NoNewPrivileges=yes
+--property=IPAddressDeny=any
+--property=RestrictAddressFamilies=AF_UNIX
+--property=RuntimeMaxSec=16h
+--property=TimeoutStopSec=2min
+--setenv=D12_R3_LAUNCHER_COMMIT=2c42bd68068446301d5568ccda58c03044211f7f
+--setenv=D12_R3_LAUNCHER_SHA256=e57abf0f3ed5793b061825c6b2f45f0a30bda0da131929750cb16e624d719df7
+--setenv=D12_R3_EXECUTION_HEAD=<AUTHORIZATION_RECORD_HEAD>
+```
+
+formal preflight 的 unit 固定为 `iotcls-unsw-test1-r3-formal-preflight.service`；必须 exit `0` 且 journal
+出现 `scope=formal`、正确 execution HEAD 与 `network_isolation=AF_UNIX_only`，并再次确认 R3 A/B/control、
+canonical 与正式 unit 均不存在。随后临时启用 linger。
+
+### 4. 唯一正式启动命令
+
+```text
+systemd-run --user --unit=iotcls-unsw-test1-r3 --description='D12 R3 hardened formal double run' --service-type=exec --working-directory=/home/lmy/iot-device-classification --setenv=D12_R3_LAUNCHER_COMMIT=2c42bd68068446301d5568ccda58c03044211f7f --setenv=D12_R3_LAUNCHER_SHA256=e57abf0f3ed5793b061825c6b2f45f0a30bda0da131929750cb16e624d719df7 --setenv=D12_R3_EXECUTION_HEAD=<AUTHORIZATION_RECORD_HEAD> --property=Restart=no --property=KillMode=control-group --property=CPUQuota=2400% --property=NoNewPrivileges=yes --property=IPAddressDeny=any --property=RestrictAddressFamilies=AF_UNIX --property=RuntimeMaxSec=16h --property=TimeoutStopSec=2min /bin/bash /home/lmy/iot-device-classification/code/scripts/analysis/run_unsw_test1_server.sh
+```
+
+启动命令只提交一次。主线须确认 unit 进入 `active/running`、journal 中 preflight PASS，且 A 六个 runner
+均真实存活，然后交由服务器。Luna 只执行以下只读监控，不持有进程生命周期：
+
+```text
+systemctl --user show iotcls-unsw-test1-r3.service -p ActiveState -p SubState -p Result -p ExecMainStatus
+journalctl --user --unit=iotcls-unsw-test1-r3.service --no-pager -n 80
+```
+
+不得读取科学表。服务终止后依据 control `final_status.env`、unit result、packet/canonical 存在性与 manifest
+作盲态验收；无论成功或失败均先恢复原 `Linger=no`，再追加执行记录。任何非零不自动重启。
