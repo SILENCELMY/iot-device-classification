@@ -3408,3 +3408,50 @@ float64 六类矩阵，但复制不会消除原有量化误差，故部分行和
    `/tmp/unsw_test1-R2-A`、`/tmp/unsw_test1-R2-B`），从 A、B 两臂完整执行，不能复用本次任何 shard。
 5. 本节**不授权实现提交后的正式运行**。在新的精确授权块落盘前，任何真实 UNSW 拟合、merge、B、
    compare 或 canonical publish 均禁止。
+
+---
+
+## D12_R2_REPAIR_IMPLEMENTATION_REVIEW
+
+**状态**：`REPAIR_IMPLEMENTATION_REVIEW_PASSED / FORMAL_RERUN_NOT_AUTHORIZED`。
+
+**协议身份**：修复规则先冻结于 commit `c95bb668a952d4b983ef6230d75183adc10edd56`；随后实现与测试固化为
+implementation commit `f29486baa67eba098065dcd41338f6ea40d13e2b`。本节是只读验收记录，不构成
+新的 `RUN_AUTHORIZED`。
+
+### 1. 实现范围
+
+1. runner 定义唯一 `PROBABILITY_ROW_SUM_ATOL = 1e-9`；shard 审计与 merge acceptance 均直接比较
+   显式最大绝对行和误差，不再使用 `np.allclose` 的默认相对容差。
+2. `_normalize_probability_rows` 在归一化前检查二维非空、浮点、有限、现有概率边界、正行和，以及
+   `max(1e-12, n_classes * eps(source_dtype))` 的 dtype 舍入上限；超限概率直接拒绝。通过后统一转为
+   float64 并按正行和归一化，再强制通过原 `1e-9` 门。
+3. 四个固定测试模型均经 `_expand_probabilities` 进入同一规范化路径；RF-OOF 每折也使用该路径。
+   无 XGBoost 特判；模型列表、特征、样本、任务、随机种子、OOF、CPD、bootstrap 与 passline 均未改变。
+4. 测试侧类别预测仍取冻结的 `model.predict`；RF-OOF 的 argmax 仅经每行正标量缩放，类别排序不变。
+
+### 2. 离线验收（未运行真实 UNSW task/smoke）
+
+- `test_unsw_test1.py`：exit `0`，**61 项 PASS**。新增夹具先复现 float32 分量复制后的 `>1e-9` 漂移，
+  证明严格审计会拒绝旧假通过；随后验证 float64 规范化通过原门、argmax 不变、四模型预测类别不变，
+  并验证实质畸形行和不能借归一化过门。
+- `test_cpd_core.py`：exit `0`，**15/15 PASS**。
+- `test_oof_modes.py`：exit `0`，全部通过。
+- `py_compile`、`git diff --check`：exit `0`。
+- 以旧 commit `814fe29093a5bf3c31239479b196441b49abad24` 调用授权校验时，修复代码被机械拒绝为
+  `working copy ... differs from authorized commit`；旧授权不能误启新 runner。
+- 失败 A 六片的 `stage_audit.json` 时间戳与大小保持原值；A packet、B 根和 canonical 均不存在。
+
+修复实现 SHA-256：
+
+```text
+63f39300138ec7d88c716247425cc62f59dcb2220b4a41654fef4db86c4a1c30  code/scripts/analysis/unsw_test1.py
+597ac1b7e2f075a3b7addc5fc7250cac1a3e2ee2699b542d8feb090580f28f33  code/scripts/analysis/test_unsw_test1.py
+```
+
+### 3. 权限边界
+
+implementation commit `f29486baa67eba098065dcd41338f6ea40d13e2b` 只是下一次授权的候选身份。主线若批准
+完整重跑，须另行追加精确三行授权块并提交，且执行模板必须改用全新、预先不存在的 R2 A/B staging
+根；旧 `/tmp/unsw_test1-A/shard-0..5` 永久只作失败取证。该授权记录出现之前，Luna、服务器或主线均
+不得运行真实 shard、merge、compare 或 publish。
