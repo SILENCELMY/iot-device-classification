@@ -126,6 +126,7 @@ EXPECTED_TASK_DEFINITIONS = 74
 EXPECTED_TASK_PANEL_CELLS = 148
 PROBABILITY_AUDITS_PER_CELL = 1 + len(MODEL_ORDER)
 EXPECTED_PROBABILITY_AUDITS = EXPECTED_TASK_PANEL_CELLS * PROBABILITY_AUDITS_PER_CELL
+PROBABILITY_ROW_SUM_ATOL = 1e-9
 
 SHARD_PACKET_FILES: tuple[str, ...] = (
     "task_detail.csv",
@@ -894,18 +895,83 @@ def clean_model_features(data: pd.DataFrame, feature_columns: Sequence[str]) -> 
 
 
 def _expand_probabilities(
-    probabilities: np.ndarray, classes: Sequence[Any], n_classes: int
+    probabilities: np.ndarray,
+    classes: Sequence[Any],
+    n_classes: int,
+    *,
+    context: str = "model",
 ) -> np.ndarray:
-    full = np.zeros((len(probabilities), n_classes), dtype=float)
-    for source_index, cls in enumerate(np.asarray(classes, dtype=int)):
+    raw = np.asarray(probabilities)
+    if raw.ndim != 2 or len(raw) == 0 or raw.shape[1] == 0:
+        raise AssertionError(f"{context} returned an empty/non-matrix probability array")
+    if not np.issubdtype(raw.dtype, np.floating):
+        raise AssertionError(f"{context} returned non-floating probabilities")
+    class_indices = np.asarray(classes, dtype=int)
+    if raw.shape[1] != len(class_indices):
+        raise AssertionError(f"{context} probability/class column count mismatch")
+
+    full = np.zeros((len(raw), n_classes), dtype=np.float64)
+    for source_index, cls in enumerate(class_indices):
         if not 0 <= int(cls) < n_classes:
             raise AssertionError(f"model returned class outside fixed support: {cls}")
-        full[:, int(cls)] = probabilities[:, source_index]
-    return full
+        full[:, int(cls)] = raw[:, source_index]
+    return _normalize_probability_rows(full, context, source_dtype=raw.dtype)
+
+
+def _normalize_probability_rows(
+    probabilities: np.ndarray,
+    context: str,
+    *,
+    source_dtype: Any | None = None,
+) -> np.ndarray:
+    """Normalize representation-level probability drift without hiding malformed output."""
+
+    raw = np.asarray(probabilities)
+    if raw.ndim != 2 or len(raw) == 0 or raw.shape[1] == 0:
+        raise AssertionError(f"{context} returned an empty/non-matrix probability array")
+    dtype = np.dtype(raw.dtype if source_dtype is None else source_dtype)
+    if not np.issubdtype(raw.dtype, np.floating) or not np.issubdtype(dtype, np.floating):
+        raise AssertionError(f"{context} returned non-floating probabilities")
+
+    values = np.asarray(raw, dtype=np.float64)
+    finite = bool(np.isfinite(values).all())
+    lower_bound = float(np.min(values))
+    upper_bound = float(np.max(values))
+    bounded = bool(lower_bound >= -1e-12 and upper_bound <= 1.0 + 1e-12)
+    if not finite or not bounded:
+        raise AssertionError(
+            f"{context} pre-normalization probability bounds failed: "
+            f"finite={finite}, min={lower_bound}, max={upper_bound}"
+        )
+
+    row_sums = values.sum(axis=1)
+    if not bool(np.all(row_sums > 0.0)):
+        raise AssertionError(f"{context} returned a non-positive probability row sum")
+    max_error = float(np.max(np.abs(row_sums - 1.0)))
+    rounding_tolerance = max(
+        1e-12,
+        values.shape[1] * float(np.finfo(dtype).eps),
+    )
+    if max_error > rounding_tolerance:
+        raise AssertionError(
+            f"{context} probability row sum exceeds dtype rounding allowance: "
+            f"max_error={max_error}, allowance={rounding_tolerance}"
+        )
+
+    normalized = values / row_sums[:, np.newaxis]
+    normalized_error = float(
+        np.max(np.abs(normalized.sum(axis=1) - 1.0))
+    )
+    if normalized_error > PROBABILITY_ROW_SUM_ATOL:
+        raise AssertionError(
+            f"{context} normalized probability row sum exceeds "
+            f"{PROBABILITY_ROW_SUM_ATOL}: max_error={normalized_error}"
+        )
+    return normalized
 
 
 def probability_row_audit(probabilities: np.ndarray, context: str) -> dict[str, Any]:
-    if probabilities.ndim != 2 or len(probabilities) == 0:
+    if probabilities.ndim != 2 or len(probabilities) == 0 or probabilities.shape[1] == 0:
         raise AssertionError(f"{context} returned an empty/non-matrix probability array")
     finite = bool(np.isfinite(probabilities).all())
     lower_bound = float(np.min(probabilities))
@@ -913,7 +979,7 @@ def probability_row_audit(probabilities: np.ndarray, context: str) -> dict[str, 
     row_sums = probabilities.sum(axis=1)
     max_error = float(np.max(np.abs(row_sums - 1.0)))
     bounded = bool(lower_bound >= -1e-12 and upper_bound <= 1.0 + 1e-12)
-    rows_one = bool(np.allclose(row_sums, 1.0, atol=1e-9))
+    rows_one = bool(max_error <= PROBABILITY_ROW_SUM_ATOL)
     if not finite or not bounded or not rows_one:
         raise AssertionError(
             f"{context} probability audit failed: finite={finite}, bounded={bounded}, "
@@ -949,8 +1015,13 @@ def rf_oof_reference_cm(
         if model is None:
             raise RuntimeError("mainline RF factory unexpectedly returned None")
         model.fit(x.iloc[list(fold.train_idx)], y[list(fold.train_idx)])
-        fold_proba = model.predict_proba(x.iloc[list(fold.val_idx)])
-        probabilities[np.ix_(list(fold.val_idx), np.asarray(model.classes_, dtype=int))] = fold_proba
+        fold_proba = _expand_probabilities(
+            model.predict_proba(x.iloc[list(fold.val_idx)]),
+            model.classes_,
+            len(CATEGORY_ORDER),
+            context="RF OOF",
+        )
+        probabilities[list(fold.val_idx), :] = fold_proba
 
     audit = probability_row_audit(probabilities, "RF OOF")
     predictions = np.argmax(probabilities, axis=1)
@@ -1007,6 +1078,7 @@ def fit_model_predictions(
         model.predict_proba(x_test),
         getattr(model, "classes_", np.arange(len(CATEGORY_ORDER))),
         len(CATEGORY_ORDER),
+        context=model_name,
     )
     probability_row_audit(probabilities, model_name)
     predictions = np.asarray(model.predict(x_test), dtype=int)
@@ -1633,7 +1705,8 @@ def collect_static_acceptance(
             and bool(audit.get("finite"))
             and bool(audit.get("bounded_0_1"))
             and bool(audit.get("row_sums_one"))
-            and float(audit.get("max_row_sum_error", np.inf)) <= 1e-9
+            and float(audit.get("max_row_sum_error", np.inf))
+            <= PROBABILITY_ROW_SUM_ATOL
             for audit in probability_audits
         )
     )

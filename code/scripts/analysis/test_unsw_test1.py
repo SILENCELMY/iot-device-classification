@@ -164,6 +164,67 @@ def test_synthetic_rf_reference() -> None:
     check("synthetic RF OOF uses every validation row", int(cm.sum()) == len(prepared.train))
 
 
+def test_probability_normalization_and_strict_audit() -> None:
+    raw_float32 = np.array([[0.1, 0.2, 0.3, 0.4]], dtype=np.float32)
+    copied_float64 = raw_float32.astype(np.float64)
+    copied_error = float(abs(copied_float64.sum(axis=1)[0] - 1.0))
+    check(
+        "float32-to-float64 fixture reproduces an absolute row-sum drift above 1e-9",
+        copied_error > U.PROBABILITY_ROW_SUM_ATOL,
+    )
+
+    try:
+        U.probability_row_audit(copied_float64, "unnormalized float32 fixture")
+    except AssertionError:
+        strict_rejected = True
+    else:
+        strict_rejected = False
+    check(
+        "strict probability audit rejects default-rtol false positives",
+        strict_rejected,
+    )
+
+    normalized = U._expand_probabilities(
+        raw_float32,
+        classes=[0, 1, 2, 3],
+        n_classes=6,
+        context="float32 regression fixture",
+    )
+    normalized_error = float(np.max(np.abs(normalized.sum(axis=1) - 1.0)))
+    check("probability normalization emits float64", normalized.dtype == np.float64)
+    check(
+        "probability normalization meets the frozen absolute 1e-9 gate",
+        normalized_error <= U.PROBABILITY_ROW_SUM_ATOL,
+    )
+    normalized_audit = U.probability_row_audit(normalized, "normalized fixture")
+    check(
+        "normalized fixture passes the same strict shard audit",
+        normalized_audit["row_sums_one"]
+        and normalized_audit["max_row_sum_error"] <= U.PROBABILITY_ROW_SUM_ATOL,
+    )
+    check(
+        "positive row normalization preserves argmax",
+        int(np.argmax(raw_float32[0])) == int(np.argmax(normalized[0])),
+    )
+
+    malformed = np.array([[0.1, 0.1, 0.1, 0.1]], dtype=np.float32)
+    try:
+        U._expand_probabilities(
+            malformed,
+            classes=[0, 1, 2, 3],
+            n_classes=6,
+            context="malformed fixture",
+        )
+    except AssertionError:
+        malformed_rejected = True
+    else:
+        malformed_rejected = False
+    check(
+        "normalization rejects material row-sum errors before repair",
+        malformed_rejected,
+    )
+
+
 def test_synthetic_all_fixed_models() -> None:
     features = synthetic_features()
     task = U.build_task_catalog(synthetic_days())[0]
@@ -178,7 +239,17 @@ def test_synthetic_all_fixed_models() -> None:
             n_jobs=1,
         )
         check(f"synthetic {model_name} fit/predict has fixed probability rows", result.probabilities.shape[1] == 6)
-        check(f"synthetic {model_name} probability rows sum to one", np.allclose(result.probabilities.sum(axis=1), 1.0))
+        row_sum_error = float(
+            np.max(np.abs(result.probabilities.sum(axis=1) - 1.0))
+        )
+        check(
+            f"synthetic {model_name} probability rows meet the absolute 1e-9 gate",
+            row_sum_error <= U.PROBABILITY_ROW_SUM_ATOL,
+        )
+        check(
+            f"synthetic {model_name} normalized probabilities preserve predicted classes",
+            np.array_equal(result.predictions, np.argmax(result.probabilities, axis=1)),
+        )
     try:
         U.fit_model_predictions(
             "rf", prepared.train, prepared.test, ["f0", "f1", "f2"], n_jobs=1
@@ -379,6 +450,7 @@ def main() -> int:
         test_iid_time_order,
         test_oof_semantics,
         test_synthetic_rf_reference,
+        test_probability_normalization_and_strict_audit,
         test_synthetic_all_fixed_models,
         test_synthetic_passlines,
         test_primitive_imports_and_label_boundary,
