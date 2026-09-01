@@ -3651,3 +3651,63 @@ journalctl --user --unit=iotcls-unsw-test1-r3.service --no-pager -n 80
 
 不得读取科学表。服务终止后依据 control `final_status.env`、unit result、packet/canonical 存在性与 manifest
 作盲态验收；无论成功或失败均先恢复原 `Linger=no`，再追加执行记录。任何非零不自动重启。
+
+---
+
+## D12_R3_DETERMINISTIC_DOUBLE_RUN_FAILURE_AND_R4_REPAIR_PROTOCOL
+
+**状态**：`R3_DETERMINISTIC_DOUBLE_RUN_FAIL_STOP / R3_EVIDENCE_FROZEN / R4_REPAIR_PROTOCOL_FROZEN / R4_FORMAL_RUN_NOT_AUTHORIZED`。
+
+**性质**：本节只冻结 R3 的机械执行事实、非数值差异定位和 R4 实现修复边界；不读取或解释 F1、CPD、
+gain、passline、acceptance 或任何科学判据，不构成 R4 真实 shard、smoke、merge、compare 或 publish 授权。
+
+### 1. R3 终态事实（2026-09-01）
+
+1. `iotcls-unsw-test1-r3.service` 于 10:08:49 CST 启动、11:58:08 CST 退出；终态
+   `ActiveState=failed`、`Result=exit-code`、`ExecMainStatus=1`、`NRestarts=0`。control
+   `final_status.env` 同步记录 `exit_code=1`、`final_phase=compare`。
+2. A 与 B 各六个 shard 均逐一记录 `SHARD_EXIT_ZERO completed=6/6`；A merge 与 B merge 均为 PASS，
+   两个 packet 各自完整且 manifest 自校验有效。最终 `compare` exit `1`，随后按冻结规则立即停止；
+   CPD regression finalizer 与 `publish-canonical` 均未执行，`results/unsw_test1/` 保持不存在。
+3. 逐字节比较的差异文件固定为 `gain_table.csv`、`passline.csv`、`bootstrap_replicates.csv` 与由前三者
+   传播形成的 `manifest.md5`。`task_detail.csv`、`cpd_table.csv`、`oof_folds.csv`、`acceptance.json`、
+   `provenance.json`、`TEST1_RESULTS_NOTE.md` 均逐字节一致；两边均无缺失或额外规范文件。
+4. 不输出任何指标值的结构化比较进一步把首个差异定位为：148 个 task-panel 行中有 26 行不同，且只涉及
+   `stacking_macro_f1` 与其直接派生的 `stacking_gain` 两列；独立基模型列与 `best_base_model` 选择均未出现
+   字节差异。bootstrap、passline 与 manifest 是下游传播，不是首个差异源。现有取证不足以在
+   RF/XGBoost/LightGBM 的内部概率或最终 LogisticRegression 之间作更细归因，不作超证据判定。
+5. `/tmp/unsw_test1-R3-A`、`/tmp/unsw_test1-R3-B` 与
+   `/tmp/iotcls-unsw-test1-R3-control` 永久保留为 R3 取证材料，不删除、不覆盖、不修改、不补跑、不 merge、
+   不复用。旧 `/tmp/unsw_test1-A` 与 `/tmp/iotcls-unsw-test1-R2-logs` 的既有保护边界继续有效。
+   临时 linger 已在终止后恢复并复核为 `Linger=no`。
+
+### 2. R4 唯一允许的实现修复
+
+1. 科学对象保持冻结：输入、支持集、74 个任务、两个 panel、抽样、类别轴、模型集合、模型训练超参数、
+   随机种子、OOF 语义、CPD、bootstrap、passline、规范文件清单和逐字节 A/B 比较均不得改变。
+2. 仅在 `unsw_test1.py` 的 Stacking 执行边界允许以下确定性约束：
+   - 独立 RF/XGBoost/LightGBM 仍接收 formal CLI 的 `n_jobs=4`；只有 Stacking 及其内部基学习器固定
+     `n_jobs=1`；
+   - Stacking 内部 LightGBM 额外固定 `deterministic=True`、`force_col_wise=True`；不得改变树数、深度、
+     学习率、采样、类别数或其他科学参数；
+   - 使用环境现有的 `threadpoolctl 3.6.0`，仅在 Stacking 的 `fit`、`predict_proba`、`predict` 调用范围内
+     设置 `threadpool_limits(limits=1)`，覆盖最终 LogisticRegression 与底层 BLAS；其他模型不进入该上下文。
+3. 代码必须 fail-closed：正式 Stacking 必须仍由主线 `build_model("stacking", ...)` 和
+   `SimpleStackingClassifier` 提供；内部学习器集合或所需确定性参数无法机械确认时直接非零退出。禁止复制、
+   替换或私建另一套 Stacking 实现，禁止对结果取整、容差比较、删列、删文件或选择 A/B 之一发布。
+4. 此修复不得修改 `robust_iot_research.py`、`cpd_core.py`、输入或任何既有冻结结果。允许修改
+   `test_unsw_test1.py` 并新增一个只使用合成数据、只输出哈希的确定性 probe；禁止安装依赖、联网或读取
+   真实 UNSW 特征。
+
+### 3. R4 实现验收与判否条件
+
+1. 单元测试必须证明：非 Stacking 保留调用方线程数；Stacking 强制单线程；LightGBM 两个确定性参数存在；
+   线程限制同时覆盖 fit 和两次预测；标签边界、概率规范化与既有 61 项检查不回退。
+2. 合成 probe 使用固定矩阵、标签、分组和种子，调用真实主线 Stacking 代码；为缩短测试而缩小树数仅限
+   probe 对象，正式常量与模型工厂不得改变。两个串行独立进程及至少三个并发独立进程必须输出完全相同的
+   预测/概率 SHA-256；probe 不打印指标。
+3. 现有 `test_unsw_test1.py`、`test_cpd_core.py`、`test_oof_modes.py`、`py_compile`、`bash -n`、
+   `git diff --check` 必须全部 exit `0`。任一失败即 `R4_REPAIR_IMPLEMENTATION_REVIEW_FAIL_STOP`，不得真实运行。
+4. 实现与测试通过后须形成新的 implementation commit 和 SHA-256，并另行审查 R4 launcher。正式 R4 必须
+   使用全新、预先不存在的 A/B/control 根和新的精确授权块；本节以及用户“开始修复”的指令均不授权正式
+   UNSW 计算。正式双跑若再次出现任一字节差异，仍立即停止，不得放宽门或事后挽救。
