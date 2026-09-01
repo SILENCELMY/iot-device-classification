@@ -3516,3 +3516,63 @@ exit `0`；保留现场并交回主线只读核验。
 
 全部完成后只追加 `D12_R2_EXECUTION_COMPLETE`，记录实际命令、退出码、墙钟、日志清单、manifest 与
 硬门状态，不读取或解释科学指标。canonical 成功发布后仍由主线另行盲态验收。
+
+---
+
+## D12_R2_SUPERVISOR_INTERRUPTION_AND_R3_SERVER_PROTOCOL
+
+**状态**：`R2_SUPERVISOR_INTERRUPTION_STOP / R2_AUTHORIZATION_CONSUMED / R3_SERVER_PROTOCOL_FROZEN / R3_FORMAL_RUN_NOT_YET_AUTHORIZED`。
+
+**性质**：本节在未读取 F1、CPD、gain、passline 或科学判据的前提下，冻结 R2 的纯编排失败事实及 R3
+服务器托管规则。R3 不改变 implementation commit `f29486baa67eba098065dcd41338f6ea40d13e2b`、模型、
+任务、输入、判据或任何科学硬门。
+
+### 1. R2 事实与停止边界
+
+1. R2-A 六片于 2026-09-01 09:36:46 左右由 Luna 前台会话启动；六片日志均显示首个 primary cell
+   完成并进入 stable cell。控制日志记录至 `elapsed_s=180` 后停止。
+2. 主线只读复核时：六个进程均已不存在；六份 stderr 均为空；没有 Python traceback、exit-code 文件、
+   shard 原子目录、packet、B 根或 canonical。系统仍有约 120 GiB 可用内存及 1.6 TiB 可用工作盘。
+3. 因没有进程退出码，不能把任何 cell 或 shard 认作完成。六片同时失去且时间贴合前台会话边界，证据
+   支持“监督/PTY 生命周期中断”而非 runner 科学门失败；精确外部终止信号不可恢复，不作超证据归因。
+4. `/tmp/iotcls-unsw-test1-R2-logs` 永久保留为取证材料，不删除、不覆盖、不复用。R2 授权已消耗，禁止
+   再以 R2 路径或控制根启动；不得把内存中完成的 cell 当作 checkpoint。
+
+### 2. R3 托管架构（先于实现冻结）
+
+1. **所有权分离**：R3 正式进程由 user-systemd transient service 持久托管；Luna 或当前主线会话只读
+   监控 `systemctl --user show/status`、`journalctl --user-unit` 与控制状态文件。监控会话退出不得影响服务。
+2. 唯一服务名为 `iotcls-unsw-test1-r3.service`；`Restart=no`，任何非零均保持失败并停止，不自动重启。
+   A 六片并发、A merge、B 六片并发、B merge、compare、publish 的科学顺序与 R2 完全相同。
+3. 唯一新路径为：`/tmp/unsw_test1-R3-A`、`/tmp/unsw_test1-R3-B`、
+   `/tmp/iotcls-unsw-test1-R3-control`；canonical 仍为 `results/unsw_test1`。上述路径与服务在启动前必须
+   全部不存在。旧 A、R2 日志及任何旧路径均排除。
+4. 唯一启动器仍为 `code/scripts/analysis/run_unsw_test1_server.sh`，但须改为 R3 身份并在正式授权前
+   单独提交。启动器只编排冻结 runner，不读取或解释科学指标；它必须校验自身 commit/hash、runner
+   授权、输入、资源、目标不存在、线程环境及代理清空，并在任一子进程失败时终止同轮其余子进程。
+
+### 3. 禁网、代理与持久性硬门
+
+1. 服务必须同时设置 `IPAddressDeny=any` 与 `RestrictAddressFamilies=AF_UNIX`。2026-09-01 的瞬时
+   `systemd-run --user` 探针仅尝试创建 AF_INET socket、未连接任何地址；创建被拒绝且单元 exit `0`，
+   证明当前宿主支持该内核级隔离组合。
+2. 启动器仍须清空常见大小写代理、包管理器代理及 Codex 代理变量，并在任何 Python import 前机械确认
+   它们均未设置。系统层禁网与环境清空缺一不可；禁止网络、VPN、下载与安装依赖。
+3. 当前 user manager 为 active；`degraded` 的唯一失败单元是已冻结的旧
+   `m3-unsw-full.service`，不属于 R3。当前 `Linger=no`；正式启动前允许临时执行
+   `loginctl enable-linger lmy`，完成或终止后须恢复原 `Linger=no`。
+4. 服务须固定 `CPUQuota=2400%`、四个线程变量均为 4、`MPLCONFIGDIR=/tmp/iotcls-unsw-test1-mpl`，
+   并设置 `NoNewPrivileges=yes`、`KillMode=control-group` 与有限的最长运行时。不得使用代理、nohup、tmux、
+   screen 或另一个自动重启层。
+
+### 4. 实现、授权与异常规则
+
+1. 只允许修改服务器启动器；`unsw_test1.py`、`test_unsw_test1.py` 与科学依赖必须逐字节保持
+   implementation commit `f29486b...`。先执行 `bash -n`、纯 preflight、网络隔离探针及现有离线测试；
+   禁止真实 shard/smoke。
+2. 启动器提交后，主线须记录完整 launcher commit/SHA-256、精确 service properties 与唯一启动命令，
+   再另行追加 `R3_RUN_AUTHORIZED`。本节本身不授权正式运行。
+3. 服务启动后必须先看到 preflight PASS，再看到六个 A shard 真实存活；此后只读监控。任何 shard、
+   merge、compare、CPD 回归或 publish 非零均停止，不删除、不覆盖、不改参数、不选择性重跑。
+4. 监控会话中断只需重新连接服务状态，不影响任务；服务本身退出或宿主重启则保留现场交回主线，未经
+   新书面裁定不得恢复。完成后恢复 linger，并只记录命令、退出码、墙钟、manifest 与硬门状态。
