@@ -1,0 +1,29 @@
+{
+  "authorization": "R3_RUN_AUTHORIZED_ONLY_AFTER_PREFLIGHT_NO_FIT_PASS",
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "implementation_sha256": {
+    "independent/air_interface_representation/run_g0_strict59_ra_ecmdm.py": "a52782ce85b20f4a1a4bd5dda0e43b1ad8f0a8cd647793ce731f98f795c795e6",
+    "independent/air_interface_representation/test_g0_strict59_ra_ecmdm.py": "76895fa2b35636e6daf10fdea86b7aaf47ed8519952b7dde31e7efc2d32e720c"
+  },
+  "numeric_outputs_absent_before_authorization": true,
+  "parent_implementation_commit": "b1b683f",
+  "parent_protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "r2_implementation_freeze_sha256": "c1f4990c19c4e3d1447ad7207308fe42bdba32b50c61b396198d39b1566a698c",
+  "r2_interruption_failed_json_sha256": "3e4ab6fb70bfdc66e72f76e47de8c58209d1c2f690cfa2636500a69f45bf42ee",
+  "r2_repair_protocol_sha256": "ad0644d3f396fcbe44caac8e4c4398fb6eda23dd872c18cddcd50b1cb6047269",
+  "r3_protocol_commit": "68230c5",
+  "r3_protocol_freeze_sha256": "cf982840a951a45de8a52c0a4e45026376b1637f73f29bae3910135fa257054d",
+  "recovery_protocol_sha256": "e98aef970698827e531a685f6d5f87a30ce68a1f6360138556a4621fc710ea01",
+  "review": {
+    "formal_r3_output_roots_absent": true,
+    "frozen_scientific_modules_modified": false,
+    "old_failed_or_frozen_outputs_modified": false,
+    "r2_staging_preserved": true,
+    "scientific_logic_differs_from_r2": false,
+    "synthetic_tests": "12/12 PASS",
+    "terminal_recovery_matches_r3_protocol_only": true
+  },
+  "runner_bytes": 57185,
+  "test_bytes": 9717
+}

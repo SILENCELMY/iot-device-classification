@@ -52,15 +52,18 @@ PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_RECALIBRATION_20260902.md"
 PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_PROTOCOL_FREEZE.json"
 REPAIR_PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_PATH_REPAIR_R2_20260902.md"
 R2_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R2_PROTOCOL_FREEZE.json"
-IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R2_IMPLEMENTATION_FREEZE.json"
+R2_IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R2_IMPLEMENTATION_FREEZE.json"
+RECOVERY_PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_TERMINAL_RECOVERY_R3_20260902.md"
+R3_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R3_PROTOCOL_FREEZE.json"
+IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R3_IMPLEMENTATION_FREEZE.json"
 TEST_FILE = HERE / "test_g0_strict59_ra_ecmdm.py"
 
 AUDIT_ROOT = (
     REPO_ROOT
-    / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r2"
+    / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r3"
 )
-G0_ROOT_A = REPO_ROOT / "results/g0_environment_grid_strict59_ra_r2"
-SCIENCE_ROOT_A = REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r2"
+G0_ROOT_A = REPO_ROOT / "results/g0_environment_grid_strict59_ra_r3"
+SCIENCE_ROOT_A = REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r3"
 SOURCE_CACHE = REPO_ROOT / "results/robust_v2/raw_all/features_raw_all_w10.csv"
 ACCEPTED_RA_ROOT = (
     REPO_ROOT
@@ -268,6 +271,7 @@ def strict59_ra_columns() -> list[str]:
 def validate_static(
     expected_protocol_sha256: str,
     expected_repair_protocol_sha256: str,
+    expected_recovery_protocol_sha256: str,
     expected_implementation_freeze_sha256: str,
     require_output_absence: bool,
 ) -> dict[str, Any]:
@@ -286,6 +290,19 @@ def validate_static(
         raise PipelineError("R2 repair protocol freeze record mismatch")
     if repair_freeze["parent_protocol_sha256"] != protocol_hash:
         raise PipelineError("R2 repair protocol parent hash mismatch")
+    recovery_freeze = _read_json(R3_PROTOCOL_FREEZE)
+    recovery_protocol_hash = sha256_file(RECOVERY_PROTOCOL)
+    if recovery_protocol_hash != expected_recovery_protocol_sha256:
+        raise PipelineError("CLI expected R3 recovery protocol SHA-256 mismatch")
+    if recovery_protocol_hash != recovery_freeze["recovery_protocol"]["sha256"]:
+        raise PipelineError("R3 recovery protocol freeze record mismatch")
+    if recovery_freeze["parent_protocol_sha256"] != protocol_hash:
+        raise PipelineError("R3 recovery protocol parent hash mismatch")
+    if recovery_freeze["r2_repair_protocol_sha256"] != repair_protocol_hash:
+        raise PipelineError("R3 recovery protocol R2 repair hash mismatch")
+    r2_implementation_hash = sha256_file(R2_IMPLEMENTATION_FREEZE)
+    if recovery_freeze["r2_implementation_freeze_sha256"] != r2_implementation_hash:
+        raise PipelineError("R3 recovery protocol R2 implementation hash mismatch")
     if sha256_file(IMPLEMENTATION_FREEZE) != expected_implementation_freeze_sha256:
         raise PipelineError("implementation freeze SHA-256 mismatch")
     implementation = _read_json(IMPLEMENTATION_FREEZE)
@@ -319,6 +336,9 @@ def validate_static(
         "protocol_freeze_sha256": sha256_file(PROTOCOL_FREEZE),
         "repair_protocol_sha256": repair_protocol_hash,
         "r2_protocol_freeze_sha256": sha256_file(R2_PROTOCOL_FREEZE),
+        "r2_implementation_freeze_sha256": r2_implementation_hash,
+        "recovery_protocol_sha256": recovery_protocol_hash,
+        "r3_protocol_freeze_sha256": sha256_file(R3_PROTOCOL_FREEZE),
         "implementation_freeze_sha256": sha256_file(IMPLEMENTATION_FREEZE),
         "anchor_sha256": anchors,
         "full94_reference_sha256": full94,
@@ -982,6 +1002,7 @@ def write_manifest(root: Path) -> None:
 def run_all(
     expected_protocol_sha256: str,
     expected_repair_protocol_sha256: str,
+    expected_recovery_protocol_sha256: str,
     expected_implementation_freeze_sha256: str,
     argv: Sequence[str],
 ) -> dict[str, Any]:
@@ -990,6 +1011,7 @@ def run_all(
     static = validate_static(
         expected_protocol_sha256,
         expected_repair_protocol_sha256,
+        expected_recovery_protocol_sha256,
         expected_implementation_freeze_sha256,
         require_output_absence=True,
     )
@@ -1112,6 +1134,9 @@ def run_all(
             "protocol_freeze_sha256": sha256_file(PROTOCOL_FREEZE),
             "repair_protocol_sha256": sha256_file(REPAIR_PROTOCOL),
             "r2_protocol_freeze_sha256": sha256_file(R2_PROTOCOL_FREEZE),
+            "r2_implementation_freeze_sha256": sha256_file(R2_IMPLEMENTATION_FREEZE),
+            "recovery_protocol_sha256": sha256_file(RECOVERY_PROTOCOL),
+            "r3_protocol_freeze_sha256": sha256_file(R3_PROTOCOL_FREEZE),
             "implementation_freeze_sha256": sha256_file(IMPLEMENTATION_FREEZE),
             "runner_sha256": sha256_file(Path(__file__).resolve()),
             "tests_sha256": sha256_file(TEST_FILE),
@@ -1156,6 +1181,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--expected-protocol-sha256", required=True)
     parser.add_argument("--expected-repair-protocol-sha256", required=True)
+    parser.add_argument("--expected-recovery-protocol-sha256", required=True)
     parser.add_argument("--expected-implementation-freeze-sha256", required=True)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--preflight-no-fit", action="store_true")
@@ -1167,6 +1193,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             audit = validate_static(
                 args.expected_protocol_sha256,
                 args.expected_repair_protocol_sha256,
+                args.expected_recovery_protocol_sha256,
                 args.expected_implementation_freeze_sha256,
                 require_output_absence=True,
             )
@@ -1175,6 +1202,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             run_all(
                 args.expected_protocol_sha256,
                 args.expected_repair_protocol_sha256,
+                args.expected_recovery_protocol_sha256,
                 args.expected_implementation_freeze_sha256,
                 effective_argv,
             )

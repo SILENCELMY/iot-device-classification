@@ -180,6 +180,40 @@ class EngineeringHelperTests(unittest.TestCase):
             runner.sha256_file(runner.REPAIR_PROTOCOL),
         )
         self.assertEqual(repair_freeze["parent_protocol_sha256"], freeze["protocol"]["sha256"])
+        recovery_freeze = json.loads(runner.R3_PROTOCOL_FREEZE.read_text(encoding="utf-8"))
+        self.assertEqual(
+            recovery_freeze["recovery_protocol"]["sha256"],
+            runner.sha256_file(runner.RECOVERY_PROTOCOL),
+        )
+        self.assertEqual(
+            recovery_freeze["parent_protocol_sha256"], freeze["protocol"]["sha256"]
+        )
+        self.assertEqual(
+            recovery_freeze["r2_repair_protocol_sha256"],
+            repair_freeze["repair_protocol"]["sha256"],
+        )
+        self.assertEqual(
+            recovery_freeze["r2_implementation_freeze_sha256"],
+            runner.sha256_file(runner.R2_IMPLEMENTATION_FREEZE),
+        )
+
+    def test_r3_roots_are_new_and_do_not_reuse_r2_staging(self) -> None:
+        self.assertEqual(runner.AUDIT_ROOT.name, "strict59_ra_ecmdm_recalibration_20260902_r3")
+        self.assertEqual(runner.G0_ROOT_A.name, "g0_environment_grid_strict59_ra_r3")
+        self.assertEqual(runner.SCIENCE_ROOT_A.name, "strict59_ra_ecmdm_r3")
+        self.assertNotEqual(
+            runner.AUDIT_ROOT,
+            runner.REPO_ROOT
+            / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r2",
+        )
+        self.assertNotEqual(
+            runner.G0_ROOT_A,
+            runner.REPO_ROOT / "results/g0_environment_grid_strict59_ra_r2",
+        )
+        self.assertNotEqual(
+            runner.SCIENCE_ROOT_A,
+            runner.REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r2",
+        )
 
     def test_relative_and_absolute_source_paths_must_resolve_identically(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
