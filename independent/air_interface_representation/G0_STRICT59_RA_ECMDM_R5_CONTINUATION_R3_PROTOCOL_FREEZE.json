@@ -1,0 +1,35 @@
+{
+  "freeze_date": "2026-09-03",
+  "freeze_timezone": "Asia/Shanghai",
+  "parent_continuation_implementation_commit": "224ecc4",
+  "parent_continuation_implementation_freeze_sha256": "c3e3d42abd3f2e38d1da673c8678897107ebc31fb029e7c8d4657009689d2c80",
+  "parent_continuation_protocol_sha256": "838e6b8674ed4b7533c9e9569021143487e75b164b6735ea995cc954e0dd0c13",
+  "parent_continuation_r2_protocol_commit": "fffa1e8",
+  "parent_continuation_r2_protocol_sha256": "02358b60f8a69c01a38bc0f356b35f834dea6b9d80ae17f84df89929f1026b09",
+  "pre_retry_staging": {
+    "continuation_repair_sha256": "b3b206eb136c0e9cd6edda6d7447a90885a29ce19f3c4ec07f43f2b3403fd510",
+    "current_failed_json_sha256": "827fab90909209b93656cdc0c404826efa786e59e3645719c244e9fd4a9861f1",
+    "g0_double_run_verification_sha256": "a2b88870042bdeb8a53437bf9780d02f9e362c7d2b00365f92e5c7df88101cb8",
+    "m1_file_count": 172,
+    "m1_gate_sha256": "3b9ddce8b33bea46dab41679085238c9677e85ce096c58be27ae858da6bec844",
+    "m1r_double_run_verification_sha256": "1770a64f0a4f77abd640f7fdc8ef36ffa68cd3a9e723386373d31cf76d1b1b9e",
+    "m1r_file_count": 165,
+    "m1r_gate_sha256": "9ea58858921cc23b51ea658062e6e2cd67a46a73f9b34e5f1a5b71195b3e082f",
+    "m2_a_exists_and_empty": true,
+    "m2_b_absent": true,
+    "original_s2_failure_sha256": "c2af66e4fbab6eef260df8866d6a1e53d659c0d7b41c5ae035da90ced78b7e43",
+    "pre_retry_systemd_log_sha256": "148e1b68425caa300bf83d8896e0d494bb9b67394e1179d0f7a694a6adde28d8"
+  },
+  "retry_contract": {
+    "maximum_attempts_per_m2_repeat": 3,
+    "retryable_error_regex": "^(I|G|C): optimizer failed: ABNORMAL:",
+    "scientific_or_optimizer_parameters_changed": false,
+    "whole_m2_repeat_restarted_from_task_1": true
+  },
+  "retry_protocol": {
+    "bytes": 2904,
+    "path": "independent/air_interface_representation/PROTOCOL_G0_STRICT59_RA_ECMDM_R5_CONTINUATION_M2_RETRY_R3_20260903.md",
+    "sha256": "0d6138682e67f739343921d690e91bc408afbdf084ddd7b3e861be76da866d78",
+    "status": "R5_CONTINUATION_M2_TRANSIENT_RETRY_FROZEN_BEFORE_RETRY"
+  }
+}
