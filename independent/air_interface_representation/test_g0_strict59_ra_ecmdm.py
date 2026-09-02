@@ -71,6 +71,20 @@ def synthetic_gates(
     return m1_gate, m1r_gate, m2_gate
 
 
+def write_synthetic_model_artifacts(output_dir: Path, model_name: str, task: str) -> dict:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    summary = {"macro_f1": 0.5, "model": model_name, "task": task}
+    for name in runner._expected_model_artifacts(model_name):
+        path = output_dir / name
+        if name == "metrics.json":
+            runner.stable_json(path, summary)
+        elif name == "model.joblib":
+            path.write_bytes(b"synthetic-model")
+        else:
+            path.write_text("synthetic\n", encoding="utf-8")
+    return summary
+
+
 class FrozenStateTreeTests(unittest.TestCase):
     def test_candidate_supported_only_when_all_three_gates_pass(self) -> None:
         passline, per_environment = runner.adjudicate(*synthetic_gates())
@@ -217,11 +231,39 @@ class EngineeringHelperTests(unittest.TestCase):
             r4_freeze["r3_implementation_freeze_sha256"],
             runner.sha256_file(runner.R3_IMPLEMENTATION_FREEZE),
         )
+        r5_freeze = json.loads(runner.R5_PROTOCOL_FREEZE.read_text(encoding="utf-8"))
+        self.assertEqual(
+            r5_freeze["isolation_protocol"]["sha256"],
+            runner.sha256_file(runner.ISOLATION_PROTOCOL),
+        )
+        self.assertEqual(
+            r5_freeze["parent_protocol_sha256"], freeze["protocol"]["sha256"]
+        )
+        self.assertEqual(
+            r5_freeze["r2_repair_protocol_sha256"],
+            repair_freeze["repair_protocol"]["sha256"],
+        )
+        self.assertEqual(
+            r5_freeze["r3_recovery_protocol_sha256"],
+            recovery_freeze["recovery_protocol"]["sha256"],
+        )
+        self.assertEqual(
+            r5_freeze["r4_repair_protocol_sha256"],
+            r4_freeze["repair_protocol"]["sha256"],
+        )
+        self.assertEqual(
+            r5_freeze["r4_implementation_freeze_sha256"],
+            runner.sha256_file(runner.R4_IMPLEMENTATION_FREEZE),
+        )
 
-    def test_r4_roots_are_new_and_do_not_reuse_old_staging(self) -> None:
-        self.assertEqual(runner.AUDIT_ROOT.name, "strict59_ra_ecmdm_recalibration_20260902_r4")
-        self.assertEqual(runner.G0_ROOT_A.name, "g0_environment_grid_strict59_ra_r4")
-        self.assertEqual(runner.SCIENCE_ROOT_A.name, "strict59_ra_ecmdm_r4")
+    def test_r5_roots_are_new_and_do_not_reuse_old_staging(self) -> None:
+        self.assertEqual(runner.AUDIT_ROOT.name, "strict59_ra_ecmdm_recalibration_20260902_r5")
+        self.assertEqual(runner.G0_ROOT_A.name, "g0_environment_grid_strict59_ra_r5")
+        self.assertEqual(runner.SCIENCE_ROOT_A.name, "strict59_ra_ecmdm_r5")
+        self.assertEqual(
+            runner.G0_ATTEMPT_ROOT_A.name,
+            ".g0_environment_grid_strict59_ra_r5_model_attempts",
+        )
         self.assertNotEqual(
             runner.AUDIT_ROOT,
             runner.REPO_ROOT
@@ -248,6 +290,19 @@ class EngineeringHelperTests(unittest.TestCase):
             runner.SCIENCE_ROOT_A,
             runner.REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r3",
         )
+        self.assertNotEqual(
+            runner.AUDIT_ROOT,
+            runner.REPO_ROOT
+            / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r4",
+        )
+        self.assertNotEqual(
+            runner.G0_ROOT_A,
+            runner.REPO_ROOT / "results/g0_environment_grid_strict59_ra_r4",
+        )
+        self.assertNotEqual(
+            runner.SCIENCE_ROOT_A,
+            runner.REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r4",
+        )
 
     def test_g0_display_root_preserves_repo_or_uses_common_ancestor(self) -> None:
         in_repo = runner.REPO_ROOT / "results" / "synthetic"
@@ -260,6 +315,7 @@ class EngineeringHelperTests(unittest.TestCase):
 
     def test_run_g0_restores_display_root_on_exception(self) -> None:
         old_cache, old_output, old_repo = runner.g0.CACHE_SRC, runner.g0.OUT_ROOT, runner.g0.REPO_ROOT
+        old_evaluate_model = runner.g0.R.evaluate_model
         with tempfile.TemporaryDirectory(dir="/tmp") as temp:
             root = Path(temp)
             with mock.patch.object(runner.g0, "main", side_effect=RuntimeError("synthetic")):
@@ -268,6 +324,82 @@ class EngineeringHelperTests(unittest.TestCase):
         self.assertEqual(runner.g0.CACHE_SRC, old_cache)
         self.assertEqual(runner.g0.OUT_ROOT, old_output)
         self.assertEqual(runner.g0.REPO_ROOT, old_repo)
+        self.assertIs(runner.g0.R.evaluate_model, old_evaluate_model)
+
+    def test_isolated_model_success_is_atomically_published(self) -> None:
+        def fake_evaluate(*, model_name: str, output_dir: Path, summary_base: dict) -> dict:
+            return write_synthetic_model_artifacts(
+                Path(output_dir), model_name, str(summary_base["task"])
+            )
+
+        with tempfile.TemporaryDirectory(dir="/tmp") as temp:
+            root = Path(temp)
+            attempt_root, target = root / "attempts", root / "published" / "rf"
+            with mock.patch.object(runner.g0.R, "evaluate_model", fake_evaluate):
+                with runner.isolated_g0_model_evaluations(attempt_root) as audit:
+                    summary = runner.g0.R.evaluate_model(
+                        model_name="rf",
+                        output_dir=target,
+                        summary_base={"task": "synthetic_task"},
+                    )
+            self.assertEqual(summary["macro_f1"], 0.5)
+            self.assertEqual(
+                {path.name for path in target.iterdir()},
+                runner._expected_model_artifacts("rf"),
+            )
+            self.assertEqual(audit["model_calls"], 1)
+            self.assertEqual(audit["child_attempts"], 1)
+            self.assertEqual(audit["child_successes"], 1)
+            self.assertEqual(list(attempt_root.iterdir()), [])
+
+    def test_isolated_model_retries_allowed_native_signal(self) -> None:
+        def fail_once(*, model_name: str, output_dir: Path, summary_base: dict) -> dict:
+            output_dir = Path(output_dir)
+            if output_dir.name.endswith("attempt_01"):
+                os.kill(os.getpid(), runner.signal.SIGTERM)
+            return write_synthetic_model_artifacts(
+                output_dir, model_name, str(summary_base["task"])
+            )
+
+        with tempfile.TemporaryDirectory(dir="/tmp") as temp:
+            root = Path(temp)
+            attempt_root, target = root / "attempts", root / "published" / "xgboost"
+            with mock.patch.object(
+                runner, "NATIVE_RETRY_SIGNALS", frozenset({runner.signal.SIGTERM})
+            ):
+                with mock.patch.object(runner.g0.R, "evaluate_model", fail_once):
+                    with runner.isolated_g0_model_evaluations(attempt_root) as audit:
+                        runner.g0.R.evaluate_model(
+                            model_name="xgboost",
+                            output_dir=target,
+                            summary_base={"task": "synthetic_task"},
+                        )
+            self.assertTrue(target.is_dir())
+            self.assertEqual(audit["child_attempts"], 2)
+            self.assertEqual(audit["child_successes"], 1)
+            self.assertEqual(audit["recovered_model_calls"], 1)
+            self.assertEqual(len(audit["native_signal_retries"]), 1)
+            self.assertTrue(Path(audit["native_signal_retries"][0]["attempt_dir"]).is_dir())
+
+    def test_isolated_model_does_not_retry_python_exception(self) -> None:
+        def fail_python(*, model_name: str, output_dir: Path, summary_base: dict) -> dict:
+            raise ValueError("synthetic failure")
+
+        with tempfile.TemporaryDirectory(dir="/tmp") as temp:
+            root = Path(temp)
+            attempt_root, target = root / "attempts", root / "published" / "rf"
+            with mock.patch.object(runner.g0.R, "evaluate_model", fail_python):
+                with runner.isolated_g0_model_evaluations(attempt_root) as audit:
+                    with self.assertRaisesRegex(runner.PipelineError, "exited nonzero"):
+                        runner.g0.R.evaluate_model(
+                            model_name="rf",
+                            output_dir=target,
+                            summary_base={"task": "synthetic_task"},
+                        )
+            self.assertFalse(target.exists())
+            self.assertEqual(audit["child_attempts"], 1)
+            self.assertEqual(audit["child_successes"], 0)
+            self.assertEqual(len(audit["nonretry_failures"]), 1)
 
     def test_relative_and_absolute_source_paths_must_resolve_identically(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

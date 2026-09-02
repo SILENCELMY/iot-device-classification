@@ -5,11 +5,14 @@ from __future__ import annotations
 
 import argparse
 import contextlib
+import faulthandler
 import hashlib
 import importlib.metadata
+import inspect
 import json
 import os
 import platform
+import signal
 import subprocess
 import sys
 import tempfile
@@ -58,15 +61,19 @@ R3_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R3_PROTOCOL_FREEZE.json"
 R3_IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R3_IMPLEMENTATION_FREEZE.json"
 TMP_REPAIR_PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_TMP_DISPLAY_REPAIR_R4_20260902.md"
 R4_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R4_PROTOCOL_FREEZE.json"
-IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R4_IMPLEMENTATION_FREEZE.json"
+R4_IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R4_IMPLEMENTATION_FREEZE.json"
+ISOLATION_PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_MODEL_PROCESS_ISOLATION_R5_20260902.md"
+R5_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R5_PROTOCOL_FREEZE.json"
+IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R5_IMPLEMENTATION_FREEZE.json"
 TEST_FILE = HERE / "test_g0_strict59_ra_ecmdm.py"
 
 AUDIT_ROOT = (
     REPO_ROOT
-    / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r4"
+    / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r5"
 )
-G0_ROOT_A = REPO_ROOT / "results/g0_environment_grid_strict59_ra_r4"
-SCIENCE_ROOT_A = REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r4"
+G0_ROOT_A = REPO_ROOT / "results/g0_environment_grid_strict59_ra_r5"
+G0_ATTEMPT_ROOT_A = G0_ROOT_A.parent / f".{G0_ROOT_A.name}_model_attempts"
+SCIENCE_ROOT_A = REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r5"
 SOURCE_CACHE = REPO_ROOT / "results/robust_v2/raw_all/features_raw_all_w10.csv"
 ACCEPTED_RA_ROOT = (
     REPO_ROOT
@@ -94,6 +101,20 @@ EXPECTED_R2_R4_ROWS = 5_506
 EXPECTED_G0_RUNS = 162
 EXPECTED_G0_MODEL_CELLS = 648
 FULL94_TOLERANCE = 1e-12
+MODEL_MAX_ATTEMPTS = 3
+NATIVE_RETRY_SIGNALS = frozenset({signal.SIGABRT, signal.SIGBUS, signal.SIGSEGV})
+MODEL_ARTIFACTS = frozenset(
+    {
+        "classification_report.csv",
+        "confusion_matrix.csv",
+        "feature_columns.json",
+        "feature_importance.csv",
+        "metrics.json",
+        "model.joblib",
+        "pred_proba.csv",
+        "predictions.csv",
+    }
+)
 
 PROXY_VARIABLES = (
     "HTTP_PROXY",
@@ -276,6 +297,7 @@ def validate_static(
     expected_repair_protocol_sha256: str,
     expected_recovery_protocol_sha256: str,
     expected_tmp_repair_protocol_sha256: str,
+    expected_isolation_protocol_sha256: str,
     expected_implementation_freeze_sha256: str,
     require_output_absence: bool,
 ) -> dict[str, Any]:
@@ -322,6 +344,23 @@ def validate_static(
     r3_implementation_hash = sha256_file(R3_IMPLEMENTATION_FREEZE)
     if r4_freeze["r3_implementation_freeze_sha256"] != r3_implementation_hash:
         raise PipelineError("R4 temporary display repair R3 implementation hash mismatch")
+    r5_freeze = _read_json(R5_PROTOCOL_FREEZE)
+    isolation_protocol_hash = sha256_file(ISOLATION_PROTOCOL)
+    if isolation_protocol_hash != expected_isolation_protocol_sha256:
+        raise PipelineError("CLI expected R5 model isolation protocol SHA-256 mismatch")
+    if isolation_protocol_hash != r5_freeze["isolation_protocol"]["sha256"]:
+        raise PipelineError("R5 model isolation protocol freeze record mismatch")
+    if r5_freeze["parent_protocol_sha256"] != protocol_hash:
+        raise PipelineError("R5 model isolation parent protocol hash mismatch")
+    if r5_freeze["r2_repair_protocol_sha256"] != repair_protocol_hash:
+        raise PipelineError("R5 model isolation R2 protocol hash mismatch")
+    if r5_freeze["r3_recovery_protocol_sha256"] != recovery_protocol_hash:
+        raise PipelineError("R5 model isolation R3 protocol hash mismatch")
+    if r5_freeze["r4_repair_protocol_sha256"] != tmp_repair_protocol_hash:
+        raise PipelineError("R5 model isolation R4 protocol hash mismatch")
+    r4_implementation_hash = sha256_file(R4_IMPLEMENTATION_FREEZE)
+    if r5_freeze["r4_implementation_freeze_sha256"] != r4_implementation_hash:
+        raise PipelineError("R5 model isolation R4 implementation hash mismatch")
     if sha256_file(IMPLEMENTATION_FREEZE) != expected_implementation_freeze_sha256:
         raise PipelineError("implementation freeze SHA-256 mismatch")
     implementation = _read_json(IMPLEMENTATION_FREEZE)
@@ -344,9 +383,15 @@ def validate_static(
         raise PipelineError("G0 IID time-block count mismatch")
     if sum(task["grid_kind"] == "iid_random" for task in grid) != 6:
         raise PipelineError("G0 IID random count mismatch")
+    if not hasattr(os, "fork"):
+        raise PipelineError("R5 model isolation requires os.fork")
+    if MODEL_MAX_ATTEMPTS != 3:
+        raise PipelineError("R5 model isolation attempt count mismatch")
+    if NATIVE_RETRY_SIGNALS != frozenset({signal.SIGABRT, signal.SIGBUS, signal.SIGSEGV}):
+        raise PipelineError("R5 model isolation retry-signal set mismatch")
     output_absence = {
         _relative(path): not path.exists()
-        for path in (AUDIT_ROOT, G0_ROOT_A, SCIENCE_ROOT_A)
+        for path in (AUDIT_ROOT, G0_ROOT_A, G0_ATTEMPT_ROOT_A, SCIENCE_ROOT_A)
     }
     if require_output_absence and not all(output_absence.values()):
         raise PipelineError(f"formal output root already exists: {output_absence}")
@@ -361,12 +406,22 @@ def validate_static(
         "r3_implementation_freeze_sha256": r3_implementation_hash,
         "tmp_repair_protocol_sha256": tmp_repair_protocol_hash,
         "r4_protocol_freeze_sha256": sha256_file(R4_PROTOCOL_FREEZE),
+        "r4_implementation_freeze_sha256": r4_implementation_hash,
+        "isolation_protocol_sha256": isolation_protocol_hash,
+        "r5_protocol_freeze_sha256": sha256_file(R5_PROTOCOL_FREEZE),
         "implementation_freeze_sha256": sha256_file(IMPLEMENTATION_FREEZE),
         "anchor_sha256": anchors,
         "full94_reference_sha256": full94,
         "pcap_sha256": pcap,
         "strict59_ra_feature_count": len(columns),
         "g0_run_count": len(grid),
+        "model_process_isolation": {
+            "fork_available": hasattr(os, "fork"),
+            "max_attempts": MODEL_MAX_ATTEMPTS,
+            "retry_signals": [
+                signal.Signals(number).name for number in sorted(NATIVE_RETRY_SIGNALS)
+            ],
+        },
         "formal_output_absence": output_absence,
     }
 
@@ -699,9 +754,233 @@ def g0_display_root(output_root: Path, repository_root: Path | None = None) -> P
         return Path(os.path.commonpath((str(repo), str(output))))
 
 
-def run_g0(cache: Path, output_root: Path) -> None:
+def _expected_model_artifacts(model_name: str) -> set[str]:
+    expected = set(MODEL_ARTIFACTS)
+    if model_name == "stacking":
+        expected.add("oof_meta.csv")
+    return expected
+
+
+def _isolated_evaluate_model(
+    original: Any,
+    attempt_root: Path,
+    audit: dict[str, Any],
+    audit_path: Path | None,
+    *args: Any,
+    **kwargs: Any,
+) -> dict[str, Any]:
+    bound = inspect.signature(original).bind(*args, **kwargs)
+    bound.apply_defaults()
+    output_dir = Path(bound.arguments["output_dir"])
+    model_name = str(bound.arguments["model_name"])
+    summary_base = dict(bound.arguments["summary_base"])
+    task_name = str(summary_base.get("task", "unknown"))
+    if output_dir.exists():
+        raise PipelineError(f"model output directory already exists: {output_dir}")
+
+    audit["model_calls"] += 1
+    call_index = int(audit["model_calls"])
+    key = hashlib.sha256(
+        f"{call_index}|{task_name}|{model_name}|{output_dir}".encode("utf-8")
+    ).hexdigest()[:12]
+
+    for attempt in range(1, MODEL_MAX_ATTEMPTS + 1):
+        attempt_dir = attempt_root / (
+            f"call_{call_index:04d}_{model_name}_{key}_attempt_{attempt:02d}"
+        )
+        attempt_dir.mkdir(parents=False, exist_ok=False)
+        bound.arguments["output_dir"] = attempt_dir
+        pid = os.fork()
+        if pid == 0:
+            trace_path = attempt_dir / "fatal_signal.log"
+            trace_handle = None
+            try:
+                trace_handle = trace_path.open("w", encoding="utf-8", buffering=1)
+                faulthandler.enable(file=trace_handle, all_threads=True)
+                original(*bound.args, **bound.kwargs)
+                faulthandler.disable()
+                trace_handle.close()
+                trace_handle = None
+                trace_path.unlink()
+            except BaseException as error:
+                if trace_handle is not None:
+                    with contextlib.suppress(BaseException):
+                        faulthandler.disable()
+                        trace_handle.close()
+                with contextlib.suppress(BaseException):
+                    stable_json(
+                        attempt_dir / "CHILD_FAILED.json",
+                        {
+                            "status": "NONRETRY_CHILD_EXCEPTION",
+                            "error_type": type(error).__name__,
+                            "error": str(error),
+                            "traceback": traceback.format_exc(),
+                        },
+                    )
+                os._exit(70)
+            os._exit(0)
+
+        waited_pid, status = os.waitpid(pid, 0)
+        if waited_pid != pid:
+            raise PipelineError("waitpid returned an unexpected child PID")
+        audit["child_attempts"] += 1
+
+        if os.WIFEXITED(status) and os.WEXITSTATUS(status) == 0:
+            expected = _expected_model_artifacts(model_name)
+            actual = {path.name for path in attempt_dir.iterdir() if path.is_file()}
+            if actual != expected:
+                audit["nonretry_failures"].append(
+                    {
+                        "attempt": attempt,
+                        "attempt_dir": str(attempt_dir),
+                        "call_index": call_index,
+                        "kind": "ARTIFACT_SET_MISMATCH",
+                        "model": model_name,
+                        "task": task_name,
+                    }
+                )
+                if audit_path is not None:
+                    stable_json(audit_path, audit)
+                raise PipelineError(
+                    f"isolated model artifact set mismatch: {actual} != {expected}"
+                )
+            model_path = attempt_dir / "model.joblib"
+            if model_path.stat().st_size <= 0:
+                audit["nonretry_failures"].append(
+                    {
+                        "attempt": attempt,
+                        "attempt_dir": str(attempt_dir),
+                        "call_index": call_index,
+                        "kind": "EMPTY_MODEL_ARTIFACT",
+                        "model": model_name,
+                        "task": task_name,
+                    }
+                )
+                if audit_path is not None:
+                    stable_json(audit_path, audit)
+                raise PipelineError("isolated model artifact is empty")
+            summary = _read_json(attempt_dir / "metrics.json")
+            if summary.get("model") != model_name or summary.get("task") != task_name:
+                audit["nonretry_failures"].append(
+                    {
+                        "attempt": attempt,
+                        "attempt_dir": str(attempt_dir),
+                        "call_index": call_index,
+                        "kind": "METRICS_IDENTITY_MISMATCH",
+                        "model": model_name,
+                        "task": task_name,
+                    }
+                )
+                if audit_path is not None:
+                    stable_json(audit_path, audit)
+                raise PipelineError("isolated model metrics identity mismatch")
+            output_dir.parent.mkdir(parents=True, exist_ok=True)
+            if attempt_dir.stat().st_dev != output_dir.parent.stat().st_dev:
+                raise PipelineError("isolated model attempt is not on target filesystem")
+            attempt_dir.replace(output_dir)
+            audit["child_successes"] += 1
+            if attempt == 1:
+                audit["first_attempt_successes"] += 1
+            else:
+                audit["recovered_model_calls"] += 1
+            return summary
+
+        if os.WIFSIGNALED(status):
+            signal_number = os.WTERMSIG(status)
+            signal_name = signal.Signals(signal_number).name
+            event = {
+                "attempt": attempt,
+                "attempt_dir": str(attempt_dir),
+                "call_index": call_index,
+                "model": model_name,
+                "signal": signal_number,
+                "signal_name": signal_name,
+                "task": task_name,
+            }
+            if signal_number in NATIVE_RETRY_SIGNALS:
+                audit["native_signal_retries"].append(event)
+                if audit_path is not None:
+                    stable_json(audit_path, audit)
+                print(
+                    f"isolated model native failure: {task_name}/{model_name} "
+                    f"attempt={attempt} signal={signal_name}; staging preserved",
+                    flush=True,
+                )
+                if attempt < MODEL_MAX_ATTEMPTS:
+                    continue
+            else:
+                audit["nonretry_failures"].append({**event, "kind": "NONRETRY_SIGNAL"})
+                if audit_path is not None:
+                    stable_json(audit_path, audit)
+            raise PipelineError(
+                f"isolated model child terminated by {signal_name}: "
+                f"{task_name}/{model_name} attempt {attempt}"
+            )
+
+        exit_code = os.WEXITSTATUS(status) if os.WIFEXITED(status) else None
+        audit["nonretry_failures"].append(
+            {
+                "attempt": attempt,
+                "attempt_dir": str(attempt_dir),
+                "call_index": call_index,
+                "exit_code": exit_code,
+                "kind": "NONZERO_CHILD_EXIT",
+                "model": model_name,
+                "task": task_name,
+            }
+        )
+        if audit_path is not None:
+            stable_json(audit_path, audit)
+        raise PipelineError(
+            f"isolated model child exited nonzero: {task_name}/{model_name}: {exit_code}"
+        )
+
+    raise AssertionError("isolated model attempt loop exhausted unexpectedly")
+
+
+@contextlib.contextmanager
+def isolated_g0_model_evaluations(
+    attempt_root: Path, audit_path: Path | None = None
+) -> Iterator[dict[str, Any]]:
+    if attempt_root.exists():
+        raise PipelineError(f"model attempt root already exists: {attempt_root}")
+    attempt_root.mkdir(parents=True, exist_ok=False)
+    original = g0.R.evaluate_model
+    audit: dict[str, Any] = {
+        "attempt_root": str(attempt_root),
+        "child_attempts": 0,
+        "child_successes": 0,
+        "first_attempt_successes": 0,
+        "max_attempts_per_model": MODEL_MAX_ATTEMPTS,
+        "model_calls": 0,
+        "native_signal_retries": [],
+        "nonretry_failures": [],
+        "recovered_model_calls": 0,
+        "retry_signals": [signal.Signals(number).name for number in sorted(NATIVE_RETRY_SIGNALS)],
+    }
+
+    def isolated(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        return _isolated_evaluate_model(
+            original, attempt_root, audit, audit_path, *args, **kwargs
+        )
+
+    g0.R.evaluate_model = isolated
+    try:
+        yield audit
+    finally:
+        g0.R.evaluate_model = original
+
+
+def run_g0(cache: Path, output_root: Path) -> dict[str, Any]:
     if output_root.exists():
         raise PipelineError(f"G0 output root already exists: {output_root}")
+    attempt_root = output_root.parent / f".{output_root.name}_model_attempts"
+    if output_root == G0_ROOT_A and attempt_root != G0_ATTEMPT_ROOT_A:
+        raise PipelineError("formal G0 attempt-root derivation mismatch")
+    repeat_name = "repeat_a" if output_root == G0_ROOT_A else "repeat_b"
+    isolation_audit_path = AUDIT_ROOT / f"model_process_isolation_{repeat_name}.json"
+    if isolation_audit_path.exists():
+        raise PipelineError(f"model isolation audit already exists: {isolation_audit_path}")
     old_cache, old_output, old_repo = g0.CACHE_SRC, g0.OUT_ROOT, g0.REPO_ROOT
     g0.CACHE_SRC, g0.OUT_ROOT = cache, output_root
     g0.REPO_ROOT = g0_display_root(output_root, old_repo)
@@ -715,13 +994,24 @@ def run_g0(cache: Path, output_root: Path) -> None:
         str(10**9),
     ]
     try:
-        with patched_argv(argv):
-            try:
-                result = g0.main()
-            except SystemExit as error:
-                raise PipelineError(f"G0 exited early: {error}") from error
+        with isolated_g0_model_evaluations(
+            attempt_root, isolation_audit_path
+        ) as isolation_audit:
+            with patched_argv(argv):
+                try:
+                    result = g0.main()
+                except SystemExit as error:
+                    raise PipelineError(f"G0 exited early: {error}") from error
         if result != 0:
             raise PipelineError(f"G0 returned nonzero: {result}")
+        stable_json(isolation_audit_path, isolation_audit)
+        if isolation_audit["nonretry_failures"]:
+            raise PipelineError("G0 isolated model execution had a nonretry failure")
+        if isolation_audit["model_calls"] != EXPECTED_G0_MODEL_CELLS:
+            raise PipelineError("G0 isolated model call count mismatch")
+        if isolation_audit["child_successes"] != EXPECTED_G0_MODEL_CELLS:
+            raise PipelineError("G0 isolated model success count mismatch")
+        return isolation_audit
     finally:
         g0.CACHE_SRC, g0.OUT_ROOT, g0.REPO_ROOT = old_cache, old_output, old_repo
 
@@ -1037,6 +1327,7 @@ def run_all(
     expected_repair_protocol_sha256: str,
     expected_recovery_protocol_sha256: str,
     expected_tmp_repair_protocol_sha256: str,
+    expected_isolation_protocol_sha256: str,
     expected_implementation_freeze_sha256: str,
     argv: Sequence[str],
 ) -> dict[str, Any]:
@@ -1047,6 +1338,7 @@ def run_all(
         expected_repair_protocol_sha256,
         expected_recovery_protocol_sha256,
         expected_tmp_repair_protocol_sha256,
+        expected_isolation_protocol_sha256,
         expected_implementation_freeze_sha256,
         require_output_absence=True,
     )
@@ -1064,11 +1356,15 @@ def run_all(
         stable_json(AUDIT_ROOT / "extraction_audit.json", extraction_audit)
 
         current_phase = "S2A_G0"
-        run_g0(strict_cache, G0_ROOT_A)
+        g0_isolation_a = run_g0(strict_cache, G0_ROOT_A)
         current_phase = "S2B_G0"
         g0_root_b = temp_root / "g0_b"
-        run_g0(strict_cache, g0_root_b)
+        g0_isolation_b = run_g0(strict_cache, g0_root_b)
         current_phase = "S2_G0_VERIFY"
+        stable_json(
+            AUDIT_ROOT / "model_process_isolation_audit.json",
+            {"repeat_a": g0_isolation_a, "repeat_b": g0_isolation_b},
+        )
         strict_columns = strict59_ra_columns()
         g0_verification = compare_g0(G0_ROOT_A, g0_root_b, strict_columns)
         stable_json(AUDIT_ROOT / "g0_double_run_verification.json", g0_verification)
@@ -1175,6 +1471,9 @@ def run_all(
             "r3_implementation_freeze_sha256": sha256_file(R3_IMPLEMENTATION_FREEZE),
             "tmp_repair_protocol_sha256": sha256_file(TMP_REPAIR_PROTOCOL),
             "r4_protocol_freeze_sha256": sha256_file(R4_PROTOCOL_FREEZE),
+            "r4_implementation_freeze_sha256": sha256_file(R4_IMPLEMENTATION_FREEZE),
+            "isolation_protocol_sha256": sha256_file(ISOLATION_PROTOCOL),
+            "r5_protocol_freeze_sha256": sha256_file(R5_PROTOCOL_FREEZE),
             "implementation_freeze_sha256": sha256_file(IMPLEMENTATION_FREEZE),
             "runner_sha256": sha256_file(Path(__file__).resolve()),
             "tests_sha256": sha256_file(TEST_FILE),
@@ -1221,6 +1520,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--expected-repair-protocol-sha256", required=True)
     parser.add_argument("--expected-recovery-protocol-sha256", required=True)
     parser.add_argument("--expected-tmp-repair-protocol-sha256", required=True)
+    parser.add_argument("--expected-isolation-protocol-sha256", required=True)
     parser.add_argument("--expected-implementation-freeze-sha256", required=True)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--preflight-no-fit", action="store_true")
@@ -1234,6 +1534,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.expected_repair_protocol_sha256,
                 args.expected_recovery_protocol_sha256,
                 args.expected_tmp_repair_protocol_sha256,
+                args.expected_isolation_protocol_sha256,
                 args.expected_implementation_freeze_sha256,
                 require_output_absence=True,
             )
@@ -1244,6 +1545,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.expected_repair_protocol_sha256,
                 args.expected_recovery_protocol_sha256,
                 args.expected_tmp_repair_protocol_sha256,
+                args.expected_isolation_protocol_sha256,
                 args.expected_implementation_freeze_sha256,
                 effective_argv,
             )
