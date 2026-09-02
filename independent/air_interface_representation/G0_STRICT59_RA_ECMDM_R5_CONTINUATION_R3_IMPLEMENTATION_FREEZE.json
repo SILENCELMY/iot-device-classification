@@ -1,0 +1,25 @@
+{
+  "authorization": "M2_RETRY_ALLOWED_ONLY_AFTER_TESTS_AND_PREFLIGHT_NO_FIT_PASS",
+  "freeze_date": "2026-09-03",
+  "freeze_timezone": "Asia/Shanghai",
+  "parent_continuation_implementation_commit": "224ecc4",
+  "parent_continuation_implementation_freeze_sha256": "c3e3d42abd3f2e38d1da673c8678897107ebc31fb029e7c8d4657009689d2c80",
+  "retry_protocol_commit": "df270e5",
+  "retry_protocol_sha256": "0d6138682e67f739343921d690e91bc408afbdf084ddd7b3e861be76da866d78",
+  "retry_protocol_freeze_sha256": "9503534def298bc813f3c9660c6a2bfc80fd212fcf43df0bc1bc3ec3b97f5351",
+  "implementation_sha256": {
+    "independent/air_interface_representation/resume_g0_strict59_ra_ecmdm_r5_m2.py": "a3ab1bfcba69e96a7a5916e059e66a5de1f413be5f15dc0051549963d3633d7e",
+    "independent/air_interface_representation/test_resume_g0_strict59_ra_ecmdm_r5_m2.py": "c6143a55652380f8c2cd4fd483bd12d38d8c80ea2b78ff548db983be8491152b"
+  },
+  "review": {
+    "empty_directory_only_removal": true,
+    "g0_m1_m1r_rerun": false,
+    "maximum_attempts_per_m2_repeat": 3,
+    "optimizer_or_scientific_parameters_changed": false,
+    "retry_scope": "M2Error matching ^(I|G|C): optimizer failed: ABNORMAL:",
+    "synthetic_tests": "7/7 PASS",
+    "whole_m2_repeat_retry": true
+  },
+  "runner_bytes": 22148,
+  "test_bytes": 4906
+}
