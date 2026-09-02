@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -173,6 +174,29 @@ class EngineeringHelperTests(unittest.TestCase):
         freeze = json.loads(runner.PROTOCOL_FREEZE.read_text(encoding="utf-8"))
         self.assertEqual(freeze["protocol"]["sha256"], runner.sha256_file(runner.PROTOCOL))
         self.assertEqual(freeze["protocol"]["bytes"], runner.PROTOCOL.stat().st_size)
+        repair_freeze = json.loads(runner.R2_PROTOCOL_FREEZE.read_text(encoding="utf-8"))
+        self.assertEqual(
+            repair_freeze["repair_protocol"]["sha256"],
+            runner.sha256_file(runner.REPAIR_PROTOCOL),
+        )
+        self.assertEqual(repair_freeze["parent_protocol_sha256"], freeze["protocol"]["sha256"])
+
+    def test_relative_and_absolute_source_paths_must_resolve_identically(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            expected = root / "expected.pcapng"
+            different = root / "different.pcapng"
+            expected.touch()
+            different.touch()
+            relative = Path(os.path.relpath(expected, runner.REPO_ROOT))
+            self.assertEqual(
+                runner.resolve_recorded_source(relative),
+                runner.resolve_recorded_source(expected),
+            )
+            self.assertNotEqual(
+                runner.resolve_recorded_source(different),
+                runner.resolve_recorded_source(expected),
+            )
 
 
 if __name__ == "__main__":

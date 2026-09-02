@@ -50,15 +50,17 @@ import m2_meta_mechanism as m2  # noqa: E402
 
 PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_RECALIBRATION_20260902.md"
 PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_PROTOCOL_FREEZE.json"
-IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_IMPLEMENTATION_FREEZE.json"
+REPAIR_PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_PATH_REPAIR_R2_20260902.md"
+R2_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R2_PROTOCOL_FREEZE.json"
+IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R2_IMPLEMENTATION_FREEZE.json"
 TEST_FILE = HERE / "test_g0_strict59_ra_ecmdm.py"
 
 AUDIT_ROOT = (
     REPO_ROOT
-    / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902"
+    / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r2"
 )
-G0_ROOT_A = REPO_ROOT / "results/g0_environment_grid_strict59_ra"
-SCIENCE_ROOT_A = REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm"
+G0_ROOT_A = REPO_ROOT / "results/g0_environment_grid_strict59_ra_r2"
+SCIENCE_ROOT_A = REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r2"
 SOURCE_CACHE = REPO_ROOT / "results/robust_v2/raw_all/features_raw_all_w10.csv"
 ACCEPTED_RA_ROOT = (
     REPO_ROOT
@@ -265,6 +267,7 @@ def strict59_ra_columns() -> list[str]:
 
 def validate_static(
     expected_protocol_sha256: str,
+    expected_repair_protocol_sha256: str,
     expected_implementation_freeze_sha256: str,
     require_output_absence: bool,
 ) -> dict[str, Any]:
@@ -275,6 +278,14 @@ def validate_static(
         raise PipelineError("CLI expected protocol SHA-256 mismatch")
     if protocol_hash != freeze["protocol"]["sha256"]:
         raise PipelineError("protocol freeze record mismatch")
+    repair_freeze = _read_json(R2_PROTOCOL_FREEZE)
+    repair_protocol_hash = sha256_file(REPAIR_PROTOCOL)
+    if repair_protocol_hash != expected_repair_protocol_sha256:
+        raise PipelineError("CLI expected R2 repair protocol SHA-256 mismatch")
+    if repair_protocol_hash != repair_freeze["repair_protocol"]["sha256"]:
+        raise PipelineError("R2 repair protocol freeze record mismatch")
+    if repair_freeze["parent_protocol_sha256"] != protocol_hash:
+        raise PipelineError("R2 repair protocol parent hash mismatch")
     if sha256_file(IMPLEMENTATION_FREEZE) != expected_implementation_freeze_sha256:
         raise PipelineError("implementation freeze SHA-256 mismatch")
     implementation = _read_json(IMPLEMENTATION_FREEZE)
@@ -306,6 +317,8 @@ def validate_static(
     return {
         "protocol_sha256": protocol_hash,
         "protocol_freeze_sha256": sha256_file(PROTOCOL_FREEZE),
+        "repair_protocol_sha256": repair_protocol_hash,
+        "r2_protocol_freeze_sha256": sha256_file(R2_PROTOCOL_FREEZE),
         "implementation_freeze_sha256": sha256_file(IMPLEMENTATION_FREEZE),
         "anchor_sha256": anchors,
         "full94_reference_sha256": full94,
@@ -400,6 +413,13 @@ def _expected_pcap_paths(config: Mapping[str, Any]) -> list[Path]:
     return paths
 
 
+def resolve_recorded_source(value: str | Path) -> Path:
+    path = Path(str(value))
+    if not path.is_absolute():
+        path = REPO_ROOT / path
+    return path.resolve()
+
+
 def _numeric_max_abs(left: pd.DataFrame, right: pd.DataFrame, columns: Sequence[str]) -> float:
     if not columns:
         return 0.0
@@ -433,7 +453,8 @@ def materialize_strict59_ra() -> tuple[Path, dict[str, Any], dict[str, Any]]:
                 / str(round_info["dir"])
                 / f"{device_dir}_r{round_name[-1]}.pcapng"
             )
-            packets = direction_repair.preprocess_packets(relative_path)
+            pcap_path = resolve_recorded_source(relative_path)
+            packets = direction_repair.preprocess_packets(pcap_path)
             kept = 0
             for window_id, group in packets.groupby("window_id", sort=True):
                 if len(group) < 2:
@@ -445,7 +466,7 @@ def materialize_strict59_ra() -> tuple[Path, dict[str, Any], dict[str, Any]]:
                     round_name,
                     round_info["traffic"],
                     "raw_all",
-                    relative_path,
+                    pcap_path,
                     int(window_id),
                     10.0,
                 )
@@ -457,7 +478,7 @@ def materialize_strict59_ra() -> tuple[Path, dict[str, Any], dict[str, Any]]:
                     round_name,
                     round_info["traffic"],
                     "raw_all",
-                    relative_path,
+                    pcap_path,
                     int(window_id),
                     10.0,
                 )
@@ -508,10 +529,21 @@ def materialize_strict59_ra() -> tuple[Path, dict[str, Any], dict[str, Any]]:
 
     accepted = pd.read_csv(
         ACCEPTED_RA_ROOT / "corrected_direction_features.csv", float_precision="round_trip"
-    ).sort_values(KEY_COLUMNS).reset_index(drop=True)
-    current_r2_r4 = direction[direction["round"].isin(("R2", "R3", "R4"))].reset_index(drop=True)
-    if len(accepted) != EXPECTED_R2_R4_ROWS or not current_r2_r4[KEY_COLUMNS].equals(accepted[KEY_COLUMNS]):
+    )
+    accepted["resolved_source_file"] = accepted["source_file"].map(
+        lambda value: str(resolve_recorded_source(value))
+    )
+    accepted_keys = ["label", "round", "window_id"]
+    accepted = accepted.sort_values(accepted_keys).reset_index(drop=True)
+    current_r2_r4 = (
+        direction[direction["round"].isin(("R2", "R3", "R4"))]
+        .sort_values(accepted_keys)
+        .reset_index(drop=True)
+    )
+    if len(accepted) != EXPECTED_R2_R4_ROWS or not current_r2_r4[accepted_keys].equals(accepted[accepted_keys]):
         raise PipelineError("R2-R4 accepted direction row-key reproduction failed")
+    if not current_r2_r4["source_file"].astype(str).equals(accepted["resolved_source_file"]):
+        raise PipelineError("R2-R4 accepted relative/absolute source-file resolution failed")
     accepted_columns = [f"ra_{feature}" for feature in direction_repair.DIRECTION14]
     accepted_ra_error = _numeric_max_abs(current_r2_r4, accepted, accepted_columns)
     if accepted_ra_error > 1e-9:
@@ -949,6 +981,7 @@ def write_manifest(root: Path) -> None:
 
 def run_all(
     expected_protocol_sha256: str,
+    expected_repair_protocol_sha256: str,
     expected_implementation_freeze_sha256: str,
     argv: Sequence[str],
 ) -> dict[str, Any]:
@@ -956,6 +989,7 @@ def run_all(
     started_utc = datetime.now(timezone.utc)
     static = validate_static(
         expected_protocol_sha256,
+        expected_repair_protocol_sha256,
         expected_implementation_freeze_sha256,
         require_output_absence=True,
     )
@@ -1076,6 +1110,8 @@ def run_all(
             "git_status_porcelain": _git_value(["status", "--porcelain"]),
             "protocol_sha256": sha256_file(PROTOCOL),
             "protocol_freeze_sha256": sha256_file(PROTOCOL_FREEZE),
+            "repair_protocol_sha256": sha256_file(REPAIR_PROTOCOL),
+            "r2_protocol_freeze_sha256": sha256_file(R2_PROTOCOL_FREEZE),
             "implementation_freeze_sha256": sha256_file(IMPLEMENTATION_FREEZE),
             "runner_sha256": sha256_file(Path(__file__).resolve()),
             "tests_sha256": sha256_file(TEST_FILE),
@@ -1119,6 +1155,7 @@ def run_all(
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--expected-protocol-sha256", required=True)
+    parser.add_argument("--expected-repair-protocol-sha256", required=True)
     parser.add_argument("--expected-implementation-freeze-sha256", required=True)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--preflight-no-fit", action="store_true")
@@ -1129,6 +1166,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.preflight_no_fit:
             audit = validate_static(
                 args.expected_protocol_sha256,
+                args.expected_repair_protocol_sha256,
                 args.expected_implementation_freeze_sha256,
                 require_output_absence=True,
             )
@@ -1136,6 +1174,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         else:
             run_all(
                 args.expected_protocol_sha256,
+                args.expected_repair_protocol_sha256,
                 args.expected_implementation_freeze_sha256,
                 effective_argv,
             )

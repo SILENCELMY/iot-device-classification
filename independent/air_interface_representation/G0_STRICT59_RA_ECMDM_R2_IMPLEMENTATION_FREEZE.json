@@ -1,0 +1,30 @@
+{
+  "authorization": "R2_RUN_AUTHORIZED_AFTER_PREFLIGHT_NO_FIT_PASS",
+  "failed_run_sha256": {
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902/FAILED.json": "0496449ae0b372e3f8f40960a063fe8e02b3d1849a4dda6825ff23db7fd7a3f9",
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902/full94_reproduction_gate.json": "8d5ec8a09badbd804f667dcf5fa1078722700ead64d396de6a13e07fb7388064"
+  },
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "implementation_sha256": {
+    "independent/air_interface_representation/run_g0_strict59_ra_ecmdm.py": "7231a274c838997ddad59e0b6a9d88dfb106d3a0d58275187aee095dd106a1c7",
+    "independent/air_interface_representation/test_g0_strict59_ra_ecmdm.py": "09ee2c86954d1278a2570f938edcc95b424e32b1009783e1f2a9646ef494bb42"
+  },
+  "numeric_outputs_absent_before_authorization": true,
+  "parent_implementation_commit": "39b0fde",
+  "parent_implementation_freeze_sha256": "6e3f26d49ed94ff31d2bc4889735adc74449c9a9ca63ff7a8edb702a01db795c",
+  "parent_protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "r2_protocol_commit": "ab830ed",
+  "r2_protocol_freeze_sha256": "4dff6c036e7ee9e955cfbac67927b81ab08e32e9e5e91209685f78044fa2b071",
+  "repair_protocol_sha256": "ad0644d3f396fcbe44caac8e4c4398fb6eda23dd872c18cddcd50b1cb6047269",
+  "review": {
+    "formal_r2_output_roots_absent": true,
+    "frozen_scientific_modules_modified": false,
+    "old_failed_or_frozen_outputs_modified": false,
+    "path_repair_matches_r2_protocol_only": true,
+    "proxy_variables_empty": true,
+    "synthetic_and_static_tests": "11/11 PASS"
+  },
+  "runner_bytes": 55233,
+  "test_bytes": 8191
+}
