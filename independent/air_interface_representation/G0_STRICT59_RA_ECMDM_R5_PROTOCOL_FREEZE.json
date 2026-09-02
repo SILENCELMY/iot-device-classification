@@ -1,0 +1,38 @@
+{
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "numeric_outputs_absent_at_freeze": {
+    "results/.g0_environment_grid_strict59_ra_r5_model_attempts": true,
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_r5_20260902.systemd.log": true,
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r5": true,
+    "results/g0_environment_grid_strict59_ra_r5": true,
+    "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r5": true
+  },
+  "parent_protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "r2_repair_protocol_sha256": "ad0644d3f396fcbe44caac8e4c4398fb6eda23dd872c18cddcd50b1cb6047269",
+  "r3_recovery_protocol_sha256": "e98aef970698827e531a685f6d5f87a30ce68a1f6360138556a4621fc710ea01",
+  "r4_implementation_freeze_sha256": "62de14924bfeff8b0597f7c685846374d1ff9ccb028ec6c3f30bbe48831d5c5b",
+  "r4_repair_protocol_sha256": "607686217f0d18a71b8df6d5ff63e03d8599f7b714df8c10035e12baa29adcbf",
+  "r4_staging_snapshot": {
+    "audit_root": {
+      "file_count": 5,
+      "metrics_json_count": 0,
+      "total_bytes": 10431614,
+      "tree_sha256": "3d07f65f332ca7b9a782a2c5ea6546b66f00801ef1dd49edf4998d1747261eda"
+    },
+    "g0_root": {
+      "file_count": 5526,
+      "metrics_json_count": 613,
+      "total_bytes": 20395864950,
+      "tree_sha256": "0dbccd96bb57e16d5f988ffed7097b20035277a4197bf5ba0c3ac7d1b12744a6"
+    },
+    "science_root_absent": true,
+    "systemd_log_sha256": "d2698cac565da1bf60947b85c36d0cf19ef0d453e60456d71d176a336825d905"
+  },
+  "isolation_protocol": {
+    "bytes": 8393,
+    "path": "independent/air_interface_representation/PROTOCOL_G0_STRICT59_RA_ECMDM_MODEL_PROCESS_ISOLATION_R5_20260902.md",
+    "sha256": "6cd5161dca8a7c8c5e0fa47a2a294b1d0b07ae6bd68e6cdca73f315620d62288",
+    "status": "NATIVE_MODEL_PROCESS_ISOLATION_FROZEN_BEFORE_R5_RUN"
+  }
+}
