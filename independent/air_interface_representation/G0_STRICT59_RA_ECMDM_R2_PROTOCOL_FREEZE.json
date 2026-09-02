@@ -1,0 +1,20 @@
+{
+  "failed_run_sha256": {
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902/FAILED.json": "0496449ae0b372e3f8f40960a063fe8e02b3d1849a4dda6825ff23db7fd7a3f9",
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902/full94_reproduction_gate.json": "8d5ec8a09badbd804f667dcf5fa1078722700ead64d396de6a13e07fb7388064"
+  },
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "numeric_outputs_absent_at_freeze": {
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r2": true,
+    "results/g0_environment_grid_strict59_ra_r2": true,
+    "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r2": true
+  },
+  "parent_protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "repair_protocol": {
+    "bytes": 4288,
+    "path": "independent/air_interface_representation/PROTOCOL_G0_STRICT59_RA_ECMDM_PATH_REPAIR_R2_20260902.md",
+    "sha256": "ad0644d3f396fcbe44caac8e4c4398fb6eda23dd872c18cddcd50b1cb6047269",
+    "status": "IMPLEMENTATION_PATH_REPAIR_FROZEN_BEFORE_RERUN"
+  }
+}
