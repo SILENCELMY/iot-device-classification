@@ -1,0 +1,26 @@
+{
+  "authorization": "RUN_AUTHORIZED_AFTER_PREFLIGHT_NO_FIT_PASS",
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "implementation_sha256": {
+    "independent/air_interface_representation/run_g0_strict59_ra_ecmdm.py": "3f57806e0bd46268f4af002ba3df84cecfe1afac1c09f34f89376f0830068ead",
+    "independent/air_interface_representation/test_g0_strict59_ra_ecmdm.py": "72b0063b628a566c1ba1205d66738a1c6f497f2bc3073affc29de3b754288873"
+  },
+  "numeric_outputs_absent_before_authorization": true,
+  "protocol_commit": "e8adaad",
+  "protocol_freeze": {
+    "path": "independent/air_interface_representation/G0_STRICT59_RA_ECMDM_PROTOCOL_FREEZE.json",
+    "sha256": "443f56ac8ee728d3afa04ffd705567a6ecf5fdee1efeeba047b2c5f2214347c1"
+  },
+  "protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "review": {
+    "formal_output_roots_absent": true,
+    "frozen_modules_modified": false,
+    "old_failed_or_frozen_outputs_modified": false,
+    "path_overrides_only_for_g0_m1_m1r_m2": true,
+    "proxy_variables_empty": true,
+    "synthetic_and_static_tests": "10/10 PASS"
+  },
+  "runner_bytes": 53261,
+  "test_bytes": 7122
+}
