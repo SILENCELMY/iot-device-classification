@@ -1,0 +1,33 @@
+{
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "numeric_outputs_absent_at_freeze": {
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r3": true,
+    "results/g0_environment_grid_strict59_ra_r3": true,
+    "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r3": true
+  },
+  "parent_protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "r2_implementation_freeze_sha256": "c1f4990c19c4e3d1447ad7207308fe42bdba32b50c61b396198d39b1566a698c",
+  "r2_repair_protocol_sha256": "ad0644d3f396fcbe44caac8e4c4398fb6eda23dd872c18cddcd50b1cb6047269",
+  "r2_staging_snapshot": {
+    "audit_root": {
+      "file_count": 6,
+      "metrics_json_count": 0,
+      "total_bytes": 10433922,
+      "tree_sha256": "42afdf34243fe27f678c3cad2ef24591818b808239273fc08ac16d27925dc415"
+    },
+    "g0_root": {
+      "file_count": 2835,
+      "metrics_json_count": 315,
+      "total_bytes": 10562160576,
+      "tree_sha256": "5bd46658601e536da925ea3aecbd73f8813b68c122f2b61f971f31d4fc523fa9"
+    },
+    "science_root_absent": true
+  },
+  "recovery_protocol": {
+    "bytes": 5408,
+    "path": "independent/air_interface_representation/PROTOCOL_G0_STRICT59_RA_ECMDM_TERMINAL_RECOVERY_R3_20260902.md",
+    "sha256": "e98aef970698827e531a685f6d5f87a30ce68a1f6360138556a4621fc710ea01",
+    "status": "TERMINAL_CARRIER_RECOVERY_FROZEN_BEFORE_R3_RERUN"
+  }
+}
