@@ -1,0 +1,50 @@
+{
+  "authorization": "USER_AUTHORIZED_IN_PLACE_R5_RECOVERY_AND_CONTINUATION",
+  "freeze_date": "2026-09-03",
+  "freeze_timezone": "Asia/Shanghai",
+  "parent_implementation_commit": "b8cd296",
+  "parent_implementation_freeze_sha256": "6b6a137d2675f9c931ec7b8cfcacdf7258f0e3e244711efde21be79ab8421f93",
+  "parent_isolation_protocol_sha256": "6cd5161dca8a7c8c5e0fa47a2a294b1d0b07ae6bd68e6cdca73f315620d62288",
+  "parent_protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "continuation_protocol": {
+    "bytes": 5146,
+    "path": "independent/air_interface_representation/PROTOCOL_G0_STRICT59_RA_ECMDM_R5_BOUNDED_CONTINUATION_20260903.md",
+    "sha256": "838e6b8674ed4b7533c9e9569021143487e75b164b6735ea995cc954e0dd0c13",
+    "status": "R5_BOUNDED_STABILITY_CONTINUATION_FROZEN_BEFORE_S3"
+  },
+  "frozen_r5_staging": {
+    "audit_root": "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r5",
+    "failed_json_sha256": "c2af66e4fbab6eef260df8866d6a1e53d659c0d7b41c5ae035da90ced78b7e43",
+    "g0_a": {
+      "file_count": 5835,
+      "metrics_json_count": 648,
+      "predictions_csv_count": 648,
+      "pred_proba_csv_count": 648,
+      "feature_columns_json_count": 648,
+      "oof_meta_csv_count": 162,
+      "root": "results/g0_environment_grid_strict59_ra_r5",
+      "summary_metrics_csv_sha256": "2aa065013c09203fd9e28e3f024e64115e58e3da1ea1988b5ac878adf4979132",
+      "summary_metrics_json_sha256": "6ffdd0b2dbca2891241cecfbc9b303c3e134c7ee50498f38bb01cc472269be1c"
+    },
+    "g0_b": {
+      "file_count": 5835,
+      "metrics_json_count": 648,
+      "predictions_csv_count": 648,
+      "pred_proba_csv_count": 648,
+      "feature_columns_json_count": 648,
+      "oof_meta_csv_count": 162,
+      "root": "/tmp/strict59_ra_ecmdm_ge7nrsdf/g0_b",
+      "summary_metrics_csv_sha256": "50458ea9b2755eca08caea3604f41a6de0e73557a4f9c2a2214009fe85c49a39",
+      "summary_metrics_json_sha256": "83034a0e1882f09e845a12f793f32129b710ec9c2b8ef91cc640aa5202912a7f"
+    },
+    "model_process_isolation_audit_sha256": "68abd2fcd06fdd64ff40d5c1a4280ec6e9cd83da457d8cbc3eebdc450fcb2938",
+    "pre_continuation_systemd_log_sha256": "ba2fe8e436735c7b4476b27ab08ac96f3d4bf10fa4b6e2762e610ccb006ec787",
+    "science_root_absent": true
+  },
+  "scientific_logic_changed": false,
+  "recovery_changes": [
+    "G0 bounded replicate stability replaces byte identity after the disclosed S2 stop",
+    "G0-A is canonical science input for both downstream deterministic repeats",
+    "original FAILED.json is retained under RECOVERED_S2_G0_VERIFY_FAILURE.json"
+  ]
+}
