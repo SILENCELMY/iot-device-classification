@@ -1,0 +1,23 @@
+{
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "git_head_at_freeze": "de45df666ad53b3fbd527cb6d8afac9db75c2495",
+  "numeric_outputs_absent_at_freeze": {
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902": true,
+    "results/g0_environment_grid_strict59_ra": true,
+    "results/meta_mismatch_exploratory/strict59_ra_ecmdm": true
+  },
+  "protocol": {
+    "bytes": 19098,
+    "path": "independent/air_interface_representation/PROTOCOL_G0_STRICT59_RA_ECMDM_RECALIBRATION_20260902.md",
+    "sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+    "status": "PROTOCOL_FROZEN_BEFORE_ANY_STRICT59_RA_G0_NUMERIC_RUN"
+  },
+  "superseded_protocol_not_modified": "docs/PROTOCOL_G0_STRICT59_ECMDM_20260902.md",
+  "upstream_anchor_sha256": {
+    "results/air_interface_representation_audit/strict59_ra_run_20260902_r2/VERDICT.md": "279eefa6358a7cf132fb623a82283f3cd0b7e7b8a49f3e1c4fbe1a638865b53a",
+    "results/air_interface_representation_audit/strict59_ra_run_20260902_r2/acceptance.json": "67a510f732a726752e5840c2d865fd176dd0a715dc4907e62b9c52777758941e",
+    "results/air_interface_representation_audit/strict59_ra_run_20260902_r2/feature_arms.json": "5a44b90e9a7cf30588c348addb10ad3d0292abd3adb9ef5c7227ee9247910005",
+    "results/air_interface_representation_audit/strict59_ra_run_20260902_r2/manifest.json": "f57975a459eabb3ccd1c1a6a12db5042d3ecfb3c4f49e095f9c4bdd5b0c26bd0"
+  }
+}
