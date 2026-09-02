@@ -1,0 +1,34 @@
+{
+  "authorization": "CONTINUATION_ALLOWED_ONLY_AFTER_TESTS_AND_PREFLIGHT_NO_FIT_PASS",
+  "freeze_date": "2026-09-03",
+  "freeze_timezone": "Asia/Shanghai",
+  "continuation_protocol_commit": "03938ef",
+  "continuation_protocol_sha256": "838e6b8674ed4b7533c9e9569021143487e75b164b6735ea995cc954e0dd0c13",
+  "continuation_protocol_freeze_sha256": "584bc032f68f9c3b802d389e00bde3e2409b73076e8d9862303f1a3bc2e3d091",
+  "continuation_r2_protocol_sha256": "02358b60f8a69c01a38bc0f356b35f834dea6b9d80ae17f84df89929f1026b09",
+  "continuation_r2_protocol_freeze_sha256": "7f933975f3ce14352bec6fbea39acedf75194933975922dd46980c0d61c6a3a3",
+  "implementation_sha256": {
+    "independent/air_interface_representation/continue_g0_strict59_ra_ecmdm_r5.py": "f755717d1d3d8d2165635dbfdc4e3e08cd391e860f0d82f1e6e86cd93e3249e0",
+    "independent/air_interface_representation/test_continue_g0_strict59_ra_ecmdm_r5.py": "52eca08e974412a4597c187a79757f0a847e5fecdd67ab3c70a4abf773e91161"
+  },
+  "parent_r5_implementation_freeze_sha256": "6b6a137d2675f9c931ec7b8cfcacdf7258f0e3e244711efde21be79ab8421f93",
+  "review": {
+    "canonical_g0_a_used_for_both_downstream_repeats": true,
+    "frozen_g0_or_scientific_modules_modified": false,
+    "g0_a_or_g0_b_training_called": false,
+    "g0_complete_staging_read_only": true,
+    "original_failure_atomically_preserved": true,
+    "scientific_adjudication_logic_changed": false,
+    "synthetic_tests": "18/18 PASS"
+  },
+  "stability_thresholds": {
+    "oof_probability_max_abs_delta": 0.05,
+    "probability_max_abs_delta": 0.05,
+    "probability_row_sum_tolerance": 1e-06,
+    "stacking_cell_label_disagreement_max": 0.002,
+    "stacking_global_label_disagreement_max": 0.0001,
+    "stacking_metric_abs_delta_max": 0.002
+  },
+  "runner_bytes": 38242,
+  "test_bytes": 6750
+}
