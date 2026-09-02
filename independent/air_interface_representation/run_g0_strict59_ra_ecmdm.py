@@ -55,15 +55,18 @@ R2_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R2_PROTOCOL_FREEZE.json"
 R2_IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R2_IMPLEMENTATION_FREEZE.json"
 RECOVERY_PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_TERMINAL_RECOVERY_R3_20260902.md"
 R3_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R3_PROTOCOL_FREEZE.json"
-IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R3_IMPLEMENTATION_FREEZE.json"
+R3_IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R3_IMPLEMENTATION_FREEZE.json"
+TMP_REPAIR_PROTOCOL = HERE / "PROTOCOL_G0_STRICT59_RA_ECMDM_TMP_DISPLAY_REPAIR_R4_20260902.md"
+R4_PROTOCOL_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R4_PROTOCOL_FREEZE.json"
+IMPLEMENTATION_FREEZE = HERE / "G0_STRICT59_RA_ECMDM_R4_IMPLEMENTATION_FREEZE.json"
 TEST_FILE = HERE / "test_g0_strict59_ra_ecmdm.py"
 
 AUDIT_ROOT = (
     REPO_ROOT
-    / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r3"
+    / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r4"
 )
-G0_ROOT_A = REPO_ROOT / "results/g0_environment_grid_strict59_ra_r3"
-SCIENCE_ROOT_A = REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r3"
+G0_ROOT_A = REPO_ROOT / "results/g0_environment_grid_strict59_ra_r4"
+SCIENCE_ROOT_A = REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r4"
 SOURCE_CACHE = REPO_ROOT / "results/robust_v2/raw_all/features_raw_all_w10.csv"
 ACCEPTED_RA_ROOT = (
     REPO_ROOT
@@ -272,6 +275,7 @@ def validate_static(
     expected_protocol_sha256: str,
     expected_repair_protocol_sha256: str,
     expected_recovery_protocol_sha256: str,
+    expected_tmp_repair_protocol_sha256: str,
     expected_implementation_freeze_sha256: str,
     require_output_absence: bool,
 ) -> dict[str, Any]:
@@ -303,6 +307,21 @@ def validate_static(
     r2_implementation_hash = sha256_file(R2_IMPLEMENTATION_FREEZE)
     if recovery_freeze["r2_implementation_freeze_sha256"] != r2_implementation_hash:
         raise PipelineError("R3 recovery protocol R2 implementation hash mismatch")
+    r4_freeze = _read_json(R4_PROTOCOL_FREEZE)
+    tmp_repair_protocol_hash = sha256_file(TMP_REPAIR_PROTOCOL)
+    if tmp_repair_protocol_hash != expected_tmp_repair_protocol_sha256:
+        raise PipelineError("CLI expected R4 temporary display repair protocol SHA-256 mismatch")
+    if tmp_repair_protocol_hash != r4_freeze["repair_protocol"]["sha256"]:
+        raise PipelineError("R4 temporary display repair protocol freeze record mismatch")
+    if r4_freeze["parent_protocol_sha256"] != protocol_hash:
+        raise PipelineError("R4 temporary display repair parent protocol hash mismatch")
+    if r4_freeze["r2_repair_protocol_sha256"] != repair_protocol_hash:
+        raise PipelineError("R4 temporary display repair R2 protocol hash mismatch")
+    if r4_freeze["r3_recovery_protocol_sha256"] != recovery_protocol_hash:
+        raise PipelineError("R4 temporary display repair R3 protocol hash mismatch")
+    r3_implementation_hash = sha256_file(R3_IMPLEMENTATION_FREEZE)
+    if r4_freeze["r3_implementation_freeze_sha256"] != r3_implementation_hash:
+        raise PipelineError("R4 temporary display repair R3 implementation hash mismatch")
     if sha256_file(IMPLEMENTATION_FREEZE) != expected_implementation_freeze_sha256:
         raise PipelineError("implementation freeze SHA-256 mismatch")
     implementation = _read_json(IMPLEMENTATION_FREEZE)
@@ -339,6 +358,9 @@ def validate_static(
         "r2_implementation_freeze_sha256": r2_implementation_hash,
         "recovery_protocol_sha256": recovery_protocol_hash,
         "r3_protocol_freeze_sha256": sha256_file(R3_PROTOCOL_FREEZE),
+        "r3_implementation_freeze_sha256": r3_implementation_hash,
+        "tmp_repair_protocol_sha256": tmp_repair_protocol_hash,
+        "r4_protocol_freeze_sha256": sha256_file(R4_PROTOCOL_FREEZE),
         "implementation_freeze_sha256": sha256_file(IMPLEMENTATION_FREEZE),
         "anchor_sha256": anchors,
         "full94_reference_sha256": full94,
@@ -667,11 +689,22 @@ def patched_argv(argv: Sequence[str]) -> Iterator[None]:
         sys.argv = old
 
 
+def g0_display_root(output_root: Path, repository_root: Path | None = None) -> Path:
+    repo = Path(g0.REPO_ROOT if repository_root is None else repository_root).resolve()
+    output = Path(output_root).resolve()
+    try:
+        output.relative_to(repo)
+        return repo
+    except ValueError:
+        return Path(os.path.commonpath((str(repo), str(output))))
+
+
 def run_g0(cache: Path, output_root: Path) -> None:
     if output_root.exists():
         raise PipelineError(f"G0 output root already exists: {output_root}")
-    old_cache, old_output = g0.CACHE_SRC, g0.OUT_ROOT
+    old_cache, old_output, old_repo = g0.CACHE_SRC, g0.OUT_ROOT, g0.REPO_ROOT
     g0.CACHE_SRC, g0.OUT_ROOT = cache, output_root
+    g0.REPO_ROOT = g0_display_root(output_root, old_repo)
     argv = [
         str(Path(g0.__file__)),
         "--models",
@@ -690,7 +723,7 @@ def run_g0(cache: Path, output_root: Path) -> None:
         if result != 0:
             raise PipelineError(f"G0 returned nonzero: {result}")
     finally:
-        g0.CACHE_SRC, g0.OUT_ROOT = old_cache, old_output
+        g0.CACHE_SRC, g0.OUT_ROOT, g0.REPO_ROOT = old_cache, old_output, old_repo
 
 
 def _deterministic_files(root: Path, excluded_names: set[str] | None = None) -> dict[str, Path]:
@@ -1003,6 +1036,7 @@ def run_all(
     expected_protocol_sha256: str,
     expected_repair_protocol_sha256: str,
     expected_recovery_protocol_sha256: str,
+    expected_tmp_repair_protocol_sha256: str,
     expected_implementation_freeze_sha256: str,
     argv: Sequence[str],
 ) -> dict[str, Any]:
@@ -1012,6 +1046,7 @@ def run_all(
         expected_protocol_sha256,
         expected_repair_protocol_sha256,
         expected_recovery_protocol_sha256,
+        expected_tmp_repair_protocol_sha256,
         expected_implementation_freeze_sha256,
         require_output_absence=True,
     )
@@ -1137,6 +1172,9 @@ def run_all(
             "r2_implementation_freeze_sha256": sha256_file(R2_IMPLEMENTATION_FREEZE),
             "recovery_protocol_sha256": sha256_file(RECOVERY_PROTOCOL),
             "r3_protocol_freeze_sha256": sha256_file(R3_PROTOCOL_FREEZE),
+            "r3_implementation_freeze_sha256": sha256_file(R3_IMPLEMENTATION_FREEZE),
+            "tmp_repair_protocol_sha256": sha256_file(TMP_REPAIR_PROTOCOL),
+            "r4_protocol_freeze_sha256": sha256_file(R4_PROTOCOL_FREEZE),
             "implementation_freeze_sha256": sha256_file(IMPLEMENTATION_FREEZE),
             "runner_sha256": sha256_file(Path(__file__).resolve()),
             "tests_sha256": sha256_file(TEST_FILE),
@@ -1182,6 +1220,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--expected-protocol-sha256", required=True)
     parser.add_argument("--expected-repair-protocol-sha256", required=True)
     parser.add_argument("--expected-recovery-protocol-sha256", required=True)
+    parser.add_argument("--expected-tmp-repair-protocol-sha256", required=True)
     parser.add_argument("--expected-implementation-freeze-sha256", required=True)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--preflight-no-fit", action="store_true")
@@ -1194,6 +1233,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.expected_protocol_sha256,
                 args.expected_repair_protocol_sha256,
                 args.expected_recovery_protocol_sha256,
+                args.expected_tmp_repair_protocol_sha256,
                 args.expected_implementation_freeze_sha256,
                 require_output_absence=True,
             )
@@ -1203,6 +1243,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.expected_protocol_sha256,
                 args.expected_repair_protocol_sha256,
                 args.expected_recovery_protocol_sha256,
+                args.expected_tmp_repair_protocol_sha256,
                 args.expected_implementation_freeze_sha256,
                 effective_argv,
             )

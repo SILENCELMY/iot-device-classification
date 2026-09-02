@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
@@ -196,11 +197,31 @@ class EngineeringHelperTests(unittest.TestCase):
             recovery_freeze["r2_implementation_freeze_sha256"],
             runner.sha256_file(runner.R2_IMPLEMENTATION_FREEZE),
         )
+        r4_freeze = json.loads(runner.R4_PROTOCOL_FREEZE.read_text(encoding="utf-8"))
+        self.assertEqual(
+            r4_freeze["repair_protocol"]["sha256"],
+            runner.sha256_file(runner.TMP_REPAIR_PROTOCOL),
+        )
+        self.assertEqual(
+            r4_freeze["parent_protocol_sha256"], freeze["protocol"]["sha256"]
+        )
+        self.assertEqual(
+            r4_freeze["r2_repair_protocol_sha256"],
+            repair_freeze["repair_protocol"]["sha256"],
+        )
+        self.assertEqual(
+            r4_freeze["r3_recovery_protocol_sha256"],
+            recovery_freeze["recovery_protocol"]["sha256"],
+        )
+        self.assertEqual(
+            r4_freeze["r3_implementation_freeze_sha256"],
+            runner.sha256_file(runner.R3_IMPLEMENTATION_FREEZE),
+        )
 
-    def test_r3_roots_are_new_and_do_not_reuse_r2_staging(self) -> None:
-        self.assertEqual(runner.AUDIT_ROOT.name, "strict59_ra_ecmdm_recalibration_20260902_r3")
-        self.assertEqual(runner.G0_ROOT_A.name, "g0_environment_grid_strict59_ra_r3")
-        self.assertEqual(runner.SCIENCE_ROOT_A.name, "strict59_ra_ecmdm_r3")
+    def test_r4_roots_are_new_and_do_not_reuse_old_staging(self) -> None:
+        self.assertEqual(runner.AUDIT_ROOT.name, "strict59_ra_ecmdm_recalibration_20260902_r4")
+        self.assertEqual(runner.G0_ROOT_A.name, "g0_environment_grid_strict59_ra_r4")
+        self.assertEqual(runner.SCIENCE_ROOT_A.name, "strict59_ra_ecmdm_r4")
         self.assertNotEqual(
             runner.AUDIT_ROOT,
             runner.REPO_ROOT
@@ -214,6 +235,39 @@ class EngineeringHelperTests(unittest.TestCase):
             runner.SCIENCE_ROOT_A,
             runner.REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r2",
         )
+        self.assertNotEqual(
+            runner.AUDIT_ROOT,
+            runner.REPO_ROOT
+            / "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r3",
+        )
+        self.assertNotEqual(
+            runner.G0_ROOT_A,
+            runner.REPO_ROOT / "results/g0_environment_grid_strict59_ra_r3",
+        )
+        self.assertNotEqual(
+            runner.SCIENCE_ROOT_A,
+            runner.REPO_ROOT / "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r3",
+        )
+
+    def test_g0_display_root_preserves_repo_or_uses_common_ancestor(self) -> None:
+        in_repo = runner.REPO_ROOT / "results" / "synthetic"
+        self.assertEqual(runner.g0_display_root(in_repo, runner.REPO_ROOT), runner.REPO_ROOT)
+        with tempfile.TemporaryDirectory(dir="/tmp") as temp:
+            outside = Path(temp) / "g0_b"
+            display_root = runner.g0_display_root(outside, runner.REPO_ROOT)
+            outside.resolve().relative_to(display_root)
+            runner.REPO_ROOT.resolve().relative_to(display_root)
+
+    def test_run_g0_restores_display_root_on_exception(self) -> None:
+        old_cache, old_output, old_repo = runner.g0.CACHE_SRC, runner.g0.OUT_ROOT, runner.g0.REPO_ROOT
+        with tempfile.TemporaryDirectory(dir="/tmp") as temp:
+            root = Path(temp)
+            with mock.patch.object(runner.g0, "main", side_effect=RuntimeError("synthetic")):
+                with self.assertRaisesRegex(RuntimeError, "synthetic"):
+                    runner.run_g0(root / "cache.csv", root / "g0_b")
+        self.assertEqual(runner.g0.CACHE_SRC, old_cache)
+        self.assertEqual(runner.g0.OUT_ROOT, old_output)
+        self.assertEqual(runner.g0.REPO_ROOT, old_repo)
 
     def test_relative_and_absolute_source_paths_must_resolve_identically(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

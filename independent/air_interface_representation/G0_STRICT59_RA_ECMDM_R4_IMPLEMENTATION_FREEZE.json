@@ -1,0 +1,31 @@
+{
+  "authorization": "R4_RUN_AUTHORIZED_ONLY_AFTER_PREFLIGHT_NO_FIT_PASS",
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "implementation_sha256": {
+    "independent/air_interface_representation/run_g0_strict59_ra_ecmdm.py": "7b1f174979a822286683dd556ae9f5b22b7b1d9c77cb818da96d1bd798bb10bc",
+    "independent/air_interface_representation/test_g0_strict59_ra_ecmdm.py": "edf9fddb55cbc5ad75cb6ec64ea06be441a2d8ba70d15fa59e8900a4cff06d43"
+  },
+  "numeric_outputs_absent_before_authorization": true,
+  "parent_implementation_commit": "777d893",
+  "parent_protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "r2_repair_protocol_sha256": "ad0644d3f396fcbe44caac8e4c4398fb6eda23dd872c18cddcd50b1cb6047269",
+  "r3_implementation_freeze_sha256": "77584dc701f10f68759e960d559e77616fc8c281a0247fcee29d3d3ad219192f",
+  "r3_recovery_protocol_sha256": "e98aef970698827e531a685f6d5f87a30ce68a1f6360138556a4621fc710ea01",
+  "r3_failed_json_sha256": "973c77c10d391466564f24a47678e7f69be78a088dab5867bdddbc6c35df906d",
+  "r4_protocol_commit": "2ab0111",
+  "r4_protocol_freeze_sha256": "a5453deac708b96a182f2fc2939d090bb1c2fdb51a20bd614b8220fceafb696f",
+  "tmp_display_repair_protocol_sha256": "607686217f0d18a71b8df6d5ff63e03d8599f7b714df8c10035e12baa29adcbf",
+  "review": {
+    "formal_r4_output_roots_absent": true,
+    "frozen_g0_module_modified": false,
+    "frozen_scientific_modules_modified": false,
+    "old_failed_or_frozen_outputs_modified": false,
+    "r2_and_r3_staging_preserved": true,
+    "scientific_logic_differs_from_r3": false,
+    "synthetic_tests": "14/14 PASS",
+    "tmp_display_repair_matches_r4_protocol_only": true
+  },
+  "runner_bytes": 59835,
+  "test_bytes": 12269
+}
