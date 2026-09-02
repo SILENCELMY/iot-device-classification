@@ -1,0 +1,36 @@
+{
+  "freeze_date": "2026-09-02",
+  "freeze_timezone": "Asia/Shanghai",
+  "numeric_outputs_absent_at_freeze": {
+    "results/air_interface_representation_audit/strict59_ra_ecmdm_recalibration_20260902_r4": true,
+    "results/g0_environment_grid_strict59_ra_r4": true,
+    "results/meta_mismatch_exploratory/strict59_ra_ecmdm_r4": true
+  },
+  "parent_protocol_sha256": "d3c0c19821effee9ce1c9370fe6dc0046742c0f2038a887c34b8952445bfee5a",
+  "r2_repair_protocol_sha256": "ad0644d3f396fcbe44caac8e4c4398fb6eda23dd872c18cddcd50b1cb6047269",
+  "r3_implementation_freeze_sha256": "77584dc701f10f68759e960d559e77616fc8c281a0247fcee29d3d3ad219192f",
+  "r3_recovery_protocol_sha256": "e98aef970698827e531a685f6d5f87a30ce68a1f6360138556a4621fc710ea01",
+  "r3_staging_snapshot": {
+    "audit_root": {
+      "failed_json_sha256": "973c77c10d391466564f24a47678e7f69be78a088dab5867bdddbc6c35df906d",
+      "file_count": 6,
+      "metrics_json_count": 0,
+      "total_bytes": 10433311,
+      "tree_sha256": "a8f45b1eb216cf3e263356507358dbb99ea4eca882313fff031ecb9d918c4a3b"
+    },
+    "g0_root": {
+      "file_count": 5835,
+      "metrics_json_count": 648,
+      "total_bytes": 20886330456,
+      "tree_sha256": "0b628f1164322daa31cc251c1e23e1f4730a921e5a813212dc3a7b85353294a0"
+    },
+    "science_root_absent": true,
+    "systemd_log_sha256": "bf5d3ed9631c7ff432da01f04e1f7c8858515ef1e6a5607c008cb3207467d0e1"
+  },
+  "repair_protocol": {
+    "bytes": 6504,
+    "path": "independent/air_interface_representation/PROTOCOL_G0_STRICT59_RA_ECMDM_TMP_DISPLAY_REPAIR_R4_20260902.md",
+    "sha256": "607686217f0d18a71b8df6d5ff63e03d8599f7b714df8c10035e12baa29adcbf",
+    "status": "TMP_DISPLAY_PATH_REPAIR_FROZEN_BEFORE_R4_RERUN"
+  }
+}
