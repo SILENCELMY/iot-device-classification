@@ -1,0 +1,27 @@
+{
+  "freeze_date": "2026-09-03",
+  "freeze_timezone": "Asia/Shanghai",
+  "parent_continuation_protocol_commit": "03938ef",
+  "parent_continuation_protocol_sha256": "838e6b8674ed4b7533c9e9569021143487e75b164b6735ea995cc954e0dd0c13",
+  "parent_continuation_protocol_freeze_sha256": "584bc032f68f9c3b802d389e00bde3e2409b73076e8d9862303f1a3bc2e3d091",
+  "preflight_implementation_freeze_sha256": "05a4ced16c15b6ded23b21ba7f298f658a5e2ce7a19cd860de5ba481d2b91193",
+  "preflight_outcome": {
+    "continuation_started": false,
+    "failed_json_sha256_unchanged": "c2af66e4fbab6eef260df8866d6a1e53d659c0d7b41c5ae035da90ced78b7e43",
+    "g0_modified": false,
+    "maximum_xgboost_or_oof_row_sum_error_a": 8.900133252609521e-08,
+    "maximum_xgboost_or_oof_row_sum_error_b": 8.900133252609521e-08,
+    "science_root_absent": true,
+    "status": "PREFLIGHT_STOP_BEFORE_ANY_CONTINUATION_WRITE"
+  },
+  "repair_protocol": {
+    "bytes": 2048,
+    "path": "independent/air_interface_representation/PROTOCOL_G0_STRICT59_RA_ECMDM_R5_CONTINUATION_PREFLIGHT_REPAIR_R2_20260903.md",
+    "sha256": "02358b60f8a69c01a38bc0f356b35f834dea6b9d80ae17f84df89929f1026b09",
+    "status": "R5_CONTINUATION_FLOAT32_SIMPLEX_TOLERANCE_FROZEN_BEFORE_S3"
+  },
+  "sole_change": {
+    "from_probability_row_sum_tolerance": 1e-10,
+    "to_probability_row_sum_tolerance": 1e-06
+  }
+}
