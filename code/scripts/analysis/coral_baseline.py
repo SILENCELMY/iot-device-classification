@@ -3,7 +3,12 @@
 CORAL (CORrelation ALignment) Baseline Implementation
 目标: 缓解 feature covariance drift, 验证是否能降低 confusion pattern drift
 方法: 对齐源域和目标域的特征协方差矩阵
-参考: Sun & Saenko, "Deep CORAL: Correlation Alignment for Deep Domain Adaptation", ECCV 2016
+参考: Sun, Feng & Saenko, "Return of Frustratingly Easy Domain Adaptation", AAAI 2016
+      （本文件实现的是该文的无监督闭式解；此前 docstring 误引 Deep CORAL/ECCV 2016）
+
+2026-09-03 修复: 行向量约定下着色矩阵应取 L_tgt.T 而非 L_tgt，见 fit() 内注释与
+docs/PROTOCOL_DA_BASELINES_20260903.md §0。修复前落盘的 cov_reduction_pct 为负值
+（协方差差异被放大 2–10 倍），据其得出的结论已作废。
 """
 
 import pandas as pd
@@ -60,9 +65,11 @@ class CORALAligner:
             self.whitening_mat = U_src @ np.diag(1.0 / np.sqrt(S_src + 1e-5)) @ U_src.T
 
         # 着色矩阵
+        # 行向量约定下 transform 计算 X_c @ W @ C，故 Cov(X_aligned) = C.T @ W.T @ Cs @ W @ C = C.T @ C。
+        # 目标是 Ct = L_tgt @ L_tgt.T，因此必须取 C = L_tgt.T（取 L_tgt 会得到 L_tgt.T @ L_tgt，与 Ct 不等）。
         try:
             L_tgt = np.linalg.cholesky(self.cov_tgt)  # Ct = L_tgt @ L_tgt.T
-            self.coloring_mat = L_tgt  # Ct^{1/2}
+            self.coloring_mat = L_tgt.T  # Ct^{1/2} 的行向量约定形式
         except np.linalg.LinAlgError:
             U_tgt, S_tgt, _ = np.linalg.svd(self.cov_tgt)
             self.coloring_mat = U_tgt @ np.diag(np.sqrt(S_tgt + 1e-5)) @ U_tgt.T
