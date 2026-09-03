@@ -1,0 +1,186 @@
+{
+  "day_csv": "/home/lmy/iot-device-classification/results/unsw_features_full/features_day_16-09-23.csv",
+  "raw_columns": 69,
+  "first_column_utf8sig": "device",
+  "first_column_plain_utf8": "device",
+  "epoch_dtype": "float64",
+  "with_epoch_in_meta": {
+    "n_features": 61,
+    "groups": {
+      "len": [
+        "len_mean",
+        "len_std",
+        "len_min",
+        "len_max",
+        "len_range",
+        "len_cv",
+        "len_p10",
+        "len_p25",
+        "len_p50",
+        "len_p75",
+        "len_p90",
+        "len_p95",
+        "len_iqr",
+        "len_up_down_diff"
+      ],
+      "interarrival": [
+        "interarrival_mean",
+        "interarrival_std",
+        "interarrival_min",
+        "interarrival_max",
+        "interarrival_cv",
+        "interarrival_p10",
+        "interarrival_p25",
+        "interarrival_p50",
+        "interarrival_p75",
+        "interarrival_p90",
+        "interarrival_p95",
+        "interarrival_iqr"
+      ],
+      "subwin": [
+        "subwin_packet_mean",
+        "subwin_packet_std",
+        "subwin_packet_min",
+        "subwin_packet_max",
+        "subwin_packet_cv",
+        "subwin_byte_mean",
+        "subwin_byte_std",
+        "subwin_byte_min",
+        "subwin_byte_max"
+      ],
+      "burst": [
+        "burst_packet_ratio",
+        "burst_count",
+        "burst_size_mean",
+        "burst_size_std",
+        "burst_size_max",
+        "burst_size_min",
+        "burst_packet_fraction"
+      ],
+      "up": [
+        "up_packet_ratio",
+        "up_down_ratio",
+        "up_len_mean",
+        "up_len_std",
+        "up_len_p50",
+        "up_ia_mean",
+        "up_ia_std"
+      ],
+      "down": [
+        "down_packet_ratio",
+        "down_len_mean",
+        "down_len_std",
+        "down_len_p50",
+        "down_ia_mean",
+        "down_ia_std"
+      ],
+      "singletons": [
+        "packet_count",
+        "byte_count",
+        "long_gap_ratio",
+        "side_packet_ratio",
+        "other_packet_ratio",
+        "active_subwin_count"
+      ]
+    },
+    "sizes": {
+      "len": 14,
+      "interarrival": 12,
+      "subwin": 9,
+      "burst": 7,
+      "up": 7,
+      "down": 6,
+      "singletons": 6
+    }
+  },
+  "without_epoch_in_meta": {
+    "n_features": 62,
+    "groups": {
+      "len": [
+        "len_mean",
+        "len_std",
+        "len_min",
+        "len_max",
+        "len_range",
+        "len_cv",
+        "len_p10",
+        "len_p25",
+        "len_p50",
+        "len_p75",
+        "len_p90",
+        "len_p95",
+        "len_iqr",
+        "len_up_down_diff"
+      ],
+      "interarrival": [
+        "interarrival_mean",
+        "interarrival_std",
+        "interarrival_min",
+        "interarrival_max",
+        "interarrival_cv",
+        "interarrival_p10",
+        "interarrival_p25",
+        "interarrival_p50",
+        "interarrival_p75",
+        "interarrival_p90",
+        "interarrival_p95",
+        "interarrival_iqr"
+      ],
+      "subwin": [
+        "subwin_packet_mean",
+        "subwin_packet_std",
+        "subwin_packet_min",
+        "subwin_packet_max",
+        "subwin_packet_cv",
+        "subwin_byte_mean",
+        "subwin_byte_std",
+        "subwin_byte_min",
+        "subwin_byte_max"
+      ],
+      "burst": [
+        "burst_packet_ratio",
+        "burst_count",
+        "burst_size_mean",
+        "burst_size_std",
+        "burst_size_max",
+        "burst_size_min",
+        "burst_packet_fraction"
+      ],
+      "singletons": [
+        "window_start_epoch",
+        "packet_count",
+        "byte_count",
+        "long_gap_ratio",
+        "side_packet_ratio",
+        "other_packet_ratio",
+        "active_subwin_count"
+      ],
+      "up": [
+        "up_packet_ratio",
+        "up_down_ratio",
+        "up_len_mean",
+        "up_len_std",
+        "up_len_p50",
+        "up_ia_mean",
+        "up_ia_std"
+      ],
+      "down": [
+        "down_packet_ratio",
+        "down_len_mean",
+        "down_len_std",
+        "down_len_p50",
+        "down_ia_mean",
+        "down_ia_std"
+      ]
+    },
+    "sizes": {
+      "len": 14,
+      "interarrival": 12,
+      "subwin": 9,
+      "burst": 7,
+      "singletons": 7,
+      "up": 7,
+      "down": 6
+    }
+  }
+}
