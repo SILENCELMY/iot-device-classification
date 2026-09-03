@@ -7,8 +7,8 @@ sha256 `21da959212135497d85c1fc3ea503597013d859c4c3b1e1cfd220a62c79dc4c6`
 
 ```text
 路径    results/two_channel_20260903/run_two_channel.py
-行数    566
-sha256  f1a22da32276707788d6408086f2527fcb7e0c364ae38267743f38ed0aaaa6c8
+行数    589
+sha256  
 ```
 
 **协议 §19.7 的白名单使 `results/**/*.py` 不入库**，故此处登记 sha256 以固定实现版本。

@@ -420,3 +420,45 @@ net_dis_src = ( #(嵌套元层错 且 源域最佳基模型对) − #(嵌套元�
 
 两档都不读目标标签。`|S|=1` 档的证据强度弱于 `|S|>=2` 档（轮内、非跨轮次），
 判定书须按 `|S|` 分别标注接受依据，不得混报。
+
+### 12.7 首次启动后 20 分钟内发现并修掉的两处实现问题（含一处观察后改条件的如实披露）
+
+首次启动于 16:05 CST，20 分钟后主动中止，原因与处置如下。中止时**尚无任何完整产物**，
+`passline.json` / `eval_five_points.csv` 均未生成。
+
+**（a）LightGBM 确定性参数缺失 —— 纯确定性修复，与结果无关**
+
+`build_model` 的 `lightgbm` 分支只设 `random_state` / `n_jobs` / `verbose=-1`，
+**没有** `deterministic` 与 `force_col_wise`。而本 runner 同时使用 lightgbm 与 stacking，
+正是 `E1-G0-GRID` 记录过的组合（LightGBM 折内 ~1e-15 线程序浮点差经 lbfgs 元学习器放大到
+3.3e-4–2.0e-3），也是 `UNSW-META-MISMATCH` 双跑门失败的同一类原因。
+`D12/UNSW-TEST1` R4 的修法记录为 `n_jobs=1 + threadpool_limits(1) +
+LightGBM deterministic/force_col_wise`，本轮沿用：
+
+```text
+在 build_model 返回对象上 set_params(deterministic=True, force_col_wise=True)，
+递归覆盖 stacking 内嵌的 lightgbm；全程包在 threadpool_limits(1) 内。
+build_model 本身不改（协议要求 import 不重实现）。
+```
+
+**（b）接受条件 (iii) 在零损伤情形下无定义 —— 观察到候选被拒之后才发现，原文披露**
+
+中止前日志的最后一行，原文：
+
+```text
+  [坐标1] 候选 rssi             ΔAUC和  +5.2440  Σ +2.0662 G/|L| inf W +0.1188 上限 0.1148  拒绝
+```
+
+`W = +0.1188` 是**最小的增益**（`G/|L| = inf` 表示 9 个任务无一变差），
+而 §2.3 (iii) 写作 `|W| <= 0.5 × A`，取绝对值后把最小增益当成最大损失去比上限，
+于是「全部任务都改善」反而必然不通过——正增益越大上限越高，最小增益也同步变大。
+
+**修正**：`W >= 0`（无任务变差）时条件 (iii) 自动满足；仅当 `W < 0` 时才要求 `|W| <= 0.5 × A`。
+
+**为什么这不是放宽门槛**：§2.3 该条的用途在协议原文中是「受损不应该太大」；
+损伤为零时它无从约束，原式在该情形下无定义而非严格。修正只在 `W >= 0` 分支生效，
+而 `W >= 0` 恰恰意味着没有损伤可约束。`ACCEPT_RATIO = 3.0` 与 `ACCEPT_WORST_FRAC = 0.5`
+两个数值一字未改。
+
+**但外观上这是「看到结果之后改了接受条件」，故原始日志行原文保留于上，供读者自行判断。**
+判定书须复述本条全文，不得省略。
