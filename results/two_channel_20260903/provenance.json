@@ -1,0 +1,53 @@
+{
+  "protocol": "docs/PROTOCOL_TWO_CHANNEL_20260903.md",
+  "protocol_sha256": "dc298198e70957dcd4d1b445900ce85e6ae7bbfac60cac4c8c546515594c0e86",
+  "git_head": "dff1a27f85ace048dbc8d1c225eb98fc38049fdf",
+  "argv": [
+    "results/two_channel_20260903/run_two_channel.py",
+    "--out-dir",
+    "/tmp/tc_run1"
+  ],
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "sklearn": "1.9.0",
+  "feature_cache_md5": "703984b6ad2fde2f45e0cce1c6df31be",
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "seed": 42,
+  "importance_kept_cols": 57,
+  "top_importance": {
+    "rssi_min": 0.06922406994808267,
+    "rssi_max": 0.06778674639962955,
+    "rssi_std": 0.06645160883221204,
+    "rssi_p10": 0.04737885601845103,
+    "rssi_p90": 0.04558680384227703,
+    "len_max": 0.038715645368225596,
+    "up_packet_ratio": 0.03305069487895282,
+    "rssi_p50": 0.03156990924107937,
+    "up_len_p50": 0.030115222016853755,
+    "up_ia_mean": 0.02921639599166176,
+    "up_ia_std": 0.02829589949574402,
+    "up_len_mean": 0.02627189251054983,
+    "rssi_mean": 0.02439031015960699,
+    "len_p95": 0.02336126752165143,
+    "up_down_ratio": 0.0212039561415099
+  },
+  "d_auc_sum_at_start": {
+    "subtype": -0.05748184907616376,
+    "len": -0.7237323614005516,
+    "singletons": -0.22811101519830154,
+    "interarrival": -0.22616160883598738,
+    "subwin": 0.015581873821934218,
+    "rssi": 5.243963169416475,
+    "burst": -0.8892350423468485,
+    "up": -0.3666667232432356,
+    "down": -0.618638152997209,
+    "unique": -0.33461620200527514
+  },
+  "elapsed_sec": 1257.5
+}

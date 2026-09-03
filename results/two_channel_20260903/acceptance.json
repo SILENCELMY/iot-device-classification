@@ -1,0 +1,86 @@
+{
+  "gate_1_no_leakage": {
+    "train_test_round_overlap": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "unique_key": [
+      "round",
+      "source_file",
+      "window_id"
+    ],
+    "duplicate_window_keys": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "legacy_key": [
+      "round",
+      "window_id"
+    ],
+    "duplicate_legacy": [
+      4375,
+      4375,
+      4375,
+      2912,
+      2914,
+      2912,
+      2924,
+      2914,
+      2924
+    ],
+    "pass": true
+  },
+  "gate_2_no_metadata_in_features": {
+    "n_features": 94,
+    "metadata_like_columns_found": [],
+    "families": {
+      "subtype": 16,
+      "len": 14,
+      "singletons": 13,
+      "interarrival": 12,
+      "subwin": 9,
+      "rssi": 8,
+      "burst": 7,
+      "up": 7,
+      "down": 6,
+      "unique": 2
+    },
+    "pass": true
+  },
+  "gate_3_coord2_no_target_labels": {
+    "note": "m_src / net_dis_src / 最佳基模型选择全部只读 stacking 的源域 OOF（oof_meta_ + y_src）；接受核验为内层 LORO（只用源轮次）或嵌套源域 OOF。实现审阅逐行核对，见 IMPLEMENTATION.md。",
+    "pass": true
+  },
+  "gate_4_finite": {
+    "clean_x_nonfinite": 0,
+    "pass": true
+  },
+  "gate_5_double_run": {
+    "products_compared": 6,
+    "note": "eval_five_points.csv / passline.json / families.json / diag_coord1.csv / diag_coord2.csv / procedure_trace.json 全部 md5 一致（driver 日志 DOUBLE_RUN_PASS）；LightGBM deterministic+force_col_wise、threadpool_limits(1)、n_jobs=1（协议 §12.7a）",
+    "pass": true
+  },
+  "gate_6_offline_env": {
+    "threads": {
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "interpreter_python": "3.11.15",
+    "pass": true
+  }
+}
