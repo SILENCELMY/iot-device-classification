@@ -1,0 +1,44 @@
+{
+  "mainline_joint_time_block_reference": 0.8936,
+  "note": "代码路径不同，不要求相等；只报不设门槛（规格 §3）",
+  "joint_by_config_max_base": {
+    "__full__": 0.91007095630772,
+    "burst": 0.9038648818376899,
+    "down": 0.9087845892580863,
+    "interarrival": 0.9038299804271871,
+    "len": 0.8710508326725535,
+    "rssi": 0.8694361668229084,
+    "singletons": 0.90354179391933,
+    "subtype": 0.9062835215863096,
+    "subwin": 0.9093120993465268,
+    "unique": 0.9090900201775552,
+    "up": 0.9038350365468852
+  },
+  "joint_by_config_best_base_src": {
+    "__full__": 0.8983436381527579,
+    "burst": 0.8961252129270765,
+    "down": 0.8923263652585891,
+    "interarrival": 0.8837808423548035,
+    "len": 0.8687893414944678,
+    "rssi": 0.8694361668229084,
+    "singletons": 0.9019570229937365,
+    "subtype": 0.895418844577415,
+    "subwin": 0.9037384472535207,
+    "unique": 0.8935909454725536,
+    "up": 0.8925268686644012
+  },
+  "best_base_src_pick": {
+    "__full__": "rf",
+    "burst": "rf",
+    "down": "rf",
+    "interarrival": "rf",
+    "len": "rf",
+    "rssi": "lightgbm",
+    "singletons": "rf",
+    "subtype": "rf",
+    "subwin": "rf",
+    "unique": "rf",
+    "up": "rf"
+  },
+  "delta_full_vs_mainline": 0.016470956307719997
+}

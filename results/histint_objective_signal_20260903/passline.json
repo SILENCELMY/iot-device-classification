@@ -1,0 +1,93 @@
+{
+  "spec_sha256": "71fabf3a717a4f13e8f42705c4a68a31a46f59ae504c85e5db680e13ce173e06",
+  "frozen_S_F": {
+    "burst": -0.8892350423468467,
+    "down": -0.6186381529972074,
+    "interarrival": -0.22616160883598713,
+    "len": -0.7237323614005501,
+    "rssi": 5.2439631694164754,
+    "singletons": -0.2281110151983013,
+    "subtype": -0.057481849076162966,
+    "subwin": 0.015581873821934154,
+    "unique": -0.3346162020052744,
+    "up": -0.3666667232432346
+  },
+  "max_base": {
+    "ranking": [
+      "rssi",
+      "singletons",
+      "subtype",
+      "interarrival",
+      "unique",
+      "subwin",
+      "down",
+      "up",
+      "burst",
+      "len"
+    ],
+    "values": {
+      "rssi": 0.413950859992506,
+      "singletons": 0.018176209853875358,
+      "subtype": 0.0076047446790222795,
+      "interarrival": 0.004534975175909173,
+      "unique": 0.004104963534608541,
+      "subwin": -0.010418626136068698,
+      "down": -0.011492594962783764,
+      "up": -0.018982474723720277,
+      "burst": -0.020982330042753405,
+      "len": -0.04390582155098677
+    },
+    "top": "rssi",
+    "second": "singletons",
+    "top_over_second": 22.774322222311234,
+    "n_positive": 5,
+    "positive_families": [
+      "rssi",
+      "singletons",
+      "subtype",
+      "interarrival",
+      "unique"
+    ],
+    "spearman_vs_frozen_S_F": 0.8181818181818182
+  },
+  "best_base_src": {
+    "ranking": [
+      "rssi",
+      "interarrival",
+      "unique",
+      "subtype",
+      "down",
+      "singletons",
+      "subwin",
+      "up",
+      "burst",
+      "len"
+    ],
+    "values": {
+      "rssi": 0.38298871916876587,
+      "interarrival": 0.035115918380323796,
+      "unique": 0.014952760372819784,
+      "subtype": -0.00014401249636197822,
+      "down": -0.004993199140568949,
+      "singletons": -0.01065743911705963,
+      "subwin": -0.022321569118910256,
+      "up": -0.0226607380946372,
+      "burst": -0.025977098112460406,
+      "len": -0.07467291506337781
+    },
+    "top": "rssi",
+    "second": "interarrival",
+    "top_over_second": 10.906413297263006,
+    "n_positive": 3,
+    "positive_families": [
+      "rssi",
+      "interarrival",
+      "unique"
+    ],
+    "spearman_vs_frozen_S_F": 0.6848484848484848
+  },
+  "verdict": "OBJECTIVE_SIGNAL_AGREES",
+  "branch": 2,
+  "primary_criterion": "max_base 口径下 rssi 排第一（二值）",
+  "identity_tol": 1e-12
+}

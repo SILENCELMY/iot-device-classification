@@ -1,0 +1,41 @@
+{
+  "spec_sha256": "71fabf3a717a4f13e8f42705c4a68a31a46f59ae504c85e5db680e13ce173e06",
+  "protocol_sha256_upstream": "dc298198e70957dcd4d1b445900ce85e6ae7bbfac60cac4c8c546515594c0e86",
+  "git_head": "4cac2a33403f1fa028d45cc02c6062399d61eb70",
+  "seed": 42,
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "cache": "/home/lmy/iot-device-classification/results/robust_v2/raw_all/features_raw_all_w10.csv",
+  "cache_md5": "703984b6ad2fde2f45e0cce1c6df31be",
+  "frozen_diag_md5": "ede5de4160c98d3acaf15cc83a15309f",
+  "frozen_runner_md5": "8a1d593dcdd6bdc309503dbd701e56a1",
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "inner_tasks": [
+    "g0_R2_R3_to_R4",
+    "g0_R2_R4_to_R3",
+    "g0_R3_R4_to_R2"
+  ],
+  "H": [
+    "R2",
+    "R3",
+    "R4"
+  ],
+  "n_configs": 11,
+  "product_md5": {
+    "raw_scores.csv": "b04701d45f8ee6a5542251f46544bfc4",
+    "s_obj.csv": "6c698bfb2bf18723bf93cd9beb24d6cf",
+    "joint_reference.json": "3ab1cffb67e65eb02345f21a45331595",
+    "passline.json": "a3df1e89b3907f764488bc54ab52970d",
+    "VERDICT.md": "ff912a9134b74d7b73ba3ae89046bf81"
+  },
+  "_volatile": {
+    "elapsed_s": 1236.2,
+    "finished": "2026-09-04 01:01:43 CST"
+  }
+}
