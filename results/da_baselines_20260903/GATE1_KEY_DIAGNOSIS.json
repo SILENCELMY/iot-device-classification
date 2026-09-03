@@ -1,0 +1,37 @@
+{
+  "diagnosis": "window_id 在缓存内按 source_file 重新计数（30 个 source_file = 6 轮次 × 5 标签），故 (round, window_id) 不是窗口的唯一键。协议 §5 门 1 把它写成唯一键，是规格错误，不是数据缺陷，也不是泄漏。",
+  "duplicate_counts_by_key": {
+    "(round, label, window_id)": 0,
+    "(round, source_file, window_id)": 0,
+    "(round, window_id)  ← 协议 §5 门 1 原文所用键": 8992,
+    "(source_file, window_id)": 0
+  },
+  "meta_cardinality": {
+    "filter_mode": 1,
+    "label": 5,
+    "round": 6,
+    "source_file": 30,
+    "traffic": 1
+  },
+  "n_rows": 11303,
+  "note": "轮次重叠一项本身已 PASS（三个任务均为 0），真正的泄漏风险为零。本文件与原始失败记录一并保留；修正后的键检查见 acceptance.json 的 gate_1_no_leakage，并同时并报原键的计数，使两者可对照。",
+  "original_gate_1_record": {
+    "duplicate_window_keys": [
+      4375,
+      4375,
+      4375
+    ],
+    "pass": false,
+    "train_test_round_overlap": [
+      0,
+      0,
+      0
+    ]
+  },
+  "status": "GATE_1_KEY_MISSPECIFIED_NOT_A_DATA_DEFECT",
+  "train_test_round_overlap": [
+    0,
+    0,
+    0
+  ]
+}

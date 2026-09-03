@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "results/da_baselines_20260903/run_da_baselines.py",
+    "--out-dir",
+    "/tmp/da_run1"
+  ],
+  "arms": [
+    "none_raw",
+    "zscore",
+    "coral_raw",
+    "coral_zscore",
+    "sa_raw",
+    "sa_zscore"
+  ],
+  "coral_baseline_py_md5": "ab79d96c0cc996f513e7535c21df1364",
+  "elapsed_sec": 48.405,
+  "feature_cache": "/home/lmy/iot-device-classification/results/robust_v2/raw_all/features_raw_all_w10.csv",
+  "feature_cache_md5": "703984b6ad2fde2f45e0cce1c6df31be",
+  "git_head": "419c3401e988ec34a43687bb4972d801e6be90af",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "protocol": "docs/PROTOCOL_DA_BASELINES_20260903.md",
+  "protocol_sha256": "7fbde21b51f2d324ce634386a5b2ee435d5e4cb546b57064d28c069316d05cd1",
+  "python": "3.11.15",
+  "sa_rule": {
+    "k_cap": 50,
+    "var_threshold": 0.95
+  },
+  "seed": 42,
+  "sklearn": "1.9.0",
+  "tasks": [
+    "g0_R2_R3_to_R4",
+    "g0_R2_R4_to_R3",
+    "g0_R3_R4_to_R2"
+  ]
+}

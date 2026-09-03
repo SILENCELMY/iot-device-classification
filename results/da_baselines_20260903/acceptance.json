@@ -1,0 +1,56 @@
+{
+  "gate_1_no_leakage": {
+    "amendment": "协议 §10 修正条款：window_id 按 source_file 重新计数，原键非唯一键",
+    "duplicate_window_keys": [
+      0,
+      0,
+      0
+    ],
+    "duplicate_window_keys_legacy_key": [
+      4375,
+      4375,
+      4375
+    ],
+    "legacy_key_protocol_v1": [
+      "round",
+      "window_id"
+    ],
+    "pass": true,
+    "train_test_round_overlap": [
+      0,
+      0,
+      0
+    ],
+    "unique_key": [
+      "round",
+      "source_file",
+      "window_id"
+    ]
+  },
+  "gate_2_finite": {
+    "clean_x_nonfinite": 0,
+    "n_features": 94,
+    "pass": true,
+    "post_align_nonfinite": 0
+  },
+  "gate_3_anchor": {
+    "pass": true
+  },
+  "gate_4_double_run": {
+    "note": "修正后两次独立运行 6 个产物 md5 一致；且科学产物与首跑逐字节一致",
+    "pass": true
+  },
+  "gate_5_unit_test": {
+    "note": "test_coral_coloring.py",
+    "pass": true
+  },
+  "gate_6_offline_env": {
+    "interpreter": "/home/lmy/anaconda3/envs/iotcls/bin/python",
+    "pass": true,
+    "threads": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "gate_1_no_leakage": {
+    "duplicate_window_keys": [
+      4375,
+      4375,
+      4375
+    ],
+    "pass": false,
+    "train_test_round_overlap": [
+      0,
+      0,
+      0
+    ]
+  },
+  "gate_2_finite": {
+    "clean_x_nonfinite": 0,
+    "n_features": 94,
+    "pass": true,
+    "post_align_nonfinite": 0
+  },
+  "gate_3_anchor": {
+    "pass": true
+  },
+  "gate_4_double_run": {
+    "note": "\u4e24\u6b21\u72ec\u7acb\u8fd0\u884c\uff0c6 \u4e2a\u5224\u5b9a\u6027\u4ea7\u7269 md5 \u9010\u5b57\u8282\u4e00\u81f4",
+    "pass": true
+  },
+  "gate_5_unit_test": {
+    "note": "test_coral_coloring.py",
+    "pass": true
+  },
+  "gate_6_offline_env": {
+    "interpreter": "/home/lmy/anaconda3/envs/iotcls/bin/python",
+    "pass": true,
+    "threads": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "criterion_1_anchor": {
+    "pass": true,
+    "rows": [
+      {
+        "abs_diff": 0.0,
+        "g0_grid_rf": 0.6592117370350504,
+        "none_raw": 0.6592117370350504,
+        "task": "g0_R2_R3_to_R4"
+      },
+      {
+        "abs_diff": 0.0,
+        "g0_grid_rf": 0.6148161314237031,
+        "none_raw": 0.6148161314237031,
+        "task": "g0_R2_R4_to_R3"
+      },
+      {
+        "abs_diff": 0.0,
+        "g0_grid_rf": 0.8097991283932819,
+        "none_raw": 0.8097991283932819,
+        "task": "g0_R3_R4_to_R2"
+      }
+    ],
+    "threshold_abs_diff_max": 1e-06
+  },
+  "criterion_2_coral_implementation": {
+    "observed_min": 99.97984224687076,
+    "pass": true,
+    "per_row": [
+      {
+        "arm": "coral_raw",
+        "cov_reduction_pct": 99.99697316349365,
+        "task": "g0_R2_R3_to_R4"
+      },
+      {
+        "arm": "coral_zscore",
+        "cov_reduction_pct": 99.97984224687076,
+        "task": "g0_R2_R3_to_R4"
+      },
+      {
+        "arm": "coral_raw",
+        "cov_reduction_pct": 99.99571570437519,
+        "task": "g0_R2_R4_to_R3"
+      },
+      {
+        "arm": "coral_zscore",
+        "cov_reduction_pct": 99.98991646425728,
+        "task": "g0_R2_R4_to_R3"
+      },
+      {
+        "arm": "coral_raw",
+        "cov_reduction_pct": 99.9990647339181,
+        "task": "g0_R3_R4_to_R2"
+      },
+      {
+        "arm": "coral_zscore",
+        "cov_reduction_pct": 99.98458283750114,
+        "task": "g0_R3_R4_to_R2"
+      }
+    ],
+    "threshold_cov_reduction_pct_min": 95.0
+  },
+  "criterion_3_main": {
+    "align_arms": [
+      "coral_raw",
+      "coral_zscore",
+      "sa_raw",
+      "sa_zscore"
+    ],
+    "best_arm": "coral_raw",
+    "best_mean_delta": -0.03654679857792953,
+    "branch_a_threshold": 0.02,
+    "branch_c_threshold": -0.005,
+    "mean_delta_vs_none": {
+      "coral_raw": -0.03654679857792953,
+      "coral_zscore": -0.03683282660907968,
+      "sa_raw": -0.47985244836199725,
+      "sa_zscore": -0.0893470088312539
+    }
+  },
+  "invariance_check_zscore": {
+    "mean_delta_vs_none": 0.0001465028745267031,
+    "note": "RF \u5bf9\u9010\u7279\u5f81\u4eff\u5c04\u4e0d\u53d8\uff0c\u6b64\u503c\u6309\u6784\u9020\u5e94\u7ea6 0\uff1b\u975e 0 \u8bf4\u660e\u7ba1\u7ebf\u6709\u975e\u9884\u671f\u968f\u673a\u6027"
+  },
+  "verdict": "DA_DOES_NOT_HELP"
+}
