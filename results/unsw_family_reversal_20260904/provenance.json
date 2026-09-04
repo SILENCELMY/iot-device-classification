@@ -1,0 +1,55 @@
+{
+  "protocol_sha256": "33b7f5be5638c0be007ff8a9f1adbc03e933cc7d0a65dc8b158fe08a0b3dc5bb",
+  "git_head": "68cda7d1887fca41bd056ca52ab18ef325fea887",
+  "seed": 42,
+  "H_inner": [
+    "features_day_16-09-23.csv",
+    "features_day_16-09-24.csv",
+    "features_day_16-09-25.csv",
+    "features_day_16-09-26.csv",
+    "features_day_16-09-27.csv",
+    "features_day_16-09-28.csv",
+    "features_day_16-09-29.csv",
+    "features_day_16-09-30.csv",
+    "features_day_16-10-01.csv",
+    "features_day_16-10-02.csv"
+  ],
+  "cache_md5_H_inner": {
+    "features_day_16-09-23.csv": "05cdb87d1d23939a60ab1fd510ae43c7",
+    "features_day_16-09-24.csv": "25205dad0cdb937bc465fdada3233a9d",
+    "features_day_16-09-25.csv": "292cb873bb0730335270ab1b18272ff3",
+    "features_day_16-09-26.csv": "75f09e3e933fe9ada11629287dc33636",
+    "features_day_16-09-27.csv": "8bc243e78b300126040fe03c982e1f50",
+    "features_day_16-09-28.csv": "d46386524b068da96cbe1b0bf4f6c5db",
+    "features_day_16-09-29.csv": "4065d080a402981bfa9694223605db2b",
+    "features_day_16-09-30.csv": "7e0e7e01ea0e30f39e70401399bebdc6",
+    "features_day_16-10-01.csv": "3760dd3d05a4476842980d25de899c59",
+    "features_day_16-10-02.csv": "4fd147d86973a4a4602eec5c3ecffd15"
+  },
+  "n_feature_cols": 61,
+  "families": {
+    "len": 14,
+    "interarrival": 12,
+    "subwin": 9,
+    "burst": 7,
+    "up": 7,
+    "down": 6,
+    "singletons": 6
+  },
+  "min_windows": 100,
+  "max_rows": 20000,
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "frozen_run_two_channel_md5": "8a1d593dcdd6bdc309503dbd701e56a1",
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "_volatile": {
+    "elapsed_sec": 75.4,
+    "out_dir": "/tmp/famrev_A"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "protocol_sha256": "33b7f5be5638c0be007ff8a9f1adbc03e933cc7d0a65dc8b158fe08a0b3dc5bb",
+  "verdict": "NO_REVERSING_FAMILY",
+  "seed": 42,
+  "family_d_auc_sum": {
+    "subwin": -0.7831426508840078,
+    "singletons": -1.189615400085091,
+    "down": -3.2794681262265004,
+    "interarrival": -3.523862505864303,
+    "up": -3.728931073394142,
+    "burst": -4.118879236239685,
+    "len": -11.815307889343739
+  },
+  "n_positive_families": 0,
+  "top1": -0.7831426508840078,
+  "top2": -1.189615400085091,
+  "top1_family": "subwin",
+  "top2_family": "singletons",
+  "ratio_top1_over_top2": -15.662853017680156,
+  "ratio_gate": 3.0,
+  "eps": 0.05,
+  "n_devices": 14,
+  "n_pairs": 91,
+  "n_tasks": 10,
+  "n_detail_rows": 6370,
+  "n_skipped_pair_task": 0,
+  "baseline_auc_mean": 0.9725306865678731,
+  "baseline_auc_min": 0.6652809898469192,
+  "baseline_auc_min_pair": "BelkinWemoMotion|BelkinWemoSwitch",
+  "baseline_auc_max": 0.9998214727067298,
+  "self_collected_reference": {
+    "rssi": 0.414,
+    "singletons": 0.0182,
+    "subtype": 0.0076,
+    "interarrival": 0.0045,
+    "unique": 0.0041,
+    "len": -0.161
+  },
+  "self_collected_reference_note": "跨池比较，不构成受控对比（协议 §6.6）",
+  "prerun_expectation": "NO_REVERSING_FAMILY（协议 §5，只作记录、不改判据）"
+}
