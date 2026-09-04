@@ -1,0 +1,150 @@
+{
+  "protocol_sha256": "d0ad95186383e295f91d34787f4c95b4a999139fbfdef986b8df576bdc3cfd43",
+  "cache_md5_verified": "703984b6ad2fde2f45e0cce1c6df31be",
+  "cache_md5_declared": "703984b6ad2fde2f45e0cce1c6df31be",
+  "transmitter_ground_truth": {
+    "Camera": "78:df:72:04:d6:b4",
+    "Socket": "b8:50:d8:67:b5:d0",
+    "Light_T1": "54:ef:44:59:eb:4c",
+    "Light_XM": "54:ef:44:59:eb:4c",
+    "Sensor": "54:ef:44:59:eb:4c"
+  },
+  "rssi_family": [
+    "rssi_max",
+    "rssi_mean",
+    "rssi_min",
+    "rssi_missing_ratio",
+    "rssi_p10",
+    "rssi_p50",
+    "rssi_p90",
+    "rssi_std"
+  ],
+  "n_rssi_cols": 8,
+  "tau": 0.01,
+  "saturation_threshold": 0.999,
+  "gate_A": {
+    "RECOVERED": 10,
+    "PARTIAL_LO": 8
+  },
+  "gate_B": {
+    "SIGNAL": 0.5,
+    "AMBIG": 0.4
+  },
+  "units": [
+    {
+      "name": "pos_R5",
+      "src": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "tgt": "R5"
+    },
+    {
+      "name": "jit_R6",
+      "src": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "tgt": "R6"
+    },
+    {
+      "name": "jit_R7",
+      "src": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "tgt": "R7"
+    }
+  ],
+  "primary_unit_B": "jit_R6",
+  "gateway_classes": [
+    "Light_T1",
+    "Light_XM",
+    "Sensor"
+  ],
+  "prediction_rule_priority": [
+    "1 同发射机 -> +",
+    "2 基线 AUC 三单元均值 >= 0.999 -> 0",
+    "3 其余 -> -"
+  ],
+  "enumerated_expectation": [
+    {
+      "pair": "Camera|Light_T1",
+      "same_transmitter": false,
+      "expected_under_socket_saturation_assumption": "-"
+    },
+    {
+      "pair": "Camera|Light_XM",
+      "same_transmitter": false,
+      "expected_under_socket_saturation_assumption": "-"
+    },
+    {
+      "pair": "Camera|Sensor",
+      "same_transmitter": false,
+      "expected_under_socket_saturation_assumption": "-"
+    },
+    {
+      "pair": "Camera|Socket",
+      "same_transmitter": false,
+      "expected_under_socket_saturation_assumption": "0"
+    },
+    {
+      "pair": "Light_T1|Light_XM",
+      "same_transmitter": true,
+      "expected_under_socket_saturation_assumption": "+"
+    },
+    {
+      "pair": "Light_T1|Sensor",
+      "same_transmitter": true,
+      "expected_under_socket_saturation_assumption": "+"
+    },
+    {
+      "pair": "Light_T1|Socket",
+      "same_transmitter": false,
+      "expected_under_socket_saturation_assumption": "0"
+    },
+    {
+      "pair": "Light_XM|Sensor",
+      "same_transmitter": true,
+      "expected_under_socket_saturation_assumption": "+"
+    },
+    {
+      "pair": "Light_XM|Socket",
+      "same_transmitter": false,
+      "expected_under_socket_saturation_assumption": "0"
+    },
+    {
+      "pair": "Sensor|Socket",
+      "same_transmitter": false,
+      "expected_under_socket_saturation_assumption": "0"
+    }
+  ],
+  "burned_tasks_not_used": [
+    "g0_R2_R3_to_R4",
+    "g0_R2_R4_to_R3",
+    "g0_R3_R4_to_R2",
+    "g0_R2_to_R3",
+    "g0_R2_to_R4",
+    "g0_R3_to_R2",
+    "g0_R3_to_R4",
+    "g0_R4_to_R2",
+    "g0_R4_to_R3"
+  ],
+  "burned_reason": "A 的预测所依据的符号模式先于本协议被看到，观测来自这 9 个 g0 任务（目标域全在 R2/R3/R4 内）；R5/R6/R7 从未被该诊断读取",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "models": [
+    "rf",
+    "xgboost",
+    "lightgbm"
+  ],
+  "stacking_excluded": true
+}

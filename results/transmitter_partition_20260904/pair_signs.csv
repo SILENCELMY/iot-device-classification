@@ -1,0 +1,11 @@
+pair,same_transmitter,transmitter_a,transmitter_b,base_auc_mean_full94,saturated,D_sum_3units,sign_observed,sign_predicted,rule_applied,hit
+Light_T1|Light_XM,True,54:ef:44:59:eb:4c,54:ef:44:59:eb:4c,0.49017536450353205,False,0.6459803242211368,+,+,rule1_same_transmitter,True
+Light_T1|Sensor,True,54:ef:44:59:eb:4c,54:ef:44:59:eb:4c,0.7087103382251226,False,0.428324322098122,+,+,rule1_same_transmitter,True
+Light_XM|Sensor,True,54:ef:44:59:eb:4c,54:ef:44:59:eb:4c,0.9054164526864116,False,0.0038475818588152855,0,+,rule1_same_transmitter,False
+Sensor|Socket,False,54:ef:44:59:eb:4c,b8:50:d8:67:b5:d0,1.0,True,0.0,0,0,rule2_saturated,True
+Light_XM|Socket,False,54:ef:44:59:eb:4c,b8:50:d8:67:b5:d0,1.0,True,0.0,0,0,rule2_saturated,True
+Light_T1|Socket,False,54:ef:44:59:eb:4c,b8:50:d8:67:b5:d0,1.0,True,0.0,0,0,rule2_saturated,True
+Camera|Socket,False,78:df:72:04:d6:b4,b8:50:d8:67:b5:d0,0.9990817263544537,True,-7.5890383930410366e-06,0,0,rule2_saturated,True
+Camera|Light_T1,False,78:df:72:04:d6:b4,54:ef:44:59:eb:4c,0.9428106477713096,False,-0.15974015723614898,-,-,rule3_diff_transmitter,True
+Camera|Sensor,False,78:df:72:04:d6:b4,54:ef:44:59:eb:4c,0.9897919798638789,False,-0.20545642647057072,-,-,rule3_diff_transmitter,True
+Camera|Light_XM,False,78:df:72:04:d6:b4,54:ef:44:59:eb:4c,0.9816550190273424,False,-0.3142046085278768,-,-,rule3_diff_transmitter,True

@@ -1,0 +1,64 @@
+{
+  "protocol_sha256": "61984e4722eb635ec5ae3ccff51e98fe91b24b9df2cfc9a24bb7f344fdcc08c0",
+  "git_head": "9de3c3edc84380358440865574edad5e6f7bff81",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "window_seconds": 10.0,
+  "min_packets_per_window": 2,
+  "burst_gap": 0.1,
+  "edges16": [
+    64,
+    96,
+    128,
+    192,
+    256,
+    384,
+    512,
+    768,
+    1024,
+    1280,
+    1518,
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "edges8": [
+    64,
+    128,
+    256,
+    512,
+    1024,
+    1518,
+    4096,
+    16384
+  ],
+  "n_edges30": 29,
+  "tshark": "TShark (Wireshark) 3.2.3 (Git v3.2.3 packaged as 3.2.3-1)",
+  "cache": "/home/lmy/iot-device-classification/results/robust_v2/raw_all/features_raw_all_w10.csv",
+  "cache_md5_before": "703984b6ad2fde2f45e0cce1c6df31be",
+  "cache_md5_after": "703984b6ad2fde2f45e0cce1c6df31be",
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "frozen_md5": {
+    "robust_iot_research": "278d8ab94b485b1ce2ca2462e4039e94",
+    "run_two_channel": "8a1d593dcdd6bdc309503dbd701e56a1",
+    "run_histint": "461e8ca011f25a5bfd52e9a7351c4efa"
+  },
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "_volatile": {
+    "elapsed_sec": 910.0,
+    "out_dir": "/tmp/exp_A"
+  }
+}

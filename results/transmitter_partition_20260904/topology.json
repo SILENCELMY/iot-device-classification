@@ -1,0 +1,662 @@
+{
+  "transmitter_ground_truth": {
+    "Camera": "78:df:72:04:d6:b4",
+    "Socket": "b8:50:d8:67:b5:d0",
+    "Light_T1": "54:ef:44:59:eb:4c",
+    "Light_XM": "54:ef:44:59:eb:4c",
+    "Sensor": "54:ef:44:59:eb:4c"
+  },
+  "ap_mac": "68:dd:b7:40:37:8a",
+  "n_pcap_files": 30,
+  "per_file_ta_counts": {
+    "camera_r2.pcapng": {
+      "68:dd:b7:40:37:8a": 12449,
+      "78:df:72:04:d6:b4": 5140
+    },
+    "camera_r3.pcapng": {
+      "68:dd:b7:40:37:8a": 10612,
+      "78:df:72:04:d6:b4": 8157,
+      "54:ef:44:59:eb:4c": 61
+    },
+    "camera_r4.pcapng": {
+      "68:dd:b7:40:37:8a": 7701,
+      "78:df:72:04:d6:b4": 5730,
+      "54:ef:44:59:eb:4c": 83
+    },
+    "camera_r5.pcapng": {
+      "68:dd:b7:40:37:8a": 4482,
+      "78:df:72:04:d6:b4": 3383,
+      "54:ef:44:59:eb:4c": 50
+    },
+    "camera_r6.pcapng": {
+      "68:dd:b7:40:37:8a": 23261,
+      "78:df:72:04:d6:b4": 6561,
+      "54:ef:44:59:eb:4c": 51
+    },
+    "camera_r7.pcapng": {
+      "68:dd:b7:40:37:8a": 8092,
+      "78:df:72:04:d6:b4": 5402,
+      "54:ef:44:59:eb:4c": 55
+    },
+    "light_T1_r2.pcapng": {
+      "68:dd:b7:40:37:8a": 8637,
+      "54:ef:44:59:eb:4c": 2161,
+      "78:df:72:04:d6:b4": 207,
+      "b8:50:d8:67:b5:d0": 126,
+      "5c:e5:0c:1b:dc:e3": 115
+    },
+    "light_T1_r3.pcapng": {
+      "68:dd:b7:40:37:8a": 8662,
+      "54:ef:44:59:eb:4c": 1891,
+      "78:df:72:04:d6:b4": 244,
+      "b8:50:d8:67:b5:d0": 164,
+      "5c:e5:0c:1b:dc:e3": 132
+    },
+    "light_T1_r4.pcapng": {
+      "68:dd:b7:40:37:8a": 13325,
+      "54:ef:44:59:eb:4c": 2580,
+      "78:df:72:04:d6:b4": 220,
+      "b8:50:d8:67:b5:d0": 167,
+      "5c:e5:0c:1b:dc:e3": 126
+    },
+    "light_T1_r5.pcapng": {
+      "68:dd:b7:40:37:8a": 4902,
+      "54:ef:44:59:eb:4c": 2402,
+      "78:df:72:04:d6:b4": 193,
+      "b8:50:d8:67:b5:d0": 146,
+      "5c:e5:0c:1b:dc:e3": 121
+    },
+    "light_T1_r6.pcapng": {
+      "68:dd:b7:40:37:8a": 8741,
+      "54:ef:44:59:eb:4c": 1001,
+      "78:df:72:04:d6:b4": 547,
+      "b8:50:d8:67:b5:d0": 184,
+      "5c:e5:0c:1b:dc:e3": 85
+    },
+    "light_T1_r7.pcapng": {
+      "68:dd:b7:40:37:8a": 7222,
+      "54:ef:44:59:eb:4c": 1613,
+      "78:df:72:04:d6:b4": 376,
+      "b8:50:d8:67:b5:d0": 175,
+      "5c:e5:0c:1b:dc:e3": 86
+    },
+    "light_xm_r2.pcapng": {
+      "68:dd:b7:40:37:8a": 6695,
+      "54:ef:44:59:eb:4c": 2561,
+      "78:df:72:04:d6:b4": 228,
+      "b8:50:d8:67:b5:d0": 143,
+      "5c:e5:0c:1b:dc:e3": 129
+    },
+    "light_xm_r3.pcapng": {
+      "68:dd:b7:40:37:8a": 14141,
+      "54:ef:44:59:eb:4c": 3670,
+      "b8:50:d8:67:b5:d0": 322,
+      "78:df:72:04:d6:b4": 215,
+      "5c:e5:0c:1b:dc:e3": 119
+    },
+    "light_xm_r4.pcapng": {
+      "68:dd:b7:40:37:8a": 11356,
+      "54:ef:44:59:eb:4c": 2380,
+      "78:df:72:04:d6:b4": 225,
+      "b8:50:d8:67:b5:d0": 159,
+      "5c:e5:0c:1b:dc:e3": 121
+    },
+    "light_xm_r5.pcapng": {
+      "68:dd:b7:40:37:8a": 7928,
+      "54:ef:44:59:eb:4c": 2226,
+      "78:df:72:04:d6:b4": 310,
+      "b8:50:d8:67:b5:d0": 153,
+      "5c:e5:0c:1b:dc:e3": 65
+    },
+    "light_xm_r6.pcapng": {
+      "68:dd:b7:40:37:8a": 8750,
+      "54:ef:44:59:eb:4c": 947,
+      "78:df:72:04:d6:b4": 701,
+      "b8:50:d8:67:b5:d0": 160,
+      "5c:e5:0c:1b:dc:e3": 83
+    },
+    "light_xm_r7.pcapng": {
+      "68:dd:b7:40:37:8a": 7041,
+      "54:ef:44:59:eb:4c": 1835,
+      "78:df:72:04:d6:b4": 345,
+      "b8:50:d8:67:b5:d0": 140,
+      "5c:e5:0c:1b:dc:e3": 76
+    },
+    "sensor_r2.pcapng": {
+      "68:dd:b7:40:37:8a": 12137,
+      "54:ef:44:59:eb:4c": 1892,
+      "78:df:72:04:d6:b4": 237,
+      "b8:50:d8:67:b5:d0": 170,
+      "5c:e5:0c:1b:dc:e3": 117
+    },
+    "sensor_r3.pcapng": {
+      "68:dd:b7:40:37:8a": 11563,
+      "54:ef:44:59:eb:4c": 1686,
+      "b8:50:d8:67:b5:d0": 245,
+      "78:df:72:04:d6:b4": 188,
+      "5c:e5:0c:1b:dc:e3": 120
+    },
+    "sensor_r4.pcapng": {
+      "68:dd:b7:40:37:8a": 11251,
+      "54:ef:44:59:eb:4c": 1533,
+      "b8:50:d8:67:b5:d0": 313,
+      "78:df:72:04:d6:b4": 212,
+      "5c:e5:0c:1b:dc:e3": 118
+    },
+    "sensor_r5.pcapng": {
+      "68:dd:b7:40:37:8a": 6462,
+      "54:ef:44:59:eb:4c": 1300,
+      "78:df:72:04:d6:b4": 303,
+      "b8:50:d8:67:b5:d0": 159,
+      "5c:e5:0c:1b:dc:e3": 84
+    },
+    "sensor_r6.pcapng": {
+      "68:dd:b7:40:37:8a": 8054,
+      "54:ef:44:59:eb:4c": 635,
+      "78:df:72:04:d6:b4": 385,
+      "b8:50:d8:67:b5:d0": 180,
+      "5c:e5:0c:1b:dc:e3": 94
+    },
+    "sensor_r7.pcapng": {
+      "68:dd:b7:40:37:8a": 7812,
+      "54:ef:44:59:eb:4c": 1464,
+      "78:df:72:04:d6:b4": 301,
+      "b8:50:d8:67:b5:d0": 173,
+      "5c:e5:0c:1b:dc:e3": 105
+    },
+    "socket_r2.pcapng": {
+      "b8:50:d8:67:b5:d0": 15066,
+      "68:dd:b7:40:37:8a": 6465,
+      "54:ef:44:59:eb:4c": 39
+    },
+    "socket_r3.pcapng": {
+      "b8:50:d8:67:b5:d0": 21389,
+      "68:dd:b7:40:37:8a": 14193,
+      "54:ef:44:59:eb:4c": 37
+    },
+    "socket_r4.pcapng": {
+      "b8:50:d8:67:b5:d0": 16831,
+      "68:dd:b7:40:37:8a": 8850,
+      "54:ef:44:59:eb:4c": 67
+    },
+    "socket_r5.pcapng": {
+      "b8:50:d8:67:b5:d0": 14040,
+      "68:dd:b7:40:37:8a": 2157,
+      "54:ef:44:59:eb:4c": 42
+    },
+    "socket_r6.pcapng": {
+      "b8:50:d8:67:b5:d0": 14985,
+      "68:dd:b7:40:37:8a": 7413,
+      "54:ef:44:59:eb:4c": 39
+    },
+    "socket_r7.pcapng": {
+      "b8:50:d8:67:b5:d0": 15488,
+      "68:dd:b7:40:37:8a": 7610,
+      "54:ef:44:59:eb:4c": 38
+    }
+  },
+  "per_file_summary": [
+    {
+      "label": "Camera",
+      "round": "R2",
+      "file": "camera_r2.pcapng",
+      "n_frames_with_ta": 17589,
+      "n_ap": 12449,
+      "n_own_transmitter": 5140,
+      "own_transmitter": "78:df:72:04:d6:b4",
+      "top_non_ap": "78:df:72:04:d6:b4",
+      "n_top_non_ap": 5140
+    },
+    {
+      "label": "Camera",
+      "round": "R3",
+      "file": "camera_r3.pcapng",
+      "n_frames_with_ta": 18830,
+      "n_ap": 10612,
+      "n_own_transmitter": 8157,
+      "own_transmitter": "78:df:72:04:d6:b4",
+      "top_non_ap": "78:df:72:04:d6:b4",
+      "n_top_non_ap": 8157
+    },
+    {
+      "label": "Camera",
+      "round": "R4",
+      "file": "camera_r4.pcapng",
+      "n_frames_with_ta": 13514,
+      "n_ap": 7701,
+      "n_own_transmitter": 5730,
+      "own_transmitter": "78:df:72:04:d6:b4",
+      "top_non_ap": "78:df:72:04:d6:b4",
+      "n_top_non_ap": 5730
+    },
+    {
+      "label": "Camera",
+      "round": "R5",
+      "file": "camera_r5.pcapng",
+      "n_frames_with_ta": 7915,
+      "n_ap": 4482,
+      "n_own_transmitter": 3383,
+      "own_transmitter": "78:df:72:04:d6:b4",
+      "top_non_ap": "78:df:72:04:d6:b4",
+      "n_top_non_ap": 3383
+    },
+    {
+      "label": "Camera",
+      "round": "R6",
+      "file": "camera_r6.pcapng",
+      "n_frames_with_ta": 29873,
+      "n_ap": 23261,
+      "n_own_transmitter": 6561,
+      "own_transmitter": "78:df:72:04:d6:b4",
+      "top_non_ap": "78:df:72:04:d6:b4",
+      "n_top_non_ap": 6561
+    },
+    {
+      "label": "Camera",
+      "round": "R7",
+      "file": "camera_r7.pcapng",
+      "n_frames_with_ta": 13549,
+      "n_ap": 8092,
+      "n_own_transmitter": 5402,
+      "own_transmitter": "78:df:72:04:d6:b4",
+      "top_non_ap": "78:df:72:04:d6:b4",
+      "n_top_non_ap": 5402
+    },
+    {
+      "label": "Light_T1",
+      "round": "R2",
+      "file": "light_T1_r2.pcapng",
+      "n_frames_with_ta": 11246,
+      "n_ap": 8637,
+      "n_own_transmitter": 2161,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 2161
+    },
+    {
+      "label": "Light_T1",
+      "round": "R3",
+      "file": "light_T1_r3.pcapng",
+      "n_frames_with_ta": 11093,
+      "n_ap": 8662,
+      "n_own_transmitter": 1891,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1891
+    },
+    {
+      "label": "Light_T1",
+      "round": "R4",
+      "file": "light_T1_r4.pcapng",
+      "n_frames_with_ta": 16418,
+      "n_ap": 13325,
+      "n_own_transmitter": 2580,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 2580
+    },
+    {
+      "label": "Light_T1",
+      "round": "R5",
+      "file": "light_T1_r5.pcapng",
+      "n_frames_with_ta": 7764,
+      "n_ap": 4902,
+      "n_own_transmitter": 2402,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 2402
+    },
+    {
+      "label": "Light_T1",
+      "round": "R6",
+      "file": "light_T1_r6.pcapng",
+      "n_frames_with_ta": 10558,
+      "n_ap": 8741,
+      "n_own_transmitter": 1001,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1001
+    },
+    {
+      "label": "Light_T1",
+      "round": "R7",
+      "file": "light_T1_r7.pcapng",
+      "n_frames_with_ta": 9472,
+      "n_ap": 7222,
+      "n_own_transmitter": 1613,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1613
+    },
+    {
+      "label": "Light_XM",
+      "round": "R2",
+      "file": "light_xm_r2.pcapng",
+      "n_frames_with_ta": 9756,
+      "n_ap": 6695,
+      "n_own_transmitter": 2561,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 2561
+    },
+    {
+      "label": "Light_XM",
+      "round": "R3",
+      "file": "light_xm_r3.pcapng",
+      "n_frames_with_ta": 18467,
+      "n_ap": 14141,
+      "n_own_transmitter": 3670,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 3670
+    },
+    {
+      "label": "Light_XM",
+      "round": "R4",
+      "file": "light_xm_r4.pcapng",
+      "n_frames_with_ta": 14241,
+      "n_ap": 11356,
+      "n_own_transmitter": 2380,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 2380
+    },
+    {
+      "label": "Light_XM",
+      "round": "R5",
+      "file": "light_xm_r5.pcapng",
+      "n_frames_with_ta": 10682,
+      "n_ap": 7928,
+      "n_own_transmitter": 2226,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 2226
+    },
+    {
+      "label": "Light_XM",
+      "round": "R6",
+      "file": "light_xm_r6.pcapng",
+      "n_frames_with_ta": 10641,
+      "n_ap": 8750,
+      "n_own_transmitter": 947,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 947
+    },
+    {
+      "label": "Light_XM",
+      "round": "R7",
+      "file": "light_xm_r7.pcapng",
+      "n_frames_with_ta": 9437,
+      "n_ap": 7041,
+      "n_own_transmitter": 1835,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1835
+    },
+    {
+      "label": "Sensor",
+      "round": "R2",
+      "file": "sensor_r2.pcapng",
+      "n_frames_with_ta": 14553,
+      "n_ap": 12137,
+      "n_own_transmitter": 1892,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1892
+    },
+    {
+      "label": "Sensor",
+      "round": "R3",
+      "file": "sensor_r3.pcapng",
+      "n_frames_with_ta": 13802,
+      "n_ap": 11563,
+      "n_own_transmitter": 1686,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1686
+    },
+    {
+      "label": "Sensor",
+      "round": "R4",
+      "file": "sensor_r4.pcapng",
+      "n_frames_with_ta": 13427,
+      "n_ap": 11251,
+      "n_own_transmitter": 1533,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1533
+    },
+    {
+      "label": "Sensor",
+      "round": "R5",
+      "file": "sensor_r5.pcapng",
+      "n_frames_with_ta": 8308,
+      "n_ap": 6462,
+      "n_own_transmitter": 1300,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1300
+    },
+    {
+      "label": "Sensor",
+      "round": "R6",
+      "file": "sensor_r6.pcapng",
+      "n_frames_with_ta": 9348,
+      "n_ap": 8054,
+      "n_own_transmitter": 635,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 635
+    },
+    {
+      "label": "Sensor",
+      "round": "R7",
+      "file": "sensor_r7.pcapng",
+      "n_frames_with_ta": 9855,
+      "n_ap": 7812,
+      "n_own_transmitter": 1464,
+      "own_transmitter": "54:ef:44:59:eb:4c",
+      "top_non_ap": "54:ef:44:59:eb:4c",
+      "n_top_non_ap": 1464
+    },
+    {
+      "label": "Socket",
+      "round": "R2",
+      "file": "socket_r2.pcapng",
+      "n_frames_with_ta": 21570,
+      "n_ap": 6465,
+      "n_own_transmitter": 15066,
+      "own_transmitter": "b8:50:d8:67:b5:d0",
+      "top_non_ap": "b8:50:d8:67:b5:d0",
+      "n_top_non_ap": 15066
+    },
+    {
+      "label": "Socket",
+      "round": "R3",
+      "file": "socket_r3.pcapng",
+      "n_frames_with_ta": 35619,
+      "n_ap": 14193,
+      "n_own_transmitter": 21389,
+      "own_transmitter": "b8:50:d8:67:b5:d0",
+      "top_non_ap": "b8:50:d8:67:b5:d0",
+      "n_top_non_ap": 21389
+    },
+    {
+      "label": "Socket",
+      "round": "R4",
+      "file": "socket_r4.pcapng",
+      "n_frames_with_ta": 25748,
+      "n_ap": 8850,
+      "n_own_transmitter": 16831,
+      "own_transmitter": "b8:50:d8:67:b5:d0",
+      "top_non_ap": "b8:50:d8:67:b5:d0",
+      "n_top_non_ap": 16831
+    },
+    {
+      "label": "Socket",
+      "round": "R5",
+      "file": "socket_r5.pcapng",
+      "n_frames_with_ta": 16239,
+      "n_ap": 2157,
+      "n_own_transmitter": 14040,
+      "own_transmitter": "b8:50:d8:67:b5:d0",
+      "top_non_ap": "b8:50:d8:67:b5:d0",
+      "n_top_non_ap": 14040
+    },
+    {
+      "label": "Socket",
+      "round": "R6",
+      "file": "socket_r6.pcapng",
+      "n_frames_with_ta": 22437,
+      "n_ap": 7413,
+      "n_own_transmitter": 14985,
+      "own_transmitter": "b8:50:d8:67:b5:d0",
+      "top_non_ap": "b8:50:d8:67:b5:d0",
+      "n_top_non_ap": 14985
+    },
+    {
+      "label": "Socket",
+      "round": "R7",
+      "file": "socket_r7.pcapng",
+      "n_frames_with_ta": 23136,
+      "n_ap": 7610,
+      "n_own_transmitter": 15488,
+      "own_transmitter": "b8:50:d8:67:b5:d0",
+      "top_non_ap": "b8:50:d8:67:b5:d0",
+      "n_top_non_ap": 15488
+    }
+  ],
+  "cross_label_contamination_gateway_files": [
+    {
+      "label": "Light_T1",
+      "round": "R2",
+      "n_from_camera_mac": 207,
+      "n_from_socket_mac": 126,
+      "n_total": 11246
+    },
+    {
+      "label": "Light_T1",
+      "round": "R3",
+      "n_from_camera_mac": 244,
+      "n_from_socket_mac": 164,
+      "n_total": 11093
+    },
+    {
+      "label": "Light_T1",
+      "round": "R4",
+      "n_from_camera_mac": 220,
+      "n_from_socket_mac": 167,
+      "n_total": 16418
+    },
+    {
+      "label": "Light_T1",
+      "round": "R5",
+      "n_from_camera_mac": 193,
+      "n_from_socket_mac": 146,
+      "n_total": 7764
+    },
+    {
+      "label": "Light_T1",
+      "round": "R6",
+      "n_from_camera_mac": 547,
+      "n_from_socket_mac": 184,
+      "n_total": 10558
+    },
+    {
+      "label": "Light_T1",
+      "round": "R7",
+      "n_from_camera_mac": 376,
+      "n_from_socket_mac": 175,
+      "n_total": 9472
+    },
+    {
+      "label": "Light_XM",
+      "round": "R2",
+      "n_from_camera_mac": 228,
+      "n_from_socket_mac": 143,
+      "n_total": 9756
+    },
+    {
+      "label": "Light_XM",
+      "round": "R3",
+      "n_from_camera_mac": 215,
+      "n_from_socket_mac": 322,
+      "n_total": 18467
+    },
+    {
+      "label": "Light_XM",
+      "round": "R4",
+      "n_from_camera_mac": 225,
+      "n_from_socket_mac": 159,
+      "n_total": 14241
+    },
+    {
+      "label": "Light_XM",
+      "round": "R5",
+      "n_from_camera_mac": 310,
+      "n_from_socket_mac": 153,
+      "n_total": 10682
+    },
+    {
+      "label": "Light_XM",
+      "round": "R6",
+      "n_from_camera_mac": 701,
+      "n_from_socket_mac": 160,
+      "n_total": 10641
+    },
+    {
+      "label": "Light_XM",
+      "round": "R7",
+      "n_from_camera_mac": 345,
+      "n_from_socket_mac": 140,
+      "n_total": 9437
+    },
+    {
+      "label": "Sensor",
+      "round": "R2",
+      "n_from_camera_mac": 237,
+      "n_from_socket_mac": 170,
+      "n_total": 14553
+    },
+    {
+      "label": "Sensor",
+      "round": "R3",
+      "n_from_camera_mac": 188,
+      "n_from_socket_mac": 245,
+      "n_total": 13802
+    },
+    {
+      "label": "Sensor",
+      "round": "R4",
+      "n_from_camera_mac": 212,
+      "n_from_socket_mac": 313,
+      "n_total": 13427
+    },
+    {
+      "label": "Sensor",
+      "round": "R5",
+      "n_from_camera_mac": 303,
+      "n_from_socket_mac": 159,
+      "n_total": 8308
+    },
+    {
+      "label": "Sensor",
+      "round": "R6",
+      "n_from_camera_mac": 385,
+      "n_from_socket_mac": 180,
+      "n_total": 9348
+    },
+    {
+      "label": "Sensor",
+      "round": "R7",
+      "n_from_camera_mac": 301,
+      "n_from_socket_mac": 173,
+      "n_total": 9855
+    }
+  ],
+  "contamination_total_from_camera": 5437,
+  "contamination_total_from_socket": 3279,
+  "contamination_frac_of_gateway_frames": 0.04168978514167639,
+  "own_transmitter_is_top_non_ap_in_all_files": true
+}

@@ -1,0 +1,42 @@
+{
+  "protocol_sha256": "d0ad95186383e295f91d34787f4c95b4a999139fbfdef986b8df576bdc3cfd43",
+  "git_head": "5be1ee410017b4e318987c1c60cdc10641b7c0d4",
+  "cache_md5": "703984b6ad2fde2f45e0cce1c6df31be",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "models": [
+    "rf",
+    "xgboost",
+    "lightgbm"
+  ],
+  "n_cols": 94,
+  "classes": [
+    "Camera",
+    "Light_T1",
+    "Light_XM",
+    "Sensor",
+    "Socket"
+  ],
+  "tshark_version": "TShark (Wireshark) 3.2.3 (Git v3.2.3 packaged as 3.2.3-1)",
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "frozen_run_two_channel_md5": "8a1d593dcdd6bdc309503dbd701e56a1",
+  "runner_md5": "83c3c4a91e650ab71d8cf492d7fdd76e",
+  "runner_path": "/home/lmy/iot-device-classification/results/transmitter_partition_20260904/run_txpart.py",
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "_volatile": {
+    "elapsed_sec": 382.1,
+    "out_dir": "/tmp/txp_A"
+  }
+}

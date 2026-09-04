@@ -1,0 +1,125 @@
+{
+  "protocol_sha256": "61984e4722eb635ec5ae3ccff51e98fe91b24b9df2cfc9a24bb7f344fdcc08c0",
+  "verdict_pair": [
+    "EXPANSION_MARGINAL",
+    "EXPANSION_MARGINAL"
+  ],
+  "verdict_A_N33": "EXPANSION_MARGINAL",
+  "verdict_B_N89": "EXPANSION_MARGINAL",
+  "delta_ceiling_A": 0.006953930674275299,
+  "delta_ceiling_B": 0.013430639377662312,
+  "delta_N89_minus_N33": 0.006476708703387013,
+  "delta_N89_minus_N33_note": "无门槛、不参与判定；为正说明作者的证据筛选丢了信息，为负说明多余 56 列在稀释",
+  "ceiling": {
+    "full94": 0.9083829563779927,
+    "full94+N33": 0.915336887052268,
+    "full94+N89": 0.921813595755655
+  },
+  "ceiling_sd": {
+    "full94": 0.0011480259729671387,
+    "full94+N33": 0.0,
+    "full94+N89": 0.0
+  },
+  "gate": 0.02,
+  "joint_tb_full94_here": 0.9083829563779927,
+  "joint_tb_full94_external_ref": 0.9084,
+  "joint_tb_full94_diff_vs_ref": -1.7043622007273385e-05,
+  "family_diagnostic": {
+    "full94+N89": {
+      "d_auc_sum": {
+        "rssi": 5.442594357007461,
+        "singletons": 0.04402476257702862,
+        "subwin": 0.008092083522418225,
+        "interarrival": -0.008589319477275117,
+        "time": -0.009753948168471312,
+        "up": -0.03178143993905774,
+        "subtype": -0.044544967858654125,
+        "timeup": -0.0869912436360965,
+        "timedn": -0.0905901116100909,
+        "down": -0.16485579694272087,
+        "len": -0.17790990702864717,
+        "burst": -0.22621383691098904,
+        "unique": -0.31213514430756006,
+        "seq": -0.5121398392471073,
+        "dir": -0.5257655341323628
+      },
+      "n_pos_tasks": {
+        "dir": 0,
+        "time": 4,
+        "seq": 1,
+        "subtype": 1,
+        "len": 1,
+        "singletons": 5,
+        "interarrival": 5,
+        "timedn": 2,
+        "timeup": 1,
+        "subwin": 6,
+        "rssi": 8,
+        "burst": 1,
+        "up": 3,
+        "down": 0,
+        "unique": 0
+      },
+      "n_tasks": 9,
+      "top1": "rssi",
+      "top1_val": 5.442594357007461,
+      "top2": "singletons",
+      "top2_val": 0.04402476257702862,
+      "ratio": 108.8518871401492,
+      "n_families": 15
+    },
+    "full94+N33": {
+      "d_auc_sum": {
+        "rssi": 5.1472458348179035,
+        "singletons": 0.027424768256158666,
+        "subwin": 0.01991468773167793,
+        "interarrival": -0.016160012035191025,
+        "subtype": -0.045200398565849696,
+        "time": -0.13290977653428138,
+        "up": -0.21840305284534942,
+        "dir": -0.22687344377652124,
+        "seq": -0.23114793863067215,
+        "down": -0.29360253644613227,
+        "len": -0.29923604940335924,
+        "unique": -0.3547012975977389,
+        "burst": -0.5951662737556995
+      },
+      "n_pos_tasks": {
+        "subtype": 2,
+        "dir": 0,
+        "len": 0,
+        "singletons": 5,
+        "interarrival": 5,
+        "time": 2,
+        "seq": 0,
+        "subwin": 6,
+        "rssi": 8,
+        "burst": 0,
+        "up": 0,
+        "down": 0,
+        "unique": 0
+      },
+      "n_tasks": 9,
+      "top1": "rssi",
+      "top1_val": 5.1472458348179035,
+      "top2": "singletons",
+      "top2_val": 0.027424768256158666,
+      "ratio": 102.94491669635806,
+      "n_families": 13
+    }
+  },
+  "family_diagnostic_note": "无门槛并报项，本协议内不构成任何「通过」；只为下一个协议提供依据（协议 §4 规定 3）",
+  "n_new_cols": 89,
+  "n_cols": {
+    "full94": 94,
+    "full94+N33": 127,
+    "full94+N89": 183
+  },
+  "deviations": [
+    "§2 N5 的 seq_len32_*：列名说 32 桶，构造规则给出 30 桶；按规则字面执行 30 桶，列名保留作标签，熵按 30/900 归一化",
+    "min_packets_per_window 取 2（冻结缓存未记录）；随后内连接到缓存并断言未匹配为 0，故不影响最终行集",
+    "方向用修正规则 up=(ra==bssid) / down=(ta==bssid)；full94 原有 up_*/down_* 一列未动",
+    "实现对 dir 的 len 分位一并算了 p50，多出 dir_up_len_p50 / dir_down_len_p50；协议声明的 N89 不含该两列，故按冻结清单丢弃（不为此改协议第四版）"
+  ],
+  "only_measure_no_select": "未调用 accept_family、未产生 removed 列表、未做配置选择（硬门 3）"
+}

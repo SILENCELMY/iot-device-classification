@@ -1,0 +1,233 @@
+{
+  "protocol_sha256": "d0ad95186383e295f91d34787f4c95b4a999139fbfdef986b8df576bdc3cfd43",
+  "verdict_pair": [
+    "PARTITION_PARTIAL",
+    "DEVICE_SIGNAL_SAME_DAY"
+  ],
+  "verdict_A": "PARTITION_PARTIAL",
+  "verdict_B": "DEVICE_SIGNAL_SAME_DAY",
+  "hits_A": 9,
+  "n_pairs": 10,
+  "A_identical_across_seeds": true,
+  "F_gw_primary": 0.6820316017117452,
+  "primary_unit_B": "jit_R6",
+  "tau": 0.01,
+  "saturation_threshold": 0.999,
+  "gate_A": {
+    "RECOVERED": 10,
+    "PARTIAL_LO": 8
+  },
+  "gate_B": {
+    "SIGNAL": 0.5,
+    "AMBIG": 0.4
+  },
+  "pair_signs": [
+    {
+      "pair": "Light_T1|Light_XM",
+      "same_transmitter": true,
+      "transmitter_a": "54:ef:44:59:eb:4c",
+      "transmitter_b": "54:ef:44:59:eb:4c",
+      "base_auc_mean_full94": 0.49017536450353205,
+      "saturated": false,
+      "D_sum_3units": 0.6459803242211368,
+      "sign_observed": "+",
+      "sign_predicted": "+",
+      "rule_applied": "rule1_same_transmitter",
+      "hit": true
+    },
+    {
+      "pair": "Light_T1|Sensor",
+      "same_transmitter": true,
+      "transmitter_a": "54:ef:44:59:eb:4c",
+      "transmitter_b": "54:ef:44:59:eb:4c",
+      "base_auc_mean_full94": 0.7087103382251226,
+      "saturated": false,
+      "D_sum_3units": 0.428324322098122,
+      "sign_observed": "+",
+      "sign_predicted": "+",
+      "rule_applied": "rule1_same_transmitter",
+      "hit": true
+    },
+    {
+      "pair": "Light_XM|Sensor",
+      "same_transmitter": true,
+      "transmitter_a": "54:ef:44:59:eb:4c",
+      "transmitter_b": "54:ef:44:59:eb:4c",
+      "base_auc_mean_full94": 0.9054164526864116,
+      "saturated": false,
+      "D_sum_3units": 0.0038475818588152855,
+      "sign_observed": "0",
+      "sign_predicted": "+",
+      "rule_applied": "rule1_same_transmitter",
+      "hit": false
+    },
+    {
+      "pair": "Sensor|Socket",
+      "same_transmitter": false,
+      "transmitter_a": "54:ef:44:59:eb:4c",
+      "transmitter_b": "b8:50:d8:67:b5:d0",
+      "base_auc_mean_full94": 1.0,
+      "saturated": true,
+      "D_sum_3units": 0.0,
+      "sign_observed": "0",
+      "sign_predicted": "0",
+      "rule_applied": "rule2_saturated",
+      "hit": true
+    },
+    {
+      "pair": "Light_XM|Socket",
+      "same_transmitter": false,
+      "transmitter_a": "54:ef:44:59:eb:4c",
+      "transmitter_b": "b8:50:d8:67:b5:d0",
+      "base_auc_mean_full94": 1.0,
+      "saturated": true,
+      "D_sum_3units": 0.0,
+      "sign_observed": "0",
+      "sign_predicted": "0",
+      "rule_applied": "rule2_saturated",
+      "hit": true
+    },
+    {
+      "pair": "Light_T1|Socket",
+      "same_transmitter": false,
+      "transmitter_a": "54:ef:44:59:eb:4c",
+      "transmitter_b": "b8:50:d8:67:b5:d0",
+      "base_auc_mean_full94": 1.0,
+      "saturated": true,
+      "D_sum_3units": 0.0,
+      "sign_observed": "0",
+      "sign_predicted": "0",
+      "rule_applied": "rule2_saturated",
+      "hit": true
+    },
+    {
+      "pair": "Camera|Socket",
+      "same_transmitter": false,
+      "transmitter_a": "78:df:72:04:d6:b4",
+      "transmitter_b": "b8:50:d8:67:b5:d0",
+      "base_auc_mean_full94": 0.9990817263544537,
+      "saturated": true,
+      "D_sum_3units": -7.5890383930410366e-06,
+      "sign_observed": "0",
+      "sign_predicted": "0",
+      "rule_applied": "rule2_saturated",
+      "hit": true
+    },
+    {
+      "pair": "Camera|Light_T1",
+      "same_transmitter": false,
+      "transmitter_a": "78:df:72:04:d6:b4",
+      "transmitter_b": "54:ef:44:59:eb:4c",
+      "base_auc_mean_full94": 0.9428106477713096,
+      "saturated": false,
+      "D_sum_3units": -0.15974015723614898,
+      "sign_observed": "-",
+      "sign_predicted": "-",
+      "rule_applied": "rule3_diff_transmitter",
+      "hit": true
+    },
+    {
+      "pair": "Camera|Sensor",
+      "same_transmitter": false,
+      "transmitter_a": "78:df:72:04:d6:b4",
+      "transmitter_b": "54:ef:44:59:eb:4c",
+      "base_auc_mean_full94": 0.9897919798638789,
+      "saturated": false,
+      "D_sum_3units": -0.20545642647057072,
+      "sign_observed": "-",
+      "sign_predicted": "-",
+      "rule_applied": "rule3_diff_transmitter",
+      "hit": true
+    },
+    {
+      "pair": "Camera|Light_XM",
+      "same_transmitter": false,
+      "transmitter_a": "78:df:72:04:d6:b4",
+      "transmitter_b": "54:ef:44:59:eb:4c",
+      "base_auc_mean_full94": 0.9816550190273424,
+      "saturated": false,
+      "D_sum_3units": -0.3142046085278768,
+      "sign_observed": "-",
+      "sign_predicted": "-",
+      "rule_applied": "rule3_diff_transmitter",
+      "hit": true
+    }
+  ],
+  "per_class_f1_mean": [
+    {
+      "unit": "jit_R6",
+      "config": "full94",
+      "f1_Camera": 0.902157564592455,
+      "f1_Light_T1": 0.6230891922364084,
+      "f1_Light_XM": 0.6528277504245572,
+      "f1_Sensor": 0.7152991348164648,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.778674728413977,
+      "F_gw": 0.6637386924924767
+    },
+    {
+      "unit": "jit_R6",
+      "config": "full94_minus_rssi",
+      "f1_Camera": 0.6710526315789473,
+      "f1_Light_T1": 0.621380846325167,
+      "f1_Light_XM": 0.6421052631578947,
+      "f1_Sensor": 0.782608695652174,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7434294873428366,
+      "F_gw": 0.6820316017117452
+    },
+    {
+      "unit": "jit_R7",
+      "config": "full94",
+      "f1_Camera": 0.9402272904577945,
+      "f1_Light_T1": 0.6912761367374506,
+      "f1_Light_XM": 0.7181200723949885,
+      "f1_Sensor": 0.7677116963411945,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.8234670391862856,
+      "F_gw": 0.7257026351578778
+    },
+    {
+      "unit": "jit_R7",
+      "config": "full94_minus_rssi",
+      "f1_Camera": 0.8708450116664095,
+      "f1_Light_T1": 0.7298842072517162,
+      "f1_Light_XM": 0.7773040935238187,
+      "f1_Sensor": 0.8016693731350605,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.8359405371154012,
+      "F_gw": 0.7696192246368652
+    },
+    {
+      "unit": "pos_R5",
+      "config": "full94",
+      "f1_Camera": 0.870905647547936,
+      "f1_Light_T1": 0.2832963663333707,
+      "f1_Light_XM": 0.6827182138729506,
+      "f1_Sensor": 0.6430198143771424,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.69598800842628,
+      "F_gw": 0.5363447981944879
+    },
+    {
+      "unit": "pos_R5",
+      "config": "full94_minus_rssi",
+      "f1_Camera": 0.6260380116959064,
+      "f1_Light_T1": 0.5490765044814341,
+      "f1_Light_XM": 0.7868666695610645,
+      "f1_Sensor": 0.705937036951436,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7335836445379682,
+      "F_gw": 0.680626736997978
+    }
+  ],
+  "socket_pairs_not_saturated": [],
+  "socket_pairs_not_saturated_note": "协议 §5.7：若非空，则这些类对的预测按规则 ③ 执行（-），是规则的执行、不是改判据",
+  "contamination_frac_of_gateway_frames": 0.04168978514167639,
+  "deviations": [
+    "§2 声明种子 42–46 而 §3 未声明 A 是否逐种子；pair_auc 用 lbfgs 对给定数据确定、冻结 coord1_diag 亦只调用一次。本实现对 A 逐五种子全部计算并断言完全相同，以 seed 42 作判据输入（比只跑一次更强，不改任何判据）",
+    "§3.2 规则 ② 依赖运行中测得的基线 AUC；prereg.json 先落盘的是规则本身、同发射机划分、饱和阈值与 τ，以及「Socket 保持饱和」假设下的枚举预期",
+    "冒烟披露：正式双跑前以 SEEDS=[42]、UNITS=[jit_R6] 的缩减配置跑过一次验证管路，其数字已被作者看到（A 10/10、F_gw 0.6820）；协议与全部门槛此前已冻结提交（commit 5be1ee4），故无事后自由度。冒烟的 jit_R6 macro 0.7784/0.7434 与冻结 R567-94DIM-RETEST 的 0.7787/0.7434 一致，估计量复现"
+  ],
+  "only_measure_no_select": "未调用 accept_family、未产生 removed 列表、未做配置选择（硬门 6.7）"
+}
