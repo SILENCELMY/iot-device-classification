@@ -1,0 +1,67 @@
+{
+  "protocol_sha256": "dc58f07725f988c2dca962f3b33e33cd675d84563f6380d097877300b80db630",
+  "git_head": "3fc388c6e61cd777cadf34d87d46770c9a715e1e",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "models": [
+    "rf",
+    "xgboost",
+    "lightgbm"
+  ],
+  "min_windows": 100,
+  "max_rows": 20000,
+  "train_frac": 0.7,
+  "sort_keys": [
+    "window_start_epoch",
+    "window_id"
+  ],
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "n_feature_cols": 61,
+  "cache_md5_H": {
+    "features_day_16-09-23.csv": "05cdb87d1d23939a60ab1fd510ae43c7",
+    "features_day_16-09-24.csv": "25205dad0cdb937bc465fdada3233a9d",
+    "features_day_16-09-25.csv": "292cb873bb0730335270ab1b18272ff3",
+    "features_day_16-09-26.csv": "75f09e3e933fe9ada11629287dc33636",
+    "features_day_16-09-27.csv": "8bc243e78b300126040fe03c982e1f50",
+    "features_day_16-09-28.csv": "d46386524b068da96cbe1b0bf4f6c5db",
+    "features_day_16-09-29.csv": "4065d080a402981bfa9694223605db2b",
+    "features_day_16-09-30.csv": "7e0e7e01ea0e30f39e70401399bebdc6",
+    "features_day_16-10-01.csv": "3760dd3d05a4476842980d25de899c59",
+    "features_day_16-10-02.csv": "4fd147d86973a4a4602eec5c3ecffd15",
+    "features_day_16-10-03.csv": "b317fbbc53b757d29dcb8faaba5fff51",
+    "features_day_16-10-04.csv": "595c7dd3fa769536f80a78ec819b1360",
+    "features_day_16-10-05.csv": "c4c0a7f34d113f4fe2eb43e1223c01f2",
+    "features_day_16-10-06.csv": "02ea6cc2acd39c0d06104861d44199d4"
+  },
+  "families": {
+    "len": 14,
+    "interarrival": 12,
+    "subwin": 9,
+    "burst": 7,
+    "up": 7,
+    "down": 6,
+    "singletons": 6
+  },
+  "reused_modules": {
+    "pilot_rf_loro": "3d174d4bf4a8319717daceee050ce026",
+    "run_unsw_iid_reference": "5067d61987f13e2327466072fcbd1bef",
+    "run_two_channel": "8a1d593dcdd6bdc309503dbd701e56a1"
+  },
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "_volatile": {
+    "elapsed_sec": 782.6,
+    "out_dir": "/tmp/belkin_A"
+  }
+}

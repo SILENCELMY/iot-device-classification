@@ -1,0 +1,118 @@
+{
+  "protocol_sha256": "dc58f07725f988c2dca962f3b33e33cd675d84563f6380d097877300b80db630",
+  "verdict": "PARTIALLY_SEPARABLE",
+  "unit_a_main_f1": 0.6504445469627625,
+  "unit_a_by_model": {
+    "lightgbm": 0.6482639605820806,
+    "rf": 0.6498345995614193,
+    "xgboost": 0.6504445469627625
+  },
+  "unit_b_control_f1": 0.999589520340965,
+  "unit_b_by_model": {
+    "lightgbm": 0.9992487719619934,
+    "rf": 0.999589520340965,
+    "xgboost": 0.9993550136397774
+  },
+  "unit_b_gate_pass": true,
+  "unit_c_selfcollected_f1_max": 0.9283391721520722,
+  "n_days_used_a": 14,
+  "n_days_used_b": 14,
+  "max_single_col_strength": 0.11677792970003187,
+  "max_single_col_name": "down_len_mean",
+  "max_single_col_auc": 0.6167779297000319,
+  "top10_columns": [
+    {
+      "col": "down_len_mean",
+      "auc": 0.6167779297000319,
+      "strength": 0.11677792970003187
+    },
+    {
+      "col": "up_len_p50",
+      "auc": 0.38768613826737647,
+      "strength": 0.11231386173262353
+    },
+    {
+      "col": "up_down_ratio",
+      "auc": 0.4026971175339003,
+      "strength": 0.0973028824660997
+    },
+    {
+      "col": "down_packet_ratio",
+      "auc": 0.5972153426512797,
+      "strength": 0.09721534265127973
+    },
+    {
+      "col": "up_packet_ratio",
+      "auc": 0.4027846573487203,
+      "strength": 0.09721534265127968
+    },
+    {
+      "col": "down_len_p50",
+      "auc": 0.5828323802086134,
+      "strength": 0.08283238020861339
+    },
+    {
+      "col": "up_len_mean",
+      "auc": 0.42676945608266076,
+      "strength": 0.07323054391733924
+    },
+    {
+      "col": "down_len_std",
+      "auc": 0.5427513442399656,
+      "strength": 0.04275134423996563
+    },
+    {
+      "col": "len_cv",
+      "auc": 0.5336897267722873,
+      "strength": 0.03368972677228732
+    },
+    {
+      "col": "byte_count",
+      "auc": 0.5309835599557267,
+      "strength": 0.03098355995572666
+    }
+  ],
+  "family_max_strength": {
+    "len": 0.03368972677228732,
+    "interarrival": 0.022033914992147463,
+    "subwin": 0.03098355995572666,
+    "burst": 0.0281780122731089,
+    "up": 0.11231386173262353,
+    "down": 0.11677792970003187,
+    "singletons": 0.03098355995572666
+  },
+  "unit_a_cross_day_by_model": {
+    "lightgbm": 0.578495190623922,
+    "rf": 0.5779964543401276,
+    "xgboost": 0.5778388670814474
+  },
+  "unit_a_cross_day_max": 0.578495190623922,
+  "unit_a_indomain_minus_crossday": 0.07194935633884059,
+  "unit_a_minus_unit_c": -0.27789462518930963,
+  "unit_a_minus_unit_c_note": "跨数据集比较，不构成受控对比（协议 §6.5）",
+  "deviation_s6_3": "§6.3 跨天对照为无门槛并报项，用单种子 42 控制成本；其余口径不变",
+  "H_days": [
+    "features_day_16-09-23.csv",
+    "features_day_16-09-24.csv",
+    "features_day_16-09-25.csv",
+    "features_day_16-09-26.csv",
+    "features_day_16-09-27.csv",
+    "features_day_16-09-28.csv",
+    "features_day_16-09-29.csv",
+    "features_day_16-09-30.csv",
+    "features_day_16-10-01.csv",
+    "features_day_16-10-02.csv",
+    "features_day_16-10-03.csv",
+    "features_day_16-10-04.csv",
+    "features_day_16-10-05.csv",
+    "features_day_16-10-06.csv"
+  ],
+  "T_days_blocked": [
+    "features_day_16-10-07.csv",
+    "features_day_16-10-08.csv",
+    "features_day_16-10-09.csv",
+    "features_day_16-10-10.csv",
+    "features_day_16-10-11.csv",
+    "features_day_16-10-12.csv"
+  ]
+}

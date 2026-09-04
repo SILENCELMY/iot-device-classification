@@ -1,0 +1,45 @@
+{
+  "protocol_sha256": "ebb2eb642a322337012e5a5a6a6ac62df7fb77054b7a7f01936cf76191738297",
+  "git_head": "3fc388c6e61cd777cadf34d87d46770c9a715e1e",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "base_models": [
+    "rf",
+    "xgboost",
+    "lightgbm"
+  ],
+  "tau": 0.1,
+  "n_cols": {
+    "full94": 94,
+    "drop_rssi": 86
+  },
+  "rssi_cols": [
+    "rssi_max",
+    "rssi_mean",
+    "rssi_min",
+    "rssi_missing_ratio",
+    "rssi_p10",
+    "rssi_p50",
+    "rssi_p90",
+    "rssi_std"
+  ],
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "cache": "/home/lmy/iot-device-classification/results/robust_v2/raw_all/features_raw_all_w10.csv",
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "_volatile": {
+    "elapsed_sec": 1327.2,
+    "out_dir": "/tmp/hier_A"
+  }
+}

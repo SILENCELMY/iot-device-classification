@@ -1,0 +1,126 @@
+{
+  "protocol_sha256": "ebb2eb642a322337012e5a5a6a6ac62df7fb77054b7a7f01936cf76191738297",
+  "verdict": "HIER_FAILS",
+  "cond1_pass": "3/6",
+  "cond2_pass": "1/3",
+  "cluster": [
+    "Light_T1",
+    "Light_XM",
+    "Sensor"
+  ],
+  "easy_classes": [
+    "Camera",
+    "Socket"
+  ],
+  "cluster_equals_expected": true,
+  "selected_hier_models": [
+    "rf",
+    "xgboost"
+  ],
+  "selected_flat_models": {
+    "flat_full94": "rf",
+    "flat_drop_rssi": "lightgbm"
+  },
+  "flat_inner_means": {
+    "flat_full94": {
+      "rf": 0.6979001215500403,
+      "xgboost": 0.6569757636810859,
+      "lightgbm": 0.670780853837574
+    },
+    "flat_drop_rssi": {
+      "rf": 0.7559445979424194,
+      "xgboost": 0.7929625848398562,
+      "lightgbm": 0.7933644340104177
+    }
+  },
+  "outer_hier_macro": {
+    "pos_R5": 0.7971032075771409,
+    "jit_R6": 0.6930836495480255,
+    "jit_R7": 0.8209682865172079
+  },
+  "outer_v1_oracle_macro": {
+    "pos_R5": 0.6959047566073622,
+    "jit_R6": 0.7593478108833461,
+    "jit_R7": 0.8259772493360968
+  },
+  "outer_device_N30": {
+    "pos_R5": 0.929375745027919,
+    "jit_R6": 0.8574202233658644,
+    "jit_R7": 1.0
+  },
+  "cells": [
+    {
+      "unit": "pos_R5",
+      "cond": 1,
+      "cls": "Camera",
+      "hier": 0.83693118569854,
+      "flat_best": 0.870905647547936,
+      "pass": false
+    },
+    {
+      "unit": "pos_R5",
+      "cond": 1,
+      "cls": "Socket",
+      "hier": 1.0,
+      "flat_best": 1.0,
+      "pass": true
+    },
+    {
+      "unit": "pos_R5",
+      "cond": 2,
+      "cls": "Light_T1|Light_XM|Sensor",
+      "hier": 0.7161949507290549,
+      "flat_best": 0.6808440429627604,
+      "pass": true
+    },
+    {
+      "unit": "jit_R6",
+      "cond": 1,
+      "cls": "Camera",
+      "hier": 0.4713264321987303,
+      "flat_best": 0.8131441303964186,
+      "pass": false
+    },
+    {
+      "unit": "jit_R6",
+      "cond": 1,
+      "cls": "Socket",
+      "hier": 1.0,
+      "flat_best": 1.0,
+      "pass": true
+    },
+    {
+      "unit": "jit_R6",
+      "cond": 2,
+      "cls": "Light_T1|Light_XM|Sensor",
+      "hier": 0.6646972718471323,
+      "flat_best": 0.6820316017117452,
+      "pass": false
+    },
+    {
+      "unit": "jit_R7",
+      "cond": 1,
+      "cls": "Camera",
+      "hier": 0.8394399309501633,
+      "flat_best": 0.9402272904577943,
+      "pass": false
+    },
+    {
+      "unit": "jit_R7",
+      "cond": 1,
+      "cls": "Socket",
+      "hier": 1.0,
+      "flat_best": 1.0,
+      "pass": true
+    },
+    {
+      "unit": "jit_R7",
+      "cond": 2,
+      "cls": "Light_T1|Light_XM|Sensor",
+      "hier": 0.7551338338786255,
+      "flat_best": 0.7697124348165675,
+      "pass": false
+    }
+  ],
+  "deviation_s3_s4_circularity": "§3 要求用 §4 选出的第一层模型导出簇，§4 要求按 §5 分层实现选模型 —— 循环依赖。本实现用三 inner 单元 flat full94 预测导出簇（与 §4 解耦），三基模型要求一致、不一致取交集；其余 §3 条款照执行。见 runner 文件头。"
+}

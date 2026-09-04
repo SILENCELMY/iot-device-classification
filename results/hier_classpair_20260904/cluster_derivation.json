@@ -1,0 +1,142 @@
+{
+  "per_seed": {
+    "42": {
+      "by_model": {
+        "rf": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "xgboost": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "lightgbm": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ]
+      },
+      "agree_across_models": true,
+      "cluster": [
+        "Light_T1",
+        "Light_XM",
+        "Sensor"
+      ]
+    },
+    "43": {
+      "by_model": {
+        "rf": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "xgboost": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "lightgbm": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ]
+      },
+      "agree_across_models": true,
+      "cluster": [
+        "Light_T1",
+        "Light_XM",
+        "Sensor"
+      ]
+    },
+    "44": {
+      "by_model": {
+        "rf": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "xgboost": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "lightgbm": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ]
+      },
+      "agree_across_models": true,
+      "cluster": [
+        "Light_T1",
+        "Light_XM",
+        "Sensor"
+      ]
+    },
+    "45": {
+      "by_model": {
+        "rf": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "xgboost": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "lightgbm": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ]
+      },
+      "agree_across_models": true,
+      "cluster": [
+        "Light_T1",
+        "Light_XM",
+        "Sensor"
+      ]
+    },
+    "46": {
+      "by_model": {
+        "rf": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "xgboost": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ],
+        "lightgbm": [
+          "Light_T1",
+          "Light_XM",
+          "Sensor"
+        ]
+      },
+      "agree_across_models": true,
+      "cluster": [
+        "Light_T1",
+        "Light_XM",
+        "Sensor"
+      ]
+    }
+  },
+  "agree_across_seeds": true,
+  "final_cluster": [
+    "Light_T1",
+    "Light_XM",
+    "Sensor"
+  ],
+  "equals_expected": true,
+  "expected_reference": [
+    "Light_T1",
+    "Light_XM",
+    "Sensor"
+  ],
+  "tau": 0.1
+}
