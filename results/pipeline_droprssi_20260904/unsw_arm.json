@@ -1,0 +1,15 @@
+{
+  "status": "OK",
+  "source_file": "results/unsw_meta_mismatch_20260902/subset_f1.csv",
+  "columns": [
+    "task",
+    "model",
+    "domain",
+    "all",
+    "H",
+    "E"
+  ],
+  "n_rows": 21,
+  "note": "结构与自采不同（源域侧是 OOF 非内层 LORO），只作旁证，不进 6 格计数",
+  "parse_note": "未按预期结构解析：IndexError: list index out of range"
+}

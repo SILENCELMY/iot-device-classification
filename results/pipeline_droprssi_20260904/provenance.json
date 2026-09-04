@@ -1,0 +1,113 @@
+{
+  "protocol_sha256": "6e85b2fb283667b20dfa9e718311dbfb686868afe448d5c6381857a003b6abac",
+  "git_head": "aa75ad4a1df736ecece188e139b3ca03861588d8",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "cache": "/home/lmy/iot-device-classification/results/robust_v2/raw_all/features_raw_all_w10.csv",
+  "frozen_runner_md5": "8a1d593dcdd6bdc309503dbd701e56a1",
+  "r567_runner_md5": "3f31318765a8b6f26c470b0eb64dbf0d",
+  "n_cols": {
+    "full94": 94,
+    "drop_rssi": 86
+  },
+  "rssi_cols": [
+    "rssi_max",
+    "rssi_mean",
+    "rssi_min",
+    "rssi_missing_ratio",
+    "rssi_p10",
+    "rssi_p50",
+    "rssi_p90",
+    "rssi_std"
+  ],
+  "units": [
+    {
+      "name": "inner_to_R2",
+      "type": "inner",
+      "src": [
+        "R3",
+        "R4"
+      ],
+      "tgt": [
+        "R2"
+      ]
+    },
+    {
+      "name": "inner_to_R3",
+      "type": "inner",
+      "src": [
+        "R2",
+        "R4"
+      ],
+      "tgt": [
+        "R3"
+      ]
+    },
+    {
+      "name": "inner_to_R4",
+      "type": "inner",
+      "src": [
+        "R2",
+        "R3"
+      ],
+      "tgt": [
+        "R4"
+      ]
+    },
+    {
+      "name": "pos_R5",
+      "type": "outer",
+      "src": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "tgt": [
+        "R5"
+      ]
+    },
+    {
+      "name": "jit_R6",
+      "type": "outer",
+      "src": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "tgt": [
+        "R6"
+      ]
+    },
+    {
+      "name": "jit_R7",
+      "type": "outer",
+      "src": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "tgt": [
+        "R7"
+      ]
+    }
+  ],
+  "tie_band": 0.01,
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "_volatile": {
+    "elapsed_sec": 2507.1,
+    "out_dir": "/tmp/pipe_A"
+  }
+}

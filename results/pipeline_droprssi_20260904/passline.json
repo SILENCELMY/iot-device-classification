@@ -1,0 +1,19 @@
+{
+  "protocol_sha256": "6e85b2fb283667b20dfa9e718311dbfb686868afe448d5c6381857a003b6abac",
+  "verdict": "SOURCE_SIGNAL_PARTIAL",
+  "n_agree_strict": 4,
+  "n_cells": 6,
+  "n_tie": 2,
+  "n_agree_nontie": 3,
+  "n_nontie": 4,
+  "g_in": {
+    "full94": 0.1696540171512049,
+    "drop_rssi": 0.004301121478907932
+  },
+  "decision": {
+    "full94": "REFUSE_STACKING",
+    "drop_rssi": "REFUSE_STACKING"
+  },
+  "gate7": "eval_unit == fit_eval 逐位一致（容差 1e-12）",
+  "deviation_from_protocol_s4": "§4 要求并报「full94 + 源域 CV 选出的模型」。源域 CV 选模型需要 run_two_channel 的 P0 机制，本 runner 未登记调用它，故改为并报 full94 的 stacking 臂与 best_base 臂作夹逼（practice_full94_brackets）。未改动任何判据、阈值、任务集或配置集。"
+}
