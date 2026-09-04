@@ -1,0 +1,145 @@
+{
+  "protocol_sha256": "ecfabc1b47de3af9f4756f7a63714da1d43e0ff2ace8b122d29fb18a06ec1c92",
+  "upstream_sha256": "090a8a7d959064252adda9611a9260888198e97a118042a47f589df719eb9bcd",
+  "verdict": "OVERRIDE_183_IMPROVES",
+  "not_a_confirmatory_test": "协议 §1.3：方法定义、闸门常量与全部对照臂在协议撰写前已被作者看到（含 183 列臂的 3 种子探索性运行）；3→5 种子不构成独立性增益。确认见 §8",
+  "criterion1_cells_positive_vs_flat183": 45,
+  "criterion1_gate": 40,
+  "criterion1_pass": true,
+  "criterion2_camera_min_delta": 0.0,
+  "criterion2_tol": -0.01,
+  "criterion2_pass": true,
+  "criterion3_mean_vs_flat_drop_rssi_86": 0.05328540660245519,
+  "criterion3_pass": true,
+  "delta_override183_minus_flat183": {
+    "mean": 0.022321797380509878,
+    "sd": 0.020106506387254343,
+    "min": 0.0013154762835363432,
+    "max": 0.06164363295084041,
+    "n_positive": 45,
+    "n_cells": 45
+  },
+  "delta_override183_minus_flat_drop_rssi_86": {
+    "mean": 0.05328540660245519,
+    "sd": 0.03389082810930998,
+    "min": -0.005658762265626338,
+    "max": 0.09643176575388124,
+    "n_positive": 37,
+    "n_cells": 45
+  },
+  "delta_override183_minus_override94": {
+    "mean": 0.028515410856110767,
+    "sd": 0.008888229264027098,
+    "min": 0.01269561818056908,
+    "max": 0.042923054970480656,
+    "n_positive": 45,
+    "n_cells": 45
+  },
+  "delta_flat183_minus_flat94": {
+    "mean": 0.035056760967489636,
+    "sd": 0.01690099549610299,
+    "min": 0.0073481614421029295,
+    "max": 0.05970402427848853,
+    "n_positive": 45,
+    "n_cells": 45
+  },
+  "camera_delta_override183_minus_flat183": {
+    "mean": 0.0,
+    "sd": 0.0,
+    "min": 0.0,
+    "max": 0.0,
+    "n_positive": 0,
+    "n_cells": 45
+  },
+  "summary_best_base": {
+    "flat_183": {
+      "f1_Camera": 0.9401412213166656,
+      "f1_Light_T1": 0.6057502880660547,
+      "f1_Light_XM": 0.7571762679266423,
+      "f1_Sensor": 0.7305284224303052,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.8067192399479335,
+      "dev30_acc": 0.9577777777777778,
+      "F_gw": 0.6978183261410008
+    },
+    "flat_94": {
+      "f1_Camera": 0.9044301675327284,
+      "f1_Light_T1": 0.5325538984357432,
+      "f1_Light_XM": 0.6845553455641654,
+      "f1_Sensor": 0.7086768818449339,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7660432586755143,
+      "dev30_acc": 0.9344444444444445,
+      "F_gw": 0.6419287086149476
+    },
+    "flat_drop_rssi_175": {
+      "f1_Camera": 0.8419062590338549,
+      "f1_Light_T1": 0.6993979450733806,
+      "f1_Light_XM": 0.8167588881814069,
+      "f1_Sensor": 0.7702573776309054,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.8256640939839096,
+      "dev30_acc": 0.9833333333333333,
+      "F_gw": 0.7621380702952308
+    },
+    "flat_drop_rssi_86": {
+      "f1_Camera": 0.7226452183137544,
+      "f1_Light_T1": 0.6334471860194391,
+      "f1_Light_XM": 0.735425342080926,
+      "f1_Sensor": 0.7634050352462235,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7709845563320686,
+      "dev30_acc": 0.9777777777777777,
+      "F_gw": 0.7107591877821963
+    },
+    "override_183": {
+      "f1_Camera": 0.9394396400547811,
+      "f1_Light_T1": 0.64652307777663,
+      "f1_Light_XM": 0.763850667121059,
+      "f1_Sensor": 0.7555314383238174,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.8210689646552575,
+      "dev30_acc": 0.9722222222222222,
+      "F_gw": 0.7219683944071688
+    },
+    "override_94": {
+      "f1_Camera": 0.9112500295847409,
+      "f1_Light_T1": 0.5986813473114289,
+      "f1_Light_XM": 0.6986780140402268,
+      "f1_Sensor": 0.7377269951773987,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7892672772227591,
+      "dev30_acc": 0.9491919191919193,
+      "F_gw": 0.6783621188430181
+    }
+  },
+  "override_pairs_94": {
+    "Light_T1|Light_XM": [
+      "rssi"
+    ],
+    "Light_T1|Sensor": [
+      "rssi"
+    ]
+  },
+  "override_pairs_183": {
+    "Light_T1|Light_XM": [
+      "rssi"
+    ],
+    "Light_T1|Sensor": [
+      "rssi"
+    ]
+  },
+  "constants": {
+    "ACCEPT_RATIO": 3.0,
+    "ACCEPT_WORST_FRAC": 0.5,
+    "EPS": 0.05,
+    "DOM_GATE": 3.0,
+    "FLOOR": 0.15
+  },
+  "device_level_note": "三单元合计 192 块、一块翻转 0.0052、已饱和；按协议 §3 不作判据，成对报出",
+  "feature_expansion_underestimate": {
+    "in_domain_ceiling_gain": 0.0134,
+    "cross_round_macro_gain": 0.035056760967489636,
+    "note": "FEATURE-EXPANSION-SELF 判定不改，含义更正：域内测出的特征集价值系统性低估其跨域价值"
+  }
+}

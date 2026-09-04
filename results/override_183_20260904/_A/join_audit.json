@@ -1,0 +1,18 @@
+{
+  "protocol_sha256": "ecfabc1b47de3af9f4756f7a63714da1d43e0ff2ace8b122d29fb18a06ec1c92",
+  "upstream_sha256": "090a8a7d959064252adda9611a9260888198e97a118042a47f589df719eb9bcd",
+  "cache_md5_full94": "703984b6ad2fde2f45e0cce1c6df31be",
+  "cache_md5_new89": "e0586ea2b55c6913a614a1f94772e701",
+  "n_rows_merged": 11303,
+  "n_rows_cache": 11303,
+  "unmatched_rows": 0,
+  "n_new_cols": 89,
+  "n_cols": {
+    "94": 94,
+    "86": 86,
+    "183": 183,
+    "175": 175
+  },
+  "families_94": 10,
+  "families_183": 15
+}

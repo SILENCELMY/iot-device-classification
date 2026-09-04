@@ -1,0 +1,47 @@
+{
+  "protocol_sha256": "ecfabc1b47de3af9f4756f7a63714da1d43e0ff2ace8b122d29fb18a06ec1c92",
+  "upstream_sha256": "090a8a7d959064252adda9611a9260888198e97a118042a47f589df719eb9bcd",
+  "git_head": "73ec63855359a2103cee6b5da83c3d5b7af5de7f",
+  "cache_md5_full94": "703984b6ad2fde2f45e0cce1c6df31be",
+  "cache_md5_new89": "e0586ea2b55c6913a614a1f94772e701",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "models": [
+    "rf",
+    "xgboost",
+    "lightgbm"
+  ],
+  "n_cols": {
+    "94": 94,
+    "86": 86,
+    "183": 183,
+    "175": 175
+  },
+  "classes": [
+    "Camera",
+    "Light_T1",
+    "Light_XM",
+    "Sensor",
+    "Socket"
+  ],
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "frozen_run_two_channel_md5": "8a1d593dcdd6bdc309503dbd701e56a1",
+  "runner_md5": "7319a54debccec93fe9a1eed6bfc49b9",
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "_volatile": {
+    "elapsed_sec": 1604.6,
+    "out_dir": "/home/lmy/iot-device-classification/results/override_183_20260904/_B"
+  }
+}

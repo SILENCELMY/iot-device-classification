@@ -1,0 +1,25 @@
+{
+  "protocol_sha256": "ecfabc1b47de3af9f4756f7a63714da1d43e0ff2ace8b122d29fb18a06ec1c92",
+  "pool": "183",
+  "constants": {
+    "ACCEPT_RATIO": 3.0,
+    "ACCEPT_WORST_FRAC": 0.5,
+    "EPS": 0.05,
+    "DOM_GATE": 3.0,
+    "FLOOR": 0.15
+  },
+  "inner_tasks": [
+    "g0_R2_R3_to_R4",
+    "g0_R2_R4_to_R3",
+    "g0_R3_R4_to_R2"
+  ],
+  "override_pairs": {
+    "Light_T1|Light_XM": [
+      "rssi"
+    ],
+    "Light_T1|Sensor": [
+      "rssi"
+    ]
+  },
+  "not_a_confirmatory_test": "协议 §1.3；确认见 §8"
+}
