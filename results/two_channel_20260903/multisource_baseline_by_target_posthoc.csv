@@ -1,0 +1,4 @@
+target,P0_single_mean,P0_double,P0_double_pick,delta,C2_double_nostack,C4_single_mean,C4_double
+R2,0.562864,0.63702,stacking,0.074156,0.809799,0.722296,0.769557
+R3,0.478134,0.614816,rf,0.136682,0.614816,0.79872,0.846067
+R4,0.448622,0.440629,stacking,-0.007993,0.659212,0.71056,0.76447

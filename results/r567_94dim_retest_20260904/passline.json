@@ -1,0 +1,41 @@
+{
+  "protocol_sha256": "6ab54aea29288e7ec157b75f8d7fb6c450b424c2de659008653e3f3ae15db64c",
+  "verdict": "REGIME_DEPENDENT",
+  "main_unit_deltas": {
+    "pos_R5": 0.03759563611168833,
+    "jit_R6": -0.035245241071140375,
+    "jit_R7": 0.012473497929115429,
+    "jit_R6_R7": -0.00690476071878463
+  },
+  "main_unit_delta_sd": {
+    "pos_R5": 0.004036428271287896,
+    "jit_R6": 0.0017130083074305,
+    "jit_R7": 0.001563698533024569,
+    "jit_R6_R7": 0.00233967105705936
+  },
+  "loro_deltas": {
+    "loro_to_R4": 0.09745418740416693,
+    "loro_to_R3": 0.23571804906993377,
+    "loro_to_R2": -0.0484983684657188
+  },
+  "ceiling_delta": -0.03894678955508435,
+  "sign_vs_dim25": {
+    "joint_tb": {
+      "dim25": -0.0667,
+      "dim94": -0.03894678955508435,
+      "same_sign": true
+    },
+    "pos_R5": {
+      "dim25": -0.0214,
+      "dim94": 0.03759563611168833,
+      "same_sign": false
+    },
+    "jit_R6_R7": {
+      "dim25": -0.024,
+      "dim94": -0.00690476071878463,
+      "same_sign": true
+    }
+  },
+  "gate7": "eval_unit == fit_eval 逐位一致（容差 1e-12）",
+  "deviation_from_protocol_gate1": "硬门 1 字面为「直接调用 fit_eval」；因 §4 要求并报逐类 F1 而 fit_eval 不返回预测，改为等价实现 eval_unit + GATE7 逐位断言。计算相同，未改任何判据、阈值、任务集、配置集。原文见 runner 文件头。"
+}

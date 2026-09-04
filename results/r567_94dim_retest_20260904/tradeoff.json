@@ -1,0 +1,6 @@
+{
+  "status": "NO_TRADEOFF",
+  "positive_term": 0.0948912893361273,
+  "negative_term": 0.0019797830627196877,
+  "note": "负向项为正，两个 regime 同向获益，权衡不存在"
+}
