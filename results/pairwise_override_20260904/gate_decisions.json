@@ -1,0 +1,53 @@
+{
+  "protocol_sha256": "090a8a7d959064252adda9611a9260888198e97a118042a47f589df719eb9bcd",
+  "cache_md5": "703984b6ad2fde2f45e0cce1c6df31be",
+  "constants": {
+    "ACCEPT_RATIO": 3.0,
+    "ACCEPT_WORST_FRAC": 0.5,
+    "EPS": 0.05,
+    "DOM_GATE": 3.0,
+    "FLOOR": 0.15
+  },
+  "inner_tasks": [
+    "g0_R2_R3_to_R4",
+    "g0_R2_R4_to_R3",
+    "g0_R3_R4_to_R2"
+  ],
+  "inner_targets_in_H": true,
+  "override_pairs_triple": {
+    "Light_T1|Light_XM": [
+      "rssi"
+    ],
+    "Light_T1|Sensor": [
+      "rssi"
+    ]
+  },
+  "override_pairs_accept_family_only": {
+    "Camera|Light_T1": [
+      "unique",
+      "singletons",
+      "subtype"
+    ],
+    "Camera|Light_XM": [
+      "singletons",
+      "unique",
+      "down",
+      "burst"
+    ],
+    "Light_T1|Light_XM": [
+      "rssi"
+    ],
+    "Light_T1|Sensor": [
+      "rssi"
+    ],
+    "Light_XM|Sensor": [
+      "subwin",
+      "subtype"
+    ]
+  },
+  "criteria": {
+    "gate_cells": 40,
+    "camera_tol": 0.01
+  },
+  "not_a_confirmatory_test": "协议 §1.2：全部数字在协议撰写前已被作者看到；确认见 §9"
+}

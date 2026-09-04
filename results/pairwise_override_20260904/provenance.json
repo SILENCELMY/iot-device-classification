@@ -1,0 +1,40 @@
+{
+  "protocol_sha256": "090a8a7d959064252adda9611a9260888198e97a118042a47f589df719eb9bcd",
+  "git_head": "1bb61b47d9edca2b2675dfa6f5e1b33e133fde52",
+  "cache_md5": "703984b6ad2fde2f45e0cce1c6df31be",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "models": [
+    "rf",
+    "xgboost",
+    "lightgbm"
+  ],
+  "n_cols": 94,
+  "classes": [
+    "Camera",
+    "Light_T1",
+    "Light_XM",
+    "Sensor",
+    "Socket"
+  ],
+  "python": "3.11.15",
+  "platform": "Linux-5.4.0-189-generic-x86_64-with-glibc2.31",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "frozen_run_two_channel_md5": "8a1d593dcdd6bdc309503dbd701e56a1",
+  "runner_md5": "ddbb1234305c144e45bd8abab5f31897",
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "_volatile": {
+    "elapsed_sec": 1167.8,
+    "out_dir": "/tmp/pw_A"
+  }
+}

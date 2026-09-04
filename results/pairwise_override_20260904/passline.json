@@ -1,0 +1,94 @@
+{
+  "protocol_sha256": "090a8a7d959064252adda9611a9260888198e97a118042a47f589df719eb9bcd",
+  "verdict": "OVERRIDE_IMPROVES",
+  "not_a_confirmatory_test": "协议 §1.2：全部数字在协议撰写前已被作者看到；本判定不具确认价值，见 §9",
+  "criterion1_cells_positive_vs_full94": 45,
+  "criterion1_gate": 40,
+  "criterion1_pass": true,
+  "criterion2_camera_min_delta": 0.0,
+  "criterion2_tol": -0.01,
+  "criterion2_pass": true,
+  "criterion3_mean_delta_vs_drop_rssi": 0.024769995746344423,
+  "criterion3_pass": true,
+  "delta_vs_full94": {
+    "mean": 0.02886314749188874,
+    "sd": 0.01685532220854277,
+    "min": 0.008019876129138792,
+    "max": 0.06001146465721974,
+    "n_positive": 45,
+    "n_cells": 45
+  },
+  "delta_vs_drop_rssi": {
+    "mean": 0.024769995746344423,
+    "n_positive": 30,
+    "n_negative": 15
+  },
+  "summary_best_base": {
+    "flat_drop_rssi": {
+      "f1_Camera": 0.7226452183137544,
+      "f1_Light_T1": 0.6334471860194391,
+      "f1_Light_XM": 0.735425342080926,
+      "f1_Sensor": 0.7634050352462235,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7709845563320686,
+      "dev30_acc": 0.9777777777777777,
+      "F_gw": 0.7107591877821963
+    },
+    "flat_full94": {
+      "f1_Camera": 0.9044301675327284,
+      "f1_Light_T1": 0.5325538984357432,
+      "f1_Light_XM": 0.6845553455641654,
+      "f1_Sensor": 0.7086768818449339,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7660432586755143,
+      "dev30_acc": 0.9344444444444445,
+      "F_gw": 0.6419287086149476
+    },
+    "override_anyfam_loose": {
+      "f1_Camera": 0.8774276051917255,
+      "f1_Light_T1": 0.5984650771495735,
+      "f1_Light_XM": 0.6864390130480327,
+      "f1_Sensor": 0.7397745041565514,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7804212399091767,
+      "dev30_acc": 0.9536363636363636,
+      "F_gw": 0.6748928647847192
+    },
+    "override_gate3": {
+      "f1_Camera": 0.9112500295847409,
+      "f1_Light_T1": 0.5986813473114289,
+      "f1_Light_XM": 0.6986780140402268,
+      "f1_Sensor": 0.7377269951773987,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7892672772227591,
+      "dev30_acc": 0.9491919191919193,
+      "F_gw": 0.6783621188430181
+    },
+    "ovo_full94": {
+      "f1_Camera": 0.8948374184198233,
+      "f1_Light_T1": 0.5150157050815403,
+      "f1_Light_XM": 0.6908197429990307,
+      "f1_Sensor": 0.6974480760310524,
+      "f1_Socket": 1.0,
+      "macro_f1": 0.7596241885062892,
+      "dev30_acc": 0.9333333333333333,
+      "F_gw": 0.6344278413705411
+    }
+  },
+  "override_pairs": {
+    "Light_T1|Light_XM": [
+      "rssi"
+    ],
+    "Light_T1|Sensor": [
+      "rssi"
+    ]
+  },
+  "constants": {
+    "ACCEPT_RATIO": 3.0,
+    "ACCEPT_WORST_FRAC": 0.5,
+    "EPS": 0.05,
+    "DOM_GATE": 3.0,
+    "FLOOR": 0.15
+  },
+  "device_level_note": "R5/R6/R7 三单元合计仅 192 块、一块翻转 0.0052，已饱和；按协议 §1.1 不作判据，成对报出（规格 §2.9）"
+}
