@@ -1,0 +1,26 @@
+{
+  "probe_day": "2021_11_02",
+  "protected_days": "其余 14 个配对日未读",
+  "n_devices": 36,
+  "n_pairs": 630,
+  "L1": true,
+  "L2": false,
+  "n_positive_families": 3,
+  "family_d_auc_sum": {
+    "down": 1.7795805179237374,
+    "burst": 0.09164065703400767,
+    "singletons": 0.007919051373288098,
+    "up": -0.46250516466431396,
+    "subwin": -0.6729870149462187,
+    "interarrival": -1.8317453110701387,
+    "len": -2.3137133234912803
+  },
+  "top1": 1.779580517923733,
+  "top2": 0.09164065703400767,
+  "dominance": 19.419115658057034,
+  "baseline_auc_mean": 0.9730167069175741,
+  "baseline_auc_min": 0.061975489002516045,
+  "baseline_auc_min_pair": "GosundESP032979Plug|GosundESP1ACEE1Socket",
+  "n_pairs_below_half": 3,
+  "unsw_reference": "0/7 正值族"
+}
