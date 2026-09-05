@@ -129,7 +129,9 @@ C3 的类集 = 训练天 ∩ 选参天 ∩ 保留 16 天 的 `day_gate` 交集�
 同一目录下 83 个脚本全是这个状态。
 
 **已做的补救**：
-- 全部脚本与运行日志纳入 `code/scripts/exploratory_20260906/`；
+- 全部脚本与运行日志纳入仓库根下的 `scripts_exploratory_20260906/`
+  （**不是** `code/scripts/`：`.gitignore` 排除 `/code/`，第一次补救放进那里被静默忽略，
+  见该目录 README；本条初稿也写错了路径，2026-09-06 由第二轮审阅更正）；
 - as-run 版由三处明确补丁**逆转重建**为 `c3_confirm_ASRUN_reconstructed.py`，
   文件头写明"重建、非当时副本、未经逐位验证"；
 - 本机 `research-results` 分支推送到服务器，预登记链的 commit 时间戳
