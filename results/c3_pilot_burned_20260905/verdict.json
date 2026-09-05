@@ -1,0 +1,124 @@
+{
+  "arm_a": {
+    "sat": 0.9998346532682081,
+    "lift": 0.2004667550006256,
+    "mono": true,
+    "table": [
+      {
+        "k": 1,
+        "evid_nominal": 10,
+        "macro": 0.7989022569068172,
+        "n_err": 11500,
+        "n_dec": 79135,
+        "span_med": 10.0,
+        "span_p90": 10.0
+      },
+      {
+        "k": 3,
+        "evid_nominal": 30,
+        "macro": 0.9449252033818503,
+        "n_err": 2825,
+        "n_dec": 79135,
+        "span_med": 32.9999840259552,
+        "span_p90": 74.39953880310058
+      },
+      {
+        "k": 6,
+        "evid_nominal": 60,
+        "macro": 0.9906390039462094,
+        "n_err": 484,
+        "n_dec": 79135,
+        "span_med": 70.06124305725098,
+        "span_p90": 170.46875896453858
+      },
+      {
+        "k": 10,
+        "evid_nominal": 100,
+        "macro": 0.9993690119074428,
+        "n_err": 33,
+        "n_dec": 79135,
+        "span_med": 125.48203682899475,
+        "span_p90": 285.89252462387117
+      },
+      {
+        "k": 30,
+        "evid_nominal": 300,
+        "macro": 0.9998346532682081,
+        "n_err": 8,
+        "n_dec": 79135,
+        "span_med": 397.03186082839966,
+        "span_p90": 936.8325062274934
+      }
+    ]
+  },
+  "arm_b": [
+    {
+      "seed": 42,
+      "kb": 3,
+      "base": 0.8520879355510065,
+      "smooth": 0.9166414331838583,
+      "fixed": 0.926950663466323,
+      "delta": 0.010309230282464776,
+      "n_gated": 1,
+      "detail": [
+        [
+          "BelkinWemoMotion",
+          "BelkinWemoSwitch",
+          8028,
+          0.6304185351270553,
+          0.6832336821126059,
+          1,
+          "R2"
+        ]
+      ],
+      "cfgs": {
+        "BelkinWemoMotion|BelkinWemoSwitch": [
+          "R2",
+          "lenhist",
+          "lr",
+          0.578086825784627
+        ]
+      }
+    },
+    {
+      "seed": 43,
+      "kb": 3,
+      "base": 0.8553829977308792,
+      "smooth": 0.9169936357866746,
+      "fixed": 0.927026434382299,
+      "delta": 0.010032798595624448,
+      "n_gated": 1,
+      "detail": [
+        [
+          "BelkinWemoMotion",
+          "BelkinWemoSwitch",
+          8050,
+          0.6335403726708074,
+          0.6853416149068323,
+          2,
+          "R2"
+        ]
+      ],
+      "cfgs": {
+        "BelkinWemoMotion|BelkinWemoSwitch": [
+          "R2",
+          "down",
+          "lr",
+          0.5770825480588013
+        ]
+      }
+    }
+  ],
+  "devs": [
+    "AmazonEcho",
+    "BelkinWemoMotion",
+    "BelkinWemoSwitch",
+    "Dropcam",
+    "HPPrinter",
+    "NetatmoWeather",
+    "NetatmoWelcome",
+    "SamsungSmartCam",
+    "SmartThings",
+    "TribySpeaker"
+  ]
+}
