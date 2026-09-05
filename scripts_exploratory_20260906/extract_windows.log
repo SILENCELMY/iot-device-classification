@@ -1,0 +1,43 @@
+轮次 ['R2', 'R3', 'R4', 'R5', 'R6', 'R7']   设备 ['Camera', 'Light_T1', 'Light_XM', 'Sensor', 'Socket']
+[跳过] features_raw_all_w30.csv 已存在
+
+=== 窗长 60 s ===
+Extracting raw_all R2 Camera: /home/lmy/iot-device-classification/dataset/camera/round2_normal/camera_r2.pcapng
+Extracting raw_all R2 Light_T1: /home/lmy/iot-device-classification/dataset/light_T1/round2_normal/light_T1_r2.pcapng
+Extracting raw_all R2 Light_XM: /home/lmy/iot-device-classification/dataset/light_xm/round2_normal/light_xm_r2.pcapng
+Extracting raw_all R2 Sensor: /home/lmy/iot-device-classification/dataset/sensor/round2_normal/sensor_r2.pcapng
+Extracting raw_all R2 Socket: /home/lmy/iot-device-classification/dataset/socket/round2_normal/socket_r2.pcapng
+Extracting raw_all R3 Camera: /home/lmy/iot-device-classification/dataset/camera/round3_normal/camera_r3.pcapng
+Extracting raw_all R3 Light_T1: /home/lmy/iot-device-classification/dataset/light_T1/round3_normal/light_T1_r3.pcapng
+Extracting raw_all R3 Light_XM: /home/lmy/iot-device-classification/dataset/light_xm/round3_normal/light_xm_r3.pcapng
+Extracting raw_all R3 Sensor: /home/lmy/iot-device-classification/dataset/sensor/round3_normal/sensor_r3.pcapng
+Extracting raw_all R3 Socket: /home/lmy/iot-device-classification/dataset/socket/round3_normal/socket_r3.pcapng
+Extracting raw_all R4 Camera: /home/lmy/iot-device-classification/dataset/camera/round4_normal/camera_r4.pcapng
+Extracting raw_all R4 Light_T1: /home/lmy/iot-device-classification/dataset/light_T1/round4_normal/light_T1_r4.pcapng
+Extracting raw_all R4 Light_XM: /home/lmy/iot-device-classification/dataset/light_xm/round4_normal/light_xm_r4.pcapng
+Extracting raw_all R4 Sensor: /home/lmy/iot-device-classification/dataset/sensor/round4_normal/sensor_r4.pcapng
+Extracting raw_all R4 Socket: /home/lmy/iot-device-classification/dataset/socket/round4_normal/socket_r4.pcapng
+Extracting raw_all R5 Camera: /home/lmy/iot-device-classification/dataset/camera/round5_positionB/camera_r5.pcapng
+Extracting raw_all R5 Light_T1: /home/lmy/iot-device-classification/dataset/light_T1/round5_positionB/light_T1_r5.pcapng
+Extracting raw_all R5 Light_XM: /home/lmy/iot-device-classification/dataset/light_xm/round5_positionB/light_xm_r5.pcapng
+Extracting raw_all R5 Sensor: /home/lmy/iot-device-classification/dataset/sensor/round5_positionB/sensor_r5.pcapng
+Extracting raw_all R5 Socket: /home/lmy/iot-device-classification/dataset/socket/round5_positionB/socket_r5.pcapng
+Extracting raw_all R6 Camera: /home/lmy/iot-device-classification/dataset/camera/round6_jitter/camera_r6.pcapng
+Extracting raw_all R6 Light_T1: /home/lmy/iot-device-classification/dataset/light_T1/round6_jitter/light_T1_r6.pcapng
+Extracting raw_all R6 Light_XM: /home/lmy/iot-device-classification/dataset/light_xm/round6_jitter/light_xm_r6.pcapng
+Extracting raw_all R6 Sensor: /home/lmy/iot-device-classification/dataset/sensor/round6_jitter/sensor_r6.pcapng
+Extracting raw_all R6 Socket: /home/lmy/iot-device-classification/dataset/socket/round6_jitter/socket_r6.pcapng
+Extracting raw_all R7 Camera: /home/lmy/iot-device-classification/dataset/camera/round7_jitter/camera_r7.pcapng
+Extracting raw_all R7 Light_T1: /home/lmy/iot-device-classification/dataset/light_T1/round7_jitter/light_T1_r7.pcapng
+Extracting raw_all R7 Light_XM: /home/lmy/iot-device-classification/dataset/light_xm/round7_jitter/light_xm_r7.pcapng
+Extracting raw_all R7 Sensor: /home/lmy/iot-device-classification/dataset/sensor/round7_jitter/sensor_r7.pcapng
+Extracting raw_all R7 Socket: /home/lmy/iot-device-classification/dataset/socket/round7_jitter/socket_r7.pcapng
+  → features_raw_all_w60.csv  1898 行  94 特征列  22s
+label  Camera  Light_T1  Light_XM  Sensor  Socket
+round                                            
+R2         61        61        61      61      61
+R3         61        61        62      61      63
+R4         65        61        62      61      62
+R5         61        62        61      61      61
+R6         67        66        66      68      66
+R7         67        67        66      67      68

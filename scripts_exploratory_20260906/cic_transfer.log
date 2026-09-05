@@ -1,0 +1,40 @@
+设备 36 → 类 29   130 列
+训练 112737  inner 82479  outer 79980   2s
+
+平滑窗 kb=20（inner 选）  outer: base=0.7601  +平滑=0.8787
+
+=== inner 上导出配置（8 个困难对）===
+  [R2] GosundPlug            |GosundSocket           n= 15227 0.3741→0.6897  rf/掩interarrival
+  [R3] GosundPlug            |GosundSocket           n= 17276 0.3339→0.6826  rf/掩interarrival
+  [R2] GlobeLampESPB1680C    |GosundSocket           n=  1713 0.0000→0.9656  lr/掩long
+  [R3] GlobeLampESPB1680C    |GosundSocket           n=  8172 0.0000→0.8959  lr/掩interarrival
+  [R2] GlobeLampESPB1680C    |GosundPlug             n=  1229 0.0586→0.9422  rf/掩up
+  [R3] GlobeLampESPB1680C    |GosundPlug             n= 14376 0.4013→0.8268  rf/掩up
+  [R3] EchoDot               |SIMCAM1SAMPAKTec       n=   291 0.9210→0.9553  rf/掩burst
+
+过闸：R2 3 对   R3 4 对   919s
+
+=== outer 施加 ===
+
+  [R2] outer macro=0.8836   Δ vs 平滑=+0.0048
+      GosundPlug            |GosundSocket           区 n= 10358  在位者=0.5070 → 修后=0.6733 (+0.1663)
+      GlobeLampESPB1680C    |GosundSocket           区 n=     0  在位者=nan → 修后=nan (+nan)
+      GlobeLampESPB1680C    |GosundPlug             区 n=   164  在位者=0.7805 → 修后=0.7256 (-0.0549)
+
+  [R3] outer macro=0.8863   Δ vs 平滑=+0.0075
+      GosundPlug            |GosundSocket           区 n= 16174  在位者=0.3329 → 修后=0.5056 (+0.1727)
+      GlobeLampESPB1680C    |GosundSocket           区 n=  7701  在位者=0.0000 → 修后=0.8111 (+0.8111)
+      GlobeLampESPB1680C    |GosundPlug             区 n= 13548  在位者=0.3893 → 修后=0.6287 (+0.2394)
+      EchoDot               |SIMCAM1SAMPAKTec       区 n=   184  在位者=1.0000 → 修后=1.0000 (+0.0000)
+
+================================================================================
+=== CIC 端到端（outer = 1108Active，型号级 29 类）===
+  base           0.7601
+  +平滑            0.8787
+  +定点修(R2)       0.8836
+  +定点修(R3)       0.8863
+
+判读：+定点修 若明显 > +平滑 → 新特征池下迁移成立，CIC 上方法有作用面；
+      若仍 ≈ 0 → 「修得出来、迁不过去」在新池下依然成立，属身份型的确证。
+
+总耗时 932s

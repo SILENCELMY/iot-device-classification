@@ -1,0 +1,14 @@
+设备 40 台   天 ['2021_11_02_Idle', '2021_11_03_Active', '2021_11_08_Active']   源天 ['2021_11_02_Idle']
+  2021_11_02_Idle  窗 112755   14s
+  2021_11_03_Active  窗 82633   43s
+  2021_11_08_Active  窗 81378   57s
+
+源天候选长度 187 种 → 目标 top32: [np.int64(42), np.int64(54), np.int64(58), np.int64(60), np.int64(62), np.int64(66), np.int64(74), np.int64(77), np.int64(79), np.int64(85), np.int64(90), np.int64(93), np.int64(94), np.int64(95), np.int64(98), np.int64(99), np.int64(100), np.int64(105), np.int64(106), np.int64(109), np.int64(110), np.int64(119), np.int64(131), np.int64(140), np.int64(164), np.int64(214), np.int64(215), np.int64(218), np.int64(230), np.int64(263), np.int64(284), np.int64(330)]
+写出 /home/lmy/iot-device-classification/results/feature_expansion_20260905/lenhist_cic_w10.csv   276766 行 × 72 列
+逐天窗口数：
+day
+2021_11_02_Idle      112755
+2021_11_03_Active     82633
+2021_11_08_Active     81378
+
+总耗时 81s

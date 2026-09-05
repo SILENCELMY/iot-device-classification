@@ -1,0 +1,144 @@
+
+============================================================================================
+UNSW（10 类，跨天）
+  base 61 列   lenhist 69 列
+  设备 10 台 → 类 10   合并 无
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+    base           16-09-30 完成
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+    base           16-10-12 完成
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+    base+lenhist   16-09-30 完成
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+    base+lenhist   16-10-12 完成
+
+  === 窗口级 macro-F1（best_base）===
+  pool        base  base+lenhist       Δ
+  tgt                                   
+  16-09-30  0.8442        0.8463  0.0021
+  16-10-12  0.8512        0.8548  0.0036
+
+  16-09-30 base: 错误 5131 个，前 6 对占 77.3%
+     BelkinWemoMotion           BelkinWemoSwitch             2937  (57.2%)
+     NetatmoWelcome             SamsungSmartCam               260  ( 5.1%)
+     BelkinWemoSwitch           NetatmoWelcome                207  ( 4.0%)
+     NetatmoWelcome             TribySpeaker                  205  ( 4.0%)
+     BelkinWemoMotion           NetatmoWelcome                186  ( 3.6%)
+     BelkinWemoSwitch           HPPrinter                     171  ( 3.3%)
+
+  16-09-30 base+lenhist: 错误 5097 个，前 6 对占 76.9%
+     BelkinWemoMotion           BelkinWemoSwitch             2933  (57.5%)
+     NetatmoWelcome             SamsungSmartCam               268  ( 5.3%)
+     BelkinWemoSwitch           NetatmoWelcome                207  ( 4.1%)
+     BelkinWemoMotion           NetatmoWelcome                188  ( 3.7%)
+     BelkinWemoSwitch           HPPrinter                     168  ( 3.3%)
+     NetatmoWelcome             TribySpeaker                  155  ( 3.0%)
+
+  16-10-12 base: 错误 3054 个，前 6 对占 68.9%
+     BelkinWemoMotion           BelkinWemoSwitch             1318  (43.2%)
+     BelkinWemoMotion           HPPrinter                     195  ( 6.4%)
+     NetatmoWelcome             TribySpeaker                  153  ( 5.0%)
+     BelkinWemoSwitch           NetatmoWelcome                150  ( 4.9%)
+     HPPrinter                  SamsungSmartCam               146  ( 4.8%)
+     BelkinWemoSwitch           HPPrinter                     141  ( 4.6%)
+
+  16-10-12 base+lenhist: 错误 3008 个，前 6 对占 69.2%
+     BelkinWemoMotion           BelkinWemoSwitch             1327  (44.1%)
+     BelkinWemoMotion           HPPrinter                     192  ( 6.4%)
+     HPPrinter                  SamsungSmartCam               160  ( 5.3%)
+     BelkinWemoSwitch           NetatmoWelcome                147  ( 4.9%)
+     BelkinWemoSwitch           HPPrinter                     136  ( 4.5%)
+     NetatmoWelcome             SamsungSmartCam               120  ( 4.0%)
+
+============================================================================================
+CIC（型号级，跨天）
+  base 61 列   lenhist 69 列
+  设备 36 台 → 类 29   合并 {'EchoDot': 2, 'GosundPlug': 4, 'GosundSocket': 2, 'Teckin': 2, 'Yutron': 2}
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+    base           2021_11_03_Active 完成
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+    base           2021_11_08_Active 完成
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+    base+lenhist   2021_11_03_Active 完成
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+    base+lenhist   2021_11_08_Active 完成
+
+  === 窗口级 macro-F1（best_base）===
+  pool                 base  base+lenhist       Δ
+  tgt                                            
+  2021_11_03_Active  0.8029        0.8082  0.0053
+  2021_11_08_Active  0.7673        0.7745  0.0072
+
+  2021_11_03_Active base: 错误 23532 个，前 6 对占 79.8%
+     GosundPlug                 GosundSocket                 9111  (38.7%)
+     Teckin                     Yutron                       3234  (13.7%)
+     GlobeLampESPB1680C         GosundSocket                 2321  ( 9.9%)
+     GlobeLampESPB1680C         GosundPlug                   1760  ( 7.5%)
+     AtomiCoffeeMaker           HeimVisionSmartLifeRadioLamp   1526  ( 6.5%)
+     AmazonAlexaEchoSpot        EchoDot                       815  ( 3.5%)
+
+  2021_11_03_Active base+lenhist: 错误 23633 个，前 6 对占 80.3%
+     GosundPlug                 GosundSocket                 9421  (39.9%)
+     Teckin                     Yutron                       3268  (13.8%)
+     GlobeLampESPB1680C         GosundSocket                 2294  ( 9.7%)
+     GlobeLampESPB1680C         GosundPlug                   1668  ( 7.1%)
+     AtomiCoffeeMaker           HeimVisionSmartLifeRadioLamp   1518  ( 6.4%)
+     AmazonAlexaEchoSpot        EchoDot                       820  ( 3.5%)
+
+  2021_11_08_Active base: 错误 25668 个，前 6 对占 80.4%
+     GosundPlug                 GosundSocket                 9157  (35.7%)
+     Teckin                     Yutron                       4379  (17.1%)
+     GlobeLampESPB1680C         GosundPlug                   3969  (15.5%)
+     AtomiCoffeeMaker           HeimVisionSmartLifeRadioLamp   1703  ( 6.6%)
+     AmazonAlexaEchoSpot        EchoDot                       791  ( 3.1%)
+     ArloBaseStation            ArloQCamera                   647  ( 2.5%)
+
+  2021_11_08_Active base+lenhist: 错误 25412 个，前 6 对占 82.1%
+     GosundPlug                 GosundSocket                 9268  (36.5%)
+     Teckin                     Yutron                       4345  (17.1%)
+     GlobeLampESPB1680C         GosundPlug                   4000  (15.7%)
+     AtomiCoffeeMaker           HeimVisionSmartLifeRadioLamp   1713  ( 6.7%)
+     AmazonAlexaEchoSpot        EchoDot                       875  ( 3.4%)
+     ArloBaseStation            ArloQCamera                   655  ( 2.6%)
+
+总耗时 6100s

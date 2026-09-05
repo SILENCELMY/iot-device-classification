@@ -1,0 +1,19 @@
+
+=== 实例级（现状）：36 类（实例 36 台）===
+    1102Idle → 1102Active      macro=0.6963  acc=0.7000   +平滑k10 macro=0.7968
+    1102Idle → 1108Active      macro=0.6074  acc=0.6107   +平滑k10 macro=0.6861
+    最差 6 类（跨日+平滑）：GosundESP039AAFSocket 0.000  GlobeLampESPB1680C 0.000  GosundESP032979Plug 0.000  GosundESP1ACEE1Socket 0.000  GosundESP147FF9Plug 0.000  YutronPlug1 0.006
+
+=== 型号级 细：29 类（实例 36 台）===
+    合并：{'AmazonAlexaEchoDot': 2, 'GosundPlug': 4, 'GosundSocket': 2, 'TeckinPlug': 2, 'YutronPlug': 2}
+    1102Idle → 1102Active      macro=0.8174  acc=0.8033   +平滑k10 macro=0.9159
+    1102Idle → 1108Active      macro=0.7584  acc=0.7001   +平滑k10 macro=0.8705
+    最差 6 类（跨日+平滑）：GlobeLampESPB1680C 0.000  GosundSocket 0.008  GosundPlug 0.436  TeckinPlug 0.465  YutronPlug 0.576  AmazonAlexaEchoSpot 0.938
+
+=== 型号级 粗：28 类（实例 36 台）===
+    合并：{'AmazonAlexaEchoDot': 2, 'GosundPlugSocket': 6, 'TeckinPlug': 2, 'YutronPlug': 2}
+    1102Idle → 1102Active      macro=0.8364  acc=0.8439   +平滑k10 macro=0.9403
+    1102Idle → 1108Active      macro=0.7980  acc=0.7960   +平滑k10 macro=0.9181
+    最差 6 类（跨日+平滑）：GlobeLampESPB1680C 0.000  TeckinPlug 0.464  YutronPlug 0.575  GosundPlugSocket 0.905  AmazonAlexaEchoSpot 0.937  HeimVisionSmartLifeRad 0.964
+
+总耗时 170s

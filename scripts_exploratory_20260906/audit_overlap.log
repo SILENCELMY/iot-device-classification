@@ -1,0 +1,19 @@
+CIC 29 类  平滑 kb=20  outer 第一段后 macro=0.8787
+  过闸 GosundPlug|GosundSocket  [R3] 0.2867→0.5549 (rf/掩down)
+  过闸 GlobeLampESPB1680C|GosundSocket  [R2] 0.0000→0.1689 (lr/掩long)
+  过闸 GlobeLampESPB1680C|GosundPlug  [R2] 0.0453→0.7067 (lr/掩long)
+
+过闸 3 对
+
+=== 缺陷 1：区重叠 ===
+  GosundPlug|GosundSocket  ∩  GlobeLampESPB1680C|GosundSocket   n=19062 / 3037   交集 3031  (99.8% of 较小者)
+  GosundPlug|GosundSocket  ∩  GlobeLampESPB1680C|GosundPlug   n=19062 / 2804   交集 2794  (99.6% of 较小者)
+  GlobeLampESPB1680C|GosundSocket  ∩  GlobeLampESPB1680C|GosundPlug   n=3037 / 2804   交集 0  (0.0% of 较小者)
+
+  被写 ≥2 次的窗：5825   ≥3 次：0   总被覆盖窗 19078
+
+=== 缺陷 1 的后果：换施加顺序，端到端变不变 ===
+  6 种顺序：min=0.8816  max=0.8826  极差=0.0009
+  对照：第一段后 0.8787，第二段增益区间 [+0.0029, +0.0038]
+
+判读：极差若与第二段增益同量级 → 缺陷 1 使结果【不确定】，必须加冲突消解。

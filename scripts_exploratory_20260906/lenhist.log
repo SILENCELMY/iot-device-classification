@@ -1,0 +1,53 @@
+基表 11303 窗   30 个 pcap
+  Camera    R2  包  17589  窗  362
+  Light_T1  R2  包  11246  窗  363
+  Light_XM  R2  包   9756  窗  365
+  Sensor    R2  包  14553  窗  363
+  Socket    R2  包  21570  窗  363
+  Camera    R3  包  18830  窗  365
+  Light_T1  R3  包  11093  窗  363
+  Light_XM  R3  包  18467  窗  369
+  Sensor    R3  包  13802  窗  364
+  Socket    R3  包  35619  窗  376
+  Camera    R4  包  13514  窗  390
+  Light_T1  R4  包  16418  窗  365
+  Light_XM  R4  包  14241  窗  368
+  Sensor    R4  包  13427  窗  363
+  Socket    R4  包  25748  窗  368
+  Camera    R5  包   7915  窗  363
+  Light_T1  R5  包   7764  窗  367
+  Light_XM  R5  包  10682  窗  363
+  Sensor    R5  包   8308  窗  362
+  Socket    R5  包  16239  窗  363
+  Camera    R6  包  29873  窗  399
+  Light_T1  R6  包  10558  窗  395
+  Light_XM  R6  包  10641  窗  395
+  Sensor    R6  包   9348  窗  408
+  Socket    R6  包  22437  窗  395
+  Camera    R7  包  13549  窗  398
+  Light_T1  R7  包   9472  窗  398
+  Light_XM  R7  包   9437  窗  394
+  Sensor    R7  包   9855  窗  399
+  Socket    R7  包  23136  窗  406
+
+源轮次出现 ≥50 窗的长度 122 种
+目标长度 top32（只由源轮次导出）：[np.int64(80), np.int64(146), np.int64(152), np.int64(154), np.int64(190), np.int64(210), np.int64(218), np.int64(219), np.int64(235), np.int64(243), np.int64(245), np.int64(246), np.int64(278), np.int64(279), np.int64(283), np.int64(291), np.int64(298), np.int64(299), np.int64(300), np.int64(303), np.int64(307), np.int64(315), np.int64(398), np.int64(415), np.int64(460), np.int64(466), np.int64(470), np.int64(478), np.int64(560), np.int64(569), np.int64(628), np.int64(632)]
+
+连接：基表 11303 行 → 匹配 11303 行，缺 0 行
+写出 /home/lmy/iot-device-classification/results/feature_expansion_20260905/features_lenhist_w10.csv   11303 行 × 73 列（含 4 键）
+
+=== 源轮次上，困难簇三类的类间/类内方差比（top 12 列）===
+  lenhist_frac_303         F=   0.317
+  lenhist_cnt_303          F=   0.282
+  lenhist_frac_146         F=   0.242
+  lenhist_frac_298         F=   0.240
+  lenhist_cnt_146          F=   0.225
+  lenhist_frac_300         F=   0.216
+  lenhist_cnt_154          F=   0.213
+  lenhist_cnt_300          F=   0.205
+  lenhist_cnt_298          F=   0.202
+  lenhist_frac_279         F=   0.190
+  lenhist_cnt_279          F=   0.161
+  lenhist_frac_307         F=   0.137
+
+总耗时 10s

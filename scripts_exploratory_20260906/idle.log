@@ -1,0 +1,9 @@
+[map] 40 device MACs (IoT only), gateway 14:cc:20:51:33:ea excluded
+[in] 1 pcap file(s): ['2021_11_02_Idle']
+[tshark] tshark -r dataset/cic2022/extracted/2-Idle/2021_11_02_Idle.pcap -T fields -e ... (4 fields)
+  ... read 1,170,893 packets, kept 1,137,220
+[tshark] total 1,170,893 packets read, 1,137,220 kept (matched a known device MAC)
+[2021_11_02_Idle] 112,755 windows over 37 devices
+[2021_11_02_Idle] done in 353.9s
+[out] /home/lmy/cic_probe/idle_1102.csv  rows=112,755  numeric_features=61  devices=37  days=1
+[out] /home/lmy/cic_probe/idle_1102.run_meta.json

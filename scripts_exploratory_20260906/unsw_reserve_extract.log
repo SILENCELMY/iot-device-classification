@@ -1,0 +1,84 @@
+[map] 23 device MACs (IoT only), gateway 14:cc:20:51:33:ea excluded
+[in] 16 pcap file(s): ['16-09-24', '16-09-25', '16-09-26', '16-09-27', '16-09-28', '16-09-29', '16-10-01', '16-10-02', '16-10-03', '16-10-04', '16-10-05', '16-10-06', '16-10-07', '16-10-08', '16-10-09', '16-10-10']
+[tshark] tshark -r dataset/unsw/pcap/16-09-24.pcap -T fields -e ... (4 fields)
+  ... read 799,235 packets, kept 785,807
+[tshark] total 799,235 packets read, 785,807 kept (matched a known device MAC)
+[16-09-24] 60,551 windows over 16 devices
+[16-09-24] done in 241.4s
+[tshark] tshark -r dataset/unsw/pcap/16-09-25.pcap -T fields -e ... (4 fields)
+  ... read 537,650 packets, kept 525,396
+[tshark] total 537,650 packets read, 525,396 kept (matched a known device MAC)
+[16-09-25] 59,629 windows over 16 devices
+[16-09-25] done in 191.4s
+[tshark] tshark -r dataset/unsw/pcap/16-09-26.pcap -T fields -e ... (4 fields)
+  ... read 573,848 packets, kept 558,020
+[tshark] total 573,848 packets read, 558,020 kept (matched a known device MAC)
+[16-09-26] 58,916 windows over 16 devices
+[16-09-26] done in 191.5s
+[tshark] tshark -r dataset/unsw/pcap/16-09-27.pcap -T fields -e ... (4 fields)
+  ... read 527,035 packets, kept 511,315
+[tshark] total 527,035 packets read, 511,315 kept (matched a known device MAC)
+[16-09-27] 58,788 windows over 16 devices
+[16-09-27] done in 190.2s
+[tshark] tshark -r dataset/unsw/pcap/16-09-28.pcap -T fields -e ... (4 fields)
+  ... read 2,019,000 packets, kept 934,774
+[tshark] total 2,019,000 packets read, 934,774 kept (matched a known device MAC)
+[16-09-28] 70,002 windows over 22 devices
+[16-09-28] done in 275.5s
+[tshark] tshark -r dataset/unsw/pcap/16-09-29.pcap -T fields -e ... (4 fields)
+  ... read 738,906 packets, kept 686,532
+[tshark] total 738,906 packets read, 686,532 kept (matched a known device MAC)
+[16-09-29] 78,105 windows over 20 devices
+[16-09-29] done in 254.4s
+[tshark] tshark -r dataset/unsw/pcap/16-10-01.pcap -T fields -e ... (4 fields)
+  ... read 736,136 packets, kept 708,972
+[tshark] total 736,136 packets read, 708,972 kept (matched a known device MAC)
+[16-10-01] 77,688 windows over 20 devices
+[16-10-01] done in 256.2s
+[tshark] tshark -r dataset/unsw/pcap/16-10-02.pcap -T fields -e ... (4 fields)
+  ... read 607,202 packets, kept 584,082
+[tshark] total 607,202 packets read, 584,082 kept (matched a known device MAC)
+[16-10-02] 73,563 windows over 20 devices
+[16-10-02] done in 238.0s
+[tshark] tshark -r dataset/unsw/pcap/16-10-03.pcap -T fields -e ... (4 fields)
+  ... read 670,160 packets, kept 644,543
+[tshark] total 670,160 packets read, 644,543 kept (matched a known device MAC)
+[16-10-03] 75,886 windows over 20 devices
+[16-10-03] done in 246.9s
+[tshark] tshark -r dataset/unsw/pcap/16-10-04.pcap -T fields -e ... (4 fields)
+  ... read 2,344,991 packets, kept 686,012
+[tshark] total 2,344,991 packets read, 686,012 kept (matched a known device MAC)
+[16-10-04] 72,338 windows over 21 devices
+[16-10-04] done in 276.1s
+[tshark] tshark -r dataset/unsw/pcap/16-10-05.pcap -T fields -e ... (4 fields)
+  ... read 1,655,879 packets, kept 888,047
+[tshark] total 1,655,879 packets read, 888,047 kept (matched a known device MAC)
+[16-10-05] 74,313 windows over 20 devices
+[16-10-05] done in 254.6s
+[tshark] tshark -r dataset/unsw/pcap/16-10-06.pcap -T fields -e ... (4 fields)
+  ... read 719,243 packets, kept 638,795
+[tshark] total 719,243 packets read, 638,795 kept (matched a known device MAC)
+[16-10-06] 68,491 windows over 17 devices
+[16-10-06] done in 225.4s
+[tshark] tshark -r dataset/unsw/pcap/16-10-07.pcap -T fields -e ... (4 fields)
+  ... read 1,362,858 packets, kept 847,237
+[tshark] total 1,362,858 packets read, 847,237 kept (matched a known device MAC)
+[16-10-07] 67,714 windows over 19 devices
+[16-10-07] done in 220.3s
+[tshark] tshark -r dataset/unsw/pcap/16-10-08.pcap -T fields -e ... (4 fields)
+  ... read 612,210 packets, kept 544,495
+[tshark] total 612,210 packets read, 544,495 kept (matched a known device MAC)
+[16-10-08] 60,464 windows over 15 devices
+[16-10-08] done in 191.0s
+[tshark] tshark -r dataset/unsw/pcap/16-10-09.pcap -T fields -e ... (4 fields)
+  ... read 559,444 packets, kept 513,168
+[tshark] total 559,444 packets read, 513,168 kept (matched a known device MAC)
+[16-10-09] 60,831 windows over 15 devices
+[16-10-09] done in 192.2s
+[tshark] tshark -r dataset/unsw/pcap/16-10-10.pcap -T fields -e ... (4 fields)
+  ... read 580,488 packets, kept 538,101
+[tshark] total 580,488 packets read, 538,101 kept (matched a known device MAC)
+[16-10-10] 62,220 windows over 15 devices
+[16-10-10] done in 202.3s
+[out] results/unsw_reserve_16day/features_unsw_w10_reserve16.csv  rows=1,079,499  numeric_features=61  devices=23  days=16
+[out] results/unsw_reserve_16day/features_unsw_w10_reserve16.run_meta.json

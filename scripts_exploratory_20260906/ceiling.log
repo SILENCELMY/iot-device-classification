@@ -1,0 +1,54 @@
+36 类  61 列
+
+=== 同域（时间块留出，第 5 块）===
+  Idle 1102 内部                       macro=0.7398  acc=0.7128   +平滑k10 macro=0.8289
+  Active 1102 内部                     macro=0.7953  acc=0.7967   +平滑k10 macro=0.8942
+
+=== 跨域 ===
+  1102Idle → 1102Active              macro=0.6963  acc=0.7000   +平滑k10 macro=0.7968
+  1102Idle → 1108Active              macro=0.6074  acc=0.6107   +平滑k10 macro=0.6861
+
+=== 逐类 F1 分布 ===
+                           类  同域Idle  同域Active  跨域同日  跨域跨日
+         GosundESP10ACD8Plug   0.157     0.997 0.104 0.269
+       GosundESP1ACEE1Socket   0.199     0.307 0.014 0.063
+       GosundESP039AAFSocket   0.254     0.466 0.318 0.000
+          GlobeLampESPB1680C   0.255     0.570 0.263 0.000
+                 YutronPlug2   0.361     0.419 0.331 0.097
+         GosundESP0C3994Plug   0.375     0.765 0.700 0.183
+         AmazonAlexaEchoDot2   0.513     0.511 0.345 0.272
+         AmazonAlexaEchoDot1   0.515     0.571 0.410 0.245
+                 YutronPlug1   0.519     0.539 0.537 0.058
+                 TeckinPlug1   0.524     0.573 0.493 0.528
+         GosundESP032979Plug   0.556     0.678 0.044 0.000
+            AtomiCoffeeMaker   0.686     0.728 0.716 0.693
+         GosundESP147FF9Plug   0.701     0.997 0.450 0.000
+                iRobotRoomba   0.753     0.659 0.672 0.658
+HeimVisionSmartLifeRadioLamp   0.754     0.710 0.706 0.699
+         AmazonAlexaEchoSpot   0.789     0.686 0.636 0.592
+             ArloBaseStation   0.792     0.755 0.840 0.800
+                 ArloQCamera   0.794     0.766 0.766 0.748
+                 LuoheCamDog   0.849     0.847 0.822 0.835
+             SonosOneSpeaker   0.853     0.879 0.819 0.730
+       AmazonAlexaEchoStudio   0.862     0.665 0.732 0.668
+                  AmazonPlug   0.900     0.908 0.909 0.854
+                 TeckinPlug2   0.910     0.912 0.890 0.345
+           AMCRESTWiFiCamera   0.930     0.924 0.862 0.903
+       RingBaseStationAC1236   0.957     0.930 0.924 0.971
+               EufyHomeBase2   0.967     0.959 0.955 0.963
+            PhilipsHueBridge   0.974     0.951 0.926 0.923
+       NetatmoWeatherStation   0.983     0.984 0.978 0.982
+        BorunSichuanAICamera   0.984     0.990 0.962 0.961
+               NetatmoCamera   0.985     0.995 0.979 0.914
+            NestIndoorCamera   0.989     1.000 0.999 0.997
+              GoogleNestMini   0.997     0.997 0.994 0.979
+   HeimVisionSmartWiFiCamera   0.997     0.998 0.996 0.998
+               HomeEyeCamera   0.998     0.996 0.983 0.964
+            SIMCAM1SAMPAKTec   1.000     1.000 0.990 0.983
+  DCS8000LHA1DLinkMiniCamera   1.000     0.995 0.998 0.992
+  同域Idle: 中位 0.822  <0.5 的类 6/36  <0.8 的类 18/36
+  同域Active: 中位 0.863  <0.5 的类 3/36  <0.8 的类 17/36
+  跨域同日: 中位 0.792  <0.5 的类 10/36  <0.8 的类 18/36
+  跨域跨日: 中位 0.714  <0.5 的类 12/36  <0.8 的类 20/36
+
+总耗时 287s

@@ -1,0 +1,61 @@
+183 列池 183 列  5 类  11303 行
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  pos_R5 完成  132s
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  jit_R6 完成  266s
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  jit_R7 完成  396s
+
+=== 逐模型均值（三单元 × 5 seed）===
+model
+lightgbm    0.7906
+rf          0.7811
+xgboost     0.7838
+
+=== 逐单元 × 逐模型 ===
+model   lightgbm      rf  xgboost
+unit                             
+jit_R6    0.8232  0.7645   0.8122
+jit_R7    0.8686  0.8513   0.8676
+pos_R5    0.6800  0.7276   0.6716
+
+=== best_base（逐 单元,seed 取三模型最大，override_183 口径）===
+unit
+jit_R6    0.8232
+jit_R7    0.8694
+pos_R5    0.7276
+
+best_base 三单元均值 = 0.8067
+xgboost 单模型均值   = 0.7838
+参照：override_183 的 flat_183 = 0.8072
+      cfg_self_hier 的 flat    ≈ 0.784（xgboost 单模型）
+
+差距 best_base − xgboost = +0.0229
+总耗时 396s

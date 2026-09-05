@@ -1,0 +1,62 @@
+  Light_T1  R2  帧   2161  静默后首包   719  长度中位 154  唯一长度 33
+  Light_T1  R3  帧   1891  静默后首包   676  长度中位 154  唯一长度 29
+  Light_T1  R4  帧   2580  静默后首包   720  长度中位 154  唯一长度 29
+  Light_XM  R2  帧   2561  静默后首包   857  长度中位 154  唯一长度 35
+  Light_XM  R3  帧   3670  静默后首包   849  长度中位 166  唯一长度 40
+  Light_XM  R4  帧   2380  静默后首包   811  长度中位 154  唯一长度 36
+  Sensor    R2  帧   1892  静默后首包   726  长度中位 154  唯一长度 37
+  Sensor    R3  帧   1686  静默后首包   704  长度中位 154  唯一长度 32
+  Sensor    R4  帧   1533  静默后首包   678  长度中位 154  唯一长度 29
+
+=== A 帧长集合 Jaccard（同轮次内，两两）===
+  R2  Light_T1  vs Light_XM   Jaccard=0.511  (33/35 种长度)
+  R2  Light_T1  vs Sensor     Jaccard=0.321  (33/37 种长度)
+  R2  Light_XM  vs Sensor     Jaccard=0.309  (35/37 种长度)
+  R3  Light_T1  vs Light_XM   Jaccard=0.232  (29/40 种长度)
+  R3  Light_T1  vs Sensor     Jaccard=0.245  (29/32 种长度)
+  R3  Light_XM  vs Sensor     Jaccard=0.469  (40/32 种长度)
+  R4  Light_T1  vs Light_XM   Jaccard=0.327  (29/36 种长度)
+  R4  Light_T1  vs Sensor     Jaccard=0.526  (29/29 种长度)
+  R4  Light_XM  vs Sensor     Jaccard=0.383  (36/29 种长度)
+
+=== B 帧长分布总变差 TV（0=完全相同, 1=完全不同）===
+  R2  Light_T1  vs Light_XM   TV(全部)=0.425   TV(命令帧)=0.251
+  R2  Light_T1  vs Sensor     TV(全部)=0.327   TV(命令帧)=0.352
+  R2  Light_XM  vs Sensor     TV(全部)=0.525   TV(命令帧)=0.484
+  R3  Light_T1  vs Light_XM   TV(全部)=0.428   TV(命令帧)=0.253
+  R3  Light_T1  vs Sensor     TV(全部)=0.322   TV(命令帧)=0.383
+  R3  Light_XM  vs Sensor     TV(全部)=0.462   TV(命令帧)=0.467
+  R4  Light_T1  vs Light_XM   TV(全部)=0.426   TV(命令帧)=0.249
+  R4  Light_T1  vs Sensor     TV(全部)=0.297   TV(命令帧)=0.325
+  R4  Light_XM  vs Sensor     TV(全部)=0.507   TV(命令帧)=0.457
+
+=== 参照：同一标签在不同轮次之间的自距离（噪声底）===
+  Light_T1  R2 vs R3  TV(全部)=0.124   TV(命令帧)=0.083
+  Light_T1  R2 vs R4  TV(全部)=0.151   TV(命令帧)=0.072
+  Light_T1  R3 vs R4  TV(全部)=0.055   TV(命令帧)=0.056
+  Light_XM  R2 vs R3  TV(全部)=0.083   TV(命令帧)=0.042
+  Light_XM  R2 vs R4  TV(全部)=0.147   TV(命令帧)=0.082
+  Light_XM  R3 vs R4  TV(全部)=0.130   TV(命令帧)=0.066
+  Sensor    R2 vs R3  TV(全部)=0.188   TV(命令帧)=0.182
+  Sensor    R2 vs R4  TV(全部)=0.295   TV(命令帧)=0.316
+  Sensor    R3 vs R4  TV(全部)=0.236   TV(命令帧)=0.232
+
+=== 判读 ===
+跨标签平均 TV：
+                   tv_all  tv_first
+a        b                         
+Light_T1 Light_XM   0.426     0.251
+         Sensor     0.315     0.354
+Light_XM Sensor     0.498     0.469
+
+同标签跨轮次平均 TV（噪声底）：
+          tv_all  tv_first
+a                         
+Light_T1   0.110     0.070
+Light_XM   0.120     0.063
+Sensor     0.239     0.243
+
+  若 TV(Light_T1,Light_XM) ≈ 噪声底，而 TV(灯,Sensor) 明显更大
+  → 两个灯同款，困难簇应重整为 {Lamp, Sensor}；T1|XM 归'不该分'。
+
+总耗时 3s

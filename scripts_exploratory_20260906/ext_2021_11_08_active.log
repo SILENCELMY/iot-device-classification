@@ -1,0 +1,9 @@
+[map] 40 device MACs (IoT only), gateway 14:cc:20:51:33:ea excluded
+[in] 1 pcap file(s): ['2021_11_08_Active']
+[tshark] tshark -r dataset/cic2022/extracted/5-Active/2021_11_08_Active.pcap -T fields -e ... (4 fields)
+  ... read 1,164,924 packets, kept 901,125
+[tshark] total 1,164,924 packets read, 901,125 kept (matched a known device MAC)
+[2021_11_08_Active] 81,378 windows over 38 devices
+[2021_11_08_Active] done in 283.4s
+[out] /home/lmy/cic_probe/active_11_08.csv  rows=81,378  numeric_features=61  devices=38  days=1
+[out] /home/lmy/cic_probe/active_11_08.run_meta.json

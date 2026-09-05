@@ -1,0 +1,70 @@
+  2021_11_02_Idle: 112755 窗   14s
+  2021_11_08_Active: 81378 窗   28s
+设备 36 → 类 29
+源天词表 315 项
+
+=== agg=1 (10s 单元)  29 类  训练 112737 测试 79980 ===
+  byteiot k=1  macro=0.5216
+  byteiot k=3  macro=0.5243
+  byteiot k=5  macro=0.5268
+  ours61(RF)   macro=0.7548
+    byteiot: 错误 43114，前 5 对占 63.8%
+       GlobeLampESPB1680C     GosundPlug              10611 (24.6%)
+       GlobeLampESPB1680C     GosundSocket             5384 (12.5%)
+       AtomiCoffeeMaker       Yutron                   4597 (10.7%)
+       AtomiCoffeeMaker       Teckin                   4562 (10.6%)
+       AtomiCoffeeMaker       HeimVisionSmartLifeRadioLamp   2362 ( 5.5%)
+    ours61: 错误 25677，前 5 对占 78.0%
+       GosundPlug             GosundSocket             9161 (35.7%)
+       Teckin                 Yutron                   4395 (17.1%)
+       GlobeLampESPB1680C     GosundPlug               3960 (15.4%)
+       AtomiCoffeeMaker       HeimVisionSmartLifeRadioLamp   1703 ( 6.6%)
+       AmazonAlexaEchoSpot    EchoDot                   801 ( 3.1%)
+
+=== agg=6 (60s 单元)  29 类  训练 18777 测试 13319 ===
+  byteiot k=1  macro=0.7577
+  byteiot k=3  macro=0.7645
+  byteiot k=5  macro=0.7663
+  ours61(RF)   macro=0.7574
+    byteiot: 错误 4618，前 5 对占 86.3%
+       GlobeLampESPB1680C     GosundPlug               1789 (38.7%)
+       GlobeLampESPB1680C     GosundSocket              910 (19.7%)
+       AtomiCoffeeMaker       Yutron                    492 (10.7%)
+       AtomiCoffeeMaker       Teckin                    485 (10.5%)
+       Teckin                 Yutron                    308 ( 6.7%)
+    ours61: 错误 4076，前 5 对占 85.6%
+       GosundPlug             GosundSocket             1319 (32.4%)
+       Teckin                 Yutron                    738 (18.1%)
+       GlobeLampESPB1680C     GosundPlug                723 (17.7%)
+       GoogleNestMini         NestIndoorCamera          466 (11.4%)
+       ArloBaseStation        ArloQCamera               242 ( 5.9%)
+
+=== agg=30 (300s 单元)  29 类  训练 3743 测试 2650 ===
+  byteiot k=1  macro=0.8185
+  byteiot k=3  macro=0.8137
+  byteiot k=5  macro=0.8209
+  ours61(RF)   macro=0.7844
+    byteiot: 错误 790，前 5 对占 92.2%
+       GlobeLampESPB1680C     GosundPlug                341 (43.2%)
+       GlobeLampESPB1680C     GosundSocket              174 (22.0%)
+       Teckin                 Yutron                    138 (17.5%)
+       AmazonAlexaEchoSpot    ArloQCamera                44 ( 5.6%)
+       AtomiCoffeeMaker       Teckin                     31 ( 3.9%)
+    ours61: 错误 800，前 5 对占 89.4%
+       GosundPlug             GosundSocket              282 (35.2%)
+       GlobeLampESPB1680C     GosundPlug                152 (19.0%)
+       Teckin                 Yutron                    148 (18.5%)
+       GoogleNestMini         NestIndoorCamera           96 (12.0%)
+       AmazonAlexaEchoStudio  ArloQCamera                37 ( 4.6%)
+
+=== 汇总（每粒度取最好）===
+arm         byteiot  ours61
+agg unit_s                 
+1   10       0.5268  0.7548
+6   60       0.7663  0.7574
+30  300      0.8209  0.7844
+
+判读：ESP 三对在 300s 聚合后若消失 → 困难簇是短窗产物，框架要重做；
+      若仍占主要错误   → 困难簇与粒度无关，我们的问题成立。
+
+总耗时 70s

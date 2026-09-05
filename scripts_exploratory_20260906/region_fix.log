@@ -1,0 +1,101 @@
+设备 36 → 类 29   base 61 + lenhist 69
+训练 112737  测试 82479   1s
+基模型完成  7s
+
+困难对（inner 错误量前 6）：
+  GosundPlug | GosundSocket   错 9290
+  Teckin | Yutron   错 3266
+  GlobeLampESPB1680C | GosundSocket   错 2311
+  GlobeLampESPB1680C | GosundPlug   错 1655
+  AtomiCoffeeMaker | HeimVisionSmartLifeRadioLamp   错 1520
+  AmazonAlexaEchoSpot | EchoDot   错 828
+
+掩码 14  模型 ['lr', 'rf']
+
+================================================================================
+GosundPlug | GosundSocket
+  R2: 区 n= 11106  在位者=0.5222  最好配置=0.8162 (rf/掩interarrival)  **过闸**
+  R3: 区 n= 14522  在位者=0.4508  最好配置=0.8108 (rf/掩interarrival)  **过闸**
+  R1: 区 n= 15851  在位者=0.4139  最好配置=0.6813 (rf/掩interarrival)  **过闸**
+
+================================================================================
+Teckin | Yutron
+  R2: 区 n=  8172  在位者=0.6182  最好配置=0.6125 (lr/掩up)  不过闸
+  R3: 区 n=  8413  在位者=0.6140  最好配置=0.6133 (lr/掩up)  不过闸
+  R1: 区 n=  9918  在位者=0.6707  最好配置=0.6647 (rf/掩lenhist)  不过闸
+
+================================================================================
+GlobeLampESPB1680C | GosundSocket
+  R2: 区 n=   420  在位者=0.5929  最好配置=1.0000 (lr/掩len)  **过闸**
+  R3: 区 n=  4144  在位者=0.1974  最好配置=0.9725 (lr/掩interarrival)  **过闸**
+  R1: 区 n=  3279  在位者=0.2952  最好配置=0.8140 (lr/掩interarrival)  **过闸**
+
+================================================================================
+GlobeLampESPB1680C | GosundPlug
+  R2: 区 n=  1780  在位者=0.4517  最好配置=0.9938 (rf/掩byte)  **过闸**
+  R3: 区 n= 11994  在位者=0.5084  最好配置=0.9359 (rf/掩up)  **过闸**
+  R1: 区 n=  7936  在位者=0.7915  最好配置=0.9229 (rf/掩up)  **过闸**
+
+================================================================================
+AtomiCoffeeMaker | HeimVisionSmartLifeRadioLamp
+  R2: 区 n=  3236  在位者=0.6292  最好配置=0.6391 (rf/掩down)  不过闸
+  R3: 区 n=  3748  在位者=0.6099  最好配置=0.6339 (rf/掩down)  **过闸**
+  R1: 区 n=  5494  在位者=0.7233  最好配置=0.7290 (rf/掩down)  不过闸
+
+================================================================================
+AmazonAlexaEchoSpot | EchoDot
+  R2: 区 n=  2117  在位者=0.6675  最好配置=0.6845 (rf/掩down)  不过闸
+  R3: 区 n=  3573  在位者=0.6818  最好配置=0.7669 (rf/掩down)  **过闸**
+  R1: 区 n=  4235  在位者=0.8045  最好配置=0.8128 (rf/掩down)  不过闸
+
+================================================================================
+=== 汇总：区大小 ===
+region                                              R1       R2       R3
+pair                                                                    
+AmazonAlexaEchoSpot|EchoDot                     4235.0   2117.0   3573.0
+AtomiCoffeeMaker|HeimVisionSmartLifeRadioLamp   5494.0   3236.0   3748.0
+GlobeLampESPB1680C|GosundPlug                   7936.0   1780.0  11994.0
+GlobeLampESPB1680C|GosundSocket                 3279.0    420.0   4144.0
+GosundPlug|GosundSocket                        15851.0  11106.0  14522.0
+Teckin|Yutron                                   9918.0   8172.0   8413.0
+
+=== 在位者准确率 ===
+region                                             R1      R2      R3
+pair                                                                 
+AmazonAlexaEchoSpot|EchoDot                    0.8045  0.6675  0.6818
+AtomiCoffeeMaker|HeimVisionSmartLifeRadioLamp  0.7233  0.6292  0.6099
+GlobeLampESPB1680C|GosundPlug                  0.7915  0.4517  0.5084
+GlobeLampESPB1680C|GosundSocket                0.2952  0.5929  0.1974
+GosundPlug|GosundSocket                        0.4139  0.5222  0.4508
+Teckin|Yutron                                  0.6707  0.6182  0.6140
+
+=== 最好配置 ===
+region                                             R1      R2      R3
+pair                                                                 
+AmazonAlexaEchoSpot|EchoDot                    0.8128  0.6845  0.7669
+AtomiCoffeeMaker|HeimVisionSmartLifeRadioLamp  0.7290  0.6391  0.6339
+GlobeLampESPB1680C|GosundPlug                  0.9229  0.9938  0.9359
+GlobeLampESPB1680C|GosundSocket                0.8140  1.0000  0.9725
+GosundPlug|GosundSocket                        0.6813  0.8162  0.8108
+Teckin|Yutron                                  0.6647  0.6125  0.6133
+
+=== 过闸 ===
+region                                            R1     R2     R3
+pair                                                              
+AmazonAlexaEchoSpot|EchoDot                    False  False   True
+AtomiCoffeeMaker|HeimVisionSmartLifeRadioLamp  False  False   True
+GlobeLampESPB1680C|GosundPlug                   True   True   True
+GlobeLampESPB1680C|GosundSocket                 True   True   True
+GosundPlug|GosundSocket                         True   True   True
+Teckin|Yutron                                  False  False  False
+
+各区定义下的过闸对数：
+region
+R1    3
+R2    3
+R3    5
+
+判读：区变大且有配置能打赢 → 盲点补上后 CIC 从'看不见'变'看得见'；
+      区变大但打不赢 → 那几对确实修不动，但方法从'默默不动'变'明确拒绝'。
+
+总耗时 843s

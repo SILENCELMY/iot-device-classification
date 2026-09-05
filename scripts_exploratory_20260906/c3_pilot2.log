@@ -1,0 +1,197 @@
+轻度验证：施加天 = ['16-10-11', '16-10-12'] （全部已烧）  保留集不读
+C3 确证测试   协议 docs/PROTOCOL_C3_CONFIRMATORY_20260905.md   登记 C3-CONFIRM-UNSW16 @ 59372d1
+
+类集 = 训练∩选参∩保留16天 的 day_gate 交集 = 10 类
+    AmazonEcho
+    BelkinWemoMotion
+    BelkinWemoSwitch
+    Dropcam
+    HPPrinter
+    NetatmoWeather
+    NetatmoWelcome
+    SamsungSmartCam
+    SmartThings
+    TribySpeaker
+
+####################################################################################################
+### 臂 A —— 诊断仪器（因果计数聚合 + Hellinger + kNN5）
+####################################################################################################
+训练天 16-09-23: 60482 窗   11s
+源天词表 194 项（协议要求：只从 16-09-23 导出）
+  k=  1 训练集 (48282, 194)   11s
+  k=  3 训练集 (48282, 194)   11s
+  k=  6 训练集 (48282, 194)   11s
+  k= 10 训练集 (48282, 194)   12s
+  k= 30 训练集 (48282, 194)   12s
+  16-10-11: 门 10 台  k1=0.7966  k3=0.9446  k6=0.9905  k10=0.9993  k30=0.9998   51s
+  16-10-12: 门 10 台  k1=0.8027  k3=0.9455  k6=0.9908  k10=0.9995  k30=0.9999   109s
+
+=== 臂 A 主判据：合并 16 天 ===
+  k=  1（标称   10s；实际跨度中位   10.0s  p90    10.0s）  macro=0.7989  错 11500/79135
+        BelkinWemoMotion         BelkinWemoSwitch           3738 (32.5%)
+        AmazonEcho               NetatmoWelcome             1763 (15.3%)
+        BelkinWemoMotion         HPPrinter                  1372 (11.9%)
+  k=  3（标称   30s；实际跨度中位   33.0s  p90    74.4s）  macro=0.9449  错 2825/79135
+        BelkinWemoMotion         BelkinWemoSwitch           2581 (91.4%)
+        NetatmoWeather           NetatmoWelcome              176 ( 6.2%)
+        BelkinWemoSwitch         HPPrinter                    27 ( 1.0%)
+  k=  6（标称   60s；实际跨度中位   70.1s  p90   170.5s）  macro=0.9906  错 484/79135
+        BelkinWemoMotion         BelkinWemoSwitch            371 (76.7%)
+        NetatmoWeather           NetatmoWelcome               68 (14.0%)
+        BelkinWemoSwitch         HPPrinter                    25 ( 5.2%)
+  k= 10（标称  100s；实际跨度中位  125.5s  p90   285.9s）  macro=0.9994  错 33/79135
+        BelkinWemoMotion         BelkinWemoSwitch             30 (90.9%)
+        BelkinWemoMotion         TribySpeaker                  1 ( 3.0%)
+        BelkinWemoSwitch         TribySpeaker                  1 ( 3.0%)
+  k= 30（标称  300s；实际跨度中位  397.0s  p90   936.8s）  macro=0.9998  错 8/79135
+        BelkinWemoMotion         BelkinWemoSwitch              3 (37.5%)
+        BelkinWemoMotion         HPPrinter                     1 (12.5%)
+        BelkinWemoMotion         TribySpeaker                  1 (12.5%)
+
+--- C3a 判定 ---
+  饱和值 max=0.9998   判据 ≥0.99   → 通过
+  k=1→k=10 提升 +0.2005   判据 ≥0.15  → 通过
+  单调（容差 0.002）True
+
+####################################################################################################
+### 臂 B —— 完整管线（RF300 + 因果概率平滑 + 逐对闸门（区逐对选∈['R2', 'R3nR1', 'R3']，整区记账））  seed=42
+####################################################################################################
+特征池 61+69=130 列   1s
+保留集 79135 窗  lenhist 缺 0   2s
+训练 48282  选参 47355  保留 79135   平滑分组=(day,device)   2s
+平滑窗 kb=3（在 16-09-30 上选）
+保留集 macro：base=0.8521   +第一段(平滑)=0.9166
+
+困难对（16-09-30 错误量前 8）：
+  BelkinWemoMotion|BelkinWemoSwitch  错 3042
+  NetatmoWeather|NetatmoWelcome  错 68
+  NetatmoWelcome|TribySpeaker  错 14
+  BelkinWemoSwitch|NetatmoWelcome  错 11
+  AmazonEcho|NetatmoWeather  错 11
+  BelkinWemoMotion|NetatmoWelcome  错 8
+  BelkinWemoSwitch|SamsungSmartCam  错 8
+  NetatmoWelcome|SamsungSmartCam  错 7
+
+=== 第二段：在 16-09-30 上导出配置（14 掩码 × ['lr', 'rf']，区逐对选，整区记账）===
+    R2     区 n=  5321 (第三类 1,  0.0%)  0.5097→0.5781 (lr/掩lenhist)  过闸
+    R3nR1  区 n=  6054 (第三类 12,  0.2%)  0.5122→0.5728 (lr/掩down)  过闸
+    R3     区 n=  9763 (第三类 3711, 38.0%)  0.6964→0.3555 (lr/掩down)  不过闸
+  BelkinWemoMotion      |BelkinWemoSwitch       → 选 R2 0.5097→0.5781 (lr/掩lenhist)  **过闸**
+    R2     区 n=    85 (第三类 0,  0.0%)  0.8824→0.7294 (lr/掩up)  不过闸
+    R3nR1  区 n=   494 (第三类 0,  0.0%)  0.9757→0.9494 (lr/掩up)  不过闸
+    R3     区 n=   533 (第三类 35,  6.6%)  0.9700→0.8837 (lr/掩up)  不过闸
+  NetatmoWeather|NetatmoWelcome  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=   435 (第三类 2,  0.5%)  0.9724→0.9310 (lr/掩long)  不过闸
+    R3nR1  区 n=  1223 (第三类 2,  0.2%)  0.9902→0.9403 (lr/掩long)  不过闸
+    R3     区 n=  1389 (第三类 167, 12.0%)  0.9892→0.8287 (lr/掩long)  不过闸
+  NetatmoWelcome|TribySpeaker  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=  1000 (第三类 18,  1.8%)  0.9750→0.9400 (lr/掩interarrival)  不过闸
+    R3nR1  区 n=  4707 (第三类 388,  8.2%)  0.9154→0.9069 (lr/掩up)  不过闸
+    R3     区 n=  7635 (第三类 2635, 34.5%)  0.8578→0.6452 (lr/掩interarrival)  不过闸
+  BelkinWemoSwitch|NetatmoWelcome  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=  1406 (第三类 0,  0.0%)  0.9986→1.0000 (lr/掩none)  不过闸
+    R3nR1  区 n=  1609 (第三类 0,  0.0%)  0.9975→0.9888 (lr/掩none)  不过闸
+    R3     区 n=  1657 (第三类 36,  2.2%)  0.9903→0.9638 (lr/掩none)  不过闸
+  AmazonEcho            |NetatmoWeather         → 选 R2 0.9986→1.0000 (lr/掩none)  不过闸
+    R2     区 n=  1102 (第三类 104,  9.4%)  0.8984→0.8811 (lr/掩lenhist)  不过闸
+    R3nR1  区 n=  3658 (第三类 747, 20.4%)  0.7936→0.7829 (lr/掩lenhist)  不过闸
+    R3     区 n=  5905 (第三类 2662, 45.1%)  0.8157→0.5392 (lr/掩lenhist)  不过闸
+  BelkinWemoMotion|NetatmoWelcome  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=   458 (第三类 11,  2.4%)  0.9694→0.8974 (rf/掩lenhist)  不过闸
+    R3nR1  区 n=  1812 (第三类 125,  6.9%)  0.9272→0.9056 (lr/掩lenhist)  不过闸
+    R3     区 n=  4619 (第三类 2506, 54.3%)  0.8790→0.4440 (lr/掩burst)  不过闸
+  BelkinWemoSwitch|SamsungSmartCam  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=  1639 (第三类 1,  0.1%)  0.9963→0.9616 (lr/掩none)  不过闸
+    R3nR1  区 n=  2988 (第三类 9,  0.3%)  0.9946→0.9712 (lr/掩none)  不过闸
+    R3     区 n=  4663 (第三类 1679, 36.0%)  0.9910→0.6230 (lr/掩none)  不过闸
+  NetatmoWelcome|SamsungSmartCam  不过闸（3 个区够大，但没有配置能改善）
+
+过闸 1 对   645s
+    BelkinWemoMotion      |BelkinWemoSwitch       [R2] 区 n=  8028 (第三类 1,  0.0%)  整区在位者=0.6304 → 修后=0.6832 (+0.0528)
+
+=== 臂 B 保留集（合并 16 天，seed=42）===
+  base            0.8521
+  +第一段(平滑)     0.9166   Δ=+0.0646
+  +第二段(定点修)    0.9270   Δ=+0.0103
+
+  逐天（次要终点，不参与判定）：
+    16-10-11  n= 49455  base=0.8519  平滑=0.9168  修后=0.9275
+    16-10-12  n= 29680  base=0.8524  平滑=0.9164  修后=0.9261
+
+####################################################################################################
+### 臂 B —— 完整管线（RF300 + 因果概率平滑 + 逐对闸门（区逐对选∈['R2', 'R3nR1', 'R3']，整区记账））  seed=43
+####################################################################################################
+特征池 61+69=130 列   1s
+保留集 79135 窗  lenhist 缺 0   1s
+训练 48282  选参 47355  保留 79135   平滑分组=(day,device)   2s
+平滑窗 kb=3（在 16-09-30 上选）
+保留集 macro：base=0.8554   +第一段(平滑)=0.9170
+
+困难对（16-09-30 错误量前 8）：
+  BelkinWemoMotion|BelkinWemoSwitch  错 3052
+  NetatmoWeather|NetatmoWelcome  错 63
+  AmazonEcho|NetatmoWeather  错 14
+  NetatmoWelcome|TribySpeaker  错 13
+  BelkinWemoSwitch|NetatmoWelcome  错 11
+  BelkinWemoMotion|NetatmoWelcome  错 8
+  BelkinWemoSwitch|SamsungSmartCam  错 8
+  NetatmoWelcome|SamsungSmartCam  错 7
+
+=== 第二段：在 16-09-30 上导出配置（14 掩码 × ['lr', 'rf']，区逐对选，整区记账）===
+    R2     区 n=  5306 (第三类 1,  0.0%)  0.5060→0.5771 (lr/掩down)  过闸
+    R3nR1  区 n=  6041 (第三类 13,  0.2%)  0.5108→0.5736 (lr/掩down)  过闸
+    R3     区 n=  9544 (第三类 3509, 36.8%)  0.6894→0.3634 (lr/掩down)  不过闸
+  BelkinWemoMotion      |BelkinWemoSwitch       → 选 R2 0.5060→0.5771 (lr/掩down)  **过闸**
+    R2     区 n=   109 (第三类 0,  0.0%)  0.9358→0.7982 (lr/掩up)  不过闸
+    R3nR1  区 n=   468 (第三类 0,  0.0%)  0.9808→0.9487 (lr/掩up)  不过闸
+    R3     区 n=   565 (第三类 92, 16.3%)  0.9752→0.7894 (lr/掩up)  不过闸
+  NetatmoWeather|NetatmoWelcome  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=  1364 (第三类 0,  0.0%)  0.9985→0.9993 (lr/掩none)  不过闸
+    R3nR1  区 n=  1581 (第三类 0,  0.0%)  0.9968→0.9880 (lr/掩none)  不过闸
+    R3     区 n=  1621 (第三类 33,  2.0%)  0.9926→0.9667 (lr/掩none)  不过闸
+  AmazonEcho            |NetatmoWeather         → 选 R2 0.9985→0.9993 (lr/掩none)  不过闸
+    R2     区 n=   432 (第三类 2,  0.5%)  0.9745→0.9190 (lr/掩long)  不过闸
+    R3nR1  区 n=  1223 (第三类 2,  0.2%)  0.9910→0.9264 (rf/掩interarrival)  不过闸
+    R3     区 n=  1413 (第三类 192, 13.6%)  0.9901→0.8018 (rf/掩interarrival)  不过闸
+  NetatmoWelcome|TribySpeaker  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=  1120 (第三类 22,  2.0%)  0.9741→0.9437 (lr/掩interarrival)  不过闸
+    R3nR1  区 n=  4759 (第三类 394,  8.3%)  0.9151→0.9067 (lr/掩interarrival)  不过闸
+    R3     区 n=  7599 (第三类 2510, 33.0%)  0.8505→0.6604 (lr/掩interarrival)  不过闸
+  BelkinWemoSwitch|NetatmoWelcome  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=  1103 (第三类 100,  9.1%)  0.9021→0.8830 (lr/掩lenhist)  不过闸
+    R3nR1  区 n=  3753 (第三类 797, 21.2%)  0.7855→0.7751 (lr/掩lenhist)  不过闸
+    R3     区 n=  5748 (第三类 2454, 42.7%)  0.8010→0.5628 (lr/掩lenhist)  不过闸
+  BelkinWemoMotion|NetatmoWelcome  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=  1040 (第三类 10,  1.0%)  0.9875→0.9548 (rf/掩none)  不过闸
+    R3nR1  区 n=  3206 (第三类 116,  3.6%)  0.9619→0.9482 (lr/掩lenhist)  不过闸
+    R3     区 n=  5677 (第三类 2200, 38.8%)  0.9102→0.6012 (lr/掩none)  不过闸
+  BelkinWemoSwitch|SamsungSmartCam  不过闸（3 个区够大，但没有配置能改善）
+    R2     区 n=  1502 (第三类 1,  0.1%)  0.9960→0.9567 (lr/掩byte)  不过闸
+    R3nR1  区 n=  2534 (第三类 9,  0.4%)  0.9937→0.9657 (lr/掩byte)  不过闸
+    R3     区 n=  4341 (第三类 1810, 41.7%)  0.9885→0.5646 (lr/掩byte)  不过闸
+  NetatmoWelcome|SamsungSmartCam  不过闸（3 个区够大，但没有配置能改善）
+
+过闸 1 对   622s
+    BelkinWemoMotion      |BelkinWemoSwitch       [R2] 区 n=  8050 (第三类 2,  0.0%)  整区在位者=0.6335 → 修后=0.6853 (+0.0518)
+
+=== 臂 B 保留集（合并 16 天，seed=43）===
+  base            0.8554
+  +第一段(平滑)     0.9170   Δ=+0.0616
+  +第二段(定点修)    0.9270   Δ=+0.0100
+
+  逐天（次要终点，不参与判定）：
+    16-10-11  n= 49455  base=0.8545  平滑=0.9172  修后=0.9271
+    16-10-12  n= 29680  base=0.8569  平滑=0.9167  修后=0.9270
+
+====================================================================================================
+=== C3 判定 ===
+====================================================================================================
+C3a  饱和 0.9998（≥0.99）  k1→k10 +0.2005（≥0.15）  → 通过
+C3b′ seed42  过闸 1 对  Δ=+0.0103（>0）  区上符号翻转 0/1 对（须 0）  → 通过
+C3c  seed42  Δ=+0.0103（≥−0.002）  → 通过
+C3b′ seed43  过闸 1 对  Δ=+0.0100（>0）  区上符号翻转 0/1 对（须 0）  → 通过
+C3c  seed43  Δ=+0.0100（≥−0.002）  → 通过
+
+种子间差：平滑 0.0004   修后 0.0001
+
+写出 /home/lmy/iot-device-classification/results/c3_pilot_burned_20260905   总耗时 1387s

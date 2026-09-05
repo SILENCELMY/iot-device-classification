@@ -1,0 +1,54 @@
+8 台  训练 613499  测试 452639   5s
+8 类基模型完成  macro=0.2803   64s
+  D-LinkCam1|D-LinkCam2 同型号=True  n=  44004  argmax=0.5166  专用二分类=0.5162
+  D-LinkCam1|inkDayCam1 同型号=False n=  90557  argmax=0.8526  专用二分类=0.8828
+  D-LinkCam1|inkDayCam2 同型号=False n=  90009  argmax=0.8502  专用二分类=0.8818
+  D-LinkCam1|inkDayCam3 同型号=False n=  90835  argmax=0.8609  专用二分类=0.8857
+  D-LinkCam1|inkDayCam4 同型号=False n=  89661  argmax=0.8468  专用二分类=0.8780
+  D-LinkCam1|inkDayCam5 同型号=False n=  89180  argmax=0.8547  专用二分类=0.8835
+  D-LinkCam1|inkDayCam6 同型号=False n=  89985  argmax=0.8631  专用二分类=0.8874
+  D-LinkCam2|inkDayCam1 同型号=False n=  90697  argmax=0.8611  专用二分类=0.8898
+  D-LinkCam2|inkDayCam2 同型号=False n=  90149  argmax=0.8605  专用二分类=0.8898
+  D-LinkCam2|inkDayCam3 同型号=False n=  90975  argmax=0.8690  专用二分类=0.8930
+  D-LinkCam2|inkDayCam4 同型号=False n=  89801  argmax=0.8565  专用二分类=0.8853
+  D-LinkCam2|inkDayCam5 同型号=False n=  89320  argmax=0.8643  专用二分类=0.8914
+  D-LinkCam2|inkDayCam6 同型号=False n=  90125  argmax=0.8693  专用二分类=0.8923
+  inkDayCam1|inkDayCam2 同型号=True  n= 136702  argmax=0.5080  专用二分类=0.5096
+  inkDayCam1|inkDayCam3 同型号=True  n= 137528  argmax=0.7704  专用二分类=0.7723
+  inkDayCam1|inkDayCam4 同型号=True  n= 136354  argmax=0.5001  专用二分类=0.5004
+  inkDayCam1|inkDayCam5 同型号=True  n= 135873  argmax=0.5018  专用二分类=0.5013
+  inkDayCam1|inkDayCam6 同型号=True  n= 136678  argmax=0.7752  专用二分类=0.7757
+  inkDayCam2|inkDayCam3 同型号=True  n= 136980  argmax=0.7640  专用二分类=0.7650
+  inkDayCam2|inkDayCam4 同型号=True  n= 135806  argmax=0.5000  专用二分类=0.4985
+  inkDayCam2|inkDayCam5 同型号=True  n= 135325  argmax=0.5035  专用二分类=0.5057
+  inkDayCam2|inkDayCam6 同型号=True  n= 136130  argmax=0.7650  专用二分类=0.7662
+  inkDayCam3|inkDayCam4 同型号=True  n= 136632  argmax=0.7597  专用二分类=0.7651
+  inkDayCam3|inkDayCam5 同型号=True  n= 136151  argmax=0.7650  专用二分类=0.7702
+  inkDayCam3|inkDayCam6 同型号=True  n= 136956  argmax=0.5076  专用二分类=0.5067
+  inkDayCam4|inkDayCam5 同型号=True  n= 134977  argmax=0.4952  专用二分类=0.4942
+  inkDayCam4|inkDayCam6 同型号=True  n= 135782  argmax=0.7628  专用二分类=0.7646
+  inkDayCam5|inkDayCam6 同型号=True  n= 135301  argmax=0.7685  专用二分类=0.7705
+
+================================================================================
+=== 同型号 vs 跨型号（修正后的度量）===
+      pair_argmax                         pair_binary                        
+            count    mean     min     max       count    mean     min     max
+同型号                                                                          
+False          12  0.8591  0.8468  0.8693          12  0.8867  0.8780  0.8930
+True           16  0.6352  0.4952  0.7752          16  0.6364  0.4942  0.7757
+
+=== 最难的 8 对（按专用二分类器）===
+            a             b  同型号      n  pair_argmax  pair_binary
+D-LinkDayCam4 D-LinkDayCam5 True 134977     0.495240     0.494188
+D-LinkDayCam2 D-LinkDayCam4 True 135806     0.500037     0.498513
+D-LinkDayCam1 D-LinkDayCam4 True 136354     0.500139     0.500374
+D-LinkDayCam1 D-LinkDayCam5 True 135873     0.501807     0.501292
+D-LinkDayCam2 D-LinkDayCam5 True 135325     0.503506     0.505745
+D-LinkDayCam3 D-LinkDayCam6 True 136956     0.507572     0.506688
+D-LinkDayCam1 D-LinkDayCam2 True 136702     0.508032     0.509598
+   D-LinkCam1    D-LinkCam2 True  44004     0.516612     0.516249
+
+判读：专用二分类器仍低 → 该对在这套特征下确实不可分（身份型）；
+      argmax 低而专用二分类器高 → 是多类竞争问题，逐对机制正好治它。
+
+总耗时 245s

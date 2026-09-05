@@ -1,0 +1,110 @@
+
+=== 窗长 10s   11303 行  94 特征列  轮次行数 [('R2', 1816), ('R3', 1837), ('R4', 1853), ('R5', 1816), ('R6', 1988), ('R7', 1993)]
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  pos_R5 完成  40s
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  jit_R6 完成  79s
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  jit_R7 完成  119s
+
+=== 窗长 30s   3778 行  94 特征列  轮次行数 [('R2', 606), ('R3', 614), ('R4', 619), ('R5', 607), ('R6', 665), ('R7', 667)]
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  pos_R5 完成  135s
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  jit_R6 完成  151s
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  jit_R7 完成  167s
+
+=== 窗长 60s   1898 行  94 特征列  轮次行数 [('R2', 305), ('R3', 308), ('R4', 311), ('R5', 306), ('R6', 333), ('R7', 335)]
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  pos_R5 完成  176s
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  jit_R6 完成  186s
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  jit_R7 完成  195s
+
+=== 单模型 xgboost：5 类窗口级 macro-F1（三单元 × 3 seed 均值）===
+                 gw   macro      n_dec
+w  k evid_s                           
+10 1 10      0.6173  0.7492  1932.3333
+   3 30      0.3785  0.6240  1932.3333
+   6 60      0.3566  0.6133  1932.3333
+30 1 30      0.5525  0.7010   646.3333
+   2 60      0.3903  0.6157   646.3333
+60 1 60      0.4936  0.6897   324.6667
+
+=== best_base（逐 单元,seed 取三模型最大）===
+                 gw   macro
+w  k evid_s                
+10 1 10      0.6526  0.7640
+   3 30      0.3961  0.6326
+   6 60      0.3679  0.6184
+30 1 30      0.5573  0.7138
+   2 60      0.3979  0.6244
+60 1 60      0.5412  0.7230
+
+=== 同证据量对拍（这才是判据）===
+  30s 证据:  w10+k=3 macro=0.6326 网关=0.3961   vs  w30原生 macro=0.7138 网关=0.5573   长窗−平滑 = +0.0812 (网关 +0.1612)
+  60s 证据:  w10+k=6 macro=0.6184 网关=0.3679   vs  w60原生 macro=0.7230 网关=0.5412   长窗−平滑 = +0.1046 (网关 +0.1733)
+
+  基准 w10 k=1: macro=0.7640 网关=0.6526
+
+  判读：长窗−平滑 明显为正 → 跨窗特征有真信息，值得换（代价：决策数降 3~6 倍）
+        ≈0 或为负        → 10 s 窗已够，平滑是更便宜且决策更密的用法
+
+=== 逐单元（看是否只在 pos_R5 上不同）===
+unit  jit_R6  jit_R7  pos_R5
+w  k                        
+10 1  0.7745  0.8205  0.6969
+   3  0.6333  0.6563  0.6084
+   6  0.6178  0.6346  0.6028
+30 1  0.7157  0.8022  0.6235
+   2  0.6218  0.6387  0.6128
+60 1  0.7459  0.8060  0.6170
+
+总耗时 195s

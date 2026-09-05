@@ -1,0 +1,23 @@
+
+================================================================================================
+CIC 型号级   inner 2021_11_02_Idle→2021_11_03_Active   outer 2021_11_02_Idle→2021_11_08_Active
+  实例 36 台 → 型号 28 类   合并：{'AmazonAlexaEchoDot': 2, 'GosundPlugSocket': 6, 'TeckinPlug': 2, 'YutronPlug': 2}
+  seed42 k_base=10  base=0.7980 平滑=0.9181 v5=0.9178  Δ(v5−平滑)=-0.0003   过闸 2/63 对 / 1376 窗  模型{'rf': 1, 'xgboost': 1}
+      AmazonAlexaEchoSpot|AmazonAlexaEchoStudio  可判决区    57  在位者 0.8772 → 配置 1.0000 (+0.1228) rf k10
+      GlobeLampESPB1680C|GosundPlugSocket       可判决区  2293  在位者 0.6607 → 配置 0.7091 (+0.0484) xgboost k1
+      AmazonPlug|SonosOneSpeaker        可判决区   831  在位者 0.9844 → 配置 0.9976 (+0.0132) lr k10
+      AmazonAlexaEchoDot|AmazonAlexaEchoStudio  可判决区   907  在位者 0.9846 → 配置 0.9956 (+0.0110) rf k10
+      LuoheCamDog|iRobotRoomba           可判决区   934  在位者 0.9989 → 配置 1.0000 (+0.0011) lr k10
+      AMCRESTWiFiCamera|PhilipsHueBridge       可判决区   111  在位者 1.0000 → 配置 1.0000 (+0.0000) lr k3
+      最差 5 类  GlobeLampESPB1680C 0.000→0.000  TeckinPlug 0.464→0.464  YutronPlug 0.575→0.575  GosundPlugSocket 0.905→0.897  AmazonAlexaEchoSpo 0.937→0.937
+  seed43 k_base=10  base=0.7941 平滑=0.9325 v5=0.9322  Δ(v5−平滑)=-0.0003   过闸 2/61 对 / 2827 窗  模型{'rf': 1, 'xgboost': 1}
+      AmazonAlexaEchoDot|NetatmoWeatherStation  可判决区    88  在位者 0.8977 → 配置 0.9773 (+0.0795) rf k10
+      GlobeLampESPB1680C|GosundPlugSocket       可判决区  3679  在位者 0.8149 → 配置 0.8350 (+0.0201) xgboost k1
+      AmazonAlexaEchoDot|AmazonAlexaEchoSpot    可判决区  1033  在位者 0.9574 → 配置 0.9719 (+0.0145) rf k10
+      AmazonAlexaEchoDot|AmazonAlexaEchoStudio  可判决区   884  在位者 0.9842 → 配置 0.9910 (+0.0068) rf k10
+      AmazonPlug|SonosOneSpeaker        可判决区   833  在位者 0.9988 → 配置 1.0000 (+0.0012) lr k10
+      AMCRESTWiFiCamera|iRobotRoomba           可判决区   162  在位者 1.0000 → 配置 1.0000 (+0.0000) lr k5
+      最差 5 类  GlobeLampESPB1680C 0.000→0.000  TeckinPlug 0.633→0.633  YutronPlug 0.752→0.752  GosundPlugSocket 0.906→0.899  AmazonAlexaEchoSpo 0.936→0.936
+  → 均值 base=0.7961 平滑=0.9253 v5=0.9250  Δ(v5−平滑)=-0.0003
+
+总耗时 188s

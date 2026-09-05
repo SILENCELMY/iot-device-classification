@@ -1,0 +1,61 @@
+==========================================================================================
+步骤 1  保留集 schema 检查（元数据）
+==========================================================================================
+features   1079499 行   day 取值 ['16-09-24', '16-09-25', '16-09-26', '16-09-27', '16-09-28', '16-09-29', '16-10-01', '16-10-02', '16-10-03', '16-10-04', '16-10-05', '16-10-06', '16-10-07', '16-10-08', '16-10-09', '16-10-10']
+lenhist    1139981 行   day 取值 ['16-09-23', '16-09-24', '16-09-25', '16-09-26', '16-09-27', '16-09-28', '16-09-29', '16-10-01', '16-10-02', '16-10-03', '16-10-04', '16-10-05', '16-10-06', '16-10-07', '16-10-08', '16-10-09', '16-10-10']
+features 的 device 数 23   lenhist 的 device 数 23
+连接键：features 1079499  lenhist 1139981  交集 1079499
+features 能连上的比例 1.000000   （<1 说明有窗拿不到 lenhist）
+PASS  schema 与连接键对齐
+
+==========================================================================================
+步骤 2  用 16-09-30 顶替保留集，跑通两臂
+==========================================================================================
+C3 确证测试   协议 docs/PROTOCOL_C3_CONFIRMATORY_20260905.md   登记 C3-CONFIRM-UNSW16 @ 59372d1
+
+类集 = 训练∩选参∩保留16天 的 day_gate 交集 = 14 类
+    AmazonEcho
+    BelkinWemoMotion
+    BelkinWemoSwitch
+    Dropcam
+    HPPrinter
+    NetatmoWeather
+    NetatmoWelcome
+    PIX-STAR
+    SamsungSmartCam
+    SmartThings
+    TPLinkCam
+    TPLinkPlug
+    TribySpeaker
+    WithingsBabyMonitor
+
+####################################################################################################
+### 臂 A —— 诊断仪器（因果计数聚合 + Hellinger + kNN5）
+####################################################################################################
+训练天 16-09-23: 60482 窗   26s
+源天词表 230 项（协议要求：只从 16-09-23 导出）
+  k=  1 训练集 (60468, 230)   27s
+  16-09-30: 门 14 台  k1=0.7457   61s
+
+=== 臂 A 主判据：合并 16 天 ===
+  k=  1（标称   10s；实际跨度中位   10.0s  p90    10.0s）  macro=0.7457  错 12362/59457
+        AmazonEcho               WithingsBabyMonitor        3950 (32.0%)
+        BelkinWemoMotion         BelkinWemoSwitch           2106 (17.0%)
+        AmazonEcho               NetatmoWelcome             1004 ( 8.1%)
+Traceback (most recent call last):
+  File "/home/lmy/cic_probe/c3_smoke.py", line 36, in <module>
+    C.main()
+  File "/home/lmy/cic_probe/c3_confirm.py", line 372, in main
+    a=arm_a(devs,res_gates)
+      ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lmy/cic_probe/c3_confirm.py", line 174, in arm_a
+    sat=A.macro.max(); lift=float(A[A.k==10].macro.iloc[0]-A[A.k==1].macro.iloc[0])
+                                  ~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/pandas/core/indexing.py", line 1207, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/pandas/core/indexing.py", line 1773, in _getitem_axis
+    self._validate_integer(key, axis)
+  File "/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/pandas/core/indexing.py", line 1706, in _validate_integer
+    raise IndexError("single positional indexer is out-of-bounds")
+IndexError: single positional indexer is out-of-bounds

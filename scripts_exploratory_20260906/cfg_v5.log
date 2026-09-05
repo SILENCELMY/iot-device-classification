@@ -1,0 +1,38 @@
+
+================================================================================================
+UNSW   inner 16-09-23→16-09-30   outer 16-09-23→16-10-12   10 类
+  seed42 k_base=3  base=0.8414 平滑=0.9128 v5=0.9748  Δ(v5−平滑)=+0.0620   过闸 5/33 对 / 4334 窗  模型{'lr': 3, 'rf': 2}
+      BelkinWemoMotion|BelkinWemoSwitch     可判决区  3544  在位者 0.5133 → 配置 0.9763 (+0.4630) lr k10
+      NetatmoWeather|NetatmoWelcome       可判决区   101  在位者 0.8020 → 配置 0.8515 (+0.0495) lr k1
+      AmazonEcho|NetatmoWeather       可判决区   416  在位者 0.9375 → 配置 0.9784 (+0.0409) lr k3
+      HPPrinter|TribySpeaker         可判决区   426  在位者 0.9671 → 配置 0.9953 (+0.0282) rf k10
+      NetatmoWelcome|TribySpeaker         可判决区  1102  在位者 0.9465 → 配置 0.9728 (+0.0263) rf k10
+      BelkinWemoMotion|NetatmoWelcome       可判决区   437  在位者 0.9886 → 配置 1.0000 (+0.0114) rf k10
+  seed43 k_base=5  base=0.8344 平滑=0.8980 v5=0.9856  Δ(v5−平滑)=+0.0876   过闸 3/32 对 / 4412 窗  模型{'lr': 1, 'rf': 2}
+      BelkinWemoMotion|BelkinWemoSwitch     可判决区  3787  在位者 0.4589 → 配置 0.9781 (+0.5191) lr k10
+      NetatmoWelcome|TribySpeaker         可判决区  1251  在位者 0.9345 → 配置 0.9784 (+0.0440) rf k10
+      HPPrinter|TribySpeaker         可判决区   431  在位者 0.9698 → 配置 1.0000 (+0.0302) rf k10
+      BelkinWemoMotion|TribySpeaker         可判决区    78  在位者 0.9872 → 配置 1.0000 (+0.0128) xgboost k5
+      SamsungSmartCam|TribySpeaker         可判决区   244  在位者 0.9918 → 配置 1.0000 (+0.0082) rf k5
+      BelkinWemoMotion|SamsungSmartCam      可判决区   445  在位者 0.9955 → 配置 1.0000 (+0.0045) lr k10
+  → 均值 base=0.8379 平滑=0.9054 v5=0.9802  Δ(v5−平滑)=+0.0748
+
+================================================================================================
+CIC   inner 2021_11_02_Idle→2021_11_03_Active   outer 2021_11_02_Idle→2021_11_08_Active   36 类
+  seed42 k_base=10  base=0.6074 平滑=0.6861 v5=0.6875  Δ(v5−平滑)=+0.0014   过闸 7/74 对 / 1509 窗  模型{'rf': 1, 'lr': 3, 'xgboost': 1}
+      GosundESP032979Plug|GosundESP0C3994Plug  可判决区   157  在位者 0.1465 → 配置 0.8089 (+0.6624) lr k5
+      GlobeLampESPB1680C|GosundESP039AAFSocke 可判决区   355  在位者 0.0000 → 配置 0.6507 (+0.6507) lr k10
+      GlobeLampESPB1680C|GosundESP032979Plug  可判决区    93  在位者 0.0753 → 配置 0.7204 (+0.6452) lr k1
+      GosundESP039AAFSocke|GosundESP0C3994Plug  可判决区   292  在位者 0.1233 → 配置 0.2979 (+0.1747) xgboost k1
+      GosundESP10ACD8Plug|GosundESP1ACEE1Socke 可判决区   499  在位者 0.5731 → 配置 0.7455 (+0.1723) lr k1
+      TeckinPlug2|YutronPlug2          可判决区    52  在位者 0.9231 → 配置 1.0000 (+0.0769) lr k5
+  seed43 k_base=10  base=0.5983 平滑=0.6992 v5=0.7012  Δ(v5−平滑)=+0.0019   过闸 7/77 对 / 2441 窗  模型{'lr': 3, 'xgboost': 2, 'rf': 1}
+      GlobeLampESPB1680C|GosundESP039AAFSocke 可判决区   220  在位者 0.0000 → 配置 0.8909 (+0.8909) lr k10
+      GlobeLampESPB1680C|GosundESP032979Plug  可判决区   255  在位者 0.1098 → 配置 0.9294 (+0.8196) lr k1
+      GlobeLampESPB1680C|GosundESP10ACD8Plug  可判决区   209  在位者 0.5455 → 配置 1.0000 (+0.4545) xgboost k1
+      GosundESP10ACD8Plug|GosundESP147FF9Plug  可判决区   166  在位者 0.0060 → 配置 0.3072 (+0.3012) xgboost k1
+      GlobeLampESPB1680C|GosundESP0C3994Plug  可判决区    69  在位者 0.0000 → 配置 0.2754 (+0.2754) lr k3
+      GosundESP039AAFSocke|GosundESP0C3994Plug  可判决区    77  在位者 0.1299 → 配置 0.2727 (+0.1429) rf k1
+  → 均值 base=0.6029 平滑=0.6926 v5=0.6943  Δ(v5−平滑)=+0.0017
+
+总耗时 399s

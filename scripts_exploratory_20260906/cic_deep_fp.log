@@ -1,0 +1,72 @@
+ESP 族 12 台
+
+=== 1102_Idle ===
+  ClientHello 0 个
+  SYN 114 个
+    GosundESP147FF9Plug        n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP10ACD8Plug        n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP1ACEE1Socket      n=  1  选项顺序=2  wscale=nan  mss=1460
+    GlobeLampESPB1680C         n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP032979Plug        n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP039AAFSocket      n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP0C3994Plug        n=  1  选项顺序=2  wscale=nan  mss=1460
+    YutronPlug1                n= 27  选项顺序=2  wscale=nan  mss=1460
+    YutronPlug2                n= 27  选项顺序=2  wscale=nan  mss=1460
+    TeckinPlug1                n= 26  选项顺序=2  wscale=nan  mss=1460
+    TeckinPlug2                n= 27  选项顺序=2  wscale=nan  mss=1460
+
+=== 1108_Idle ===
+  ClientHello 113 个
+    GosundESP147FF9Plug        n=  1  cipher数=2  ext=1,22,23  SNI=[]
+    GosundESP10098FSocket      n=  1  cipher数=2  ext=1,22,23  SNI=[]
+    GosundESP10ACD8Plug        n=  1  cipher数=2  ext=1,22,23  SNI=[]
+    GosundESP1ACEE1Socket      n=  1  cipher数=2  ext=1,22,23  SNI=[]
+    GlobeLampESPB1680C         n=  1  cipher数=2  ext=1,22,23  SNI=[]
+    GosundESP032979Plug        n=  1  cipher数=2  ext=1,22,23  SNI=[]
+    GosundESP039AAFSocket      n=  1  cipher数=2  ext=1,22,23  SNI=[]
+    GosundESP0C3994Plug        n=  1  cipher数=2  ext=1,22,23  SNI=[]
+    YutronPlug1                n= 26  cipher数=2  ext=13,10,11,1,22,23  SNI=[]
+    YutronPlug2                n= 27  cipher数=2  ext=13,10,11,1,22,23  SNI=[]
+    TeckinPlug1                n= 26  cipher数=2  ext=13,10,11,1,22,23  SNI=[]
+    TeckinPlug2                n= 26  cipher数=2  ext=13,10,11,1,22,23  SNI=[]
+  SYN 113 个
+    GosundESP147FF9Plug        n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP10098FSocket      n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP10ACD8Plug        n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP1ACEE1Socket      n=  1  选项顺序=2  wscale=nan  mss=1460
+    GlobeLampESPB1680C         n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP032979Plug        n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP039AAFSocket      n=  1  选项顺序=2  wscale=nan  mss=1460
+    GosundESP0C3994Plug        n=  1  选项顺序=2  wscale=nan  mss=1460
+    YutronPlug1                n= 26  选项顺序=2  wscale=nan  mss=1460
+    YutronPlug2                n= 27  选项顺序=2  wscale=nan  mss=1460
+    TeckinPlug1                n= 26  选项顺序=2  wscale=nan  mss=1460
+    TeckinPlug2                n= 26  选项顺序=2  wscale=nan  mss=1460
+
+=== 判读：组内设备之间这些指纹有没有差异 ===
+
+  [tls] A组(win4380)  8 台有样本
+     ver          不同取值 1 种   组内一致
+     ciphers      不同取值 1 种   组内一致
+     exts         不同取值 1 种   组内一致
+     groups       不同取值 1 种   组内一致
+     sni          不同取值 1 种   组内一致
+
+  [tls] B组(win2920)  4 台有样本
+     ver          不同取值 1 种   组内一致
+     ciphers      不同取值 1 种   组内一致
+     exts         不同取值 1 种   组内一致
+     groups       不同取值 1 种   组内一致
+     sni          不同取值 1 种   组内一致
+
+  [tcpopt] A组(win4380)  8 台有样本
+     opt_order    不同取值 1 种   组内一致
+     wscale       不同取值 1 种   组内一致
+     mss          不同取值 1 种   组内一致
+
+  [tcpopt] B组(win2920)  4 台有样本
+     opt_order    不同取值 1 种   组内一致
+     wscale       不同取值 1 种   组内一致
+     mss          不同取值 1 种   组内一致
+
+总耗时 73s

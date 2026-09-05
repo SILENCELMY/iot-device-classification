@@ -1,0 +1,76 @@
+
+==================================================================================================
+CIC 型号级 v6   inner 2021_11_02_Idle→2021_11_03_Active   outer 2021_11_02_Idle→2021_11_08_Active
+  实例 36 → 类 28   掩码候选 8   模型 ['lr', 'rf', 'xgboost']   时长 [1, 3, 5, 10, 20, 40]   balanced=True
+      20/132 对  158s
+      40/132 对  225s
+      60/132 对  285s
+      100/132 对  377s
+      120/132 对  454s
+  seed42 k_base=20  base=0.7980 平滑=0.9246 v6=0.9252  Δ(v6−平滑)=+0.0005   过闸 3/59 对 / 4494 窗  518s
+      选中配置: {'lr/none/k40': 1, 'lr/singletons/k40': 1, 'xgboost/interarrival/k20': 1}
+      GlobeLampESPB1680C|GosundPlugSocket     可判决区  2336  在位者 0.6652 → 配置 0.7971 (+0.1318)  lr/掩singletons/k40
+      AmazonAlexaEchoDot|AmazonAlexaEchoSpot  可判决区  1134  在位者 0.9744 → 配置 1.0000 (+0.0256)  lr/掩none/k40
+      TeckinPlug|YutronPlug           可判决区  2218  在位者 0.7759 → 配置 0.7971 (+0.0212)  xgboost/掩interarrival/k20
+      AmazonPlug|SonosOneSpeaker      可判决区   889  在位者 0.9978 → 配置 0.9989 (+0.0011)  lr/掩none/k20
+      AMCRESTWiFiCamera|iRobotRoomba         可判决区   248  在位者 1.0000 → 配置 1.0000 (+0.0000)  lr/掩none/k10
+      AMCRESTWiFiCamera|PhilipsHueBridge     可判决区   102  在位者 1.0000 → 配置 1.0000 (+0.0000)  lr/掩none/k3
+      最差类 GlobeLampESPB1680C       平滑 0.0000 → v6 0.0000
+      最差类 TeckinPlug               平滑 0.4693 → v6 0.4683
+      最差类 YutronPlug               平滑 0.5756 → v6 0.6538
+      最差类 GosundPlugSocket         平滑 0.9082 → v6 0.8261
+      最差类 AmazonAlexaEchoSpot      平滑 0.9752 → v6 0.9883
+      20/127 对  139s
+      60/127 对  257s
+      100/127 对  404s
+      120/127 对  453s
+  seed43 k_base=20  base=0.7941 平滑=0.9386 v6=0.9359  Δ(v6−平滑)=-0.0026   过闸 2/54 对 / 2635 窗  497s
+      选中配置: {'lr/none/k40': 1, 'lr/singletons/k1': 1}
+      GlobeLampESPB1680C|GosundPlugSocket     可判决区  3688  在位者 0.8159 → 配置 0.9016 (+0.0857)  lr/掩singletons/k1
+      AmazonAlexaEchoDot|NetatmoWeatherStatio 可判决区    93  在位者 0.9570 → 配置 1.0000 (+0.0430)  lr/掩none/k40
+      AmazonAlexaEchoDot|AmazonAlexaEchoSpot  可判决区  1122  在位者 0.9866 → 配置 1.0000 (+0.0134)  rf/掩none/k40
+      AtomiCoffeeMaker|HeimVisionSmartLifeR 可判决区  1110  在位者 0.9901 → 配置 1.0000 (+0.0099)  rf/掩none/k40
+      TeckinPlug|YutronPlug           可判决区  2220  在位者 0.7784 → 配置 0.7811 (+0.0027)  xgboost/掩interarrival/k10
+      AMCRESTWiFiCamera|NetatmoCamera        可判决区   100  在位者 1.0000 → 配置 1.0000 (+0.0000)  lr/掩none/k3
+      最差类 GlobeLampESPB1680C       平滑 0.0000 → v6 0.0069
+      最差类 TeckinPlug               平滑 0.6463 → v6 0.6463
+      最差类 YutronPlug               平滑 0.7736 → v6 0.7736
+      最差类 GosundPlugSocket         平滑 0.9076 → v6 0.8266
+      最差类 AmazonAlexaEchoSpot      平滑 0.9741 → v6 0.9741
+  → 均值 base=0.7961 平滑=0.9316 v6=0.9305  Δ(v6−平滑)=-0.0011
+
+==================================================================================================
+UNSW v6（对照，确认新增维度不伤已成立的结果）   inner 16-09-23→16-09-30   outer 16-09-23→16-10-12
+  实例 10 → 类 10   掩码候选 8   模型 ['lr', 'rf', 'xgboost']   时长 [1, 3, 5, 10, 20, 40]   balanced=True
+      20/43 对  322s
+      40/43 对  556s
+  seed42 k_base=3  base=0.8414 平滑=0.9128 v6=0.9808  Δ(v6−平滑)=+0.0680   过闸 5/33 对 / 4334 窗  579s
+      选中配置: {'rf/subwin/k40': 1, 'lr/down/k40': 1, 'rf/none/k20': 1, 'rf/none/k40': 2}
+      BelkinWemoMotion|BelkinWemoSwitch     可判决区  3544  在位者 0.5133 → 配置 1.0000 (+0.4867)  lr/掩down/k40
+      NetatmoWeather|NetatmoWelcome       可判决区   101  在位者 0.8020 → 配置 1.0000 (+0.1980)  rf/掩none/k40
+      AmazonEcho|NetatmoWeather       可判决区   416  在位者 0.9375 → 配置 1.0000 (+0.0625)  rf/掩subwin/k40
+      NetatmoWelcome|TribySpeaker         可判决区  1102  在位者 0.9465 → 配置 1.0000 (+0.0535)  rf/掩none/k40
+      HPPrinter|TribySpeaker         可判决区   426  在位者 0.9671 → 配置 1.0000 (+0.0329)  rf/掩none/k20
+      BelkinWemoMotion|NetatmoWelcome       可判决区   437  在位者 0.9886 → 配置 1.0000 (+0.0114)  lr/掩none/k20
+      最差类 BelkinWemoSwitch         平滑 0.5285 → v6 0.9403
+      最差类 BelkinWemoMotion         平滑 0.7421 → v6 0.9446
+      最差类 NetatmoWeather           平滑 0.9457 → v6 0.9639
+      最差类 NetatmoWelcome           平滑 0.9596 → v6 0.9770
+      最差类 TribySpeaker             平滑 0.9706 → v6 0.9941
+      20/43 对  312s
+  seed43 k_base=5  base=0.8344 平滑=0.8980 v6=0.9911  Δ(v6−平滑)=+0.0931   过闸 4/32 对 / 4811 窗  570s
+      选中配置: {'lr/none/k20': 1, 'lr/none/k40': 1, 'rf/up/k40': 1, 'rf/none/k40': 1}
+      BelkinWemoMotion|BelkinWemoSwitch     可判决区  3787  在位者 0.4589 → 配置 0.9984 (+0.5395)  lr/掩none/k20
+      NetatmoWelcome|TribySpeaker         可判决区  1251  在位者 0.9345 → 配置 1.0000 (+0.0655)  rf/掩none/k40
+      NetatmoWeather|NetatmoWelcome       可判决区   437  在位者 0.9428 → 配置 1.0000 (+0.0572)  rf/掩up/k40
+      HPPrinter|TribySpeaker         可判决区   431  在位者 0.9698 → 配置 1.0000 (+0.0302)  lr/掩none/k40
+      BelkinWemoMotion|TribySpeaker         可判决区    78  在位者 0.9872 → 配置 1.0000 (+0.0128)  lr/掩none/k20
+      SamsungSmartCam|TribySpeaker         可判决区   244  在位者 0.9918 → 配置 1.0000 (+0.0082)  lr/掩none/k20
+      最差类 BelkinWemoSwitch         平滑 0.4118 → v6 0.9898
+      最差类 BelkinWemoMotion         平滑 0.7253 → v6 0.9899
+      最差类 NetatmoWeather           平滑 0.9484 → v6 0.9647
+      最差类 NetatmoWelcome           平滑 0.9494 → v6 0.9782
+      最差类 TribySpeaker             平滑 0.9534 → v6 0.9937
+  → 均值 base=0.8379 平滑=0.9054 v6=0.9860  Δ(v6−平滑)=+0.0806
+
+总耗时 2165s

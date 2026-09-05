@@ -1,0 +1,99 @@
+src 16-09-23: 60482 窗  lenhist 缺 0
+inner 16-09-30: 78122 窗  lenhist 缺 0
+outer 16-10-12: 37155 窗  lenhist 缺 0
+
+共同设备 10 类  →  C(10,2)=45 对   特征 61+69=130 列
+    AmazonEcho
+    BelkinWemoMotion
+    BelkinWemoSwitch
+    Dropcam
+    HPPrinter
+    NetatmoWeather
+    NetatmoWelcome
+    SamsungSmartCam
+    SmartThings
+    TribySpeaker
+
+训练 48282  inner 47355  outer 29680   1s
+平滑窗 kb=3（inner 选）   outer macro: 无平滑=0.8524  平滑=0.9164   3s
+outer 总错 1512 / 29680 窗 = 0.0509
+
+=== 逐对（45 对，专用 RF 各一个）===
+
+================================================================================================================
+=== 按错误量排序（全 45 对）===
+类对                                                        窗n      错     错占比     在位者      对内     专用上界  分类
+BelkinWemoMotion|BelkinWemoSwitch                       3938   1334  0.8823 0.6552 0.6585   0.6079  部分可分
+NetatmoWeather|NetatmoWelcome                           5029     89  0.0589 0.9759 0.9785   0.9598  部分可分
+AmazonEcho|NetatmoWeather                               4990     25  0.0165 0.9772 0.9804   0.9599  部分可分
+HPPrinter|SamsungSmartCam                               5380     11  0.0073 0.9957 0.9980   0.9582  已解决
+BelkinWemoSwitch|NetatmoWelcome                         5778      8  0.0053 0.7781 0.9865   0.9534  ★可分但未解
+BelkinWemoMotion|NetatmoWelcome                         5754      7  0.0046 0.9833 0.9984   0.9567  已解决
+BelkinWemoMotion|HPPrinter                              3573      7  0.0046 0.9751 0.9958   0.9261  已解决
+BelkinWemoSwitch|HPPrinter                              3597      5  0.0033 0.6455 0.9525   0.9322  ★可分但未解
+SamsungSmartCam|TribySpeaker                            5033      4  0.0026 0.9948 0.9986   0.9563  已解决
+BelkinWemoMotion|SamsungSmartCam                        5721      4  0.0026 0.9815 0.9991   0.9617  已解决
+BelkinWemoSwitch|SamsungSmartCam                        5745      4  0.0026 0.7751 0.9864   0.9593  ★可分但未解
+AmazonEcho|SamsungSmartCam                              7522      3  0.0020 0.9969 0.9996   0.9851  已解决
+AmazonEcho|BelkinWemoSwitch                             5739      2  0.0013 0.7778 0.9937   0.9873  ★可分但未解
+NetatmoWelcome|TribySpeaker                             5066      2  0.0013 0.9968 0.9996   0.9694  已解决
+AmazonEcho|TribySpeaker                                 5027      2  0.0013 0.9982 0.9996   0.9664  已解决
+BelkinWemoSwitch|TribySpeaker                           3250      1  0.0007 0.6068 0.9994   0.9775  ★可分但未解
+BelkinWemoMotion|TribySpeaker                           3226      1  0.0007 0.9715 0.9997   0.9768  已解决
+Dropcam|NetatmoWelcome                                  9010      1  0.0007 0.9988 0.9999   0.9997  已解决
+NetatmoWelcome|SamsungSmartCam                          7561      1  0.0007 0.9960 0.9999   0.9673  已解决
+AmazonEcho|BelkinWemoMotion                             5715      1  0.0007 0.9844 0.9998   0.9895  已解决
+AmazonEcho|HPPrinter                                    5374      0  0.0000 0.9989 1.0000   0.9985  已解决
+BelkinWemoMotion|NetatmoWeather                         3189      0  0.0000 0.9382 0.9740   0.9548  已解决
+BelkinWemoMotion|Dropcam                                7170      0  0.0000 0.9879 1.0000   0.9997  已解决
+AmazonEcho|NetatmoWelcome                               7555      0  0.0000 0.9983 1.0000   0.9816  已解决
+AmazonEcho|SmartThings                                  8851      0  0.0000 0.9997 1.0000   1.0000  已解决
+AmazonEcho|Dropcam                                      8971      0  0.0000 0.9996 1.0000   1.0000  已解决
+BelkinWemoSwitch|NetatmoWeather                         3213      0  0.0000 0.5696 0.9742   0.9592  ★可分但未解
+BelkinWemoMotion|SmartThings                            7050      0  0.0000 0.9878 1.0000   1.0000  已解决
+BelkinWemoSwitch|Dropcam                                7194      0  0.0000 0.8230 1.0000   0.9997  ★可分但未解
+Dropcam|SmartThings                                    10306      0  0.0000 0.9999 1.0000   1.0000  已解决
+Dropcam|SamsungSmartCam                                 8977      0  0.0000 0.9977 1.0000   0.9997  已解决
+Dropcam|NetatmoWeather                                  6445      0  0.0000 0.9826 0.9997   1.0000  已解决
+Dropcam|HPPrinter                                       6829      0  0.0000 0.9994 1.0000   0.9996  已解决
+BelkinWemoSwitch|SmartThings                            7074      0  0.0000 0.8202 1.0000   1.0000  ★可分但未解
+HPPrinter|NetatmoWelcome                                5413      0  0.0000 0.9976 1.0000   0.9882  已解决
+HPPrinter|NetatmoWeather                                2848      0  0.0000 0.9600 0.9712   0.9347  已解决
+Dropcam|TribySpeaker                                    6482      0  0.0000 0.9989 1.0000   1.0000  已解决
+NetatmoWeather|SamsungSmartCam                          4996      0  0.0000 0.9738 0.9836   0.9700  已解决
+HPPrinter|TribySpeaker                                  2885      0  0.0000 0.9969 1.0000   0.9830  已解决
+HPPrinter|SmartThings                                   6709      0  0.0000 0.9996 1.0000   1.0000  已解决
+NetatmoWeather|SmartThings                              6325      0  0.0000 0.9825 0.9881   0.9998  已解决
+NetatmoWelcome|SmartThings                              8890      0  0.0000 0.9989 1.0000   1.0000  已解决
+NetatmoWeather|TribySpeaker                             2501      0  0.0000 0.9532 0.9984   0.9336  已解决
+SamsungSmartCam|SmartThings                             8857      0  0.0000 0.9977 1.0000   1.0000  已解决
+SmartThings|TribySpeaker                                6362      0  0.0000 0.9991 1.0000   1.0000  已解决
+
+================================================================================================================
+=== 分类统计 ===
+        对数   错误量       错占比
+cls                       
+★可分但未解   8    20  0.013228
+已解决     34    44  0.029101
+部分可分     3  1448  0.957672
+
+=== ★ 靶（可分但未解，专用上界≥0.90 而在位者<0.90）：8 对 ===
+  BelkinWemoSwitch|NetatmoWelcome   窗 5778  错 8(0.5%)  在位者 0.7781 → 专用上界 0.9534  可回收 +0.1753
+  BelkinWemoSwitch|HPPrinter   窗 3597  错 5(0.3%)  在位者 0.6455 → 专用上界 0.9322  可回收 +0.2866
+  BelkinWemoSwitch|SamsungSmartCam   窗 5745  错 4(0.3%)  在位者 0.7751 → 专用上界 0.9593  可回收 +0.1842
+  AmazonEcho|BelkinWemoSwitch   窗 5739  错 2(0.1%)  在位者 0.7778 → 专用上界 0.9873  可回收 +0.2094
+  BelkinWemoSwitch|TribySpeaker   窗 3250  错 1(0.1%)  在位者 0.6068 → 专用上界 0.9775  可回收 +0.3708
+  BelkinWemoSwitch|Dropcam   窗 7194  错 0(0.0%)  在位者 0.8230 → 专用上界 0.9997  可回收 +0.1767
+  BelkinWemoSwitch|NetatmoWeather   窗 3213  错 0(0.0%)  在位者 0.5696 → 专用上界 0.9592  可回收 +0.3897
+  BelkinWemoSwitch|SmartThings   窗 7074  错 0(0.0%)  在位者 0.8202 → 专用上界 1.0000  可回收 +0.1798
+
+  合计可回收错误量 20 = 全体错误的 1.3%
+
+=== 不可分（专用上界<0.60）：0 对，扛 0.0% 错误 ===
+
+=== 部分可分（0.60≤上界<0.90）：3 对 ===
+  BelkinWemoMotion|BelkinWemoSwitch   错 1334  在位者 0.6552  专用上界 0.6079
+  NetatmoWeather|NetatmoWelcome   错 89  在位者 0.9759  专用上界 0.9598
+  AmazonEcho|NetatmoWeather   错 25  在位者 0.9772  专用上界 0.9599
+
+写出 /home/lmy/cic_probe/unsw_ledger.csv   总耗时 20s

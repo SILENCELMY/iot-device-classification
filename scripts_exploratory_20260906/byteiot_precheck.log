@@ -1,0 +1,67 @@
+设备 23 台
+  16-09-23: 60482 窗   11s
+  16-09-30: 78122 窗   29s
+  16-10-12: 37155 窗   81s
+
+源天词表（(长度,方向) 出现≥20 窗）: 231 项
+
+=== ByteIoT 核心（包长频率分布 + Hellinger + kNN），我们的跨天划分 ===
+  agg= 1( 10s单元)  16-09-30  k=1  15 类  训练  60477 测试  59461  macro=0.7127
+  agg= 1( 10s单元)  16-09-30  k=3  15 类  训练  60477 测试  59461  macro=0.7086
+  agg= 1( 10s单元)  16-09-30  k=5  15 类  训练  60477 测试  59461  macro=0.7083
+     错误 12359，前 5 对占 71.2%
+       AmazonEcho               WithingsBabyMonitor       4074 (33.0%)
+       BelkinWemoMotion         BelkinWemoSwitch          2115 (17.1%)
+       AmazonEcho               NetatmoWelcome            1009 ( 8.2%)
+       AmazonEcho               TribySpeaker               800 ( 6.5%)
+       BelkinWemoMotion         HPPrinter                  797 ( 6.4%)
+  agg= 1( 10s单元)  16-10-12  k=1  11 类  训练  48291 测试  29684  macro=0.8090
+  agg= 1( 10s单元)  16-10-12  k=3  11 类  训练  48291 测试  29684  macro=0.8084
+  agg= 1( 10s单元)  16-10-12  k=5  11 类  训练  48291 测试  29684  macro=0.7909
+     错误 4162，前 5 对占 76.3%
+       BelkinWemoMotion         BelkinWemoSwitch          1399 (33.6%)
+       AmazonEcho               NetatmoWelcome             629 (15.1%)
+       BelkinWemoMotion         HPPrinter                  512 (12.3%)
+       AmazonEcho               TribySpeaker               402 ( 9.7%)
+       AmazonEcho               SamsungSmartCam            233 ( 5.6%)
+  agg= 6( 60s单元)  16-09-30  k=1  14 类  训练  10074 测试   9904  macro=0.9913
+  agg= 6( 60s单元)  16-09-30  k=3  14 类  训练  10074 测试   9904  macro=0.9914
+  agg= 6( 60s单元)  16-09-30  k=5  14 类  训练  10074 测试   9904  macro=0.9916
+     错误 44，前 5 对占 97.7%
+       BelkinWemoMotion         BelkinWemoSwitch            23 (52.3%)
+       HPPrinter                TPLinkCam                   15 (34.1%)
+       NetatmoWeather           PIX-STAR                     2 ( 4.5%)
+       PIX-STAR                 TribySpeaker                 2 ( 4.5%)
+       NetatmoWeather           NetatmoWelcome               1 ( 2.3%)
+  agg= 6( 60s单元)  16-10-12  k=1  10 类  训练   8044 测试   4942  macro=0.9915
+  agg= 6( 60s单元)  16-10-12  k=3  10 类  训练   8044 测试   4942  macro=0.9921
+  agg= 6( 60s单元)  16-10-12  k=5  10 类  训练   8044 测试   4942  macro=0.9915
+     错误 25，前 5 对占 100.0%
+       BelkinWemoMotion         BelkinWemoSwitch            15 (60.0%)
+       NetatmoWeather           NetatmoWelcome              10 (40.0%)
+  agg=30(300s单元)  16-09-30  k=1  14 类  训练   2008 测试   1977  macro=0.9973
+  agg=30(300s单元)  16-09-30  k=3  14 类  训练   2008 测试   1977  macro=0.9973
+  agg=30(300s单元)  16-09-30  k=5  14 类  训练   2008 测试   1977  macro=0.9973
+     错误 3，前 5 对占 100.0%
+       HPPrinter                TPLinkCam                    3 (100.0%)
+  agg=30(300s单元)  16-10-12  k=1  10 类  训练   1604 测试    985  macro=1.0000
+  agg=30(300s单元)  16-10-12  k=3  10 类  训练   1604 测试    985  macro=1.0000
+  agg=30(300s单元)  16-10-12  k=5  10 类  训练   1604 测试    985  macro=1.0000
+
+=== 汇总（每种粒度取最好的 k）===
+ agg  unit_s      tgt  k  n_cls    macro
+   1      10 16-09-30  1     15 0.712687
+   1      10 16-10-12  1     11 0.808969
+   6      60 16-09-30  5     14 0.991586
+   6      60 16-10-12  3     10 0.992142
+  30     300 16-09-30  1     14 0.997252
+  30     300 16-10-12  1     10 1.000000
+
+对照：我们的 base+lenhist 跨天 best_base  16-09-30 0.8463 / 16-10-12 0.8548
+      GeMID 报出的最好跨站数 DD = 0.894
+      ByteIoT 原文 UNSW 99.08%（同期划分）
+
+判读：落在 0.85–0.90 → 跨环境天花板约 0.89 自洽，威胁解除；
+      落在 0.95+     → 我们的空间被挤压，需重新定位。
+
+总耗时 101s

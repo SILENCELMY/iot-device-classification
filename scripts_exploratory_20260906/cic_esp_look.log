@@ -1,0 +1,73 @@
+ESP 族 12 台：['GlobeLampESPB1680C', 'GosundESP032979Plug', 'GosundESP039AAFSocket', 'GosundESP0C3994Plug', 'GosundESP10098FSocket', 'GosundESP10ACD8Plug', 'GosundESP147FF9Plug', 'GosundESP1ACEE1Socket', 'TeckinPlug1', 'TeckinPlug2', 'YutronPlug1', 'YutronPlug2']
+
+=== 1102_Idle (694 MB) ===
+  DNS 查询 114 条
+    YutronPlug1                1 个域名: ['a3.tuyaus.com']
+    YutronPlug2                1 个域名: ['a3.tuyaus.com']
+    TeckinPlug1                1 个域名: ['a3.tuyaus.com']
+    TeckinPlug2                1 个域名: ['a3.tuyaus.com']
+  TCP SYN 114 条
+    GosundESP147FF9Plug        1 个端点: ['54.187.112.38:443(1)']
+    GosundESP10ACD8Plug        1 个端点: ['54.69.37.156:443(1)']
+    GosundESP1ACEE1Socket      1 个端点: ['34.218.147.23:443(1)']
+    GlobeLampESPB1680C         1 个端点: ['54.187.112.38:443(1)']
+    GosundESP032979Plug        1 个端点: ['54.69.37.156:443(1)']
+    GosundESP039AAFSocket      1 个端点: ['54.187.112.38:443(1)']
+    GosundESP0C3994Plug        1 个端点: ['34.218.147.23:443(1)']
+    YutronPlug1                3 个端点: ['54.187.112.38:443(10)', '54.69.37.156:443(9)', '34.218.147.23:443(8)']
+    YutronPlug2                3 个端点: ['34.218.147.23:443(17)', '54.187.112.38:443(5)', '54.69.37.156:443(5)']
+    TeckinPlug1                3 个端点: ['54.69.37.156:443(11)', '54.187.112.38:443(10)', '34.218.147.23:443(5)']
+    TeckinPlug2                3 个端点: ['54.187.112.38:443(11)', '54.69.37.156:443(10)', '34.218.147.23:443(6)']
+  TCP 包 15654 个
+    GosundESP147FF9Plug        TTL= 255  win=  4380  静默间隔中位=   59.58s  n=1333
+    GosundESP10ACD8Plug        TTL= 255  win=  4380  静默间隔中位=   59.71s  n=1346
+    GosundESP1ACEE1Socket      TTL= 255  win=  4380  静默间隔中位=   59.67s  n=1341
+    GlobeLampESPB1680C         TTL= 255  win=  4380  静默间隔中位=   59.60s  n=1340
+    GosundESP032979Plug        TTL= 255  win=  4380  静默间隔中位=   59.64s  n=1341
+    GosundESP039AAFSocket      TTL= 255  win=  4380  静默间隔中位=   59.78s  n=1329
+    GosundESP0C3994Plug        TTL= 255  win=  4380  静默间隔中位=   59.66s  n=1345
+    YutronPlug1                TTL= 255  win=  2920  静默间隔中位=   60.44s  n=1572
+    YutronPlug2                TTL= 255  win=  2920  静默间隔中位=   60.38s  n=1572
+    TeckinPlug1                TTL= 255  win=  2920  静默间隔中位=   60.44s  n=1563
+    TeckinPlug2                TTL= 255  win=  2920  静默间隔中位=   60.41s  n=1572
+
+=== 1108_Idle (360 MB) ===
+  DNS 查询 112 条
+    YutronPlug1                1 个域名: ['a3.tuyaus.com']
+    YutronPlug2                1 个域名: ['a3.tuyaus.com']
+    TeckinPlug1                1 个域名: ['a3.tuyaus.com']
+    TeckinPlug2                1 个域名: ['a3.tuyaus.com']
+  TCP SYN 113 条
+    GosundESP147FF9Plug        1 个端点: ['54.187.112.38:443(1)']
+    GosundESP10098FSocket      1 个端点: ['34.218.147.23:443(1)']
+    GosundESP10ACD8Plug        1 个端点: ['54.69.37.156:443(1)']
+    GosundESP1ACEE1Socket      1 个端点: ['34.218.147.23:443(1)']
+    GlobeLampESPB1680C         1 个端点: ['54.187.112.38:443(1)']
+    GosundESP032979Plug        1 个端点: ['54.69.37.156:443(1)']
+    GosundESP039AAFSocket      1 个端点: ['54.187.112.38:443(1)']
+    GosundESP0C3994Plug        1 个端点: ['34.218.147.23:443(1)']
+    YutronPlug1                3 个端点: ['34.218.147.23:443(13)', '54.187.112.38:443(7)', '54.69.37.156:443(6)']
+    YutronPlug2                3 个端点: ['34.218.147.23:443(11)', '54.187.112.38:443(10)', '54.69.37.156:443(6)']
+    TeckinPlug1                3 个端点: ['54.69.37.156:443(12)', '34.218.147.23:443(7)', '54.187.112.38:443(7)']
+    TeckinPlug2                3 个端点: ['54.187.112.38:443(12)', '34.218.147.23:443(8)', '54.69.37.156:443(6)']
+  TCP 包 17022 个
+    GosundESP147FF9Plug        TTL= 255  win=  4380  静默间隔中位=   59.59s  n=1337
+    GosundESP10098FSocket      TTL= 255  win=  4380  静默间隔中位=   59.64s  n=1352
+    GosundESP10ACD8Plug        TTL= 255  win=  4380  静默间隔中位=   59.56s  n=1342
+    GosundESP1ACEE1Socket      TTL= 255  win=  4173  静默间隔中位=   59.76s  n=1370
+    GlobeLampESPB1680C         TTL= 255  win=  4380  静默间隔中位=   59.65s  n=1350
+    GosundESP032979Plug        TTL= 255  win=  4380  静默间隔中位=   59.65s  n=1344
+    GosundESP039AAFSocket      TTL= 255  win=  4380  静默间隔中位=   59.81s  n=1329
+    GosundESP0C3994Plug        TTL= 255  win=  4380  静默间隔中位=   59.68s  n=1344
+    YutronPlug1                TTL= 255  win=  2920  静默间隔中位=   60.32s  n=1565
+    YutronPlug2                TTL= 255  win=  2920  静默间隔中位=   60.59s  n=1568
+    TeckinPlug1                TTL= 255  win=  2920  静默间隔中位=   60.31s  n=1562
+    TeckinPlug2                TTL= 255  win=  2920  静默间隔中位=   60.33s  n=1559
+
+=== 跨天一致性：DNS 域名集合是否稳定 ===
+  YutronPlug1                两天 Jaccard=1.00  (1 / 1 个域名，交 1)
+  YutronPlug2                两天 Jaccard=1.00  (1 / 1 个域名，交 1)
+  TeckinPlug1                两天 Jaccard=1.00  (1 / 1 个域名，交 1)
+  TeckinPlug2                两天 Jaccard=1.00  (1 / 1 个域名，交 1)
+
+总耗时 93s

@@ -1,0 +1,22 @@
+
+==============================================================================================
+UNSW   inner 16-09-23→16-09-30   outer 16-09-23→16-10-12   10 类  61 列
+    inner 候选 45 对，过闸 45 对
+      AmazonEcho|BelkinWemoMotion     → rf k=3 auc=1.0000
+      AmazonEcho|BelkinWemoSwitch     → rf k=5 auc=1.0000
+      AmazonEcho|Dropcam              → lr k=3 auc=1.0000
+      AmazonEcho|HPPrinter            → lr k=10 auc=1.0000
+      AmazonEcho|NetatmoWelcome       → rf k=5 auc=1.0000
+      AmazonEcho|SamsungSmartCam      → rf k=5 auc=1.0000
+  seed42 outer: base=0.8414  joint=0.9371  Δ=+0.0957   过闸 44 对 / 18055 窗  模型{'rf': 20, 'lr': 23, 'xgboost': 1} 时长{3: 10, 5: 10, 10: 24}
+    inner 候选 44 对，过闸 44 对
+      AmazonEcho|SmartThings          → rf k=3 auc=1.0000
+      AmazonEcho|BelkinWemoMotion     → rf k=5 auc=1.0000
+      AmazonEcho|BelkinWemoSwitch     → lr k=10 auc=1.0000
+      AmazonEcho|Dropcam              → lr k=1 auc=1.0000
+      AmazonEcho|HPPrinter            → rf k=5 auc=1.0000
+      AmazonEcho|NetatmoWelcome       → lr k=10 auc=1.0000
+  seed43 outer: base=0.8344  joint=0.9172  Δ=+0.0828   过闸 44 对 / 18055 窗  模型{'rf': 19, 'lr': 24, 'xgboost': 1} 时长{5: 11, 10: 21, 1: 4, 3: 8}
+  → 均值 Δmacro = +0.0893
+
+总耗时 260s

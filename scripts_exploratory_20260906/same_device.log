@@ -1,0 +1,34 @@
+36 台设备  61 列  630 对
+  100/630  228s
+  200/630  438s
+  300/630  650s
+  400/630  846s
+  500/630  1036s
+  600/630  1243s
+
+=== 真值 粗（Gosund 全系一族）：同型号对 18/630 ===
+  触发 15 对   TP=11  FP=4  FN=7  TN=608
+  精确率 0.733   召回率 0.611   F1 0.667
+
+=== 真值 细（Plug/Socket 分开）：同型号对 10/630 ===
+  触发 15 对   TP=5  FP=10  FN=5  TN=610
+  精确率 0.333   召回率 0.500   F1 0.400
+
+=== 触发但真值判为不同型号（假阳性）===
+                 a                     b  in_dom  cross_acc  cross_auc
+GlobeLampESPB1680C   GosundESP032979Plug     1.0   0.588288   0.999987
+GlobeLampESPB1680C GosundESP039AAFSocket     1.0   0.371171   0.000455
+GlobeLampESPB1680C   GosundESP0C3994Plug     1.0   0.576577   0.384737
+GlobeLampESPB1680C   GosundESP147FF9Plug     1.0   0.500000   0.175651
+
+=== 真值同型号但未触发（漏检）===
+                  a                     b   in_dom  cross_acc  cross_auc
+        YutronPlug1           YutronPlug2 0.692686   0.308108   0.182811
+AmazonAlexaEchoDot1   AmazonAlexaEchoDot2 0.780943   0.536937   0.545959
+GosundESP032979Plug   GosundESP0C3994Plug 1.000000   0.653153   0.330382
+GosundESP0C3994Plug GosundESP1ACEE1Socket 0.999857   0.756757   0.689532
+GosundESP10ACD8Plug GosundESP1ACEE1Socket 1.000000   0.845946   0.812023
+GosundESP0C3994Plug   GosundESP10ACD8Plug 1.000000   0.849550   0.704001
+        TeckinPlug1           TeckinPlug2 0.989178   0.999099   0.999984
+
+总耗时 1309s

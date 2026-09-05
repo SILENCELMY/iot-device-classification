@@ -1,0 +1,85 @@
+
+========================================================================================
+UNSW：设备 10 → 类 10
+  16-09-23: 60482 窗  12s
+  16-10-12: 37155 窗  64s
+  源天词表 194 项
+
+  k=  1（  10s 证据，每 10s 一判决）  macro=0.8027  错误 4214 / 29680
+      BelkinWemoMotion         BelkinWemoSwitch           1391 (33.0%)
+      AmazonEcho               NetatmoWelcome              629 (14.9%)
+      BelkinWemoMotion         HPPrinter                   525 (12.5%)
+      AmazonEcho               TribySpeaker                405 ( 9.6%)
+
+  k=  3（  30s 证据，每 10s 一判决）  macro=0.9455  错误 1038 / 29680
+      BelkinWemoMotion         BelkinWemoSwitch            942 (90.8%)
+      NetatmoWeather           NetatmoWelcome               88 ( 8.5%)
+      BelkinWemoSwitch         HPPrinter                     4 ( 0.4%)
+      BelkinWemoMotion         Dropcam                       2 ( 0.2%)
+
+  k=  6（  60s 证据，每 10s 一判决）  macro=0.9908  错误 178 / 29680
+      BelkinWemoMotion         BelkinWemoSwitch            140 (78.7%)
+      NetatmoWeather           NetatmoWelcome               36 (20.2%)
+      BelkinWemoMotion         Dropcam                       1 ( 0.6%)
+      SamsungSmartCam          TribySpeaker                  1 ( 0.6%)
+
+  k= 10（ 100s 证据，每 10s 一判决）  macro=0.9995  错误 10 / 29680
+      BelkinWemoMotion         BelkinWemoSwitch              9 (90.0%)
+      SamsungSmartCam          TribySpeaker                  1 (10.0%)
+
+  k= 30（ 300s 证据，每 10s 一判决）  macro=0.9999  错误 2 / 29680
+      BelkinWemoMotion         BelkinWemoSwitch              1 (50.0%)
+      SamsungSmartCam          TribySpeaker                  1 (50.0%)
+
+========================================================================================
+CIC：设备 36 → 类 29
+  2021_11_02_Idle: 112755 窗  14s
+  2021_11_08_Active: 81378 窗  29s
+  源天词表 315 项
+
+  k=  1（  10s 证据，每 10s 一判决）  macro=0.5268  错误 43114 / 79980
+      GlobeLampESPB1680C       GosundPlug                10611 (24.6%)
+      GlobeLampESPB1680C       GosundSocket               5384 (12.5%)
+      AtomiCoffeeMaker         Yutron                     4597 (10.7%)
+      AtomiCoffeeMaker         Teckin                     4562 (10.6%)
+
+  k=  6（  60s 证据，每 10s 一判决）  macro=0.7532  错误 28834 / 79980
+      GlobeLampESPB1680C       GosundPlug                10527 (36.5%)
+      GlobeLampESPB1680C       GosundSocket               5374 (18.6%)
+      AtomiCoffeeMaker         Yutron                     4250 (14.7%)
+      AtomiCoffeeMaker         Teckin                     4238 (14.7%)
+
+  k= 30（ 300s 证据，每 10s 一判决）  macro=0.8091  错误 24692 / 79980
+      GlobeLampESPB1680C       GosundPlug                 9853 (39.9%)
+      GlobeLampESPB1680C       GosundSocket               5261 (21.3%)
+      Teckin                   Yutron                     3798 (15.4%)
+      AtomiCoffeeMaker         Teckin                     1421 ( 5.8%)
+
+  k= 60（ 600s 证据，每 10s 一判决）  macro=0.8172  错误 23537 / 79980
+      GlobeLampESPB1680C       GosundPlug                 9051 (38.5%)
+      GlobeLampESPB1680C       GosundSocket               5007 (21.3%)
+      Teckin                   Yutron                     4665 (19.8%)
+      AmazonAlexaEchoStudio    ArloQCamera                1597 ( 6.8%)
+
+  k=120（1200s 证据，每 10s 一判决）  macro=0.8126  错误 22836 / 79980
+      GlobeLampESPB1680C       GosundPlug                 7821 (34.2%)
+      Teckin                   Yutron                     4958 (21.7%)
+      GlobeLampESPB1680C       GosundSocket               4110 (18.0%)
+      AmazonAlexaEchoSpot      ArloQCamera                1645 ( 7.2%)
+
+========================================================================================
+=== 汇总：因果特征聚合曲线（每 10 秒一判决）===
+ds             CIC    UNSW
+k   evid_s                
+1   10      0.5268  0.8027
+3   30         NaN  0.9455
+6   60      0.7532  0.9908
+10  100        NaN  0.9995
+30  300     0.8091  0.9999
+60  600     0.8172     NaN
+120 1200    0.8126     NaN
+
+对照 块聚合（判决稀疏）：UNSW 60s 0.9916 / 300s 0.9973；CIC 300s 0.8209 / 2400s 0.8222
+
+判读 Q1：CIC 若同样饱和在 ~0.82 → 饱和是数据的性质而非聚合方式的，身份型困难再获独立验证。
+判读 Q2：UNSW 若 Belkin 那对随 k 增大而消失 → 第二段在 UNSW 上作用面归零，须如实报；若仍在 → 第二段仍有空间。

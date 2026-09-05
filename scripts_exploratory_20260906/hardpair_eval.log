@@ -1,0 +1,97 @@
+
+==========================================================================================
+UNSW：10 台 → 10 类
+  困难对（由 k=1 的错误量选出，仅用于选评测对象）：
+    BelkinWemoMotion | BelkinWemoSwitch
+    AmazonEcho | NetatmoWelcome
+    BelkinWemoMotion | HPPrinter
+    AmazonEcho | TribySpeaker
+
+  --- k=1（10s 证据）  全体 macro=0.8026 ---
+    BelkinWemoMotion    |BelkinWemoSwitch     可判决区 n=   300 区上准确率=0.5100   该对全部窗 n=  3938 对内准确率=0.5376
+    AmazonEcho          |NetatmoWelcome       可判决区 n=  3021 区上准确率=0.9954   该对全部窗 n=  7555 对内准确率=0.8924
+    BelkinWemoMotion    |HPPrinter            可判决区 n=    15 区上准确率=0.4000   该对全部窗 n=  3573 对内准确率=0.7904
+    AmazonEcho          |TribySpeaker         可判决区 n=   842 区上准确率=0.9976   该对全部窗 n=  5027 对内准确率=0.9109
+
+  --- k=3（30s 证据）  全体 macro=0.9455 ---
+    BelkinWemoMotion    |BelkinWemoSwitch     可判决区 n=   654 区上准确率=0.5076   该对全部窗 n=  3938 对内准确率=0.7595
+    AmazonEcho          |NetatmoWelcome       可判决区 n=  3795 区上准确率=1.0000   该对全部窗 n=  7555 对内准确率=0.9997
+    BelkinWemoMotion    |HPPrinter            可判决区 n=     1 区上准确率=0.0000   该对全部窗 n=  3573 对内准确率=0.9622
+    AmazonEcho          |TribySpeaker         可判决区 n=  1269 区上准确率=1.0000   该对全部窗 n=  5027 对内准确率=1.0000
+
+  --- k=6（60s 证据）  全体 macro=0.9908 ---
+    BelkinWemoMotion    |BelkinWemoSwitch     可判决区 n=   231 区上准确率=0.5152   该对全部窗 n=  3938 对内准确率=0.9644
+    AmazonEcho          |NetatmoWelcome       可判决区 n=  3797 区上准确率=1.0000   该对全部窗 n=  7555 对内准确率=1.0000
+    BelkinWemoMotion    |HPPrinter            可判决区 n=     0 区上准确率=nan   该对全部窗 n=  3573 对内准确率=0.9798
+    AmazonEcho          |TribySpeaker         可判决区 n=  1269 区上准确率=1.0000   该对全部窗 n=  5027 对内准确率=1.0000
+
+  --- k=10（100s 证据）  全体 macro=0.9995 ---
+    BelkinWemoMotion    |BelkinWemoSwitch     可判决区 n=    12 区上准确率=0.2500   该对全部窗 n=  3938 对内准确率=0.9977
+    AmazonEcho          |NetatmoWelcome       可判决区 n=  3797 区上准确率=1.0000   该对全部窗 n=  7555 对内准确率=1.0000
+    BelkinWemoMotion    |HPPrinter            可判决区 n=     0 区上准确率=nan   该对全部窗 n=  3573 对内准确率=0.9997
+    AmazonEcho          |TribySpeaker         可判决区 n=  1269 区上准确率=1.0000   该对全部窗 n=  5027 对内准确率=1.0000
+
+  --- k=30（300s 证据）  全体 macro=0.9999 ---
+    BelkinWemoMotion    |BelkinWemoSwitch     可判决区 n=     0 区上准确率=nan   该对全部窗 n=  3938 对内准确率=0.9997
+    AmazonEcho          |NetatmoWelcome       可判决区 n=  3797 区上准确率=1.0000   该对全部窗 n=  7555 对内准确率=1.0000
+    BelkinWemoMotion    |HPPrinter            可判决区 n=     0 区上准确率=nan   该对全部窗 n=  3573 对内准确率=0.9997
+    AmazonEcho          |TribySpeaker         可判决区 n=  1269 区上准确率=1.0000   该对全部窗 n=  5027 对内准确率=1.0000
+
+==========================================================================================
+CIC：36 台 → 29 类
+  困难对（由 k=1 的错误量选出，仅用于选评测对象）：
+    GlobeLampESPB1680C | GosundPlug
+    GlobeLampESPB1680C | GosundSocket
+    AtomiCoffeeMaker | Yutron
+    AtomiCoffeeMaker | Teckin
+
+  --- k=1（10s 证据）  全体 macro=0.5268 ---
+    GlobeLampESPB1680C  |GosundPlug           可判决区 n=    30 区上准确率=0.3667   该对全部窗 n= 13771 对内准确率=0.2078
+    GlobeLampESPB1680C  |GosundSocket         可判决区 n=     0 区上准确率=nan   该对全部窗 n=  8302 对内准确率=0.3427
+    AtomiCoffeeMaker    |Yutron               可判决区 n=    15 区上准确率=0.8667   该对全部窗 n=  7689 对内准确率=0.3753
+    AtomiCoffeeMaker    |Teckin               可判决区 n=   219 区上准确率=0.8904   该对全部窗 n=  7655 对内准确率=0.4024
+
+  --- k=6（60s 证据）  全体 macro=0.7532 ---
+    GlobeLampESPB1680C  |GosundPlug           可判决区 n=     9 区上准确率=0.4444   该对全部窗 n= 13771 对内准确率=0.2247
+    GlobeLampESPB1680C  |GosundSocket         可判决区 n=     9 区上准确率=0.6667   该对全部窗 n=  8302 对内准确率=0.3374
+    AtomiCoffeeMaker    |Yutron               可判决区 n=    28 区上准确率=0.6071   该对全部窗 n=  7689 对内准确率=0.3750
+    AtomiCoffeeMaker    |Teckin               可判决区 n=   623 区上准确率=0.0482   该对全部窗 n=  7655 对内准确率=0.4361
+
+  --- k=30（300s 证据）  全体 macro=0.8092 ---
+    GlobeLampESPB1680C  |GosundPlug           可判决区 n=   104 区上准确率=0.8077   该对全部窗 n= 13771 对内准确率=0.2491
+    GlobeLampESPB1680C  |GosundSocket         可判决区 n=    10 区上准确率=1.0000   该对全部窗 n=  8302 对内准确率=0.3278
+    AtomiCoffeeMaker    |Yutron               可判决区 n=    85 区上准确率=0.8118   该对全部窗 n=  7689 对内准确率=0.3928
+    AtomiCoffeeMaker    |Teckin               可判决区 n=   208 区上准确率=0.5144   该对全部窗 n=  7655 对内准确率=0.7276
+
+  --- k=120（1200s 证据）  全体 macro=0.8127 ---
+    GlobeLampESPB1680C  |GosundPlug           可判决区 n=   204 区上准确率=0.8235   该对全部窗 n= 13771 对内准确率=0.3787
+    GlobeLampESPB1680C  |GosundSocket         可判决区 n=   400 区上准确率=0.9950   该对全部窗 n=  8302 对内准确率=0.3917
+    AtomiCoffeeMaker    |Yutron               可判决区 n=    28 区上准确率=0.7500   该对全部窗 n=  7689 对内准确率=0.4038
+    AtomiCoffeeMaker    |Teckin               可判决区 n=    56 区上准确率=0.8571   该对全部窗 n=  7655 对内准确率=0.7737
+
+==========================================================================================
+=== 主指标：困难对在可判决区上的准确率（随证据量）===
+
+UNSW
+evid_s                                10      30      60    100  300
+pair                                                                
+AmazonEcho|NetatmoWelcome          0.9954  1.0000  1.0000  1.00  1.0
+AmazonEcho|TribySpeaker            0.9976  1.0000  1.0000  1.00  1.0
+BelkinWemoMotion|BelkinWemoSwitch  0.5100  0.5076  0.5152  0.25  NaN
+BelkinWemoMotion|HPPrinter         0.4000  0.0000     NaN   NaN  NaN
+
+CIC
+evid_s                             10      60      300     1200
+pair                                                           
+AtomiCoffeeMaker|Teckin          0.8904  0.0482  0.5144  0.8571
+AtomiCoffeeMaker|Yutron          0.8667  0.6071  0.8118  0.7500
+GlobeLampESPB1680C|GosundPlug    0.3667  0.4444  0.8077  0.8235
+GlobeLampESPB1680C|GosundSocket     NaN  0.6667  1.0000  0.9950
+
+对照：全体 macro
+evid_s    10      30      60      100     300     1200
+ds                                                    
+CIC     0.5268     NaN  0.7532     NaN  0.8092  0.8127
+UNSW    0.8026  0.9455  0.9908  0.9995  0.9999     NaN
+
+判读：全体 macro 由简单类撑着；只有'区上准确率'能回答'这对解没解决'。

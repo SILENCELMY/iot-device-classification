@@ -1,0 +1,57 @@
+设备 40 台
+
+=== 1102_Idle (694 MB) ===
+  TCP 767211  SYN 15550  DNS 19851
+  可用设备 34 台
+
+=== 1108_Idle (360 MB) ===
+  TCP 580651  SYN 18731  DNS 19570
+  可用设备 34 台
+
+写出 /home/lmy/cic_probe/cic_fingerprint.csv  68 行
+
+=== 跨天一致性（只有两天一致的项才可用作身份）===
+  ttl_mode       两天一致 33/33
+  win_mode       两天一致 25/33
+  heartbeat      两天一致 28/33
+  does_dns       两天一致 31/33
+  n_endpoints    两天一致 19/33
+
+=== 逐设备（1102 那天）===
+                      device  ttl_mode  win_mode   heartbeat  does_dns  n_endpoints  n_tcp
+               NetatmoCamera      64.0     408.0 1792.228247         1            1    200
+            SIMCAM1SAMPAKTec      64.0     457.0   60.002755         1            7   1966
+             ArloBaseStation      64.0     520.0   10.635563         1           12   5842
+              GoogleNestMini      64.0     524.0    4.846157         1           16  14550
+         AmazonAlexaEchoDot2      64.0    1275.0   18.670427         1           61   7224
+         AmazonAlexaEchoDot1      64.0    1275.0   19.524257         1           62   7252
+                 ArloQCamera      64.0    1321.0   10.990396         1            2   3800
+                  SmartBoard      64.0    1369.0 3037.060924         1            4    308
+         AmazonAlexaEchoSpot      64.0    1386.0    6.449360         1          248  17047
+             SonosOneSpeaker      64.0    1424.0   31.553442         1          163   4635
+       RingBaseStationAC1236      64.0    2608.0   28.882823         1            9   4698
+       NetatmoWeatherStation     255.0    2830.0   30.719832         0            0   1765
+            NestIndoorCamera      64.0    2881.0    7.383823         1            3   6551
+HeimVisionSmartLifeRadioLamp     255.0    2920.0   29.506365         1            3   2890
+            AtomiCoffeeMaker     255.0    2920.0   59.878187         1            3   1577
+                 YutronPlug2     255.0    2920.0   60.375920         1            3   1572
+                 TeckinPlug2     255.0    2920.0   60.411714         1            3   1572
+                 YutronPlug1     255.0    2920.0   60.443489         1            3   1572
+                 TeckinPlug1     255.0    2920.0   60.443884         1            3   1563
+            PhilipsHueBridge      64.0    4338.0   14.959788         1            7   3836
+         GosundESP147FF9Plug     255.0    4380.0   59.584939         0            1   1333
+          GlobeLampESPB1680C     255.0    4380.0   59.596213         0            1   1340
+         GosundESP032979Plug     255.0    4380.0   59.638275         0            1   1341
+         GosundESP0C3994Plug     255.0    4380.0   59.656740         0            1   1345
+       GosundESP1ACEE1Socket     255.0    4380.0   59.672963         0            1   1341
+         GosundESP10ACD8Plug     255.0    4380.0   59.706117         0            1   1346
+       GosundESP039AAFSocket     255.0    4380.0   59.776811         0            1   1329
+  DCS8000LHA1DLinkMiniCamera      64.0    5281.0   54.911542         1            0   1440
+   HeimVisionSmartWiFiCamera      64.0    5287.0   19.629190         1            3   7490
+       AmazonAlexaEchoStudio      64.0    8197.0   11.106988         1           93 119278
+                iRobotRoomba      64.0    9804.0   60.142312         0            0   1392
+                  AmazonPlug     255.0   12288.0   30.057890         1            9   1990
+        BorunSichuanAICamera      64.0   14600.0    3.015853         1           12  12401
+           AMCRESTWiFiCamera      64.0   14600.0    4.010110         1            2   2443
+
+总耗时 105s

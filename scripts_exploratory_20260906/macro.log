@@ -1,0 +1,82 @@
+36 类  61 列  down=6 burst=7
+  seed42 full             rf        cols= 61 macroF1=0.6888 acc=0.6973
+  seed42 full             xgboost   cols= 61 macroF1=0.6963 acc=0.7000
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed42 full             lightgbm  cols= 61 macroF1=0.6939 acc=0.7015
+  seed42 drop_down        rf        cols= 55 macroF1=0.6886 acc=0.6971
+  seed42 drop_down        xgboost   cols= 55 macroF1=0.6959 acc=0.6998
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed42 drop_down        lightgbm  cols= 55 macroF1=0.6924 acc=0.6996
+  seed42 drop_burst       rf        cols= 54 macroF1=0.6900 acc=0.6983
+  seed42 drop_burst       xgboost   cols= 54 macroF1=0.6964 acc=0.7006
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed42 drop_burst       lightgbm  cols= 54 macroF1=0.6944 acc=0.7021
+  seed42 drop_down_burst  rf        cols= 48 macroF1=0.6876 acc=0.6963
+  seed42 drop_down_burst  xgboost   cols= 48 macroF1=0.6962 acc=0.6996
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed42 drop_down_burst  lightgbm  cols= 48 macroF1=0.6919 acc=0.6997
+  seed43 full             rf        cols= 61 macroF1=0.6952 acc=0.7038
+  seed43 full             xgboost   cols= 61 macroF1=0.6951 acc=0.7084
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed43 full             lightgbm  cols= 61 macroF1=0.6908 acc=0.6962
+  seed43 drop_down        rf        cols= 55 macroF1=0.6931 acc=0.7018
+  seed43 drop_down        xgboost   cols= 55 macroF1=0.6941 acc=0.7070
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed43 drop_down        lightgbm  cols= 55 macroF1=0.6861 acc=0.6907
+  seed43 drop_burst       rf        cols= 54 macroF1=0.6943 acc=0.7031
+  seed43 drop_burst       xgboost   cols= 54 macroF1=0.6973 acc=0.7094
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed43 drop_burst       lightgbm  cols= 54 macroF1=0.6917 acc=0.6964
+  seed43 drop_down_burst  rf        cols= 48 macroF1=0.6932 acc=0.7019
+  seed43 drop_down_burst  xgboost   cols= 48 macroF1=0.6954 acc=0.7074
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed43 drop_down_burst  lightgbm  cols= 48 macroF1=0.6897 acc=0.6937
+  seed44 full             rf        cols= 61 macroF1=0.6838 acc=0.6942
+  seed44 full             xgboost   cols= 61 macroF1=0.6727 acc=0.6781
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed44 full             lightgbm  cols= 61 macroF1=0.6803 acc=0.6843
+  seed44 drop_down        rf        cols= 55 macroF1=0.6826 acc=0.6936
+  seed44 drop_down        xgboost   cols= 55 macroF1=0.6730 acc=0.6787
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed44 drop_down        lightgbm  cols= 55 macroF1=0.6790 acc=0.6840
+  seed44 drop_burst       rf        cols= 54 macroF1=0.6843 acc=0.6951
+  seed44 drop_burst       xgboost   cols= 54 macroF1=0.6820 acc=0.6872
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed44 drop_burst       lightgbm  cols= 54 macroF1=0.6804 acc=0.6849
+  seed44 drop_down_burst  rf        cols= 48 macroF1=0.6848 acc=0.6963
+  seed44 drop_down_burst  xgboost   cols= 48 macroF1=0.6758 acc=0.6813
+/home/lmy/anaconda3/envs/iotcls/lib/python3.11/site-packages/sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+  seed44 drop_down_burst  lightgbm  cols= 48 macroF1=0.6768 acc=0.6822
+
+=== 按 arm 汇总 ===
+                macro_f1             acc        
+                    mean     std    mean     std
+arm                                             
+drop_burst        0.6901  0.0064  0.6975  0.0077
+drop_down         0.6872  0.0077  0.6947  0.0090
+drop_down_burst   0.6879  0.0075  0.6954  0.0087
+full              0.6885  0.0081  0.6960  0.0095
+
+=== best_base（每 seed 取三模型最大 macro）===
+arm   drop_burst  drop_down  drop_down_burst    full
+seed                                                
+42        0.6964     0.6959           0.6962  0.6963
+43        0.6973     0.6941           0.6954  0.6952
+44        0.6843     0.6826           0.6848  0.6838
+  Δ(drop_down - full) 逐 seed [-0.0004, -0.0011, -0.0011]  均值 -0.0009
+  Δ(drop_burst - full) 逐 seed [0.0001, 0.0022, 0.0006]  均值 +0.0010
+  Δ(drop_down_burst - full) 逐 seed [-0.0001, 0.0002, 0.001]  均值 +0.0004
+
+=== AMCREST 单类 F1（full vs drop_down，best_base 口径）===

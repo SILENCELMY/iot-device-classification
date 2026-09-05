@@ -1,0 +1,27 @@
+36 类  k_base=10  inner 候选 203 对
+平滑后 outer 错误 6173（30.9%）  真类排第2 的占错误 25.6%
+
+类对                                                错误     占比  top2内     在位者      配置       模型   过闸
+--------------------------------------------------------------------------------------------------
+AmazonAlexaEchoDot1|AmazonAlexaEchoDot2          748  12.1%    546  0.7439  0.6953xgboost k10      
+YutronPlug1|YutronPlug2                          596   9.7%     58  0.9473  0.9190xgboost k10      
+GosundESP147FF9Plug|GosundESP1ACEE1Socke         557   9.0%    252  1.0000  1.0000    lr k3      
+GosundESP10ACD8Plug|GosundESP147FF9Plug          536   8.7%     75  0.2722  0.5279    rf k5    ✓ 
+GosundESP039AAFSocke|GosundESP147FF9Plug         438   7.1%      0  0.0000  0.4096xgboost k3    ✓ (不在top2候选)
+GosundESP039AAFSocke|GosundESP0C3994Plug         432   7.0%     90  0.2426  1.0000    lr k1    ✓ 
+TeckinPlug1|YutronPlug1                          404   6.5%      6  0.8829  0.8703xgboost k10      
+GlobeLampESPB1680C|GosundESP0C3994Plug           387   6.3%      3  0.8342  0.9893   lr k10    ✓ 
+TeckinPlug2|YutronPlug1                          381   6.2%    164  0.9997  1.0000xgboost k10      
+GosundESP032979Plug|GosundESP10ACD8Plug          378   6.1%    117  1.0000  1.0000    lr k3      
+GosundESP032979Plug|GosundESP147FF9Plug          280   4.5%      0  1.0000  1.0000    lr k1      (不在top2候选)
+GlobeLampESPB1680C|GosundESP1ACEE1Socke          168   2.7%      0  0.9977  1.0000    rf k3      
+GlobeLampESPB1680C|GosundESP147FF9Plug           156   2.5%      0  1.0000  1.0000   rf k10      (不在top2候选)
+GosundESP039AAFSocke|GosundESP1ACEE1Socke        124   2.0%      0  0.7496  0.9715   rf k10    ✓ 
+TeckinPlug1|YutronPlug2                          117   1.9%     72  0.8491  0.8328xgboost k10      
+GosundESP039AAFSocke|GosundESP10ACD8Plug          70   1.1%      0  0.5582  0.2417xgboost k10      (不在top2候选)
+AmazonAlexaEchoDot2|AmazonAlexaEchoSpot           69   1.1%     23  0.9667  0.9855   lr k10    ✓ 
+TeckinPlug2|YutronPlug2                           53   0.9%     18  1.0000  0.9999   rf k10      
+GosundESP032979Plug|GosundESP1ACEE1Socke          53   0.9%      0  0.9740  1.0000    lr k5    ✓ 
+GosundESP10ACD8Plug|GosundESP1ACEE1Socke          44   0.7%     24  0.0009  0.8149   lr k10    ✓ 
+
+总耗时 53s

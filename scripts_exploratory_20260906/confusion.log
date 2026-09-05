@@ -1,0 +1,42 @@
+macro-F1=0.6963  acc=0.7000  n=19963
+
+总错误 5989 个窗口（30.0%）；有错的类对 164/630
+错误质量集中度：top5 37.6%  top10 57.3%  top20 76.4%  top50 94.7%
+
+=== 错误最多的 15 个类对，及其逐类对跨域 AUC ===
+                                           err  cross_auc  占总错误
+GosundESP10ACD8Plug|GosundESP147FF9Plug    601     0.1506  10.0
+GosundESP032979Plug|GosundESP1ACEE1Socket  474     0.0620   7.9
+GosundESP032979Plug|GosundESP10ACD8Plug    408     0.9876   6.8
+GlobeLampESPB1680C|GosundESP039AAFSocket   393     1.0000   6.6
+AmazonAlexaEchoDot1|AmazonAlexaEchoDot2    376     0.4833   6.3
+TeckinPlug1|YutronPlug2                    369     0.5146   6.2
+AtomiCoffeeMaker|HeimVisionSmartLifeRad    260     0.5817   4.3
+TeckinPlug1|YutronPlug1                    214     0.5945   3.6
+YutronPlug1|YutronPlug2                    178     0.5649   3.0
+GosundESP0C3994Plug|GosundESP10ACD8Plug    161     0.9961   2.7
+AmazonAlexaEchoDot2|AmazonAlexaEchoSpot    156     0.7078   2.6
+LuoheCamDog|iRobotRoomba                   141     0.9127   2.4
+GosundESP039AAFSocket|GosundESP10ACD8Plug  135     0.9721   2.3
+ArloBaseStation|ArloQCamera                134     0.6630   2.2
+GosundESP039AAFSocket|GosundESP147FF9Plug  126     0.8778   2.1
+
+跨域 AUC>=0.95 的类对：544 对，承载 25.3% 的错误
+跨域 AUC<0.70 的类对：10 对，承载 45.6% 的错误
+
+Spearman ρ(错误数, 跨域AUC) = -0.5062
+
+=== 错误最多的 10 个类：错误是集中到 1 个对手还是散开 ===
+                    类  错误窗口  被判成几个别的类  众数就判错
+GosundESP1ACEE1Socket   550         7      1
+  GosundESP032979Plug   530        11      1
+  GosundESP10ACD8Plug   479         4      1
+   GlobeLampESPB1680C   466         3      1
+          YutronPlug2   406         5      1
+GosundESP039AAFSocket   372         9      0
+  AmazonAlexaEchoDot2   370        10      0
+  AmazonAlexaEchoDot1   335         9      0
+          YutronPlug1   263         5      0
+          TeckinPlug1   242         7      0
+
+平均每个出错类散布到 6.3 个不同的错误目标

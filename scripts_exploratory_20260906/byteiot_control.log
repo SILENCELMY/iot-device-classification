@@ -1,0 +1,72 @@
+主线口径设备集合：10 台
+['AmazonEcho', 'BelkinWemoMotion', 'BelkinWemoSwitch', 'Dropcam', 'HPPrinter', 'NetatmoWeather', 'NetatmoWelcome', 'SamsungSmartCam', 'SmartThings', 'TribySpeaker']
+
+  16-09-23: 60482 窗   80s
+  16-09-30: 78122 窗   80s
+  16-10-12: 37155 窗   80s
+
+源天词表 194 项
+  byteiot  16-09-30  k=1  平滑=1   macro=0.8032
+  byteiot  16-09-30  k=1  平滑=3   macro=0.8165
+  byteiot  16-09-30  k=1  平滑=6   macro=0.8053
+  byteiot  16-09-30  k=1  平滑=10  macro=0.8330
+  byteiot  16-09-30  k=1  平滑=20  macro=0.8568
+  byteiot  16-09-30  k=1  平滑=30  macro=0.8629
+  byteiot  16-09-30  k=3  平滑=1   macro=0.8026
+  byteiot  16-09-30  k=3  平滑=3   macro=0.8184
+  byteiot  16-09-30  k=3  平滑=6   macro=0.8087
+  byteiot  16-09-30  k=3  平滑=10  macro=0.8348
+  byteiot  16-09-30  k=3  平滑=20  macro=0.8576
+  byteiot  16-09-30  k=3  平滑=30  macro=0.8633
+  byteiot  16-09-30  k=5  平滑=1   macro=0.8029
+  byteiot  16-09-30  k=5  平滑=3   macro=0.8203
+  byteiot  16-09-30  k=5  平滑=6   macro=0.8206
+  byteiot  16-09-30  k=5  平滑=10  macro=0.8434
+  byteiot  16-09-30  k=5  平滑=20  macro=0.8612
+  byteiot  16-09-30  k=5  平滑=30  macro=0.8651
+  byteiot  16-10-12  k=1  平滑=1   macro=0.8039
+  byteiot  16-10-12  k=1  平滑=3   macro=0.8154
+  byteiot  16-10-12  k=1  平滑=6   macro=0.8140
+  byteiot  16-10-12  k=1  平滑=10  macro=0.8399
+  byteiot  16-10-12  k=1  平滑=20  macro=0.8577
+  byteiot  16-10-12  k=1  平滑=30  macro=0.8636
+  byteiot  16-10-12  k=3  平滑=1   macro=0.8032
+  byteiot  16-10-12  k=3  平滑=3   macro=0.8177
+  byteiot  16-10-12  k=3  平滑=6   macro=0.8151
+  byteiot  16-10-12  k=3  平滑=10  macro=0.8396
+  byteiot  16-10-12  k=3  平滑=20  macro=0.8578
+  byteiot  16-10-12  k=3  平滑=30  macro=0.8636
+  byteiot  16-10-12  k=5  平滑=1   macro=0.8027
+  byteiot  16-10-12  k=5  平滑=3   macro=0.8196
+  byteiot  16-10-12  k=5  平滑=6   macro=0.8228
+  byteiot  16-10-12  k=5  平滑=10  macro=0.8440
+  byteiot  16-10-12  k=5  平滑=20  macro=0.8590
+  byteiot  16-10-12  k=5  平滑=30  macro=0.8645
+
+=== A：同 10 类、10 秒判决，ByteIoT 不平滑 ===
+tgt
+16-09-30    0.8032
+16-10-12    0.8039
+   对照 我们 base+lenhist：16-09-30 0.8463 / 16-10-12 0.8548
+
+=== B：加上我们的因果平滑（k 在 inner 0930 上选，判决仍每 10 秒一次）===
+   inner 选出：kNN k=5，平滑窗=30
+     tgt    macro
+16-09-30 0.865129
+16-10-12 0.864510
+
+   outer：不平滑 0.8039 → 平滑 0.8645   Δ=+0.0606
+   判读：若平滑把它也大幅抬起来 → 我们的第一段是【方法无关】的，
+         且在 10 秒判决密度下就能拿到块聚合的收益，这是可写的强结论。
+
+=== 完整表 ===
+smooth          1       3       6       10      20      30
+tgt      k                                                
+16-09-30 1  0.8032  0.8165  0.8053  0.8330  0.8568  0.8629
+         3  0.8026  0.8184  0.8087  0.8348  0.8576  0.8633
+         5  0.8029  0.8203  0.8206  0.8434  0.8612  0.8651
+16-10-12 1  0.8039  0.8154  0.8140  0.8399  0.8577  0.8636
+         3  0.8032  0.8177  0.8151  0.8396  0.8578  0.8636
+         5  0.8027  0.8196  0.8228  0.8440  0.8590  0.8645
+
+总耗时 92s

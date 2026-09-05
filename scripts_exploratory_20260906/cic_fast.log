@@ -1,0 +1,36 @@
+  2021_11_02_Idle: 112755 行
+  2021_11_08_Active: 81378 行
+base 61 列   lenhist 69 列   n_jobs=12
+设备 36 → 类 29   合并 {'EchoDot': 2, 'GosundPlug': 4, 'GosundSocket': 2, 'Teckin': 2, 'Yutron': 2}
+  base           rf        macro=0.7547   10s
+  base           xgboost   macro=0.7668   39s
+
+  === base best=xgboost macro=0.7668  错误 24691 个，前 8 对占 84.2% ===
+     GosundPlug                 GosundSocket                 9218  (37.3%)
+     Teckin                     Yutron                       4137  (16.8%)
+     GlobeLampESPB1680C         GosundPlug                   3566  (14.4%)
+     AtomiCoffeeMaker           HeimVisionSmartLifeRadioLamp   1502  ( 6.1%)
+     AmazonAlexaEchoSpot        EchoDot                       808  ( 3.3%)
+     ArloBaseStation            ArloQCamera                   660  ( 2.7%)
+     AmazonAlexaEchoStudio      EchoDot                       591  ( 2.4%)
+     EchoDot                    iRobotRoomba                  307  ( 1.2%)
+
+  base+lenhist   rf        macro=0.7618   48s
+  base+lenhist   xgboost   macro=0.7730   96s
+
+  === base+lenhist best=xgboost macro=0.7730  错误 24026 个，前 8 对占 86.1% ===
+     GosundPlug                 GosundSocket                 9079  (37.8%)
+     Teckin                     Yutron                       4123  (17.2%)
+     GlobeLampESPB1680C         GosundPlug                   3659  (15.2%)
+     AtomiCoffeeMaker           HeimVisionSmartLifeRadioLamp   1503  ( 6.3%)
+     AmazonAlexaEchoSpot        EchoDot                       836  ( 3.5%)
+     ArloBaseStation            ArloQCamera                   664  ( 2.8%)
+     AmazonAlexaEchoStudio      EchoDot                       524  ( 2.2%)
+     EchoDot                    iRobotRoomba                  306  ( 1.3%)
+
+=== 判读 ===
+  base = 0.7668   base+lenhist = 0.7730   Δ = +0.0061
+  大幅上升 → 0.073 是「我们没建那一族」，属可优化
+  几乎不动 → 在已枚举候选空间内无解，配合固件族/端点/心跳/无TCP时间戳四项独立证据，可作为「根源不可区分」的候选
+
+总耗时 96s
