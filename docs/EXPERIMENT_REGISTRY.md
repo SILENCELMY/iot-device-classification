@@ -13,6 +13,7 @@
 | P0-R630 | 2026-08-26 | `code/` @ 见 `r630_sensitivity.py` mtime | 脚本内置：n_boot=10000, n_perm=10000 | 42 | `results/robust_v2/report/controlled_cpd_data.csv` (n=11) | `results/p0_audit/` | r=-0.630 降为探索性（LOTO 3/11 显著；Spearman 不显著） | 是（降格结论） |
 | P0-CPD-CORE | 2026-08-26→27 | `code/` @ 见文件 | `test_cpd_core.py`，TOL=1e-10 | 42 | 各历史 confusion_matrix.csv | 15/15 PASS，exit=0 | 三历史值 0.8397/0.1521/0.801 逐位复现并归因 | 是（回归门） |
 | E1-ARMS-VERIFY | 2026-08-28 | `code/` @ `6a3f678` | `max_rows=∞`, rf+stacking, all_features | 42 | `features_raw_all_w10.csv`，任务 `loro_R2_R4_to_R3` | `/tmp/regression_out`, `/tmp/arm_a_out`（临时，结论已录此处） | RF 与 A 臂（random OOF）逐位复现历史（Δ=0）；B 臂（grouped OOF）macro_f1 0.5455→**0.4907**，gain −0.0693→**−0.1241**，崩溃**加深约 1.8 倍** | 是（E1 预验证） |
+| C3-CONFIRM-UNSW16 | 2026-09-05 | `4291f23` | `docs/PROTOCOL_C3_CONFIRMATORY_20260905.md`（预登记，§3 主判据 / §4 配置 / §5 成功判据 冻结） | 42 与 43 | `results/unsw_features_full/features_day_16-09-23.csv`（训练）、`…16-09-30.csv`（选参）、`results/unsw_reserve_16day/features_unsw_w10_reserve16.csv` + `lenhist_unsw_w10_reserve16.csv`（**保留 16 天，读取前 0 次访问**）、`dataset/unsw/pcap/`（臂 A 需原始包） | `results/c3_confirmatory_20260905/` | **待跑** —— 判 C3a 粒度饱和曲线在留出天复现且饱和 ≥0.99；C3b 第二段过闸 ≤1 对且 |Δ|<0.005（**预测无效**）；C3c Δ ≥ −0.002 | 是（确证测试，三种结果全部照原样写） |
 
 > **修订记录（2026-08-28）**：本行首次登记时误记 B 臂 macro_f1 为 0.5498（"崩溃略软"）。
 > 该数字来自 `_splitter` 的一个缺陷：多轮分组分支缺 `return`，执行掉进单轮时间块分支并覆盖
@@ -24,6 +25,8 @@
 > 直接后果，但元特征噪声显著大于历史的 5 折。E1 正式跑之前需确认这是否是期望口径。
 
 ## 待登记（已排期）
+
+- C3 确证测试的前置：保留 16 天 lenhist 抽取 **已完成**（`lenhist_unsw_w10_reserve16.csv`，1139981 行 × 72 列，目标 top32 与`16-09-23` 原始导出逐位相同）
 
 - G0 网格全量（约 156 任务，种子 1 个，协议 §14）；实测单任务 4 模型约 11–16s，全量约 36 分钟
 - 时间块 IID 对照
